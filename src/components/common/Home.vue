@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
-        <v-head></v-head>
         <v-sidebar></v-sidebar>
+        <language></language>
         <div class="content" :class="{'content-collapse':collapse}">
             <transition name="move" mode="out-in"><router-view></router-view></transition>
         </div>
@@ -9,13 +9,13 @@
 </template>
 <style>
     .content{
-        left: 230px;
-       /* padding: 30px !important;*/
+        top:0px;
+        left: 300px;
+        background: none;
     }
 </style>
 <script>
     import Vue from 'vue'
-    import vHead from './Header.vue';
     import vSidebar from './Sidebar.vue';
     import bus from '../common/bus';
     export default {
@@ -25,7 +25,7 @@
             }
         },
         components:{
-            vHead, vSidebar
+            vSidebar
         },
         watch:{
 

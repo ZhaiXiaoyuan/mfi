@@ -46,7 +46,8 @@ export default {
       Vue.tools = {
           basicConfig:{
               //临时测试
-              basicUrl:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356/':'http://api.yeahcai.com'
+              basicUrl:process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356/':'http://api.yeahcai.com',
+              filePrefix:process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356/':'http://api.yeahcai.com'
           },
         /*生成请求时间戳*/
         genTimestamp:function () {
@@ -78,10 +79,8 @@ export default {
         },
         sessionInfo:function () {
           let timestamp=this.genTimestamp();
-          let userId='07d2cbfa55cf4e6582d67e164405b36b';
           return{
               timeStamp:timestamp,
-              userId:userId,
           }
         },
         /*获取事件当前元素*/
@@ -127,12 +126,11 @@ export default {
               }
           },
         getAccountInfo:function () {
-            let loginPage=localStorage.getItem('loginPage');
             let account=Vue.cookie.get('account');
             if(account){
                 return JSON.parse(account);
             }else{
-                router.push({name:loginPage?loginPage:'login'});
+                router.push({name:'login'});
                 return{};
             }
         }

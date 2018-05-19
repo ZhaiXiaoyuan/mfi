@@ -10,24 +10,44 @@ export default new Router({
             component: resolve => require(['../components/common/Home.vue'], resolve),
             children:[
                 {
-                    path: '/',
-                    name:'task',
-                    component: resolve => require(['../page/task/Task.vue'], resolve)
+                    path: '/adminList',
+                    name:'adminList',
+                    component: resolve => require(['../page/super/AdminList.vue'], resolve)
                 },
                 {
-                    path: '/newTask',
-                    name:'newTask',
-                    component: resolve => require(['../page/task/NewTask.vue'], resolve)
+                    path: '/addAdmin',
+                    name:'addAdmin',
+                    component: resolve => require(['../page/super/AddAdmin.vue'], resolve)
                 },
                 {
-                    path: '/taskDetail',
-                    name:'taskDetail',
-                    component: resolve => require(['../page/task/TaskDetail.vue'], resolve)
+                    path: '/msgList',
+                    name:'msgList',
+                    component: resolve => require(['../page/admin/MsgList.vue'], resolve)
+                },
+                {
+                    path: '/msgDetail/:id?',
+                    name:'msgDetail',
+                    component: resolve => require(['../page/admin/msgDetail.vue'], resolve)
+                },
+                {
+                    path: '/coachList/:id?',
+                    name:'coachList',
+                    component: resolve => require(['../page/admin/CoachList.vue'], resolve)
+                },
+                {
+                    path: '/coachDetail/:id?',
+                    name:'coachDetail',
+                    component: resolve => require(['../page/admin/CoachDetail.vue'], resolve)
+                },
+                {
+                    path: '/schoolList',
+                    name:'schoolList',
+                    component: resolve => require(['../page/admin/SchoolList.vue'], resolve)
                 },
             ]
         },
         {
-            path: '/login',
+            path: '/login/:type?',
             name:'login',
             component: resolve => require(['../page/account/Login.vue'], resolve)
         },
