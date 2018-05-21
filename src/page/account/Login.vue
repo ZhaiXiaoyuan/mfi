@@ -1,34 +1,34 @@
 <template>
     <div class="login-page">
-        <div class="cm-btn switch-btn" v-if="type=='super'" @click="switchType('admin')">管理员登录</div>
-        <div class="cm-btn switch-btn" v-if="type=='admin'" @click="switchType('super')">超级管理员登录</div>
+        <div class="cm-btn switch-btn" v-if="type=='super'" @click="switchType('admin')">{{$t("btn.adminLogin")}}</div>
+        <div class="cm-btn switch-btn" v-if="type=='admin'" @click="switchType('super')">$t("btn.superLogin")</div>
         <language></language>
         <div class="login-panel">
             <div class="form-block">
                 <div class="block-hd">
                     <p>MFI  EOS</p>
-                    <p v-if="type=='super'">超级管理员</p>
-                    <p v-if="type=='admin'">管理员</p>
+                    <p v-if="type=='super'">$t("title.super")</p>
+                    <p v-if="type=='admin'">$t("title.admin")</p>
                 </div>
                 <div class="block-bd">
                     <div class="input-row">
-                        <p>账号</p>
+                        <p>{{$t("label.account")}}</p>
                         <div class="input-item">
                             <input type="text" v-model="account">
                             <i class="icon account-icon"></i>
                         </div>
                     </div>
                     <div class="input-row">
-                        <p>密码</p>
+                        <p>{{$t("label.pwd")}}</p>
                         <div class="input-item">
                             <input type="password" v-model="pwd">
                             <i class="icon pwd-icon"></i>
                         </div>
                     </div>
-                    <div class="cm-btn handle-btn" @click="login()">登&nbsp;&nbsp;录</div>
+                    <div class="cm-btn handle-btn" @click="login()">{{$t("btn.login")}}</div>
                 </div>
             </div>
-            <p class="help">帮助</p>
+            <p class="help">{{$t("btn.help")}}</p>
         </div>
     </div>
 </template>
@@ -146,62 +146,39 @@
                 this.pwd=null;
             },
             login:function () {
+
                 if(!this.account){
-                    Vue.operationFeedback({type:'warn',text:'请输入账号'});
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.account")});
                     return;
                 }
                 if(!this.pwd){
-                    Vue.operationFeedback({type:'warn',text:'请输入密码'});
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.pwd")});
                     return;
                 }
-                let fb=Vue.operationFeedback({text:'登录中...'});
+                let fb=Vue.operationFeedback({text:this.$t("tips.login")});
                 let params={
                     ...Vue.sessionInfo(),
                     user:this.account,
                     password:this.pwd
                 }
-                if(this.type=='super'){
-                    Vue.api.superLogin(params).then((resp)=>{
-                        if(resp.respCode=='2000'){
-                            console.log('this.type:',this.type);
-                            this.$cookie.set('account',JSON.stringify({
-                                type:this.type,
-                                account:this.account,
-                            }),7);
-                            fb.setOptions({
-                                type:'complete',
-                                text:'登录成功'
-                            });
-                            this.$router.push({name:'adminList',params:{}});
-                        }else{
-                            fb.setOptions({
-                                type:'warn',
-                                text:'登录失败，账号或密码错误'
-                            });
-                        }
-                    });
-                }else if(this.type=='admin'){
-                    Vue.api.adminLogin(params).then((resp)=>{
-                        if(resp.respCode=='2000'){
-                            let data=JSON.parse(resp.respMsg);
-                            this.$cookie.set('account',JSON.stringify({
-                                type:this.type,
-                                account:this.account,
-                                ...data
-                            }),7);
-                            fb.setOptions({
-                                type:'complete',
-                                text:'登录成功'
-                            });
-                            this.$router.push({name:'msgList',params:{}});
-                        }else{
-                            fb.setOptions({
-                                type:'warn',
-                                text:'登录失败，账号或密码错误'
-                            });
-                        }
-                    });
-                }
+                Vue.api.userLogin(params).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        this.$cookie.set('account',JSON.stringify({
+                            type:this.type,
+                            account:this.account,
+                        }),7);
+                        fb.setOptions({
+                            type:'complete',
+                            text:this.$t("tips.loginS")
+                        });
+                        this.$router.push({name:'adminList',params:{}});
+                    }else{
+                        fb.setOptions({
+                            type:'warn',
+                            text:this.$t("tips.loginF")
+                        });
+                    }
+                });
             }
         },
         mounted () {
