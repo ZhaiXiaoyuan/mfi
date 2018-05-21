@@ -41,16 +41,23 @@ export default {
 
     /**/
     //临时测试
-    let basicUrl=process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356/mfi':'';
+    let basicUrl=false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356/mfi':'http://39.108.11.197/mfi';
     Vue.api={
-        //获取用户详细信息
-      userLogin:function (params) {
+        //
+     superLogin:function (params) {
         return Vue.http.ajax({
           method: 'post',
           url: basicUrl+'/admin/superManagerLogin',
           params: params
         });
       },
+        adminLogin:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/admin/adminLogin',
+                params: params
+            });
+        },
         getAdminList:function (params) {
             return Vue.http.ajax({
                 method: 'post',

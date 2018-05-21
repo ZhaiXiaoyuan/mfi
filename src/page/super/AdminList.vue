@@ -5,7 +5,7 @@
                 <span class="title">管理员列表</span>
             </div>
             <div class="panel-bd">
-                <div class="cm-list-block">
+                <div class="cm-list-block" v-loading="pager.loading">
                     <table class="cm-entry-list">
                         <thead>
                         <tr>
@@ -23,7 +23,7 @@
                         <tbody>
                         <tr v-for="(item,index) in entryList">
                             <td>
-                                {{item.name}}
+                                {{item.user}}
                             </td>
                             <td>
                                 <span class="status active" v-if="item.state=='enable'">启用</span>
@@ -119,7 +119,9 @@
                     pageSize:this.pager.pageSize,
                     searchContent:null,
                 }
+                this.pager.loading=true;
                 Vue.api.getAdminList(params).then((resp)=>{
+                    this.pager.loading=false;
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
                         this.entryList=JSON.parse(data.adminList);

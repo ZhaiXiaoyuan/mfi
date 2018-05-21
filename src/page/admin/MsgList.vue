@@ -5,7 +5,7 @@
                 <span class="title">站内消息</span>
             </div>
             <div class="panel-bd">
-                <div class="cm-list-block">
+                <div class="cm-list-block" v-loading="pager.loading">
                     <table class="cm-entry-list">
                         <thead>
                         <tr>
@@ -32,7 +32,7 @@
                                 {{item.fileUrl.split('massage/')[1]}}
                             </td>
                             <td>
-
+                                {{item.createdAt|formatDate('yyyy-MM-dd hh:mm:ss')}}
                             </td>
                             <td>
                                 <el-select v-model="item.state" class="handle status-select-handle" @change="setState(index)">
@@ -126,6 +126,8 @@
         },
         data() {
             return {
+                account:null,
+
                 test:'',
                 dialogFormVisible:false,
                 pager:{
@@ -138,10 +140,10 @@
                 isSetting:false,
                 editForm:null,
                 options:[
-                    {
+                 /*   {
                         value:'top',
                         label:'置顶',
-                    },
+                    },*/
                     {
                         value:'enable',
                         label:'展示',
@@ -176,7 +178,9 @@
                     pageSize:this.pager.pageSize,
                     searchContent:null,
                 }
+                this.pager.loading=true;
                 Vue.api.getMessageList(params).then((resp)=>{
+                    this.pager.loading=false;
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
                         this.entryList=JSON.parse(data.messageList);
@@ -220,7 +224,7 @@
                 }
                 let formData = new FormData();
                 formData.append("timeStamp",Vue.sessionInfo().timeStamp);
-                formData.append("creator", '4e0e7c62f13d4d11a9addd03e9544ba2');//临时测试,
+                formData.append("creator", this.account.id);
                 formData.append("title", this.title);
                 formData.append("file", this.files[0]);
                 let fb=Vue.operationFeedback({text:'保存中...'});
@@ -267,6 +271,10 @@
             }
         },
         mounted () {
+            /**/
+            this.account=Vue.getAccountInfo();
+            console.log('this.account:',this.account);
+
             /**/
             this.getList();
         },

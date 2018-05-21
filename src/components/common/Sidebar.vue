@@ -180,8 +180,10 @@
             this.accountInfo=this.getAccountInfo();
             this.accountAccess=null;
             if(this.accountInfo.type=='super'){
-                this.accountAccess=['01','02','03','05'];
+                this.accountAccess=['01','02'];
                 /* this.accountAccess='all';*/
+            }else if(this.accountInfo.type=='admin'){
+                this.accountAccess=['03','05'];
             }
             if(this.accountAccess=='all'){
                 this.items=this.itemsConfig;

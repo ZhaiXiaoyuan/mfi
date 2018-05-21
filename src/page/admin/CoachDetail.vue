@@ -3,8 +3,10 @@
         <div class="cm-panel">
             <div class="panel-hd">
                 <div class="cm-btn cm-return-btn">
-                    <i class="icon el-icon-arrow-left"></i>
-                    返回
+                    <div class="wrapper">
+                        <i class="icon el-icon-arrow-left"></i>
+                        返回
+                    </div>
                 </div>
             </div>
             <div class="panel-bd">

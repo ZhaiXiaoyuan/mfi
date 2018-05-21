@@ -5,7 +5,7 @@
                 <span class="title">学校管理</span>
             </div>
             <div class="panel-bd">
-                <div class="cm-list-block">
+                <div class="cm-list-block" v-loading="pager.loading">
                     <div class="block-hd">
                         <div class="con-item con-item-search">
                             <el-input placeholder="国家/地区/编号 模糊检索" v-model="keyword" @keyup.enter.native="getList()"  class="cm-search">
@@ -67,7 +67,7 @@
         </div>
         <div class="cm-btn cm-add-btn" @click="toAdd">
             <div class="icon-wrap">
-                <i class="icon add-msg-icon"></i>
+                <i class="icon add-cross-icon"></i>
             </div>
             <p>新的学校</p>
         </div>
@@ -169,7 +169,9 @@
                     pageSize:this.pager.pageSize,
                     searchContent:this.keyword,
                 }
+                this.pager.loading=true;
                 Vue.api.getSchoolList(params).then((resp)=>{
+                    this.pager.loading=false;
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
                         this.entryList=JSON.parse(data.schoolList);
