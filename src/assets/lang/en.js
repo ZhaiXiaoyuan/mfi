@@ -5,6 +5,10 @@ module.exports = {
     label:{
         account:'account',
         pwd:'password',
+        status:'status',
+        handle:'handle',
+        enable:'enable',
+        disable:'disable',
     },
     holder: {
         account:'Please enter your account',
@@ -14,16 +18,26 @@ module.exports = {
         adminLogin:'administrator login',
         superLogin:'super administrator login',
         login:'login',
-        help:'help'
+        help:'help',
+        administrator:'Administrator',
+        add:'Add',
+        massage:'Massage',
+        coach:'Coach',
+        school:'School',
+        logout:'logout',
+        resetPwd:'reset-password',
+        del:'delete'
     },
     title:{
         super:'super administrator',
         admin:'administrator',
+        administratorList:'administrator list'
+
     },
     tips:{
         login:'logining...',
         loginS:'login successfully',
-        loginFail:'Login failure',
+        loginF:'login failure,invalid account or wrong password',
     }
 }
 

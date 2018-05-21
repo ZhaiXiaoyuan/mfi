@@ -1,11 +1,11 @@
 <template>
     <div class="language">
         <ul>
-            <li :class="{'active':locale=='en'}" @click="setLanguage('en')">
+            <li :class="{'active':locale=='en'}" @click="setLanguage('en',true)">
                 <span class="text">EN</span>
                 <span class="gap-icon">/</span>
             </li>
-            <li :class="{'active':locale=='zh'}" @click="setLanguage('zh')">
+            <li :class="{'active':locale=='zh'}" @click="setLanguage('zh',true)">
                 <span class="text">简体</span>
                 <span class="gap-icon">/</span>
             </li>
@@ -18,6 +18,7 @@
 <style lang="less" rel="stylesheet/less" scoped>
     .language{
         position: fixed;
+        z-index: 100;
         top:30px;
         right: 45px;
     }
@@ -62,10 +63,13 @@
             }
         },
         methods: {
-            setLanguage:function (value) {
+            setLanguage:function (value,click) {
                 this.locale=value;
                 this.$i18n.locale=this.locale;
                 localStorage.setItem('locale',this.locale);
+                if(click){
+                /* window.location.reload();*/
+                }
             }
         },
         watch: {

@@ -1,14 +1,14 @@
 <template>
     <div class="login-page">
         <div class="cm-btn switch-btn" v-if="type=='super'" @click="switchType('admin')">{{$t("btn.adminLogin")}}</div>
-        <div class="cm-btn switch-btn" v-if="type=='admin'" @click="switchType('super')">$t("btn.superLogin")</div>
+        <div class="cm-btn switch-btn" v-if="type=='admin'" @click="switchType('super')">{{$t("btn.superLogin")}}</div>
         <language></language>
         <div class="login-panel">
             <div class="form-block">
                 <div class="block-hd">
                     <p>MFI  EOS</p>
-                    <p v-if="type=='super'">$t("title.super")</p>
-                    <p v-if="type=='admin'">$t("title.admin")</p>
+                    <p v-if="type=='super'">{{$t("title.super")}}</p>
+                    <p v-if="type=='admin'">{{$t("title.admin")}}</p>
                 </div>
                 <div class="block-bd">
                     <div class="input-row">
@@ -73,7 +73,7 @@
                 position: relative;
                input{
                    padding: 0px 50px 0px 10px;
-                   width: 300px;
+                   width: 100%;
                    height: 60px;
                    border-radius: 10px;
                    background: #fff;
@@ -146,7 +146,6 @@
                 this.pwd=null;
             },
             login:function () {
-
                 if(!this.account){
                     Vue.operationFeedback({type:'warn',text:this.$t("holder.account")});
                     return;
@@ -161,24 +160,47 @@
                     user:this.account,
                     password:this.pwd
                 }
-                Vue.api.userLogin(params).then((resp)=>{
-                    if(resp.respCode=='2000'){
-                        this.$cookie.set('account',JSON.stringify({
-                            type:this.type,
-                            account:this.account,
-                        }),7);
-                        fb.setOptions({
-                            type:'complete',
-                            text:this.$t("tips.loginS")
-                        });
-                        this.$router.push({name:'adminList',params:{}});
-                    }else{
-                        fb.setOptions({
-                            type:'warn',
-                            text:this.$t("tips.loginF")
-                        });
-                    }
-                });
+                if(this.type=='super'){
+                    Vue.api.superLogin(params).then((resp)=>{
+                        if(resp.respCode=='2000'){
+                            this.$cookie.set('account',JSON.stringify({
+                                type:this.type,
+                                account:this.account,
+                            }),7);
+                            fb.setOptions({
+                                type:'complete',
+                                text:this.$t("tips.loginS")
+                            });
+                            this.$router.push({name:'adminList',params:{}});
+                        }else{
+                            fb.setOptions({
+                                type:'warn',
+                                text:this.$t("tips.loginF")
+                            });
+                        }
+                    });
+                }else if(this.type=='admin'){
+                    Vue.api.adminLogin(params).then((resp)=>{
+                        if(resp.respCode=='2000'){
+                            let data=JSON.parse(resp.respMsg);
+                            this.$cookie.set('account',JSON.stringify({
+                                type:this.type,
+                                account:this.account,
+                                ...data
+                            }),7);
+                            fb.setOptions({
+                                type:'complete',
+                                text:this.$t("tips.loginS")
+                            });
+                            this.$router.push({name:'msgList',params:{}});
+                        }else{
+                            fb.setOptions({
+                                type:'warn',
+                                text:this.$t("tips.loginF")
+                            });
+                        }
+                    });
+                }
             }
         },
         mounted () {

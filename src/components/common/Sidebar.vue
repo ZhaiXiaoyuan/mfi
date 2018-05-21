@@ -3,7 +3,8 @@
         <div class="user-info">
             <i class="icon logo-icon"></i>
             <p class="name">MFI  EOS</p>
-            <p class="role">超级管理员</p>
+            <p class="role" v-if="accountInfo.type=='super'">{{this.$t("title.super")}}</p>
+            <p class="role" v-if="accountInfo.type=='admin'">{{this.$t("title.admin")}}</p>
            <!-- <p class="account">账号：admin</p>-->
         </div>
         <el-menu class="sidebar-el-menu" :default-active="onRoutes" :collapse="collapse" background-color="#fff"
@@ -30,7 +31,7 @@
                 </template>
             </template>
         </el-menu>
-        <div class="cm-btn logout-btn" @click="logout()"></div>
+        <div class="cm-btn logout-btn" @click="logout()">{{$t("btn.logout")}}</div>
     </div>
 </template>
 
@@ -117,6 +118,10 @@
         width: 220px;
         height: 90px;
         background-size: 100% 100%;
+        font-size: 24px;
+        color: #fff;
+        text-align: center;
+        line-height: 80px;
     }
 </style>
 
@@ -127,40 +132,17 @@
         data() {
             return {
                 collapse: false,
-                itemsConfig:[
-                    {
-                        code:'01',
-                        icon: 'admin-icon',
-                        index: '/adminList',
-                        title: '管理员',
-                    },
-                    {
-                        code:'02',
-                        icon: 'add-min-icon',
-                        index: '/addAdmin',
-                        title: '添加',
-                    },{
-                        code:'03',
-                        icon: 'msg-icon',
-                        index: '/msgList',
-                        title: '站内消息',
-                    },
-                    {
-                        code:'04',
-                        icon: 'coach-icon',
-                        index: '/coachList',
-                        title: '教练',
-                    },
-                    {
-                        code:'05',
-                        icon: 'school-icon',
-                        index: '/schoolList',
-                        title: '学校',
-                    },
-                ],
+                itemsConfig:[],
                 items: [],
                 pageName:null,
             }
+        },
+        watch: {
+            //切换语言时重新初始化菜单
+            '$i18n.locale':function (newVal,oldVal) {
+               /* console.log('newVal:',newVal);*/
+                this.initItems();
+            },
         },
         computed:{
             onRoutes(){
@@ -176,6 +158,7 @@
             //
             this.pageName=this.$route.name;
 
+
             /**/
             this.accountInfo=this.getAccountInfo();
             this.accountAccess=null;
@@ -185,23 +168,59 @@
             }else if(this.accountInfo.type=='admin'){
                 this.accountAccess=['03','05'];
             }
-            if(this.accountAccess=='all'){
-                this.items=this.itemsConfig;
-            }else if(this.accountAccess&&this.accountAccess.length>0){
-                this.accountAccess.forEach((value,index)=>{
-                    for(let i=0;i<this.itemsConfig.length;i++){
-                        if(value==this.itemsConfig[i].code){
-                            this.items.push(this.itemsConfig[i]);
-                        }
-                    }
-                })
-            }
+            this.initItems();
         },
         methods: {
+           initItems:function () {
+               /*菜单初始化配置*/
+               this.itemsConfig=[
+                   {
+                       code:'01',
+                       icon: 'admin-icon',
+                       index: '/adminList',
+                       title: this.$t("btn.administrator"),
+                   },
+                   {
+                       code:'02',
+                       icon: 'add-min-icon',
+                       index: '/addAdmin',
+                       title:this.$t("btn.add"),
+                   },{
+                       code:'03',
+                       icon: 'msg-icon',
+                       index: '/msgList',
+                       title: this.$t("btn.massage"),
+                   },
+                   {
+                       code:'04',
+                       icon: 'coach-icon',
+                       index: '/coachList',
+                       title: this.$t("btn.coach"),
+                   },
+                   {
+                       code:'05',
+                       icon: 'school-icon',
+                       index: '/schoolList',
+                       title: this.$t("btn.school"),
+                   },];
+               /*菜单权限配置*/
+               this.items=[];
+               if(this.accountAccess=='all'){
+                   this.items=this.itemsConfig;
+               }else if(this.accountAccess&&this.accountAccess.length>0){
+                   this.accountAccess.forEach((value,index)=>{
+                       for(let i=0;i<this.itemsConfig.length;i++){
+                           if(value==this.itemsConfig[i].code){
+                               this.items.push(this.itemsConfig[i]);
+                           }
+                       }
+                   })
+               }
+           },
             logout:function () {
                 Vue.cookie.set('account','');
                 this.$router.push({name:'login',params:{type:this.accountInfo.type}});
-            }
+            },
         },
     }
 </script>

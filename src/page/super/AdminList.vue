@@ -2,7 +2,7 @@
     <div class="page-content admin-list">
         <div class="cm-panel">
             <div class="panel-hd">
-                <span class="title">管理员列表</span>
+                <span class="title">{{$t("title.administratorList")}}</span>
             </div>
             <div class="panel-bd">
                 <div class="cm-list-block" v-loading="pager.loading">
@@ -10,13 +10,13 @@
                         <thead>
                         <tr>
                             <th>
-                                账号
+                                {{$t("label.account")}}
                             </th>
                             <th>
-                                状态
+                                {{$t("label.status")}}
                             </th>
                             <th>
-                                操作
+                                {{$t("label.handle")}}
                             </th>
                         </tr>
                         </thead>
@@ -26,8 +26,8 @@
                                 {{item.user}}
                             </td>
                             <td>
-                                <span class="status active" v-if="item.state=='enable'">启用</span>
-                                <span class="status disabled" v-if="item.state=='disable'">停用</span>
+                                <span class="status active" v-if="item.state=='enable'"> {{$t("label.enable")}}</span>
+                                <span class="status disabled" v-if="item.state=='disable'">{{$t("label.disable")}}</span>
                             </td>
                             <td>
                                 <el-switch
@@ -39,8 +39,8 @@
                                     active-color="#5560aa"
                                     v-model="item.state">
                                 </el-switch>
-                                <span class="cm-btn handle" @click="toSetPwd(index);">密码重置</span>
-                                <span class="cm-btn handle" @click="del(index)">删除</span>
+                                <span class="cm-btn handle" @click="toSetPwd(index);">{{$t("btn.resetPwd")}}</span>
+                                <span class="cm-btn handle" @click="del(index)">{{$t("btn.del")}}</span>
                             </td>
                         </tr>
                         </tbody>
@@ -103,9 +103,6 @@
             }
         },
         created(){
-
-        },
-        watch:{
 
         },
         computed: {
