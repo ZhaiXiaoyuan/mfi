@@ -1,11 +1,11 @@
 <template>
     <div class="language">
         <ul>
-            <li>
+            <li :class="{'active':locale=='en'}" @click="setLanguage('en')">
                 <span class="text">EN</span>
                 <span class="gap-icon">/</span>
             </li>
-            <li class="active">
+            <li :class="{'active':locale=='zh'}" @click="setLanguage('zh')">
                 <span class="text">简体</span>
                 <span class="gap-icon">/</span>
             </li>
@@ -33,6 +33,7 @@
             display: flex;
             align-items: center;
             line-height: normal;
+            cursor: pointer;
             .gap-icon{
                 display: inline-block;
                 font-size: 24px;
@@ -57,18 +58,23 @@
         },
         data() {
             return {
-                identifyCode:null
+                locale:'zh'
             }
         },
         methods: {
-
-
+            setLanguage:function (value) {
+                this.locale=value;
+                this.$i18n.locale=this.locale;
+                localStorage.setItem('locale',this.locale);
+            }
         },
         watch: {
 
         },
         mounted () {
-
+            if(localStorage.getItem('locale')){
+                this.setLanguage(localStorage.getItem('locale'));
+            }
         }
     }
 </script>
