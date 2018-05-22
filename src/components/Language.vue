@@ -5,11 +5,11 @@
                 <span class="text">EN</span>
                 <span class="gap-icon">/</span>
             </li>
-            <li :class="{'active':locale=='zh'}" @click="setLanguage('zh',true)">
+            <li :class="{'active':locale=='cn'}" @click="setLanguage('cn',true)">
                 <span class="text">简体</span>
                 <span class="gap-icon">/</span>
             </li>
-            <li>
+            <li :class="{'active':locale=='tw'}" @click="setLanguage('tw',true)">
                 <span class="text">繁体</span>
             </li>
         </ul>
@@ -59,14 +59,14 @@
         },
         data() {
             return {
-                locale:'zh'
+                locale:null
             }
         },
         methods: {
             setLanguage:function (value,click) {
                 this.locale=value;
                 this.$i18n.locale=this.locale;
-                localStorage.setItem('locale',this.locale);
+                localStorage.setItem('lang',this.locale);
                 if(click){
                 /* window.location.reload();*/
                 }

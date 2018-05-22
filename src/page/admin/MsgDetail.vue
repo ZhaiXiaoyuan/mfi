@@ -5,7 +5,7 @@
                 <div class="cm-btn cm-return-btn" @click="$router.back();">
                     <div class="wrapper">
                         <i class="icon el-icon-arrow-left"></i>
-                        返回
+                        {{$t('btn.back')}}
                     </div>
                 </div>
                 <span class="time"> {{curMsg.createdAt|formatDate('yyyy-MM-dd hh:mm:ss')}}</span>
@@ -16,7 +16,7 @@
                         <span class="title">{{curMsg.title}}</span>
                         <a :href="curMsg.fileUrl" target="_blank" class="cm-btn download-btn">
                             <i class="icon el-icon-download"></i>
-                            下载文件
+                            {{$t('btn.download')}}
                         </a>
                     </div>
                     <div class="block-bd">

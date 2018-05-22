@@ -12,14 +12,14 @@ import api from './utils/api'
 import tools from './utils/tools'
 import './utils/filters'
 import components from './components'
-import VueI18n from 'vue-i18n'
+import i18n from './i18n/i18n';
 
 Vue.use(ElementUI, { size: 'small' });
 
 /*---安装第三方插件---*/
 Vue.use(vueResource);
 Vue.use(vueCookie);
-Vue.use(VueI18n);
+/*Vue.use(VueI18n);*/
 
 /*---安装自定义插件---*/
 Vue.use(api);
@@ -27,25 +27,13 @@ Vue.use(tools);
 Vue.use(components);
 
 /**/
-const messages = {
-    zh: {
-        message: {
-            hello: '好好学习，天天向上！'
-        }
-    },
-    en: {
-        message: {
-            hello: 'good good study, day day up!'
-        }
-    }
-}
-const i18n = new VueI18n({
+/*const i18n = new VueI18n({
     locale: 'en',  // 语言标识
     messages: {
-        'zh': require('./assets/lang/zh'),
-        'en': require('./assets/lang/en')
+        'zh-CN': require('./assets/lang/zh'),
+        'en-US': require('./assets/lang/en')
     }
-})
+})*/
 
 //使用钩子函数对路由进行权限跳转
 router.beforeEach((to, from, next) => {

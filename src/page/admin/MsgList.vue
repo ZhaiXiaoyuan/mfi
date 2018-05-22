@@ -1,8 +1,9 @@
+<script src="../../../node_modules/_element-ui@2.3.3@element-ui/src/locale/lang/zh-CN.js"></script>
 <template>
     <div class="page-content msg-list">
         <div class="cm-panel">
             <div class="panel-hd">
-                <span class="title">站内消息</span>
+                <span class="title">{{$t('title.message')}}</span>
             </div>
             <div class="panel-bd">
                 <div class="cm-list-block" v-loading="pager.loading">
@@ -10,16 +11,16 @@
                         <thead>
                         <tr>
                             <th>
-                                标题
+                                {{$t('label.title')}}
                             </th>
                             <th>
-                                文件
+                                {{$t('label.file')}}
                             </th>
                             <th>
-                                时间
+                                {{$t('label.time')}}
                             </th>
                             <th>
-                                操作
+                                {{$t('label.handle')}}
                             </th>
                         </tr>
                         </thead>
@@ -43,8 +44,8 @@
                                         :value="entry.value">
                                     </el-option>
                                 </el-select>
-                                <span class="handle" @click="toDetail(index)">查看</span>
-                                <span class="handle" @click="del(index)">删除</span>
+                                <span class="handle" @click="toDetail(index)">{{$t('btn.view')}}</span>
+                                <span class="handle" @click="del(index)">{{$t('btn.del')}}</span>
                             </td>
                         </tr>
                         </tbody>
@@ -52,8 +53,8 @@
                     <el-pagination
                         class="cm-pager"
                         @current-change="getList"
-                        prev-text="上一页"
-                        next-text="下一页"
+                        :prev-text='$t("btn.prev")'
+                        :next-text='$t("btn.next")'
                         :current-page="pager.pageIndex"
                         :page-size="pager.pageSize"
                         layout="total, prev, pager, next, jumper"
@@ -66,24 +67,24 @@
             <div class="icon-wrap">
                 <i class="icon add-msg-icon"></i>
             </div>
-            <p>新的消息</p>
+            <p>{{$t('btn.addMsg')}}</p>
         </div>
-        <el-dialog title="新的消息" class="edit-dialog cm-dialog add-msg-dialog" :visible.sync="dialogFormVisible" v-if="dialogFormVisible" width="40%">
+        <el-dialog :title="$t('title.addMsg')" class="edit-dialog cm-dialog add-msg-dialog" :visible.sync="dialogFormVisible" v-if="dialogFormVisible" width="40%">
             <textarea v-model="title" cols="30" rows="10"></textarea>
             <div class="cm-file-uploader" :class="{'uploading':uploadStatus=='uploading','uploaded':uploadStatus=='uploaded'}">
                 <el-progress class="progress" :text-inside="true" :stroke-width="20" :percentage="80" color="#5560aa"></el-progress>
                 <div class="btn-wrap">
                     <span class="file-name" v-if="this.files&&this.files.length>0">{{this.files[0].name}}</span>
                     <div class="cm-btn cm-handle-btn upload-btn">
-                        <span class="first">上传文件</span>
-                        <span class="again">重新上传</span>
+                        <span class="first">{{$t('btn.upload')}}</span>
+                        <span class="again">{{$t('btn.reUpload')}}</span>
                         <input  type="file" id="file-input" accept="application/pdf" @change="selectFile()">
                     </div>
                 </div>
             </div>
             <div class="handle-list">
-                <div class="cm-btn cm-handle-btn handle-btn" @click="dialogFormVisible=false">取消</div>
-                <div class="cm-btn cm-handle-btn handle-btn" @click="save">完成</div>
+                <div class="cm-btn cm-handle-btn handle-btn" @click="dialogFormVisible=false">{{$t('btn.cancel')}}</div>
+                <div class="cm-btn cm-handle-btn handle-btn" @click="save">{{$t('btn.ok')}}</div>
             </div>
         </el-dialog>
     </div>
@@ -122,7 +123,6 @@
 
     export default {
         components: {
-
         },
         data() {
             return {
@@ -140,17 +140,17 @@
                 isSetting:false,
                 editForm:null,
                 options:[
-                 /*   {
+                   /* {
                         value:'top',
-                        label:'置顶',
+                        label:this.$t("label.stick"),
                     },*/
                     {
                         value:'enable',
-                        label:'展示',
+                        label:this.$t("label.show"),
                     },
                     {
                         value:'disable',
-                        label:'隐藏',
+                        label:this.$t("label.hide"),
                     }
                 ],
 
@@ -189,7 +189,6 @@
                             item.state=item.state.replace(' ','');
                             item.adminInfo=JSON.parse(item.adminInfo);
                         })
-                        console.log('this.entryList:',this.entryList);
                     }
                 });
             },
@@ -200,12 +199,12 @@
                     id:item.id,
                     state:item.state.replace(' ','')
                 }
-                let fb=Vue.operationFeedback({text:'设置中...'});
+                let fb=Vue.operationFeedback({text:this.$t("tips.setting")});
                 Vue.api.setMessageState(params).then((resp)=>{
                     if(resp.respCode=='2000'){
-                        fb.setOptions({type:'complete', text:'设置成功'});
+                        fb.setOptions({type:'complete', text:this.$t("tips.settingS")});
                     }else{
-                        fb.setOptions({type:'warn', text:'设置失败'});
+                        fb.setOptions({type:'warn', text:this.$t("tips.settingF",{msg:resp.respMsg})});
                     }
                 });
             },
@@ -215,11 +214,11 @@
             },
             save:function () {
                 if(!this.title){
-                    Vue.operationFeedback({type:'warn',text:'请输入标题'});
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.title")});
                     return;
                 }
                 if(this.files.length==0){
-                    Vue.operationFeedback({type:'warn',text:'请上传文件'});
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.upload")});
                     return;
                 }
                 let formData = new FormData();
@@ -227,37 +226,36 @@
                 formData.append("creator", this.account.id);
                 formData.append("title", this.title);
                 formData.append("file", this.files[0]);
-                let fb=Vue.operationFeedback({text:'保存中...'});
+                let fb=Vue.operationFeedback({text:this.$t("tips.save")});
                 Vue.api.addMessage(formData).then((resp)=>{
                     if(resp.respCode=='2000'){
                         this.getList();
                         this. dialogFormVisible=false;
-                        fb.setOptions({type:'complete', text:'保存成功'});
+                        fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
                     }else{
-                        fb.setOptions({type:'warn', text:'保存失败'});
+                        fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
                     }
                 });
             },
             del:function (index) {
                 let item=this.entryList[index];
-                this.$confirm('确定删除该通知?', '温馨提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
+                this.$confirm(this.$t("title.tips",{msg:item.title}), this.$t("title.tips"), {
+                    confirmButtonText: this.$t("btn.sure"),
+                    cancelButtonText: this.$t("tips.cancel"),
                     type: 'warning'
                 }).then(() => {
-                    console.log(233);
                     let params={
                         ...Vue.sessionInfo(),
                         id:item.id,
                         state:'del'
                     }
-                    let fb=Vue.operationFeedback({text:'删除中...'});
+                    let fb=Vue.operationFeedback({text:this.$t("tips.delete")});
                     Vue.api.setMessageState(params).then((resp)=>{
                         if(resp.respCode=='2000'){
                             this.entryList.splice(index,1);
-                            fb.setOptions({type:'complete', text:'删除成功'});
+                            fb.setOptions({type:'complete', text:this.$t("tips.deleteS")});
                         }else{
-                            fb.setOptions({type:'warn', text:'删除失败'});
+                            fb.setOptions({type:'warn', text:this.$t("tips.deleteF",{msg:resp.respMsg})});
                         }
                     });
                 }).catch(() => {
