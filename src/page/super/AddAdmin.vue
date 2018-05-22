@@ -2,24 +2,24 @@
     <div class="page-content add-admin">
         <div class="cm-panel add-panel">
             <div class="cm-input-row">
-                <span class="field">账号</span>
+                <span class="field">{{$t("label.account")}}</span>
                 <input type="text" v-model="account" class="cm-input">
             </div>
             <div class="cm-input-row">
-                <span class="field">初始密码</span>
+                <span class="field">{{$t("label.pwd")}}</span>
                 <input type="password" v-model="pwd" class="cm-input">
             </div>
             <div class="cm-input-row">
-                <span class="field">手机</span>
+                <span class="field">{{$t("label.phone")}}</span>
                 <input type="tel" v-model="phone" class="cm-input">
             </div>
             <div class="cm-input-row">
-                <span class="field">姓名</span>
+                <span class="field">{{$t("label.name")}}</span>
                 <input type="text" v-model="name" class="cm-input">
             </div>
             <div class="cm-input-row" style="margin-top: 60px;">
                 <div class="cm-btn cm-handle-btn" @click="save()">
-                    确认提交
+                    {{$t("btn.submit")}}
                 </div>
             </div>
         </div>
@@ -68,19 +68,19 @@
         methods: {
             save:function () {
                 if(!this.account){
-                    Vue.operationFeedback({type:'warn',text:'请输入账号'});
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.account")});
                     return;
                 }
                 if(!this.pwd){
-                    Vue.operationFeedback({type:'warn',text:'请输入密码'});
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.pwd")});
                     return;
                 }
                 if(!this.phone){
-                    Vue.operationFeedback({type:'warn',text:'请输入手机号'});
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.phone")});
                     return;
                 }
                 if(!this.name){
-                    Vue.operationFeedback({type:'warn',text:'请输入姓名'});
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.name")});
                     return;
                 }
                 let params={
@@ -90,12 +90,12 @@
                     phone:this.phone,
                     name:this.name,
                 }
-                let fb=Vue.operationFeedback({text:'保存中...'});
+                let fb=Vue.operationFeedback({text:this.$t("tips.save")});
                 Vue.api.addAdmin(params).then((resp)=>{
                     if(resp.respCode=='2000'){
                         fb.setOptions({
                             type:'complete',
-                            text:'保存成功'
+                            text:this.$t("tips.saveS")
                         });
                         setTimeout(()=>{
                             this.$router.push({name:'adminList',params:{}});
@@ -103,7 +103,7 @@
                     }else{
                         fb.setOptions({
                             type:'warn',
-                            text:'保存失败'
+                            text:this.$t("tips.saveF",{msg:resp.respMsg})
                         });
                     }
                 });

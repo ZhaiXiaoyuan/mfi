@@ -48,8 +48,8 @@
                     <el-pagination
                         class="cm-pager"
                         @current-change="getList"
-                        prev-text="上一页"
-                        next-text="下一页"
+                        :prev-text='$t("btn.prev")'
+                        :next-text='$t("btn.next")'
                         :current-page="pager.pageIndex"
                         :page-size="pager.pageSize"
                         layout="total, prev, pager, next, jumper"
@@ -60,20 +60,20 @@
         </div>
 
        <!-- 重置密码弹窗-->
-        <el-dialog title="密码重置" class="edit-dialog cm-dialog set-pwd-dialog" :visible.sync="dialogFormVisible" v-if="dialogFormVisible" width="40%">
+        <el-dialog :title='$t("title.resetPwd")' class="edit-dialog cm-dialog set-pwd-dialog" :visible.sync="dialogFormVisible" v-if="dialogFormVisible" width="40%">
             <div class="form">
                 <div class="cm-input-row">
-                    <span class="field">账号</span>
+                    <span class="field">{{$t("label.account")}}</span>
                     <input type="text" v-model="editForm.user" class="cm-input cm-disabled">
                 </div>
                 <div class="cm-input-row">
-                    <span class="field">密码</span>
+                    <span class="field">{{$t("label.pwd")}}</span>
                     <input type="password" v-model="editForm.pwd" class="cm-input">
                 </div>
             </div>
             <div class="handle-list">
-                <div class="cm-btn cm-handle-btn handle-btn" @click="dialogFormVisible=false">取消</div>
-                <div class="cm-btn cm-handle-btn handle-btn" @click="updatePwd">完成</div>
+                <div class="cm-btn cm-handle-btn handle-btn" @click="dialogFormVisible=false">{{$t("btn.cancel")}}</div>
+                <div class="cm-btn cm-handle-btn handle-btn" @click="updatePwd">{{$t("btn.ok")}}</div>
             </div>
         </el-dialog>
     </div>
@@ -137,22 +137,22 @@
                     id:item.id,
                     state:item.state
                 }
-                let fb=Vue.operationFeedback({text:'设置中...'});
+                let fb=Vue.operationFeedback({text:this.$t("tips.setting")});
                 this.isSetting=true;
                 Vue.api.setAdminState(params).then((resp)=>{
                     this.isSetting=false;
                     if(resp.respCode=='2000'){
-                        fb.setOptions({type:'complete', text:'设置成功'});
+                        fb.setOptions({type:'complete', text:this.$t("tips.settingS")});
                     }else{
-                        fb.setOptions({type:'warn', text:'设置失败'});
+                        fb.setOptions({type:'warn', text:this.$t("tips.settingF",{ msg: resp.respMsg})});
                     }
                 });
             },
             del:function (index) {
                 let item=this.entryList[index];
-                this.$confirm('确定删除管理员账号'+item.user+'?', '温馨提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
+                this.$confirm(this.$t('tips.delAdmin',{msg:item.user}),  this.$t('title.tips'), {
+                    confirmButtonText: this.$t('btn.sure'),
+                    cancelButtonText: this.$t('btn.cancel'),
                     type: 'warning'
                 }).then(() => {
                     let params={
@@ -160,13 +160,13 @@
                         id:item.id,
                         state:'del'
                     }
-                    let fb=Vue.operationFeedback({text:'删除中...'});
+                    let fb=Vue.operationFeedback({text:this.$t('btn.ok'),});
                     Vue.api.setAdminState(params).then((resp)=>{
                         if(resp.respCode=='2000'){
                             this.entryList.splice(index,1);
-                            fb.setOptions({type:'complete', text:'删除成功'});
+                            fb.setOptions({type:'complete', text:this.$t('tips.deleteS')});
                         }else{
-                            fb.setOptions({type:'warn', text:'删除失败'});
+                            fb.setOptions({type:'warn', text:this.$t('tips.deleteF',{msg:resp.respMsg})});
                         }
                     });
                 }).catch(() => {
@@ -180,10 +180,10 @@
             },
             updatePwd:function () {
                 if(!this.editForm.pwd){
-                    Vue.operationFeedback({type:'warn',text:'请输入密码'});
+                    Vue.operationFeedback({type:'warn',text:this.$t('holder.pwd')});
                     return;
                 };
-                let fb=Vue.operationFeedback({text:'保存中...'});
+                let fb=Vue.operationFeedback({text:this.$t('tips.save')});
                 let params={
                     ...Vue.sessionInfo(),
                     ...this.editForm,
@@ -192,9 +192,9 @@
                 Vue.api.updateAdmin(params).then((resp)=>{
                     if(resp.respCode=='2000'){
                         this.dialogFormVisible=false;
-                        fb.setOptions({type:'complete', text:'保存成功'});
+                        fb.setOptions({type:'complete', text:this.$t('tips.saveS')});
                     }else{
-                        fb.setOptions({type:'warn', text:'保存失败'});
+                        fb.setOptions({type:'warn', text:this.$t('tips.saveF',{msg:resp.respMsg})});
                     }
                 });
             }

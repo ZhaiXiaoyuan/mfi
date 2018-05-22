@@ -2,13 +2,13 @@
     <div class="page-content msg-list">
         <div class="cm-panel">
             <div class="panel-hd">
-                <span class="title">学校管理</span>
+                <span class="title">{{$t("title.schoolAdmin")}}</span>
             </div>
             <div class="panel-bd">
                 <div class="cm-list-block" v-loading="pager.loading">
                     <div class="block-hd">
                         <div class="con-item con-item-search">
-                            <el-input placeholder="国家/地区/编号 模糊检索" v-model="keyword" @keyup.enter.native="getList()"  class="cm-search">
+                            <el-input :placeholder='$t("holder.schoolSearch")' v-model="keyword" @keyup.enter.native="getList()"  class="cm-search">
                                 <el-button slot="append" class="cm-btn" icon="el-icon-search" @click="getList()"></el-button>
                             </el-input>
                         </div>
@@ -17,18 +17,18 @@
                         <thead>
                         <tr>
                             <th>
-                                国家
+                                {{$t("label.country")}}
                             </th>
                             <th>
-                                地区
+                                {{$t("label.region")}}
                             </th>
                             <th>
-                                地址
+                                {{$t("label.address")}}
                             </th>
                             <th>
-                                编号
+                                {{$t("label.code")}}
                             </th>
-                            <th>操作</th>
+                            <th>{{$t("label.handle")}}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -46,8 +46,7 @@
                                 {{item.serialCode}}
                             </td>
                             <td>
-                                <span class="handle" @click="toEdit(index)">编辑</span>
-                              <!--  <span class="handle" @click="del()">删除</span>-->
+                                <span class="handle" @click="toEdit(index)">{{$t("btn.edit")}}</span>
                             </td>
                         </tr>
                         </tbody>
@@ -55,8 +54,8 @@
                     <el-pagination
                         class="cm-pager"
                         @current-change="getList"
-                        prev-text="上一页"
-                        next-text="下一页"
+                        :prev-text='$t("btn.prev")'
+                        :next-text='$t("btn.next")'
                         :current-page="pager.pageIndex"
                         :page-size="pager.pageSize"
                         layout="total, prev, pager, next, jumper"
@@ -69,34 +68,34 @@
             <div class="icon-wrap">
                 <i class="icon add-cross-icon"></i>
             </div>
-            <p>新的学校</p>
+            <p>{{$t("btn.addSchool")}}</p>
         </div>
-        <el-dialog :title="(editForm.id?'编辑':'新增')+'学校'" class="edit-dialog cm-dialog school-dialog" :visible.sync="dialogFormVisible" v-if="dialogFormVisible" width="40%">
+        <el-dialog :title='(editForm.id?$t("title.editSchool"):$t("title.addSchool"))' class="edit-dialog cm-dialog school-dialog" :visible.sync="dialogFormVisible" v-if="dialogFormVisible" width="40%">
             <div class="form">
                 <div class="cm-input-row">
-                    <span class="field">国家</span>
+                    <span class="field">{{$t("label.country")}}</span>
                     <input type="text" v-model="editForm.country" class="cm-input">
                 </div>
                 <div class="cm-input-row">
-                    <span class="field">省份/地区</span>
+                    <span class="field">{{$t("label.province")}}</span>
                     <input type="text" v-model="editForm.province" class="cm-input">
                 </div>
                 <div class="cm-input-row">
-                    <span class="field">城市</span>
+                    <span class="field">{{$t("label.city")}}</span>
                     <input type="text" v-model="editForm.city" class="cm-input">
                 </div>
                 <div class="cm-input-row">
-                    <span class="field">地址</span>
+                    <span class="field">{{$t("label.address")}}</span>
                     <input type="text" v-model="editForm.address" class="cm-input">
                 </div>
                 <div class="cm-input-row">
-                    <span class="field">编号</span>
+                    <span class="field">{{$t("label.code")}}</span>
                     <input type="text" v-model="editForm.serialCode" class="cm-input">
                 </div>
             </div>
             <div class="handle-list">
-                <div class="cm-btn cm-handle-btn handle-btn" @click="dialogFormVisible=false">取消</div>
-                <div class="cm-btn cm-handle-btn handle-btn" @click="save">完成</div>
+                <div class="cm-btn cm-handle-btn handle-btn" @click="dialogFormVisible=false">{{$t("btn.cancel")}}</div>
+                <div class="cm-btn cm-handle-btn handle-btn" @click="save">{{$t("btn.submit")}}</div>
             </div>
         </el-dialog>
     </div>
@@ -133,15 +132,15 @@
                 options:[
                     {
                         value:'top',
-                        label:'置顶',
+                        label:this.$t("label.stick"),
                     },
                     {
                         value:'enable',
-                        label:'展示',
+                        label:this.$t("label.show"),
                     },
                     {
                         value:'disable',
-                        label:'隐藏',
+                        label:this.$t("label.hide"),
                     }
                 ],
 
@@ -189,37 +188,37 @@
             },
             save:function () {
                 if(!this.editForm.country){
-                    Vue.operationFeedback({type:'warn',text:'请输入国家'});
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.country")});
                     return;
                 }
                 if(!this.editForm.province){
-                    Vue.operationFeedback({type:'warn',text:'请输入省份/地区'});
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.province")});
                     return;
                 }
                 if(!this.editForm.city){
-                    Vue.operationFeedback({type:'warn',text:'请输入城市'});
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.city")});
                     return;
                 }
                 if(!this.editForm.address){
-                    Vue.operationFeedback({type:'warn',text:'请输入地址'});
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.address")});
                     return;
                 }
                 if(!this.editForm.serialCode){
-                    Vue.operationFeedback({type:'warn',text:'请输入编号'});
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.code")});
                     return;
                 }
                 let params={
                     ...this.editForm
                 }
-                let fb=Vue.operationFeedback({text:'保存中...'});
+                let fb=Vue.operationFeedback({text:this.$t("tips.save")});
                 if(!params.id){//新增
                     Vue.api.addSchool(params).then((resp)=>{
                         if(resp.respCode=='2000'){
                             this.getList();
                             this.dialogFormVisible=false;
-                            fb.setOptions({type:'complete', text:'保存成功'});
+                            fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
                         }else{
-                            fb.setOptions({type:'warn', text:'保存失败'});
+                            fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
                         }
                     });
                 }else{//编辑
@@ -227,9 +226,9 @@
                         if(resp.respCode=='2000'){
                             this.getList(this.pager.pageIndex);//刷新当前页
                             this.dialogFormVisible=false;
-                            fb.setOptions({type:'complete', text:'保存成功'});
+                            fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
                         }else{
-                            fb.setOptions({type:'warn', text:'保存失败'});
+                            fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
                         }
                     });
                 }
