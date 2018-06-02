@@ -2,36 +2,36 @@
     <div class="page-content coach-list">
         <div class="cm-panel">
             <div class="panel-hd">
-                <span class="title">全部教练</span>
+                <span class="title">{{$t("title.allCoach")}}</span>
             </div>
             <div class="panel-bd">
-                <div class="cm-list-block">
+                <div class="cm-list-block" v-loading="pager.loading">
                     <div class="block-hd">
                         <div class="con-item">
-                            <span class="label">等级</span>
-                            <el-select v-model="value6" class="handle cm-select">
+                            <span class="label">{{$t("label.level")}}</span>
+                            <el-select v-model="selectedLevel" @change="levelChange" class="handle cm-select">
                                 <el-option
-                                    v-for="item in options"
-                                    :key="item.value"
+                                    v-for="(item,index) in listLevelOptions"
+                                    :key="index"
                                     :label="item.label"
                                     :value="item.value">
                                 </el-option>
                             </el-select>
                         </div>
                         <div class="con-item">
-                            <span class="label">状态</span>
-                            <el-select v-model="value6" class="handle cm-select" style="width: 100px;">
+                            <span class="label">{{$t("label.status")}}</span>
+                            <el-select v-model="selectedStatus" @change="statusChange" class="handle cm-select">
                                 <el-option
-                                    v-for="item in options"
-                                    :key="item.value"
+                                    v-for="(item,index) in listOptions"
+                                    :key="index"
                                     :label="item.label"
                                     :value="item.value">
                                 </el-option>
                             </el-select>
                         </div>
                         <div class="con-item con-item-search">
-                            <el-input placeholder="请输入内容" v-model="input5" class="cm-search">
-                                <el-button slot="append" icon="el-icon-search"></el-button>
+                            <el-input :placeholder="$t('holder.coachSearch')" v-model="keyword" class="cm-search">
+                                <el-button slot="append" icon="el-icon-search" @click="getList()"></el-button>
                             </el-input>
                         </div>
                     </div>
@@ -39,84 +39,113 @@
                         <thead>
                         <tr>
                             <th>
-                                账号
+                                {{$t("label.account")}}
                             </th>
                             <th>
-                                姓名
+                                {{$t("label.name")}}
                             </th>
                             <th>
-                                等级
+                                {{$t("label.level")}}
                             </th>
                             <th>
-                                状态
+                                {{$t("label.status")}}
                             </th>
                             <th>
-                                审核日期
+                                {{$t("label.auditDate")}}
                             </th>
                             <th>
-                                操作
+                                {{$t("label.handle")}}
                             </th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
+                        <tr v-for="(item,index) in entryList">
                             <td>
-                                instructors1
+                                {{item.email}}
                             </td>
                             <td>
-                                Liang Feng
+                                {{item.name}}&nbsp;{{item.familyName}}
                             </td>
                             <td>
-                                MFI Instructor Trainer
+                                {{item.mfiLevel}}
                             </td>
                             <td>
-                                certified
+                                {{item.instructorAccountStatus}}
                             </td>
                             <td>
                                 2018.02.22
                             </td>
                             <td>
-                                <span class="handle">详情</span>
+                                <span class="handle">{{$t('btn.detail')}}</span>
                             </td>
                         </tr>
                         </tbody>
                     </table>
                     <el-pagination
                         class="cm-pager"
-                        prev-text="上一页"
-                        next-text="下一页"
-                        :current-page="1"
-                        :page-size="100"
+                        @current-change="getList"
+                        :prev-text='$t("btn.prev")'
+                        :next-text='$t("btn.next")'
+                        :current-page="pager.pageIndex"
+                        :page-size="pager.pageSize"
                         layout="total, prev, pager, next, jumper"
-                        :total="400">
+                        :total="pager.total">
                     </el-pagination>
                 </div>
             </div>
         </div>
-        <div class="cm-btn cm-add-btn">
+        <div class="cm-btn cm-add-btn" @click="dialogFormVisible=true">
             <div class="icon-wrap">
                 <i class="icon add-cross-icon"></i>
             </div>
-            <p>新建教练账号</p>
+            <p>{{$t('btn.newCoach')}}</p>
         </div>
-        <el-dialog title="新的消息" class="edit-dialog cm-dialog add-msg-dialog" :visible.sync="dialogFormVisible" v-if="dialogFormVisible" width="40%">
-            <textarea name="" id="" cols="30" rows="10"></textarea>
-            <div class="cm-file-uploader">
-                <el-progress class="progress" :text-inside="true" :stroke-width="20" :percentage="80" color="#5560aa"></el-progress>
-                <div class="btn-wrap">
-                    <span class="file-name">关于审核时间的通知...pdf</span>
-                    <div class="cm-btn cm-handle-btn upload-btn">
-                        <span class="first">上传文件</span>
-                        <span class="again">重新上传</span>
-                        <input type="file">
-                    </div>
+        <el-dialog :title='$t("title.newCoach")' class="edit-dialog cm-dialog school-dialog" :visible.sync="dialogFormVisible" v-if="dialogFormVisible" width="40%">
+            <div class="form">
+                <div class="cm-input-row">
+                    <span class="field">{{$t("label.email")}}</span>
+                    <input type="text" v-model="newForm.email" class="cm-input">
+                </div>
+                <div class="cm-input-row">
+                    <span class="field">{{$t("label.level")}}</span>
+                    <el-select v-model="newForm.level" @change="levelChange" class="handle cm-select">
+                        <el-option
+                            v-for="(item,index) in levelOptions"
+                            :key="index"
+                            :label="item.label"
+                            :value="item.value">
+                        </el-option>
+                    </el-select>
+                </div>
+                <div class="cm-input-row">
+                    <span class="field">{{$t("label.school")}}</span>
+                    <el-select v-model="newForm.school" @change="levelChange" class="handle cm-select">
+                        <el-option
+                            v-for="(item,index) in schoolOptions"
+                            :key="index"
+                            :label="item.label"
+                            :value="item.value">
+                        </el-option>
+                    </el-select>
+                </div>
+                <div class="cm-input-row">
+                    <span class="field">{{$t("label.status")}}</span>
+                    <el-select v-model="newForm.status" class="handle cm-select" disabled>
+                        <el-option
+                            v-for="(item,index) in options"
+                            :key="index"
+                            :label="item.label"
+                            :value="item.value">
+                        </el-option>
+                    </el-select>
                 </div>
             </div>
             <div class="handle-list">
-                <div class="cm-btn cm-handle-btn handle-btn">完成</div>
-                <div class="cm-btn cm-handle-btn handle-btn cancel-btn">取消</div>
+                <div class="cm-btn cm-handle-btn handle-btn" @click="dialogFormVisible=false">{{$t("btn.cancel")}}</div>
+                <div class="cm-btn cm-handle-btn handle-btn" @click="save">{{$t("btn.submit")}}</div>
             </div>
         </el-dialog>
+
     </div>
 </template>
 <style lang="less" rel="stylesheet/less">
@@ -157,13 +186,93 @@
         },
         data() {
             return {
-                value6:'',
-                input5:'',
-                options:[{
-                    label:'1',
-                    value:'1'
-                }],
-                dialogFormVisible:false
+                levelOptions:[
+                   /* {
+                        value:null,
+                        label:this.$t("btn.all"),
+                    },*/
+                    {
+                        value:'M0',
+                        label:'M0',
+                    },
+                    {
+                        value:'M1',
+                        label:'M1',
+                    },
+                    {
+                        value:'M2',
+                        label:'M2',
+                    },
+                    {
+                        value:'M3',
+                        label:'M3',
+                    },
+                    {
+                        value:'MBI',
+                        label:'MBI',
+                    },
+                    {
+                        value:'MI',
+                        label:'MI',
+                    },
+                    {
+                        value:'MMI',
+                        label:'MMI',
+                    },
+                    {
+                        value:'MIT',
+                        label:'MIT',
+                    },
+                ],
+                options:[
+                    /*  {
+                     value:null,
+                     label:this.$t("btn.all"),
+                     },*/
+                    {
+                        label:this.$t("btn.nonactivated"),
+                        value:'nonactivated'
+                    },
+                    {
+                        label:this.$t("btn.certified"),
+                        value:'certified'
+                    },
+                    {
+                        label:this.$t("btn.pending"),
+                        value:'pending'
+                    },{
+                        label:this.$t("btn.fail"),
+                        value:'fail'
+                    },
+                    {
+                        label:this.$t("btn.disable"),
+                        value:'disable'
+                    }
+                ],
+                schoolOptions:[],
+
+                listLevelOptions:[],
+                listOptions:[],
+                selectedLevel:null,
+                selectedStatus:null,
+
+
+                dialogFormVisible:false,
+                newForm:{
+                    email:null,
+                    level:null,
+                    status:'pending',
+                    school:null,
+                },
+
+                keyword:null,
+                pager:{
+                    pageSize:20,
+                    pageIndex:1,
+                    total:0,
+                    loading:false,
+                },
+                entryList:[],
             }
         },
         created(){
@@ -175,11 +284,96 @@
         computed: {
         },
         methods: {
-
+            getList:function (pageIndex) {
+                this.pager.pageIndex=pageIndex?pageIndex:1;
+                let params={
+                    ...Vue.sessionInfo(),
+                    pageIndex:this.pager.pageIndex,
+                    pageSize:this.pager.pageSize,
+                    mfiLevel:this.selectedLevel,
+                    instructorAccountStatus:this.selectedStatus,
+                    searchContent:this.keyword,
+                }
+                this.pager.loading=true;
+                Vue.api.getCoachList(params).then((resp)=>{
+                    this.pager.loading=false;
+                    if(resp.respCode=='2000'){
+                        let data=JSON.parse(resp.respMsg);
+                        this.entryList=JSON.parse(data.instructorList);
+                        this.pager.total=data.count;
+                    }
+                });
+            },
+            levelChange:function (data) {
+                this.getList();
+            },
+            statusChange:function (data) {
+                this.getList();
+            },
+            getSchoolList:function () {
+                let params={
+                    ...Vue.sessionInfo(),
+                    pageIndex:1,
+                    pageSize:1000,
+                    searchContent:null,
+                }
+                Vue.api.getSchoolList(params).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        let data=JSON.parse(resp.respMsg);
+                        let list=JSON.parse(data.schoolList);
+                        list.forEach((item,i)=>{
+                            this.schoolOptions.push({
+                                label:item.serialCode,
+                                value:item.serialCode,
+                            })
+                        })
+                    }
+                });
+            },
+            save:function () {
+                if(!this.newForm.email){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.email")});
+                    return;
+                }
+                if(!this.newForm.level){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.level")});
+                    return;
+                }
+                if(!this.newForm.school){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.school")});
+                    return;
+                }
+                let params={
+                    ...Vue.sessionInfo(),
+                    email:this.newForm.email,
+                    mfiLevel:this.newForm.level,
+                    schoolConfigParm:this.newForm.school,
+                }
+                let fb=Vue.operationFeedback({text:this.$t("tips.save")});
+                Vue.api.addCoach(params).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        this.getList();
+                        this.dialogFormVisible=false;
+                        fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
+                    }else{
+                        fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                    }
+                });
+            },
         },
         mounted () {
-
-
+            /**/
+            this.listLevelOptions=[].concat(this.levelOptions,[{
+                value:null,
+                label:this.$t("btn.all"),
+            }]);
+            this.listOptions=[].concat(this.options,[{
+                value:null,
+                label:this.$t("btn.all"),
+            }]);
+            /**/
+            this.getList();
+            this.getSchoolList();
         },
     }
 </script>

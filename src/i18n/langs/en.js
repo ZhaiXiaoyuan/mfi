@@ -24,6 +24,11 @@ const en = {
         title:'title',
         file:'file',
         time:'time',
+        level:'level',
+        status:'status',
+        auditDate:'audit date',
+        email:"email",
+        school:'school',
     },
     holder: {
         account:'please enter your account',
@@ -37,7 +42,11 @@ const en = {
         address:'please enter the address',
         code:'please enter the code',
         title:'please enter the title',
-        upload:'please upload the file'
+        upload:'please upload the file',
+        coachSearch:'email/name',
+        email:'please enter the email',
+        level:'please select the level',
+        school:'please select the school',
     },
     btn:{
         adminLogin:'administrator login',
@@ -65,7 +74,15 @@ const en = {
         upload:'upload file',
         reUpload:'upload again',
         back:'back',
-        download:'download'
+        download:'download',
+        detail:'detail',
+        all:'All',
+        newCoach:'new coach',
+        nonactivated:'nonactivated',
+        certified:'certified',
+        pending:'pending',
+        fail:'fail',
+        disable:'disable',
     },
     title:{
         super:'Auper Administrator',
@@ -78,7 +95,9 @@ const en = {
         addSchool:'New School',
         editSchool:'Edit School',
         message:'Message',
-        addMsg:'New Message'
+        addMsg:'New Message',
+        allCoach:'All Coach',
+        newCoach:'New Coach',
     },
     tips:{
         login:'logining...',

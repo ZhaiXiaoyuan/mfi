@@ -24,6 +24,11 @@ const tw = {
         title:'標題',
         file:'文件',
         time:'時間',
+        level:'等級',
+        status:'狀態',
+        auditDate:'審核日期',
+        email:"郵箱",
+        school:"學校",
     },
     holder: {
         account:'請輸入賬號',
@@ -37,7 +42,11 @@ const tw = {
         address:'請輸入地址',
         code:'請輸入編號',
         title:'請輸入標題',
-        upload:'請上傳文件'
+        upload:'請上傳文件',
+        coachSearch:'郵箱/名稱',
+        email:'請輸入郵箱',
+        level:'請選擇等級',
+        school:'請選擇學校',
     },
     btn:{
         adminLogin:'管理員登錄',
@@ -65,7 +74,15 @@ const tw = {
         upload:'上傳文件',
         reUpload:'重新上傳',
         back:'返回',
-        download:'下載文件'
+        download:'下載文件',
+        detail:'詳情',
+        all:'全部',
+        newCoach:'新建教練賬號',
+        nonactivated:'未激活',
+        certified:'已審核',
+        pending:'待審核',
+        fail:'審核不通過',
+        disable:'禁用'
     },
     title:{
         super:'超級管理員',
@@ -79,6 +96,8 @@ const tw = {
         editSchool:'編輯學校',
         message:'站內消息',
         addMsg:'新的消息',
+        allCoach:'所有教練',
+        newCoach:'新建教練',
     },
     tips:{
         login:'登錄中...',

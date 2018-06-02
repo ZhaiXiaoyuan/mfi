@@ -24,6 +24,11 @@ const cn = {
         title:'标题',
         file:'文件',
         time:'时间',
+        level:'等级',
+        status:'状态',
+        auditDate:'审核日期',
+        email:"邮箱",
+        school:'学校',
     },
     holder: {
         account:'请输入账号',
@@ -37,7 +42,11 @@ const cn = {
         address:'请输入地址',
         code:'请输入编号',
         title:'请输入标题',
-        upload:'请上传文件'
+        upload:'请上传文件',
+        coachSearch:'邮箱/名称',
+        email:'请输入邮箱',
+        level:'请选择等级',
+        school:'请选择学校',
     },
     btn:{
         adminLogin:'管理员登录',
@@ -65,7 +74,15 @@ const cn = {
         upload:'上传文件',
         reUpload:'重新上传',
         back:'返回',
-        download:'下载文件'
+        download:'下载文件',
+        detail:'详情',
+        all:'全部',
+        newCoach:'新建教练账号',
+        nonactivated:'未激活',
+        certified:'已审核',
+        pending:'待审核',
+        fail:'审核不通过',
+        disable:'禁用'
     },
     title:{
         super:'超级管理员',
@@ -79,6 +96,8 @@ const cn = {
         editSchool:'编辑学校',
         message:'站内消息',
         addMsg:'新的消息',
+        allCoach:'所有教练',
+        newCoach:'新建教练',
     },
     tips:{
         login:'登录中...',

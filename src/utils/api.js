@@ -128,6 +128,20 @@ export default {
                 params: params
             });
         },
+        getCoachList:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/instructor/getInstrutorList',
+                params: params
+            });
+        },
+        addCoach:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/instructor/addInstrutor',
+                params: params
+            });
+        },
     }
   },
 

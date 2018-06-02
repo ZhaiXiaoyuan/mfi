@@ -166,7 +166,7 @@
                 this.accountAccess=['01','02'];
                 /* this.accountAccess='all';*/
             }else if(this.accountInfo.type=='admin'){
-                this.accountAccess=['03','05'];
+                this.accountAccess=['03','04','05'];
             }
             this.initItems();
         },
