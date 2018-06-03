@@ -109,6 +109,10 @@ const tw = {
         waitingGrant:'等待授予',
         granted:'已授予',
         grant:'授予',
+        studentModule:'學員',
+        auditModule:'審核',
+        certificateModule:'證書統計',
+        settingModule:'設置',
     },
     title:{
         super:'超級管理員',
@@ -146,7 +150,8 @@ const tw = {
         saveS:'保存成功',
         saveF:'保存失敗，{msg}',
         delAdmin:'確定刪除管理員賬號：{msg}？',
-        delMsg:'確定刪除消息：{msg}？'
+        delMsg:'確定刪除消息：{msg}？',
+        developing:'功能開發中',
     },
     el: {
         colorpicker: {

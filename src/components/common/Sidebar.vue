@@ -166,7 +166,7 @@
                 this.accountAccess=['01','02'];
                 /* this.accountAccess='all';*/
             }else if(this.accountInfo.type=='admin'){
-                this.accountAccess=['03','04','05'];
+                this.accountAccess=['03','04','05','06','07','08','09'];
             }
             this.initItems();
         },
@@ -199,9 +199,32 @@
                    },
                    {
                        code:'05',
+                       icon: 'student-icon',
+                       index: '/studentList',
+                       title: this.$t("btn.studentModule"),
+                   },
+                   {
+                       code:'06',
+                       icon: 'audit-icon',
+                       index: '/audit',
+                       title: this.$t("btn.auditModule"),
+                   },
+                   {
+                       code:'07',
+                       icon: 'certificate-icon',
+                       index: '/certificate',
+                       title: this.$t("btn.certificateModule"),
+                   },
+                   {
+                       code:'08',
                        icon: 'school-icon',
                        index: '/schoolList',
                        title: this.$t("btn.school"),
+                   }, {
+                       code:'09',
+                       icon: 'setting-icon',
+                       index: '/setting',
+                       title: this.$t("btn.settingModule"),
                    },];
                /*菜单权限配置*/
                this.items=[];

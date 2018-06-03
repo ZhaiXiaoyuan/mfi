@@ -110,6 +110,10 @@ const cn = {
         waitingGrant:'等待授予',
         granted:'已授予',
         grant:'授予',
+        studentModule:'学员',
+        auditModule:'审核',
+        certificateModule:'证书统计',
+        settingModule:'设置',
     },
     title:{
         super:'超级管理员',
@@ -148,7 +152,8 @@ const cn = {
         saveF:'保存失败，{msg}',
         delAdmin:'确定删除管理员账号：{msg}？',
         delMsg:'确定删除消息：{msg}？',
-        total:'共{msg}条记录'
+        total:'共{msg}条记录',
+        developing:'功能开发中',
     },
     el: {
         colorpicker: {

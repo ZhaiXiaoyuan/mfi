@@ -54,6 +54,26 @@ export default new Router({
                     name:'courseDetail',
                     component: resolve => require(['../page/course/CourseDetail.vue'], resolve)
                 },
+                {
+                    path: '/studentList',
+                    name:'studentList',
+                    component: resolve => require(['../page/admin/Tem.vue'], resolve)
+                },
+                {
+                    path: '/audit',
+                    name:'audit',
+                    component: resolve => require(['../page/admin/Tem.vue'], resolve)
+                },
+                {
+                    path: '/certificate',
+                    name:'certificate',
+                    component: resolve => require(['../page/admin/Tem.vue'], resolve)
+                },
+                {
+                    path: '/setting',
+                    name:'setting',
+                    component: resolve => require(['../page/admin/Tem.vue'], resolve)
+                },
             ]
         },
         {

@@ -1,13 +1,14 @@
 <template>
     <div class="page-content coach-list">
         <div class="cm-panel">
-            <div class="panel-hd">
+           <!-- <div class="panel-hd">
                 <span class="title">{{$t("title.allCoach")}}</span>
-            </div>
+            </div>-->
             <div class="panel-bd">
                 <div class="cm-list-block" v-loading="pager.loading">
-                    <div class="block-hd">
-                        <div class="con-item">
+                    <div class="block-hd" style="text-align: center;margin-top: 50px">
+                        <p style="font-size: 24px;text-align: center;width: 100%">{{$t('tips.developing')}}</p>
+                       <!-- <div class="con-item">
                             <span class="label">{{$t("label.level")}}</span>
                             <el-select v-model="selectedLevel" @change="levelChange" class="handle cm-select">
                                 <el-option
@@ -33,9 +34,9 @@
                             <el-input :placeholder="$t('holder.coachSearch')" v-model="keyword" class="cm-search">
                                 <el-button slot="append" icon="el-icon-search" @click="getList()"></el-button>
                             </el-input>
-                        </div>
+                        </div>-->
                     </div>
-                    <table class="cm-entry-list">
+                  <!--  <table class="cm-entry-list">
                         <thead>
                         <tr>
                             <th>
@@ -50,9 +51,9 @@
                             <th>
                                 {{$t("label.status")}}
                             </th>
-                          <!--  <th>
+                          &lt;!&ndash;  <th>
                                 {{$t("label.auditDate")}}
-                            </th>-->
+                            </th>&ndash;&gt;
                             <th>
                                 {{$t("label.handle")}}
                             </th>
@@ -72,9 +73,9 @@
                             <td>
                                 {{item.instructorAccountStatus}}
                             </td>
-                          <!--  <td>
+                          &lt;!&ndash;  <td>
                                 2018.02.22
-                            </td>-->
+                            </td>&ndash;&gt;
                             <td>
                                 <span class="handle" @click="toDetail(index)">{{$t('btn.detail')}}</span>
                             </td>
@@ -90,7 +91,7 @@
                         :page-size="pager.pageSize"
                         layout="total, prev, pager, next, jumper"
                         :total="pager.total">
-                    </el-pagination>
+                    </el-pagination>-->
                 </div>
             </div>
         </div>
@@ -376,8 +377,8 @@
                 label:this.$t("btn.all"),
             }]);
             /**/
-            this.getList();
-            this.getSchoolList();
+        /*    this.getList();
+            this.getSchoolList();*/
         },
     }
 </script>

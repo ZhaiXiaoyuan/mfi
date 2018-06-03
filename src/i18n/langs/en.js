@@ -109,6 +109,10 @@ const en = {
         waitingGrant:'waiting',
         granted:'granted',
         grant:'grant',
+        studentModule:'Student',
+        auditModule:'Audit',
+        certificateModule:'Certificate Statistics',
+        settingModule:'Setting',
     },
     title:{
         super:'Super Administrator',
@@ -148,6 +152,7 @@ const en = {
         delAdmin:'are you sure to delete this Administrator:{msg}？',
         delMsg:'are you sure to delete this message：{msg}？',
         total:'total {msg} records',
+        developing:'developing',
     },
     el: {
         colorpicker: {
