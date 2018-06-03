@@ -142,6 +142,48 @@ export default {
                 params: params
             });
         },
+        grantCertificateToInstrutor:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/instructor/grantCertificateToInstrutor',
+                params: params
+            });
+        },
+        setInstructorAccountStatus:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/instructor/setInstructorAccountStatus',
+                params: params
+            });
+        },
+        setInstructorSchoolConfigParm:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/instructor/setInstructorSchoolConfigParm',
+                params: params
+            });
+        },
+        getCourseList:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/course/getCourseList',
+                params: params
+            });
+        },
+        getCourseStudentList:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/course/getCourseStudentMfiLevelState',
+                params: params
+            });
+        },
+        getCourseDetail:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/course/getCourseDetail',
+                params: params
+            });
+        },
     }
   },
 

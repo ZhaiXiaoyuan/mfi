@@ -265,6 +265,14 @@ body{
     //设置初始状态
     transition: 0s;
 }
+.cm-text{
+    font-size: 16px;
+    color: #999;
+}
+.cm-title{
+    font-size: 24px;
+    padding-bottom: 10px;
+}
 .cm-btn{
     cursor: pointer;
     user-select: none;
@@ -298,11 +306,15 @@ body{
         display: flex;
         align-items: center;
         width: 100%;
-        height: 80px;
+        height: 70px;
         color: #5560aa;
         text-align: center;
         background: #fff;
         border-radius: 10px;
+        .title{
+            font-size: 24px;
+            padding-right: 20px;
+        }
         .con-item{
             display: flex;
             align-items: center;
@@ -661,4 +673,7 @@ body{
 .cm-disabled{
     opacity: 0.6;
     pointer-events: none;
+}
+.cm-link-btn{
+    cursor: pointer;
 }

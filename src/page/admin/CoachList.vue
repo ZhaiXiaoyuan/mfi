@@ -76,7 +76,7 @@
                                 2018.02.22
                             </td>
                             <td>
-                                <span class="handle">{{$t('btn.detail')}}</span>
+                                <span class="handle" @click="toDetail(index)">{{$t('btn.detail')}}</span>
                             </td>
                         </tr>
                         </tbody>
@@ -108,7 +108,7 @@
                 </div>
                 <div class="cm-input-row">
                     <span class="field">{{$t("label.level")}}</span>
-                    <el-select v-model="newForm.level" @change="levelChange" class="handle cm-select">
+                    <el-select v-model="newForm.level" class="handle cm-select">
                         <el-option
                             v-for="(item,index) in levelOptions"
                             :key="index"
@@ -119,7 +119,7 @@
                 </div>
                 <div class="cm-input-row">
                     <span class="field">{{$t("label.school")}}</span>
-                    <el-select v-model="newForm.school" @change="levelChange" class="handle cm-select">
+                    <el-select v-model="newForm.school" class="handle cm-select">
                         <el-option
                             v-for="(item,index) in schoolOptions"
                             :key="index"
@@ -145,7 +145,6 @@
                 <div class="cm-btn cm-handle-btn handle-btn" @click="save">{{$t("btn.submit")}}</div>
             </div>
         </el-dialog>
-
     </div>
 </template>
 <style lang="less" rel="stylesheet/less">
@@ -359,6 +358,11 @@
                         fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
                     }
                 });
+            },
+            toDetail:function (index) {
+                let coach=this.entryList[index];
+                localStorage.setItem('curCoach',JSON.stringify(coach));
+                this.$router.push({name:'coachDetail',params:{}});
             },
         },
         mounted () {

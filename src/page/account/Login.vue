@@ -115,6 +115,7 @@
     }
     .switch-btn{
         position: fixed;
+        z-index: 100;
         top:45px;
         left: 45px;
         display: inline-block;

@@ -127,7 +127,7 @@ export default {
           },
         getAccountInfo:function () {
             let account=Vue.cookie.get('account');
-            if(account){
+            if(account&&account!='undefined'){
                 return JSON.parse(account);
             }else{
                 router.push({name:'login'});

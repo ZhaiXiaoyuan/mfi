@@ -29,6 +29,22 @@ const cn = {
         auditDate:'审核日期',
         email:"邮箱",
         school:'学校',
+        fName:'姓',
+        lName:'名',
+        gender:'姓名',
+        birth:'生日',
+        contact:'号码',
+        eContact:'紧急联系人',
+        insurance:'保险证明',
+        courseNo:'课程号',
+        courseName:'课程名称',
+        site:'地点',
+        startTime:'开始时间',
+        health:'健康状况证明',
+        theory:'理论学习',
+        pool:'泳池学习',
+        openWater:'开放水域学习',
+
     },
     holder: {
         account:'请输入账号',
@@ -47,6 +63,7 @@ const cn = {
         email:'请输入邮箱',
         level:'请选择等级',
         school:'请选择学校',
+        courseSearch:'课程名称',
     },
     btn:{
         adminLogin:'管理员登录',
@@ -82,7 +99,17 @@ const cn = {
         certified:'已审核',
         pending:'待审核',
         fail:'审核不通过',
-        disable:'禁用'
+        disable:'禁用',
+        viewAll:'查看全部',
+        student:'学员信息',
+        course:'课程信息',
+        AuthorizationRecord:'授权记录',
+        completeStatus:'完成',
+        waitingStatus:'待定',
+        pendingGrant:'待定',
+        waitingGrant:'等待授予',
+        granted:'已授予',
+        grant:'授予',
     },
     title:{
         super:'超级管理员',
@@ -98,6 +125,13 @@ const cn = {
         addMsg:'新的消息',
         allCoach:'所有教练',
         newCoach:'新建教练',
+        lCertificate:'等级证书',
+        oCertificate:'其他',
+        levelSetting:'等级设置',
+        schoolSetting:'学校设置',
+        auditingSetting:'审核设置',
+        someoneCourse:'{msg}的课程信息',
+        courseDetail:'{msg} 课程详情',
     },
     tips:{
         login:'登录中...',
@@ -113,7 +147,8 @@ const cn = {
         saveS:'保存成功',
         saveF:'保存失败，{msg}',
         delAdmin:'确定删除管理员账号：{msg}？',
-        delMsg:'确定删除消息：{msg}？'
+        delMsg:'确定删除消息：{msg}？',
+        total:'共{msg}条记录'
     },
     el: {
         colorpicker: {
