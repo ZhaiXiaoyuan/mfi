@@ -191,6 +191,13 @@ export default {
                 params: params
             });
         },
+        getUserBaseInfo:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/user/getUserBaseInfo',
+                params: params
+            });
+        },
     }
   },
 

@@ -477,7 +477,22 @@
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
                         this.certificateList=data;
-                        console.log('data:',data);
+                        console.log('data1:',data);
+                    }else{
+
+                    }
+                });
+            },
+            getUserBaseInfo:function () {
+                let params={
+                    ...Vue.sessionInfo(),
+                    userId:this.coach.id,
+                    role:'instructor'
+                }
+                Vue.api.getUserBaseInfo(params).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        let data=JSON.parse(resp.respMsg);
+                        console.log('data2:',data);
                     }else{
 
                     }
@@ -490,6 +505,7 @@
 
             /**/
             this.coach=JSON.parse(localStorage.getItem('curCoach'));
+            this.getUserBaseInfo();
             this.getUserCertificate();
             if(this.coach.firstAidPic){
                 this.aidPicList.push({
