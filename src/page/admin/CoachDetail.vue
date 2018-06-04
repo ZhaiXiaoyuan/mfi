@@ -340,7 +340,10 @@
                         value:'disable'
                     }
                 ],
-                schoolOptions:[],
+                schoolOptions:[{
+                    label:this.$t("btn.configurable"),
+                    value:'configurable'
+                },],
 
                 isSetting:false,
 
@@ -465,6 +468,19 @@
                 localStorage.setItem('curCoach',JSON.stringify(this.coach));
 
                 this.$router.push({name:'courseList',params:{id:this.coach.id}})
+            },
+            getUserCertificate:function () {
+                let params={
+                    ...Vue.sessionInfo(),
+                    userId:this.coach.id,
+                }
+                Vue.api.getUserCertificate(params).then((resp)=>{
+                    if(resp.respCode=='2000'){
+
+                    }else{
+
+                    }
+                });
             }
         },
         mounted () {
@@ -473,8 +489,15 @@
 
             /**/
             this.coach=JSON.parse(localStorage.getItem('curCoach'));
+            this.getUserCertificate();
             if(this.coach.firstAidPic){
                 this.aidPicList.push({
+                    filePath:Vue.basicConfig.filePrefix+this.coach.firstAidPic
+                })
+            }
+            if(this.coach.firstAidPic){
+                this.otherPicList.push({
+                    label:this.$t('label.firstAid'),
                     filePath:Vue.basicConfig.filePrefix+this.coach.firstAidPic
                 })
             }

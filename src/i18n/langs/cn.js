@@ -36,6 +36,7 @@ const cn = {
         contact:'号码',
         eContact:'紧急联系人',
         insurance:'保险证明',
+        firstAid:'急救证明',
         courseNo:'课程号',
         courseName:'课程名称',
         site:'地点',
@@ -114,6 +115,7 @@ const cn = {
         auditModule:'审核',
         certificateModule:'证书统计',
         settingModule:'设置',
+        configurable:'可自行设置',
     },
     title:{
         super:'超级管理员',

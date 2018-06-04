@@ -36,6 +36,7 @@ const tw = {
         contact:'號碼',
         eContact:'緊急聯系人',
         insurance:'保險證明',
+        firstAid:'急救證明',
         courseNo:'課程號',
         courseName:'課程名稱',
         site:'地點',
@@ -113,6 +114,7 @@ const tw = {
         auditModule:'審核',
         certificateModule:'證書統計',
         settingModule:'設置',
+        configurable:'可自行設置',
     },
     title:{
         super:'超級管理員',

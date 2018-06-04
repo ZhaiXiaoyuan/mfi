@@ -76,7 +76,7 @@
                                 2018.02.22
                             </td>-->
                             <td>
-                                <span class="handle" @click="toDetail(index)">{{$t('btn.detail')}}</span>
+                                <span class="handle" @click="toDetail(index)" :class="{'cm-disabled':item.instructorAccountStatus=='nonActivated'}">{{$t('btn.detail')}}</span>
                             </td>
                         </tr>
                         </tbody>
@@ -248,7 +248,10 @@
                         value:'disable'
                     }
                 ],
-                schoolOptions:[],
+                schoolOptions:[ {
+                    label:this.$t("btn.configurable"),
+                    value:'configurable'
+                },],
 
                 listLevelOptions:[],
                 listOptions:[],
@@ -260,7 +263,7 @@
                 newForm:{
                     email:null,
                     level:null,
-                    status:'pending',
+                    status:'nonactivated',
                     school:null,
                 },
 
@@ -299,6 +302,7 @@
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
                         this.entryList=JSON.parse(data.instructorList);
+                        console.log('this.entryList:', this.entryList);
                         this.pager.total=data.count;
                     }
                 });

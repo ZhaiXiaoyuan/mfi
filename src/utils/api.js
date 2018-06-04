@@ -184,6 +184,13 @@ export default {
                 params: params
             });
         },
+        getUserCertificate:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/certificate/getUserCertificate',
+                params: params
+            });
+        },
     }
   },
 
