@@ -100,13 +100,13 @@
                     <div class="block-bd">
                        <p class="title">{{$t('title.lCertificate')}}</p>
                         <ul class="pic-list">
-                            <li v-for="(item,index) in  aidPicList" @click="viewPicModal({imgUrl:item.filePath})">
+                            <li v-for="(item,index) in  certificateList" @click="viewPicModal({imgUrl:item.filePath})">
                                 <img :src="item.filePath">
                             </li>
                         </ul>
                         <div style="text-align: right;">
-                            <span class="count">{{$t('tips.total',{msg:aidPicList.length})}}</span>
-                            <span class="cm-link-btn" style="padding-left: 20px;" v-if="aidPicList.length>3">{{$t('btn.viewAll')}}</span>
+                            <span class="count">{{$t('tips.total',{msg:certificateList.length})}}</span>
+                          <!--  <span class="cm-link-btn" style="padding-left: 20px;" v-if="certificateList.length>3">{{$t('btn.viewAll')}}</span>-->
                         </div>
                     </div>
                     <div class="block-bd">
@@ -236,15 +236,13 @@
                 li{
                     float: left;
                     text-align: center;
+                    margin: 5px 25px 5px 0px;
                     img{
                         width: 140px;
                         height: 100px;
                     }
                     .label{
                         text-align: center;
-                    }
-                    &+li{
-                        margin-left: 25px;
                     }
                 }
             }
@@ -361,6 +359,7 @@
                 schoolForm:{
                     school:null,
                 },
+                certificateList:[],
             }
         },
         created(){
@@ -476,7 +475,9 @@
                 }
                 Vue.api.getUserCertificate(params).then((resp)=>{
                     if(resp.respCode=='2000'){
-
+                        let data=JSON.parse(resp.respMsg);
+                        this.certificateList=data;
+                        console.log('data:',data);
                     }else{
 
                     }
