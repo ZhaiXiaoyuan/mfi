@@ -1,5 +1,8 @@
+<script src="../../../static/lib/html2Canvas/html2canvas.min.js"></script>
+<script src="../../../../dh/HTvue-admin/gulpfile.js"></script>
 <template>
     <div class="page-content coach-detail">
+        <canvas id="myCanvas" width="1200" height="675" style="border:1px solid #d3d3d3;background:#ffffff;"></canvas>
         <div class="cm-panel">
             <div class="panel-hd">
                 <div class="cm-btn cm-return-btn" @click="$router.back();">
@@ -188,6 +191,8 @@
                 <div class="cm-btn cm-handle-btn handle-btn" @click="saveSchool">{{$t("btn.submit")}}</div>
             </div>
         </el-dialog>
+
+        <img :src="testUrl" id="test" alt="">
     </div>
 </template>
 <style lang="less" rel="stylesheet/less">
@@ -274,6 +279,7 @@
             return {
                 account:{},
                 defaultAvatar:require('../../images/common/default-avatar.png'),
+                bgImg:require('../../images/common/card-bg.jpg'),
 
                 coach:{},
                 aidPicList:[],
@@ -360,6 +366,8 @@
                     school:null,
                 },
                 certificateList:[],
+
+                testUrl:null,
             }
         },
         created(){
@@ -497,6 +505,47 @@
 
                     }
                 });
+            },
+            circleImg:function(ctx, img, x, y, r) {
+                ctx.save();
+                var d =2 * r;
+                var cx = x + r;
+                var cy = y + r;
+                ctx.arc(cx, cy, r, 0, 2 * Math.PI);
+                ctx.clip();
+                ctx.drawImage(img, x, y, d, d);
+                ctx.restore();
+            },
+            draw:function () {
+                var canvas=document.getElementById("myCanvas");
+                var ctx=canvas.getContext("2d");
+
+                ctx.save();
+                let bgImg=new Image();
+                bgImg.src=this.bgImg;
+                bgImg.onload=function(){
+                    ctx.drawImage(bgImg,0,0);
+                    ctx.restore();
+                }
+
+                ctx.save();
+                let avatarImg=new Image();
+                avatarImg.width=400;
+                avatarImg.height=400;
+                avatarImg.src='https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=589774041,1624402021&fm=58&bpow=640&bpoh=649';
+                avatarImg.onload=function(){
+                    var pattern = ctx.createPattern(avatarImg, "no-repeat");
+                    ctx.roundRect(0, 0, avatarImg.width, avatarImg.height, 0);
+                    ctx.fillStyle = 'red';
+                    ctx.fill();
+
+
+                /*    ctx.drawImage(avatarImg,10,10,200,200);*/
+
+
+                    ctx.restore();
+                }
+
             }
         },
         mounted () {
@@ -532,6 +581,22 @@
             this.schoolForm.school=this.coach.school;
             console.log('this.coach:',this.coach);
 
+            //临时测试
+            CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
+                var min_size = Math.min(w, h);
+                if (r > min_size / 2) r = min_size / 2;
+                // 开始绘制
+                this.beginPath();
+                this.moveTo(x + r, y);
+                this.arcTo(x + w, y, x + w, y + h, r);
+                this.arcTo(x + w, y + h, x, y + h, r);
+                this.arcTo(x, y + h, x, y, r);
+                this.arcTo(x, y, x + w, y, r);
+                this.stroke();
+                this.closePath();
+                return this;
+            }
+            this.draw();
         },
     }
 </script>
