@@ -516,6 +516,13 @@
                 ctx.drawImage(img, x, y, d, d);
                 ctx.restore();
             },
+            drawText:function (ctx,text) {
+             /*   ctx.save();*/
+                ctx.font = "40px ' Helvetica Neue', Helvetica, Arial, 'Microsoft Yahei', 'Hiragino Sans GB', 'Heiti SC', 'WenQuanYi Micro Hei'";
+                ctx.fillStyle = "#666";
+                ctx.fillText(text,30,60,200);
+               /* ctx.restore();*/
+            },
             draw:function () {
                 var canvas=document.getElementById("myCanvas");
                 var ctx=canvas.getContext("2d");
@@ -529,23 +536,14 @@
                 }
 
                 ctx.save();
-                let avatarImg=new Image();
-                avatarImg.width=400;
-                avatarImg.height=400;
-                avatarImg.src='https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=589774041,1624402021&fm=58&bpow=640&bpoh=649';
-                avatarImg.onload=function(){
-                    var pattern = ctx.createPattern(avatarImg, "no-repeat");
-                    ctx.roundRect(0, 0, avatarImg.width, avatarImg.height, 0);
-                    ctx.fillStyle = 'red';
-                    ctx.fill();
-
-
-                /*    ctx.drawImage(avatarImg,10,10,200,200);*/
-
-
-                    ctx.restore();
+                var img = new Image();
+                img.src = 'http://39.108.11.197/mfiFile/user/749cf6929012427c81c45fd619d5e33d-headPic-image.jpeg';
+                let that=this;
+                img.onload=function () {
+                    that.circleImg(ctx, img, 95, 101, 150);
                 }
 
+                this.drawText(ctx,'啦啦啦德玛西亚');
             }
         },
         mounted () {
