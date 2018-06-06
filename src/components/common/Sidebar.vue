@@ -206,13 +206,13 @@
                    {
                        code:'06',
                        icon: 'audit-icon',
-                       index: '/audit',
+                       index: '/auditList',
                        title: this.$t("btn.auditModule"),
                    },
                    {
                        code:'07',
                        icon: 'certificate-icon',
-                       index: '/certificate',
+                       index: '/certificateStatistics',
                        title: this.$t("btn.certificateModule"),
                    },
                    {

@@ -677,3 +677,23 @@ body{
 .cm-link-btn{
     cursor: pointer;
 }
+.cm-tab-list{
+    overflow: hidden;
+    li{
+        float: left;
+        display: flex;
+        height: 60px;
+        align-items: center;
+        font-size: 30px;
+        color: #fff;
+        opacity: 0.6;
+        cursor: pointer;
+        &+li{
+            margin-left: 20px;
+        }
+        &.active{
+            opacity: 1;
+            border-bottom: 2px solid #fff;
+        }
+    }
+}

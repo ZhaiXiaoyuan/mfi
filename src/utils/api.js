@@ -198,6 +198,21 @@ export default {
                 params: params
             });
         },
+        getAuditList:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/audit/getAuditList',
+                params: params
+            });
+        },
+        //获取某教练购买证书   获取平台证书统计
+        getInstructorBuyCertificate:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/certificate/getInstructorBuyCertificate',
+                params: params
+            });
+        },
     }
   },
 

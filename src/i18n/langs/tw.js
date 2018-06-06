@@ -45,6 +45,15 @@ const tw = {
         theory:'理論學習',
         pool:'泳池學習',
         openWater:'開放水域學習',
+        auditType:'審核類別',
+        type:'類別',
+        status:'狀態',
+        submitDate:'提交日期',
+        orderNo:'訂單號',
+        buyer:'購買賬號',
+        count:'數量',
+        amount:'金額',
+        orderTime:'訂單時間',
     },
     holder: {
         account:'請輸入賬號',
@@ -64,6 +73,7 @@ const tw = {
         level:'請選擇等級',
         school:'請選擇學校',
         courseSearch:'課程名稱',
+        certificateStatisticsSearch:'賬號/姓名 模糊檢索'
     },
     btn:{
         adminLogin:'管理員登錄',
@@ -115,6 +125,11 @@ const tw = {
         certificateModule:'證書統計',
         settingModule:'設置',
         configurable:'可自行設置',
+        dueAudit:'教練賬號到期證書審核',
+        toInstructor:'學員轉教練賬號審核',
+        auditPending:'待審核',
+        auditPass:'已通過',
+        auditFail:'已駁回',
     },
     title:{
         super:'超級管理員',
@@ -137,6 +152,7 @@ const tw = {
         auditingSetting:'審核設置',
         someoneCourse:'{msg}的課程信息',
         courseDetail:'{msg} 課程詳情',
+        certificateStatistics:'證書統計',
     },
     tips:{
         login:'登錄中...',

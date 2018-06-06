@@ -45,7 +45,17 @@ const cn = {
         theory:'理论学习',
         pool:'泳池学习',
         openWater:'开放水域学习',
-
+        auditType:'审核类别',
+        type:'类别',
+        status:'状态',
+        submitDate:'提交日期',
+        dueAudit:'教练账号到期证书审核',
+        toInstructor:'学员转教练账号审核',
+        orderNo:'订单号',
+        buyer:'购买账号',
+        count:'数量',
+        amount:'金额',
+        orderTime:'订单时间',
     },
     holder: {
         account:'请输入账号',
@@ -65,6 +75,7 @@ const cn = {
         level:'请选择等级',
         school:'请选择学校',
         courseSearch:'课程名称',
+        certificateStatisticsSearch:'账号/姓名 模糊检索'
     },
     btn:{
         adminLogin:'管理员登录',
@@ -116,6 +127,11 @@ const cn = {
         certificateModule:'证书统计',
         settingModule:'设置',
         configurable:'可自行设置',
+        dueAudit:'教练账号到期证书审核',
+        toInstructor:'学员转教练账号审核',
+        auditPending:'待审核',
+        auditPass:'已通过',
+        auditFail:'已驳回',
     },
     title:{
         super:'超级管理员',
@@ -138,6 +154,7 @@ const cn = {
         auditingSetting:'审核设置',
         someoneCourse:'{msg}的课程信息',
         courseDetail:'{msg} 课程详情',
+        certificateStatistics:'证书统计',
     },
     tips:{
         login:'登录中...',

@@ -2,7 +2,7 @@
 <script src="../../../../dh/HTvue-admin/gulpfile.js"></script>
 <template>
     <div class="page-content coach-detail">
-        <canvas id="myCanvas" width="1200" height="675" style="border:1px solid #d3d3d3;background:#ffffff;"></canvas>
+        <canvas width="1200" v-for="(item,index) in rawCertificateList" :id="'canvas'+index"  height="675" style="display:none;border:1px solid #d3d3d3;background:#ffffff;"></canvas>
         <div class="cm-panel">
             <div class="panel-hd">
                 <div class="cm-btn cm-return-btn" @click="$router.back();">
@@ -365,6 +365,7 @@
                 schoolForm:{
                     school:null,
                 },
+                rawCertificateList:[],
                 certificateList:[],
 
                 testUrl:null,
@@ -483,9 +484,27 @@
                 }
                 Vue.api.getUserCertificate(params).then((resp)=>{
                     if(resp.respCode=='2000'){
-                        let data=JSON.parse(resp.respMsg);
-                        this.certificateList=data;
-                        console.log('data1:',data);
+                        this.rawCertificateList=JSON.parse(resp.respMsg);
+
+                        setTimeout(()=>{
+                            this.rawCertificateList.forEach((item,i)=>{
+                                item.certificate=JSON.parse(item.certificate);
+                                this.draw({
+                                    id:'canvas'+i,
+                                    avatar:'http://39.108.11.197/mfiFile/user/749cf6929012427c81c45fd619d5e33d-headPic-image.jpeg',
+                                    name:item.certificate.possessorId,
+                                    level:item.certificate.mfiLevel,
+                                    certificateNo:item.certificate.serialCode,
+                                    date:Vue.formatDate(item.certificate.createdAt,'yyyy-MM-dd'),
+                                    issuer:item.certificate.schoolSerialCode,
+                                    callback:(data)=>{
+                                        item.filePath=data;
+                                        this.certificateList.push(item);
+                                    }
+                                });
+                            });
+                            console.log('this.certificateList:',this.certificateList);
+                        },1000)
                     }else{
 
                     }
@@ -516,15 +535,17 @@
                 ctx.drawImage(img, x, y, d, d);
                 ctx.restore();
             },
-            drawText:function (ctx,text) {
-             /*   ctx.save();*/
-                ctx.font = "40px ' Helvetica Neue', Helvetica, Arial, 'Microsoft Yahei', 'Hiragino Sans GB', 'Heiti SC', 'WenQuanYi Micro Hei'";
+            drawText:function (ctx,text,x,y) {
+                ctx.save();
+                ctx.font = "32px ' Helvetica Neue', Helvetica, Arial, 'Microsoft Yahei', 'Hiragino Sans GB', 'Heiti SC', 'WenQuanYi Micro Hei'";
                 ctx.fillStyle = "#666";
-                ctx.fillText(text,30,60,200);
-               /* ctx.restore();*/
+                ctx.fillText(text,x,y,300);
+                ctx.restore();
             },
-            draw:function () {
-                var canvas=document.getElementById("myCanvas");
+            draw:function (options) {
+                console.log('id:',options.id);
+                let that=this;
+                var canvas=document.getElementById(options.id);
                 var ctx=canvas.getContext("2d");
 
                 ctx.save();
@@ -533,17 +554,29 @@
                 bgImg.onload=function(){
                     ctx.drawImage(bgImg,0,0);
                     ctx.restore();
+
+
+                    ctx.save();
+                    var img = new Image();
+                    img.src = options.avatar;
+                    img.onload=function () {
+                        that.circleImg(ctx, img, 95, 101, 150);
+                        ctx.restore();
+
+                        //
+                        that.drawText(ctx,options.name,490,170);
+                        that.drawText(ctx,options.level,880,170);
+
+                        that.drawText(ctx,options.certificateNo,490,275);
+                        that.drawText(ctx,options.date,880,275);
+
+                        that.drawText(ctx,options.issuer,490,380);
+                        //
+                        let dataUrl = canvas.toDataURL('image/jpeg');
+                        options.callback&&options.callback(dataUrl);
+                    }
                 }
 
-                ctx.save();
-                var img = new Image();
-                img.src = 'http://39.108.11.197/mfiFile/user/749cf6929012427c81c45fd619d5e33d-headPic-image.jpeg';
-                let that=this;
-                img.onload=function () {
-                    that.circleImg(ctx, img, 95, 101, 150);
-                }
-
-                this.drawText(ctx,'啦啦啦德玛西亚');
             }
         },
         mounted () {
@@ -578,23 +611,6 @@
             this.statusForm.status=this.coach.instructorAccountStatus;
             this.schoolForm.school=this.coach.school;
             console.log('this.coach:',this.coach);
-
-            //临时测试
-            CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
-                var min_size = Math.min(w, h);
-                if (r > min_size / 2) r = min_size / 2;
-                // 开始绘制
-                this.beginPath();
-                this.moveTo(x + r, y);
-                this.arcTo(x + w, y, x + w, y + h, r);
-                this.arcTo(x + w, y + h, x, y + h, r);
-                this.arcTo(x, y + h, x, y, r);
-                this.arcTo(x, y, x + w, y, r);
-                this.stroke();
-                this.closePath();
-                return this;
-            }
-            this.draw();
         },
     }
 </script>

@@ -45,6 +45,15 @@ const en = {
         theory:'theory study',
         pool:'swimming pool study',
         openWater:'open waters study',
+        auditType:'audit type',
+        type:'type',
+        status:'status',
+        submitDate:'submit date',
+        orderNo:'order no',
+        buyer:'buyer',
+        count:'count',
+        amount:'amount',
+        orderTime:'time',
     },
     holder: {
         account:'please enter your account',
@@ -63,7 +72,8 @@ const en = {
         email:'please enter the email',
         level:'please select the level',
         school:'please select the school',
-        courseSearch:'course name'
+        courseSearch:'course name',
+        certificateStatisticsSearch:'account/name'
     },
     btn:{
         adminLogin:'administrator login',
@@ -115,6 +125,11 @@ const en = {
         certificateModule:'Certificate Statistics',
         settingModule:'Setting',
         configurable:'configurable',
+        dueAudit:'instructor due audit',
+        toInstructor:'student to instructor',
+        auditPending:'pending',
+        auditPass:'pass',
+        auditFail:'fail',
     },
     title:{
         super:'Super Administrator',
@@ -137,6 +152,7 @@ const en = {
         auditingSetting:'Auditing Setting',
         someoneCourse:'{msg}\'s course',
         courseDetail:'{msg} Detail',
+        certificateStatistics:'Certificate Statistics',
     },
     tips:{
         login:'logining...',

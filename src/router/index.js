@@ -74,6 +74,16 @@ export default new Router({
                     name:'setting',
                     component: resolve => require(['../page/admin/Tem.vue'], resolve)
                 },
+                {
+                    path: '/auditList',
+                    name:'auditList',
+                    component: resolve => require(['../page/admin/AuditList.vue'], resolve)
+                },
+                {
+                    path: '/certificateStatistics',
+                    name:'certificateStatistics',
+                    component: resolve => require(['../page/admin/CertificateStatistics.vue'], resolve)
+                },
             ]
         },
         {
