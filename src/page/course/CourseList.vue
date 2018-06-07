@@ -89,10 +89,42 @@
                 </div>
             </div>
         </div>
+
+        <div class="cm-btn cm-add-btn" v-if="account.type=='coach'" @click="dialogFormVisible=true">
+            <div class="icon-wrap">
+                <i class="icon add-cross-icon"></i>
+            </div>
+            <p>{{$t('btn.newCourse')}}</p>
+        </div>
+        <el-dialog :title='$t("title.newCourse")' class="cm-dialog new-course-dialog" :visible.sync="dialogFormVisible" v-if="dialogFormVisible" width="40%">
+            <div class="form">
+                <div class="cm-input-row">
+                    <span class="field">{{$t("label.courseName")}}</span>
+                    <input type="text" v-model="newForm.name" class="cm-input">
+                </div>
+                <div class="cm-input-row">
+                    <span class="field">{{$t("label.level")}}</span>
+                    <el-select v-model="newForm.level" class="handle cm-select">
+                        <el-option
+                            v-for="(item,index) in levelOptions"
+                            :key="index"
+                            :label="item.label"
+                            :value="item.value">
+                        </el-option>
+                    </el-select>
+                </div>
+            </div>
+            <div class="handle-list">
+                <div class="cm-btn cm-handle-btn handle-btn" @click="dialogFormVisible=false">{{$t("btn.cancel")}}</div>
+                <div class="cm-btn cm-handle-btn handle-btn" @click="save">{{$t("btn.submit")}}</div>
+            </div>
+        </el-dialog>
     </div>
 </template>
 <style lang="less" rel="stylesheet/less">
-
+    .cm-input-row .field{
+        min-width: 110px;
+    }
 </style>
 <script>
     import Vue from 'vue'
@@ -103,6 +135,7 @@
         },
         data() {
             return {
+                account:{},
                 coach:{},
 
                 levelOptions:[
@@ -143,11 +176,8 @@
                         label:'MIT',
                     },
                 ],
-
                 listLevelOptions:[],
                 selectedLevel:null,
-
-
 
                 keyword:null,
                 pager:{
@@ -157,6 +187,12 @@
                     loading:false,
                 },
                 entryList:[],
+
+                dialogFormVisible:true,
+                newForm:{
+                    level:null,
+
+                }
             }
         },
         created(){
@@ -201,6 +237,10 @@
         mounted () {
             /**/
             this.coach=JSON.parse(localStorage.getItem('curCoach'));
+            this.account=Vue.getAccountInfo();
+            console.log('this.account:',this.account);
+            this.coach=this.account.type=='coach'?this.account:this.coach;
+
             /**/
             this.listLevelOptions=[].concat(this.levelOptions,[{
                 value:null,

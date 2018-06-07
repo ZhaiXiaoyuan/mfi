@@ -1,7 +1,10 @@
 <template>
     <div class="login-page">
-        <div class="cm-btn switch-btn" v-if="type=='super'" @click="switchType('admin')">{{$t("btn.adminLogin")}}</div>
-        <div class="cm-btn switch-btn" v-if="type=='admin'" @click="switchType('super')">{{$t("btn.superLogin")}}</div>
+        <div class="cm-btn switch-btn" v-if="type=='super'||type=='coach'||type=='student'" @click="switchType('admin')">{{$t("btn.adminLogin")}}</div>
+
+        <div class="cm-btn switch-btn" v-if="type=='admin'&&preType=='super'" @click="switchType('super')">{{$t("btn.superLogin")}}</div>
+        <div class="cm-btn switch-btn" v-if="type=='admin'&&preType=='coach'" @click="switchType('coach')">{{$t("btn.coachLogin")}}</div>
+        <div class="cm-btn switch-btn" v-if="type=='admin'&&preType=='student'" @click="switchType('student')">{{$t("btn.studentLogin")}}</div>
         <language></language>
         <div class="login-panel">
             <div class="form-block">
@@ -9,6 +12,8 @@
                     <p>MFI  EOS</p>
                     <p v-if="type=='super'">{{$t("title.super")}}</p>
                     <p v-if="type=='admin'">{{$t("title.admin")}}</p>
+                    <p v-if="type=='coach'">{{$t("title.coach")}}</p>
+                    <p v-if="type=='student'">{{$t("title.student")}}</p>
                 </div>
                 <div class="block-bd">
                     <div class="input-row">
@@ -128,6 +133,7 @@
 </style>
 <script>
     import Vue from 'vue'
+    import md5 from 'js-md5'
 
     export default {
         components:{
@@ -136,12 +142,14 @@
         data: function(){
             return {
                 type:'super',
+                preType:null,
                 account:null,
                 pwd:null,
             }
         },
         methods: {
             switchType:function (value) {
+                this.preType=this.type;
                 this.type=value;
                 this.account=null;
                 this.pwd=null;
@@ -194,6 +202,29 @@
                                 text:this.$t("tips.loginS")
                             });
                             this.$router.push({name:'msgList',params:{}});
+                        }else{
+                            fb.setOptions({
+                                type:'warn',
+                                text:this.$t("tips.loginF")
+                            });
+                        }
+                    });
+                }else if(this.type=='coach'){
+                    params.email=this.account;
+                    params.password=md5.hex(params.password);
+                    Vue.api.coachLogin(params).then((resp)=>{
+                        if(resp.respCode=='2000'){
+                            let data=JSON.parse(resp.respMsg);
+                            this.$cookie.set('account',JSON.stringify({
+                                type:this.type,
+                                account:this.account,
+                                ...data
+                            }),7);
+                            fb.setOptions({
+                                type:'complete',
+                                text:this.$t("tips.loginS")
+                            });
+                            this.$router.push({name:'courseList',params:{}});
                         }else{
                             fb.setOptions({
                                 type:'warn',

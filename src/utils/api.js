@@ -213,6 +213,14 @@ export default {
                 params: params
             });
         },
+        //教练登录
+        coachLogin:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/instructor/login',
+                params: params
+            });
+        },
     }
   },
 

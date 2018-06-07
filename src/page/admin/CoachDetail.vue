@@ -192,7 +192,6 @@
             </div>
         </el-dialog>
 
-        <img :src="testUrl" id="test" alt="">
     </div>
 </template>
 <style lang="less" rel="stylesheet/less">
@@ -368,7 +367,6 @@
                 rawCertificateList:[],
                 certificateList:[],
 
-                testUrl:null,
             }
         },
         created(){

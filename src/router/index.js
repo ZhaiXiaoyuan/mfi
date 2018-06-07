@@ -45,7 +45,7 @@ export default new Router({
                     component: resolve => require(['../page/admin/SchoolList.vue'], resolve)
                 },
                 {
-                    path: '/courseList/:id',
+                    path: '/courseList/:id?',
                     name:'courseList',
                     component: resolve => require(['../page/course/CourseList.vue'], resolve)
                 },

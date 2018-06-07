@@ -47,7 +47,6 @@ const cn = {
         openWater:'开放水域学习',
         auditType:'审核类别',
         type:'类别',
-        status:'状态',
         submitDate:'提交日期',
         dueAudit:'教练账号到期证书审核',
         toInstructor:'学员转教练账号审核',
@@ -56,6 +55,7 @@ const cn = {
         count:'数量',
         amount:'金额',
         orderTime:'订单时间',
+
     },
     holder: {
         account:'请输入账号',
@@ -80,6 +80,8 @@ const cn = {
     btn:{
         adminLogin:'管理员登录',
         superLogin:'超级管理员登录',
+        coachLogin:'教练登录',
+        studentLogin:'学员登录',
         login:'登 录',
         help:'帮助',
         administrator:'管理员',
@@ -132,10 +134,14 @@ const cn = {
         auditPending:'待审核',
         auditPass:'已通过',
         auditFail:'已驳回',
+        myCourse:'我的课程',
+        newCourse:'新的课程',
     },
     title:{
         super:'超级管理员',
         admin:'管理员',
+        coach:'教练',
+        student:'学员',
         school:'学校',
         administratorList:'管理员列表',
         resetPwd:'密码重置',
@@ -155,6 +161,7 @@ const cn = {
         someoneCourse:'{msg}的课程信息',
         courseDetail:'{msg} 课程详情',
         certificateStatistics:'证书统计',
+        newCourse:'新的课程',
     },
     tips:{
         login:'登录中...',

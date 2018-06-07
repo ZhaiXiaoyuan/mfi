@@ -168,6 +168,9 @@
             }else if(this.accountInfo.type=='admin'){
                 this.accountAccess=['03','04','05','06','07','08','09'];
             }
+            else if(this.accountInfo.type=='coach'){
+                this.accountAccess=['10'];
+            }
             this.initItems();
         },
         methods: {
@@ -225,6 +228,11 @@
                        icon: 'setting-icon',
                        index: '/setting',
                        title: this.$t("btn.settingModule"),
+                   },{
+                       code:'10',
+                       icon: 'course-icon',
+                       index: '/courseList',
+                       title: this.$t("btn.myCourse"),
                    },];
                /*菜单权限配置*/
                this.items=[];
