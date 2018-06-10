@@ -6,6 +6,7 @@ import Distpicker from './Distpicker';
 import OperationFeedback from './OperationFeedback';
 import ViewPicModal from './ViewPicModal';
 import Language from './Language';
+import PayModal from './PayModal';
 
 
 /*全局组件注册配置*/
@@ -16,10 +17,12 @@ export default {
     Vue.component('OperationFeedback',OperationFeedback);
     Vue.component('ViewPicModal',ViewPicModal);
     Vue.component('Language',Language);
+    Vue.component('PayModal',PayModal);
 
     /*方法调度方式*/
     let OperationFeedbackConstructor = Vue.extend(OperationFeedback);
     let ViewPicModalConstructor = Vue.extend(ViewPicModal);
+    let PayModalConstructor = Vue.extend(PayModal);
     const functionObject={
         /**
          * 操作提示
@@ -69,6 +72,23 @@ export default {
             instance.options=options;
             instance.$mount();
             parentEle.appendChild(instance.$el);
+        },
+        /**
+         * 查看照片弹窗
+         * @param options
+         */
+        payModal:function (options) {
+            options={...{},...options};
+            //
+            let parentEle=document.getElementById('app');
+            //
+            let instance=new PayModalConstructor({});
+            instance.options=options;
+            instance.$mount();
+            parentEle.appendChild(instance.$el);
+            return {
+                close:instance.close
+            }
         },
     }
     /**/

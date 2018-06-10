@@ -3,9 +3,9 @@
         <div class="user-info">
             <i class="icon logo-icon"></i>
             <p class="name">MFI  EOS</p>
-            <p class="role" v-if="accountInfo.type=='super'">{{this.$t("title.super")}}</p>
-            <p class="role" v-if="accountInfo.type=='admin'">{{this.$t("title.admin")}}</p>
-           <!-- <p class="account">账号：admin</p>-->
+            <p class="role" v-if="account.type=='super'">{{this.$t("title.super")}}</p>
+            <p class="role" v-if="account.type=='admin'">{{this.$t("title.admin")}}</p>
+            <p class="account">{{$t('label.account')}}：{{account.account?account.account:account.email}}</p>
         </div>
         <el-menu class="sidebar-el-menu" :default-active="onRoutes" :collapse="collapse" background-color="#fff"
             text-color="#888" active-text-color="#48b4ff" unique-opened router>
@@ -135,6 +135,8 @@
                 itemsConfig:[],
                 items: [],
                 pageName:null,
+
+                account:{},
             }
         },
         watch: {
@@ -160,16 +162,18 @@
 
 
             /**/
-            this.accountInfo=this.getAccountInfo();
+            this.account=this.getAccountInfo();
+            console.log('this.account:',this.account);
+
             this.accountAccess=null;
-            if(this.accountInfo.type=='super'){
+            if(this.account.type=='super'){
                 this.accountAccess=['01','02'];
                 /* this.accountAccess='all';*/
-            }else if(this.accountInfo.type=='admin'){
+            }else if(this.account.type=='admin'){
                 this.accountAccess=['03','04','05','06','07','08','09'];
             }
-            else if(this.accountInfo.type=='coach'){
-                this.accountAccess=['10'];
+            else if(this.account.type=='coach'){
+                this.accountAccess=['10','11','12','13'];
             }
             this.initItems();
         },
@@ -233,6 +237,21 @@
                        icon: 'course-icon',
                        index: '/courseList',
                        title: this.$t("btn.myCourse"),
+                   },{
+                       code:'11',
+                       icon: 'student-icon',
+                       index: '/studentList',
+                       title: this.$t("btn.myStudent"),
+                   },{
+                       code:'12',
+                       icon: 'certificate-icon',
+                       index: '/coachCertificateStatistics',
+                       title: this.$t("btn.certificateModule"),
+                   },{
+                       code:'13',
+                       icon: 'my-icon',
+                       index: '/coachDetail',
+                       title: this.$t("btn.my"),
                    },];
                /*菜单权限配置*/
                this.items=[];
@@ -250,7 +269,7 @@
            },
             logout:function () {
                 Vue.cookie.set('account','');
-                this.$router.push({name:'login',params:{type:this.accountInfo.type}});
+                this.$router.push({name:'login',params:{type:this.account.type}});
             },
         },
     }

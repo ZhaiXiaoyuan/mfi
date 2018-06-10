@@ -240,6 +240,13 @@ body{
     height: 28px;
     background-size: 100% 100%;
 }
+.my-icon{
+    display: inline-block;
+    background: url("../images/common/my-icon.png") no-repeat;
+    width: 24px;
+    height: 22px;
+    background-size: 100% 100%;
+}
 
 /**/
 
@@ -296,10 +303,17 @@ body{
 }
 .cm-panel{
     .panel-hd{
-        padding: 20px;
+        padding: 20px 20px 10px 20px;
+        display: flex;
+        align-items: center;
         .title{
             font-size: 30px;
             color: #fff;
+        }
+        .right-info{
+            margin-left: auto;
+            color: #fff;
+            font-size: 20px;
         }
     }
     .panel-bd{
@@ -389,9 +403,11 @@ body{
                     color: #5360aa;
                     font-size: 16px;
                     cursor: pointer;
-                    &+.handle{
-                        margin-left: 40px;
-                    }
+                    padding: 0px 5px;
+                }
+                .handle-btn{
+                  /*  margin: 5px;*/
+                    padding: 6px 10px;
                 }
                 .status-select-handle{
                     width: 100px;
@@ -624,6 +640,10 @@ body{
     max-width: 1200px;
     margin: 0px auto;
 }
+.page-content-md{
+    max-width: 1500px;
+    margin: 0px auto;
+}
 .cm-select{
     width: 200px;
     .el-input__inner{
@@ -702,5 +722,20 @@ body{
             opacity: 1;
             border-bottom: 2px solid #fff;
         }
+    }
+}
+.cm-date-selector{
+    width: 300px !important;
+    input{
+        padding: 0px 10px 0px 10px;
+        width: 300px;
+        height: 60px !important;
+        line-height: 60px !important;
+        background: #fff;
+        font-size: 20px;
+        border: none;
+        border-radius: 10px;
+        -webkit-box-shadow: 0px 1px 10px rgba(85, 96, 170, 0.3);
+        box-shadow: 0px 1px 10px rgba(85, 96, 170, 0.3);
     }
 }

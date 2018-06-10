@@ -15,63 +15,63 @@
                     <div class="block-bd">
                         <el-row>
                             <el-col :span="5">
-                                <img class="avatar" :src="coach.headPic?basicConfig.filePrefix+coach.headPic:defaultAvatar" alt="">
+                                <img class="avatar" :src="user.headPic?basicConfig.filePrefix+user.headPic:defaultAvatar" alt="">
                             </el-col>
                             <el-col :span="18">
                                 <el-row class="info-row">
                                     <el-col :span="5" class="info-item">
                                         <span class="label">{{$t('label.fName')}}：</span>
-                                        <span class="value">{{coach.familyName}}</span>
+                                        <span class="value">{{user.familyName}}</span>
 
                                     </el-col>
                                     <el-col :span="7" :offset="1" class="info-item">
                                         <span class="label">{{$t('label.lName')}}：</span>
-                                        <span class="value">{{coach.name}}</span>
+                                        <span class="value">{{user.name}}</span>
 
                                     </el-col>
                                     <el-col :span="9" :offset="1" class="info-item">
                                         <span class="label">{{$t('label.level')}}：</span>
-                                        <span class="value">{{coach.mfiLevel}}</span>
-                                        <i class="icon setting-min-icon" @click="levelSettingDialogFlag=true" v-if="account.type=='admin'"></i>
+                                        <span class="value">{{user.mfiLevel}}</span>
+                                        <i class="icon setting-min-icon" @click="levelSettingDialogFlag=true"  v-if="account.type=='admin'"></i>
                                     </el-col>
                                 </el-row>
                                 <el-row class="info-row">
                                     <el-col :span="5" class="info-item">
                                         <span class="label">{{$t('label.gender')}}：</span>
-                                        <span class="value">{{coach.gender}}</span>
+                                        <span class="value">{{user.gender}}</span>
 
                                     </el-col>
                                     <el-col :span="7" :offset="1" class="info-item">
                                         <span class="label">{{$t('label.birth')}}：</span>
-                                        <span class="value">{{coach.birth}}</span>
+                                        <span class="value">{{user.birth}}</span>
 
                                     </el-col>
                                     <el-col :span="9" :offset="1" class="info-item">
                                         <span class="label">{{$t('label.school')}}：</span>
-                                        <span class="value">{{coach.school}}</span>
+                                        <span class="value">{{user.school}}</span>
                                         <i class="icon setting-min-icon" @click="schoolSettingDialogFlag=true" v-if="account.type=='admin'"></i>
                                     </el-col>
                                 </el-row>
                                 <el-row class="info-row">
                                     <el-col :span="5" class="info-item">
                                         <span class="label">{{$t('label.country')}}：</span>
-                                        <span class="value">{{coach.country}}</span>
+                                        <span class="value">{{user.country}}</span>
 
                                     </el-col>
                                     <el-col :span="7" :offset="1" class="info-item">
                                         <span class="label">{{$t('label.city')}}：</span>
-                                        <span class="value">{{coach.city}}</span>
+                                        <span class="value">{{user.city}}</span>
                                     </el-col>
                                     <el-col :span="9" :offset="1" class="info-item">
                                         <span class="label">{{$t('label.status')}}：</span>
-                                        <span class="value">{{coach.instructorAccountStatus}}</span>
-                                        <i class="icon setting-min-icon" @click="statusSettingDialogFlag=true" v-if="account.type=='admin'"></i>
+                                        <span class="value">{{user.instructorAccountStatus}}</span>
+                                        <i class="icon setting-min-icon" @click="statusSettingDialogFlag=true"  v-if="account.type=='admin'"></i>
                                     </el-col>
                                 </el-row>
                                 <el-row class="info-row">
                                     <el-col :span="13" class="info-item">
                                         <span class="label">{{$t('label.address')}}：</span>
-                                        <span class="value">{{coach.address}}</span>
+                                        <span class="value">{{user.address}}</span>
                                     </el-col>
                                     <el-col :span="9" :offset="1" class="info-item">
                                         <span class="label">{{$t('label.auditDate')}}：</span>
@@ -83,17 +83,17 @@
                         <el-row style="margin-top: 20px;">
                             <el-col :span="7" class="info-item">
                                 <span class="label">{{$t('label.email')}}：</span>
-                                <span class="value">{{coach.email}}</span>
+                                <span class="value">{{user.email}}</span>
 
                             </el-col>
                             <el-col :span="7" :offset="1" class="info-item">
                                 <span class="label">{{$t('label.contact')}}：</span>
-                                <span class="value">{{coach.phone}}</span>
+                                <span class="value">{{user.phone}}</span>
 
                             </el-col>
                             <el-col :span="7"  :offset="1" class="info-item">
                                 <span class="label">{{$t('label.eContact')}}: </span>
-                                <span class="value">{{coach.emergencyPhone}}</span>
+                                <span class="value">{{user.emergencyPhone}}</span>
 
                             </el-col>
                         </el-row>
@@ -110,26 +110,75 @@
                           <!--  <span class="cm-link-btn" style="padding-left: 20px;" v-if="certificateList.length>3">{{$t('btn.viewAll')}}</span>-->
                         </div>
                     </div>
-                    <div class="block-bd">
-                        <p class="title">{{$t('title.oCertificate')}}</p>
-                        <ul class="pic-list">
-                            <li v-for="(item,index) in  otherPicList" @click="viewPicModal({imgUrl:item.filePath})">
-                                <img :src="item.filePath">
-                                <p class="label">{{item.label}}</p>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="block-bd" v-if="account.type=='admin'">
-                        <div class="btn-list">
-                            <div class="btn">{{$t("btn.student")}}</div>
-                            <div class="btn" @click="toCourse">{{$t("btn.course")}}</div>
-                            <div class="btn">{{$t("btn.AuthorizationRecord")}}</div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
 
+        <div class="cm-panel" v-if="account.type!='student'">
+            <div class="panel-hd">
+                <span class="title">{{$t("title.course")}}</span>
+            </div>
+            <div class="panel-bd">
+                <div class="cm-list-block" v-loading="pager.loading">
+                    <table class="cm-entry-list">
+                        <thead>
+                        <tr>
+                            <th>
+                                {{$t("label.courseNo")}}
+                            </th>
+                            <th>
+                                {{$t("label.courseName")}}
+                            </th>
+                            <th>
+                                {{$t("label.level")}}
+                            </th>
+                            <th>
+                                {{$t("label.site")}}
+                            </th>
+                            <th>
+                                {{$t("label.startTime")}}
+                            </th>
+                            <th>
+                                {{$t("label.handle")}}
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(item,index) in entryList">
+                            <td>
+                                {{item.courseId}}
+                            </td>
+                            <td>
+                                {{item.courseName}}
+                            </td>
+                            <td>
+                                {{item.mfiLevel}}
+                            </td>
+                            <td>
+                                {{item.site}}
+                            </td>
+                            <td>
+                                {{item.startTime}}
+                            </td>
+                            <td>
+                                <span class="handle" @click="$router.push({name:'courseDetail',params:{id:item.courseId}})">{{$t('btn.detail')}}</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <el-pagination
+                        class="cm-pager"
+                        @current-change="getList"
+                        :prev-text='$t("btn.prev")'
+                        :next-text='$t("btn.next")'
+                        :current-page="pager.pageIndex"
+                        :page-size="pager.pageSize"
+                        layout="total, prev, pager, next, jumper"
+                        :total="pager.total">
+                    </el-pagination>
+                </div>
+            </div>
+        </div>
 
         <el-dialog :title='$t("title.levelSetting")' class="edit-dialog cm-dialog school-dialog" :visible.sync="levelSettingDialogFlag" v-if="levelSettingDialogFlag" width="40%">
             <div class="form">
@@ -275,15 +324,14 @@
         },
         data() {
             return {
-                id:null,
-
                 account:{},
                 defaultAvatar:require('../../images/common/default-avatar.png'),
                 bgImg:require('../../images/common/card-bg.jpg'),
 
-                coach:{},
+                id:null,
+                user:{},
+
                 aidPicList:[],
-                otherPicList:[],
 
                 levelOptions:[
                     /* {
@@ -368,6 +416,14 @@
                 rawCertificateList:[],
                 certificateList:[],
 
+                pager:{
+                    pageSize:20,
+                    pageIndex:1,
+                    total:0,
+                    loading:false,
+                },
+                entryList:[],
+
             }
         },
         created(){
@@ -386,7 +442,7 @@
                 let params={
                     ...Vue.sessionInfo(),
                     adminId:this.account.id,
-                    userId:this.coach.id,
+                    userId:this.user.id,
                     mfiLevel:this.levelForm.level,
                 }
                 let fb=Vue.operationFeedback({text:this.$t("tips.setting")});
@@ -395,7 +451,7 @@
                     this.isSetting=false;
                     if(resp.respCode=='2000'){
                         fb.setOptions({type:'complete', text:this.$t("tips.settingS")});
-                        this.coach.mfiLevel=this.levelForm.level;
+                        this.user.mfiLevel=this.levelForm.level;
                         this.levelSettingDialogFlag=false;
                         localStorage.setItem('curCoach',JSON.stringify(this.coach));
                     }else{
@@ -410,7 +466,7 @@
                 let params={
                     ...Vue.sessionInfo(),
                     adminId:this.account.id,
-                    userId:this.coach.id,
+                    userId:this.user.id,
                     instructorAccountStatus:this.statusForm.status,
                 }
                 let fb=Vue.operationFeedback({text:this.$t("tips.setting")});
@@ -419,7 +475,7 @@
                     this.isSetting=false;
                     if(resp.respCode=='2000'){
                         fb.setOptions({type:'complete', text:this.$t("tips.settingS")});
-                        this.coach.instructorAccountStatus=this.statusForm.status;
+                        this.user.instructorAccountStatus=this.statusForm.status;
                         this.statusSettingDialogFlag=false;
                         localStorage.setItem('curCoach',JSON.stringify(this.coach));
                     }else{
@@ -434,7 +490,7 @@
                 let params={
                     ...Vue.sessionInfo(),
                     adminId:this.account.id,
-                    userId:this.coach.id,
+                    userId:this.user.id,
                     schoolConfigParm:this.schoolForm.school,
                 }
                 let fb=Vue.operationFeedback({text:this.$t("tips.setting")});
@@ -443,7 +499,7 @@
                     this.isSetting=false;
                     if(resp.respCode=='2000'){
                         fb.setOptions({type:'complete', text:this.$t("tips.settingS")});
-                        this.coach.school=this.schoolForm.school;
+                        this.user.school=this.schoolForm.school;
                         this.schoolSettingDialogFlag=false;
                         localStorage.setItem('curCoach',JSON.stringify(this.coach));
                     }else{
@@ -470,11 +526,6 @@
                         })
                     }
                 });
-            },
-            toCourse:function () {
-                localStorage.setItem('curCoach',JSON.stringify(this.coach));
-
-                this.$router.push({name:'courseList',params:{id:this.coach.id}})
             },
             getUserCertificate:function () {
                 let params={
@@ -513,40 +564,38 @@
                 let params={
                     ...Vue.sessionInfo(),
                     userId:this.id,
-                    role:'instructor'
+                    role:'student'
                 }
                 Vue.api.getUserBaseInfo(params).then((resp)=>{
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
-                        this.coach=data;
-                        this.getUserCertificate();
-                        if(this.coach.firstAidPic){
-                            this.aidPicList.push({
-                                filePath:Vue.basicConfig.filePrefix+this.coach.firstAidPic
-                            })
-                        }
-                        if(this.coach.firstAidPic){
-                            this.otherPicList.push({
-                                label:this.$t('label.firstAid'),
-                                filePath:Vue.basicConfig.filePrefix+this.coach.firstAidPic
-                            })
-                        }
-                        if(this.coach.insurancePic){
-                            this.otherPicList.push({
-                                label:this.$t('label.insurance'),
-                                filePath:Vue.basicConfig.filePrefix+this.coach.insurancePic
-                            })
-                        }
-
-                        this.levelForm.level=this.coach.mfiLevel;
-                        this.statusForm.status=this.coach.instructorAccountStatus;
-                        this.schoolForm.school=this.coach.school;
-                        console.log('this.coach:',this.coach);
+                        this.user=data;
+                        console.log('data2:',data);
                     }else{
 
                     }
                 });
             },
+            getList:function (pageIndex) {
+                this.pager.pageIndex=pageIndex?pageIndex:1;
+                let params={
+                    ...Vue.sessionInfo(),
+                    pageIndex:this.pager.pageIndex,
+                    pageSize:this.pager.pageSize,
+                    userId:this.id,
+                    mfiLevel:'',
+                }
+                this.pager.loading=true;
+                Vue.api.getStudentJoinCourse(params).then((resp)=>{
+                    this.pager.loading=false;
+                    if(resp.respCode=='2000'){
+                        let data=JSON.parse(resp.respMsg);
+                        this.entryList=JSON.parse(data.courseList);
+                        this.pager.total=data.count;
+                    }
+                });
+            },
+
             circleImg:function(ctx, img, x, y, r) {
                 ctx.save();
                 var d =2 * r;
@@ -565,6 +614,7 @@
                 ctx.restore();
             },
             draw:function (options) {
+                console.log('id:',options.id);
                 let that=this;
                 var canvas=document.getElementById(options.id);
                 var ctx=canvas.getContext("2d");
@@ -601,15 +651,19 @@
         },
         mounted () {
             /**/
+            this.id=this.$route.params.id;
             this.account=Vue.getAccountInfo();
-
-            this.id=this.account.type=='coach'?this.account.id:this.$route.params.id;
 
             /**/
             this.getUserBaseInfo();
-
+            this.getUserCertificate();
+            this.getList();
             /**/
             this.getSchoolList();
+            /**/
+            this.levelForm.level=this.user.mfiLevel;
+            this.statusForm.status=this.user.instructorAccountStatus;
+            this.schoolForm.school=this.user.school;
         },
     }
 </script>

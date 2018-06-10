@@ -221,6 +221,110 @@ export default {
                 params: params
             });
         },
+        //添加课程
+        addCourse:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/course/addCourse',
+                params: params
+            });
+        },
+        //添加课程
+        setStudentMfiLevelState:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/course/setStudentMfiLevelState',
+                params: params
+            });
+        },
+        //授予证书
+        grant:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/certificate/certificatory',
+                params: params
+            });
+        },
+        //获取某个教练所有学生信息
+        getInstrutorStudentList:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/instructor/getInstrutorStudentList',
+                params: params
+            });
+        },
+        //将某个学生加入某个课程
+        addStudentToCourse:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/course/addStudentToCourse',
+                params: params
+            });
+        },
+        //获取学生加入的课程
+        getStudentJoinCourse:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/course/getStudentJoinCourse',
+                params: params
+            });
+        },
+        //新建学生
+        addStudent:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/student/addStudent',
+                params: params
+            });
+        },
+        //解密AES
+        getEmailByAesData:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/user/getEmailByAesData',
+                params: params
+            });
+        },
+        //设置用户头像
+        setHeadPic:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/user/setHeadPic',
+                params: params
+            });
+        },
+        //设置教练保险证明
+        setInsurancePic:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/instructor/setInsurancePic',
+                params: params
+            });
+        },
+        //设置教练急救证明
+        setFirstAidPic:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/instructor/setFirstAidPic',
+                params: params
+            });
+        },
+        //设置用户基本资料
+        setUserBaseInfo:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/user/setUserBaseInfo',
+                params: params
+            });
+        },
+        //激活账号
+        activate:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/user/activate',
+                params: params
+            });
+        },
     }
   },
 

@@ -2,22 +2,16 @@
     <div class="page-content coach-list">
         <div class="cm-panel">
             <div class="panel-hd">
-                <div class="cm-btn cm-return-btn" @click="$router.back();">
-                    <div class="wrapper">
-                        <i class="icon el-icon-arrow-left"></i>
-                        {{$t('btn.back')}}
-                    </div>
-                </div>
+                <span class="title">{{$t("title.certificateRecord")}}</span>
             </div>
             <div class="panel-bd">
                 <div class="cm-list-block" v-loading="pager.loading">
                     <div class="block-hd">
-                        <span class="title">{{$t("title.someoneCourse",{ msg:coach.name})}}</span>
                         <div class="con-item">
                             <span class="label">{{$t("label.level")}}</span>
                             <el-select v-model="selectedLevel" @change="levelChange" class="handle cm-select">
                                 <el-option
-                                    v-for="(item,index) in listLevelOptions"
+                                    v-for="(item,index) in levelOptions"
                                     :key="index"
                                     :label="item.label"
                                     :value="item.value">
@@ -25,7 +19,7 @@
                             </el-select>
                         </div>
                         <div class="con-item con-item-search">
-                            <el-input :placeholder="$t('holder.courseSearch')" v-model="keyword" class="cm-search">
+                            <el-input :placeholder="$t('holder.certificateStatisticsSearch')" v-model="keyword" class="cm-search">
                                 <el-button slot="append" icon="el-icon-search" @click="getList()"></el-button>
                             </el-input>
                         </div>
@@ -34,19 +28,22 @@
                         <thead>
                         <tr>
                             <th>
-                                {{$t("label.courseNo")}}
+                                {{$t("label.certificateNo")}}
                             </th>
                             <th>
-                                {{$t("label.courseName")}}
+                                {{$t("label.buyDate")}}
                             </th>
                             <th>
-                                {{$t("label.level")}}
+                                {{$t("label.school")}}
                             </th>
                             <th>
-                                {{$t("label.site")}}
+                                {{$t("label.status")}}
                             </th>
                             <th>
-                                {{$t("label.startTime")}}
+                                {{$t("label.student")}}
+                            </th>
+                            <th>
+                                {{$t("label.grantDate")}}
                             </th>
                             <th>
                                 {{$t("label.handle")}}
@@ -56,22 +53,29 @@
                         <tbody>
                         <tr v-for="(item,index) in entryList">
                             <td>
-                                {{item.courseId}}
+                                {{item.serialCode}}
                             </td>
                             <td>
-                                {{item.courseName}}
+                               {{item.createdAt|formatDate('yyyy-MM-dd')}}
                             </td>
                             <td>
-                                {{item.mfiLevel}}
+                                {{item.schoolSerialCode}}
                             </td>
                             <td>
-                                {{item.site}}
+                                {{item.userId?$t('btn.used'):$t('btn.unused')}}
                             </td>
                             <td>
-                                {{item.startTime}}
+                                {{item.userId?item.user.email:'-'}}
                             </td>
                             <td>
-                                <span class="handle" @click="toDetail(index)">{{$t('btn.detail')}}</span>
+                                <span v-if="item.userId">
+                                    {{item.updatedAt|formatDate('yyyy-MM-dd')}}
+                                </span>
+                                <span v-if="!item.userId">-</span>
+                            </td>
+                            <td>
+                                <el-button class="small handle-btn" v-if="item.userId">{{$t('btn.viewCertificate')}}</el-button>
+                                <span v-if="!item.userId">-</span>
                             </td>
                         </tr>
                         </tbody>
@@ -89,18 +93,11 @@
                 </div>
             </div>
         </div>
-
-        <div class="cm-btn cm-add-btn" v-if="account.type=='coach'" @click="dialogFormVisible=true">
-            <div class="icon-wrap">
-                <i class="icon add-cross-icon"></i>
-            </div>
-            <p>{{$t('btn.newCourse')}}</p>
-        </div>
-        <el-dialog :title='$t("title.newCourse")' class="cm-dialog new-course-dialog" :visible.sync="dialogFormVisible" v-if="dialogFormVisible" width="40%">
+        <el-dialog :title='$t("title.newCoach")' class="edit-dialog cm-dialog school-dialog" :visible.sync="dialogFormVisible" v-if="dialogFormVisible" width="40%">
             <div class="form">
                 <div class="cm-input-row">
-                    <span class="field">{{$t("label.courseName")}}</span>
-                    <input type="text" v-model="newForm.courseName" class="cm-input">
+                    <span class="field">{{$t("label.email")}}</span>
+                    <input type="text" v-model="newForm.email" class="cm-input">
                 </div>
                 <div class="cm-input-row">
                     <span class="field">{{$t("label.level")}}</span>
@@ -114,17 +111,26 @@
                     </el-select>
                 </div>
                 <div class="cm-input-row">
-                    <span class="field">{{$t("label.address")}}</span>
-                    <input type="text" v-model="newForm.address" class="cm-input">
+                    <span class="field">{{$t("label.school")}}</span>
+                    <el-select v-model="newForm.school" class="handle cm-select">
+                        <el-option
+                            v-for="(item,index) in schoolOptions"
+                            :key="index"
+                            :label="item.label"
+                            :value="item.value">
+                        </el-option>
+                    </el-select>
                 </div>
                 <div class="cm-input-row">
-                    <span class="field">{{$t("label.startTime")}}</span>
-                    <el-date-picker
-                        class="cm-date-selector"
-                        v-model="newForm.startTime"
-                        type="date"
-                        :placeholder='$t("label.startTime")'>
-                    </el-date-picker>
+                    <span class="field">{{$t("label.status")}}</span>
+                    <el-select v-model="newForm.status" class="handle cm-select" disabled>
+                        <el-option
+                            v-for="(item,index) in options"
+                            :key="index"
+                            :label="item.label"
+                            :value="item.value">
+                        </el-option>
+                    </el-select>
                 </div>
             </div>
             <div class="handle-list">
@@ -135,8 +141,32 @@
     </div>
 </template>
 <style lang="less" rel="stylesheet/less">
-    .cm-input-row .field{
-        min-width: 110px;
+    .add-msg-dialog{
+        color: #5360aa;
+        .el-dialog{
+            width: 580px !important;
+        }
+       .el-dialog__header{
+           text-align: center;
+           padding: 30px 20px;
+           .el-dialog__title{
+               font-size: 28px;
+               color: #5360aa;
+           }
+       }
+        .el-dialog__body{
+            padding-top: 0px;
+        }
+        textarea{
+            width: 100%;
+            height: 270px;
+            border: 1px solid #e5e5e5;
+            border-radius: 5px;
+            padding: 20px;
+            color: #5360aa;
+            font-size: 16px;
+            resize: none;
+        }
     }
 </style>
 <script>
@@ -152,10 +182,10 @@
                 coach:{},
 
                 levelOptions:[
-                   /* {
+                    {
                         value:null,
                         label:this.$t("btn.all"),
-                    },*/
+                    },
                     {
                         value:'M0',
                         label:'M0',
@@ -189,8 +219,11 @@
                         label:'MIT',
                     },
                 ],
-                listLevelOptions:[],
+
                 selectedLevel:null,
+
+
+                dialogFormVisible:false,
 
                 keyword:null,
                 pager:{
@@ -200,12 +233,6 @@
                     loading:false,
                 },
                 entryList:[],
-
-                dialogFormVisible:false,
-                newForm:{
-                    level:null,
-
-                }
             }
         },
         created(){
@@ -223,79 +250,48 @@
                     ...Vue.sessionInfo(),
                     pageIndex:this.pager.pageIndex,
                     pageSize:this.pager.pageSize,
-                    instructorId:this.coach.id,
+                    possessorId:this.coach.id,
                     mfiLevel:this.selectedLevel,
+                    certificateState:null,
                     searchContent:this.keyword,
                 }
                 this.pager.loading=true;
-                Vue.api.getCourseList(params).then((resp)=>{
+                Vue.api.getInstructorBuyCertificate(params).then((resp)=>{
                     this.pager.loading=false;
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
-                        this.entryList=JSON.parse(data.courseList);
-                        console.log('this.entryList:',this.entryList);
-                        this.pager.total=data.courseCount;
+                        let list=JSON.parse(data.certificateList);
+                        list.forEach((item,i)=>{
+                            item.user=JSON.parse(item.user);
+                        })
+                        this.entryList=list;
+                        console.log('this.entryList:', this.entryList);
+                        this.pager.total=data.count;
                     }
                 });
             },
             levelChange:function (data) {
                 this.getList();
             },
-            toDetail:function (index) {
-                let course=this.entryList[index];
-                localStorage.setItem('curCourse',JSON.stringify(course));
-                this.$router.push({name:'courseDetail',params:{id:course.courseId}});
-            },
-            save:function () {
-                if(!this.newForm.courseName){
-                    Vue.operationFeedback({type:'warn',text:this.$t("holder.courseName")});
-                    return;
-                }
-                if(!this.newForm.level){
-                    Vue.operationFeedback({type:'warn',text:this.$t("holder.level")});
-                    return;
-                }
-                if(!this.newForm.address){
-                    Vue.operationFeedback({type:'warn',text:this.$t("holder.address")});
-                    return;
-                }
-                if(!this.newForm.startTime){
-                    Vue.operationFeedback({type:'warn',text:this.$t("holder.startTime")});
-                    return;
-                }
-                let params={
-                    ...Vue.sessionInfo(),
-                    instructorId:this.coach.id,
-                    mfiLevel:this.newForm.level,
-                    courseName:this.newForm.courseName,
-                    site:this.newForm.address,
-                    startTime:Vue.formatDate(this.newForm.startTime,'yyyy-MM-dd')
-                }
-                let fb=Vue.operationFeedback({text:this.$t("tips.save")});
-                Vue.api.addCourse(params).then((resp)=>{
-                    if(resp.respCode=='2000'){
-                        this.getList();
-                        this.dialogFormVisible=false;
-                        fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
-                    }else{
-                        fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
-                    }
-                });
-            },
+
         },
         mounted () {
-            /**/
-            this.coach=JSON.parse(localStorage.getItem('curCoach'));
             this.account=Vue.getAccountInfo();
             this.coach=this.account.type=='coach'?this.account:this.coach;
-
-            /**/
-            this.listLevelOptions=[].concat(this.levelOptions,[{
-                value:null,
-                label:this.$t("btn.all"),
-            }]);
             /**/
             this.getList();
+
+            //临时测试
+           /* let payModalInstance=this.payModal({
+                userId:this.account.id,
+                level:'M0',
+                callback:function (data) {
+                    console.log(2333);
+                /!*    setTimeout(()=>{
+                        payModalInstance.close();
+                    },5000)*!/
+                }
+            });*/
         },
     }
 </script>

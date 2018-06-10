@@ -133,7 +133,7 @@ export default {
                 router.push({name:'login'});
                 return{};
             }
-        }
+        },
       }
 
       Object.assign(Vue, Vue.tools);

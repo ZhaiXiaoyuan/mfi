@@ -5,7 +5,7 @@
       <div class="modal-body">
         <div class="view-win">
             <img :src="options.imgUrl" alt="">
-            <el-button primary class="close-btn" icon="el-icon-circle-close" @click="close()">关闭</el-button>
+            <el-button primary class="close-btn" icon="el-icon-circle-close" @click="close()">close</el-button>
         </div>
       </div>
     </div>

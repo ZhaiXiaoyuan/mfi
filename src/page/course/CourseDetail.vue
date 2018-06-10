@@ -1,5 +1,5 @@
 <template>
-    <div class="page-content page-content-min msg-detail">
+    <div class="page-content msg-detail">
         <div class="cm-panel">
             <div class="panel-hd">
                 <div class="cm-btn cm-return-btn" @click="$router.back();">
@@ -39,9 +39,10 @@
         </div>
         <div class="cm-panel">
             <div class="panel-hd">
-                <span class="title">{{$t("title.allCoach")}}</span>
+                <span class="title">{{$t("title.studentInfo")}}</span>
+                <span class="right-info">{{$t("label.rest",{ msg:course.mfiLevel})}}{{unusedList.length}}</span>
             </div>
-            <div class="panel-bd">
+            <div class="panel-bd" v-if="account.type!='coach'">
                 <div class="cm-list-block" v-loading="pager.loading">
                     <table class="cm-entry-list">
                         <thead>
@@ -59,6 +60,9 @@
                                 {{$t("label.theory")}}
                             </th>
                             <th>
+                                {{$t("label.studio")}}
+                            </th>
+                            <th>
                                 {{$t("label.pool")}}
                             </th>
                             <th>
@@ -67,7 +71,7 @@
                             <th>
                                 {{$t("label.status")}}
                             </th>
-                           <!-- <th>
+                           <!-- <th v-if="account.type=='coach'">
                                 {{$t("label.handle")}}
                             </th>-->
                         </tr>
@@ -87,6 +91,9 @@
                                 <span class="cm-text" :class="{'pass':item.mfiLevelState.classroom=='pass'}"> {{partStatus[item.mfiLevelState.classroom]}}</span>
                             </td>
                             <td>
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.studio=='pass'}"> {{partStatus[item.mfiLevelState.studio]}}</span>
+                            </td>
+                            <td>
                                 <span class="cm-text" :class="{'pass':item.mfiLevelState.confinedWater=='pass'}"> {{partStatus[item.mfiLevelState.confinedWater]}}</span>
                             </td>
                             <td>
@@ -95,7 +102,7 @@
                             <td>
                                 <span class="cm-text">{{grantStatus[item.certificate]}}</span>
                             </td>
-                          <!--  <td>
+                          <!--  <td v-if="account.type=='coach'">
                                 <span class="handle" v-if="item.certificate=='pending'||item.certificate=='granted'">&mdash;</span>
                                 <span class="handle cm-btn" @click="grant(index)"  v-if="item.certificate=='waiting'">{{$t('btn.grant')}}</span>
                             </td>-->
@@ -114,6 +121,141 @@
                     </el-pagination>
                 </div>
             </div>
+            <!--教师角色-->
+            <div class="panel-bd" v-if="account.type=='coach'">
+                <div class="cm-list-block" v-loading="pager.loading">
+                    <table class="cm-entry-list">
+                        <thead>
+                        <tr>
+                            <th>
+                                {{$t("label.account")}}
+                            </th>
+                            <th>
+                                {{$t("label.name")}}
+                            </th>
+                            <th>
+                                {{$t("label.health")}}
+                            </th>
+                            <th>
+                                {{$t("label.theory")}}
+                            </th>
+                            <th>
+                                {{$t("label.studio")}}
+                            </th>
+                            <th>
+                                {{$t("label.pool")}}
+                            </th>
+                            <th>
+                                {{$t("label.openWater")}}
+                            </th>
+                            <th>
+                                {{$t("label.status")}}
+                            </th>
+                             <th>
+                                 {{$t("label.handle")}}
+                             </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(item,index) in entryList">
+                            <td>
+                                {{item.studentEmail}}
+                            </td>
+                            <td>
+                                <span class="cm-text">{{item.studentName}}</span>
+                            </td>
+                            <td>
+                                <span class="cm-text" v-if="item.mfiLevelState.liabilityRelease=='-'">{{partStatus[item.mfiLevelState.liabilityRelease]}}</span>
+                                <el-select v-model="item.mfiLevelState.liabilityRelease" :disabled="item.mfiLevelState.liabilityRelease=='pass'" @change="saveStatus(item)" class="status-selector" :class="{'pass':item.mfiLevelState.liabilityRelease=='pass'}" v-if="item.mfiLevelState.liabilityRelease!='-'" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in statusOptions"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value"
+                                        :disabled="item.disabled">
+                                    </el-option>
+                                </el-select>
+                            </td>
+                            <td>
+                                <span class="cm-text" v-if="item.mfiLevelState.classroom=='-'">{{partStatus[item.mfiLevelState.classroom]}}</span>
+                                <el-select v-model="item.mfiLevelState.classroom" :disabled="item.mfiLevelState.classroom=='pass'"   @change="saveStatus(item)" class="status-selector" :class="{'pass':item.mfiLevelState.classroom=='pass'}" v-if="item.mfiLevelState.classroom!='-'" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in statusOptions"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value"
+                                        :disabled="item.disabled">
+                                    </el-option>
+                                </el-select>
+                            </td>
+                            <td>
+                                <span class="cm-text" v-if="item.mfiLevelState.studio=='-'">{{partStatus[item.mfiLevelState.studio]}}</span>
+                                <el-select v-model="item.mfiLevelState.studio" :disabled="item.mfiLevelState.studio=='pass'" @change="saveStatus(item)" class="status-selector" :class="{'pass':item.mfiLevelState.studio=='pass'}" v-if="item.mfiLevelState.studio!='-'" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in statusOptions"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value"
+                                        :disabled="item.disabled">
+                                    </el-option>
+                                </el-select>
+                            </td>
+                            <td>
+                                <span class="cm-text" v-if="item.mfiLevelState.confinedWater=='-'">{{partStatus[item.mfiLevelState.confinedWater]}}</span>
+                                <el-select v-model="item.mfiLevelState.confinedWater" :disabled="item.mfiLevelState.confinedWater=='pass'" @change="saveStatus(item)" class="status-selector" :class="{'pass':item.mfiLevelState.confinedWater=='pass'}" v-if="item.mfiLevelState.confinedWater!='-'" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in statusOptions"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value"
+                                        :disabled="item.disabled">
+                                    </el-option>
+                                </el-select>
+                            </td>
+                            <td>
+                                <span class="cm-text" v-if="item.mfiLevelState.openWater=='-'">{{partStatus[item.mfiLevelState.openWater]}}</span>
+                                <el-select v-model="item.mfiLevelState.openWater" :disabled="item.mfiLevelState.openWater=='pass'" @change="saveStatus(item)" class="status-selector" :class="{'pass':item.mfiLevelState.openWater=='pass'}" v-if="item.mfiLevelState.openWater!='-'" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in statusOptions"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value"
+                                        :disabled="item.disabled">
+                                    </el-option>
+                                </el-select>
+                            </td>
+                            <td>
+                                <span class="cm-text">{{grantStatus[item.certificate]}}</span>
+                            </td>
+                            <td>
+                                  <span class="handle" v-if="item.certificate=='pending'||item.certificate=='granted'">&mdash;</span>
+                                  <el-button class="small handle-btn" @click="toStudent(index)" v-if="item.certificate=='waiting'||item.certificate=='grant'||(item.certificate&&item.certificate.length>20)">{{$t('btn.student')}}</el-button>
+                                  <el-button class="small handle-btn" @click="grant(item)"  v-if="item.certificate=='waiting'&&unusedList.length>0">{{$t('btn.grant')}}</el-button>
+                                <el-button class="small handle-btn"   v-if="item.certificate=='waiting'&&unusedList.length==0">{{$t('btn.buyToGrant')}}</el-button>
+                                <el-button class="small handle-btn" @click="toViewCertificate(item)" v-if="(item.certificate&&item.certificate.length>20)">{{$t('btn.viewCertificate')}}</el-button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <el-pagination
+                        class="cm-pager"
+                        @current-change="getList"
+                        :prev-text='$t("btn.prev")'
+                        :next-text='$t("btn.next")'
+                        :current-page="pager.pageIndex"
+                        :page-size="pager.pageSize"
+                        layout="total, prev, pager, next, jumper"
+                        :total="pager.total">
+                    </el-pagination>
+                </div>
+                <canvas width="1200" id="canvas"  height="675" style="display:none;border:1px solid #d3d3d3;background:#ffffff;"></canvas>
+            </div>
+        </div>
+        <div class="cm-btn cm-add-btn" v-if="account.type=='coach'" @click="toAdd()">
+            <div class="icon-wrap">
+                <i class="icon add-cross-icon"></i>
+            </div>
+            <p>{{$t('btn.addStudent')}}</p>
         </div>
     </div>
 </template>
@@ -144,6 +286,23 @@
         background: #ec95bd;
         border-radius: 14px;
     }
+    .status-selector{
+        width: 100px;
+        border-radius: 16px;
+        background: #999;
+        input{
+            background: none !important;
+            border: none !important;
+            color: #fff !important;
+        }
+        i{
+            color: #fff!important;
+        }
+        &.pass{
+            height: 32px;
+            background: #ec95bd;
+        }
+    }
 </style>
 <script>
     import Vue from 'vue'
@@ -156,6 +315,8 @@
             return {
                 id:null,
                 course:{},
+                account:{},
+                coach:{},
 
                 partStatus:{
                   'need':this.$t('btn.waitingStatus'),
@@ -167,6 +328,16 @@
                     waiting:this.$t('btn.waitingGrant'),
                     granted:this.$t('btn.granted'),
                 },
+                statusOptions:[
+                    {
+                        label:this.$t('btn.completeStatus'),
+                        value:'pass',
+                    },
+                    {
+                        label:this.$t('btn.waitingStatus'),
+                        value:'',
+                    },
+                ],
                 pager:{
                     pageSize:20,
                     pageIndex:1,
@@ -174,6 +345,10 @@
                     loading:false,
                 },
                 entryList:[],
+                isLoading:false,
+
+                unusedList:[],
+                bgImg:require('../../images/common/card-bg.jpg'),
             }
         },
         created(){
@@ -216,14 +391,164 @@
                     if(resp.respCode=='2000'){
                         this.course=JSON.parse(resp.respMsg);
                         console.log('this.course:',this.course);
+                        this.getUnusedCertificate();
                     }
                 });
+            },
+            getUnusedCertificate:function () {
+                let params={
+                    ...Vue.sessionInfo(),
+                    possessorId:this.coach.id,
+                    mfiLevel:this.course.mfiLevel,
+                    certificateState:'unuse',
+                    pageSize:200,
+                    pageIndex:1
+                }
+                Vue.api.getInstructorBuyCertificate(params).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        let data=JSON.parse(resp.respMsg);
+                        this.unusedList=JSON.parse(data.certificateList);
+                    }
+                });
+            },
+            saveStatus:function (item) {
+                if(this.isLoading){
+                    return;
+                }
+                var state=item.mfiLevelState;
+                let params={
+                    ...Vue.sessionInfo(),
+                    userId:state.userId,
+                    mfiLevel:state.mfiLevel,
+                    classroom:state.classroom!='pass'?'':'pass',
+                    confinedWater:state.confinedWater!='pass'?'':'pass',
+                    liabilityRelease:state.liabilityRelease!='pass'?'':'pass',
+                    openWater:state.openWater!='pass'?'':'pass',
+                    studio:state.studio!='pass'?'':'pass',
+                }
+                let fb=Vue.operationFeedback({text:this.$t("tips.save")});
+                this.isLoading=true;
+                Vue.api.setStudentMfiLevelState(params).then((resp)=>{
+                    this.isLoading=false;
+                    if(resp.respCode=='2000'){
+                        this.getList();
+                        this.dialogFormVisible=false;
+                        fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
+                    }else{
+                        fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                    }
+                });
+            },
+            toStudent:function () {
+
+            },
+            grant:function (item) {
+                this.$confirm(this.$t("tips.grant",{msg:item.studentName,level:item.mfiLevelState.mfiLevel}), this.$t("title.tips"), {
+                    confirmButtonText: this.$t("btn.sure"),
+                    cancelButtonText: this.$t("btn.cancel"),
+                }).then(() => {
+                    let certificate=this.unusedList[0];
+                    let params={
+                        ...Vue.sessionInfo(),
+                        certificateId:certificate.id,
+                        userId:item.mfiLevelState.userId,
+                        possessorId:this.coach.id,
+                    }
+                    let fb=Vue.operationFeedback({text:this.$t("tips.setting")});
+                    Vue.api.grant(params).then((resp)=>{
+                        if(resp.respCode=='2000'){
+                            this.unusedList.splice(0,1);
+                            this.getList();
+                            fb.setOptions({type:'complete', text:this.$t("tips.settingS")});
+                        }else{
+                            fb.setOptions({type:'warn', text:this.$t("tips.settingF",{msg:resp.respMsg})});
+                        }
+                    });
+                }).catch(() => {
+
+                });
+            },
+            toViewCertificate:function (item) {
+                console.log('item:',item);
+                //临时测试
+                this.draw({
+                    id:'canvas',
+                    avatar:'http://39.108.11.197/mfiFile/user/749cf6929012427c81c45fd619d5e33d-headPic-image.jpeg',
+                    name:item.studentName,
+                    level:item.mfiLevelState.mfiLevel,
+                    certificateNo:item.certificate,
+                    date:'2018-05-05',
+                    issuer:'233',
+                    callback:(data)=>{
+                        Vue.viewPicModal({
+                            imgUrl:data,
+                        });
+                    }
+                });
+            },
+            circleImg:function(ctx, img, x, y, r) {
+                ctx.save();
+                var d =2 * r;
+                var cx = x + r;
+                var cy = y + r;
+                ctx.arc(cx, cy, r, 0, 2 * Math.PI);
+                ctx.clip();
+                ctx.drawImage(img, x, y, d, d);
+                ctx.restore();
+            },
+            drawText:function (ctx,text,x,y) {
+                ctx.save();
+                ctx.font = "32px ' Helvetica Neue', Helvetica, Arial, 'Microsoft Yahei', 'Hiragino Sans GB', 'Heiti SC', 'WenQuanYi Micro Hei'";
+                ctx.fillStyle = "#666";
+                ctx.fillText(text,x,y,300);
+                ctx.restore();
+            },
+            draw:function (options) {
+                console.log('id:',options.id);
+                let that=this;
+                var canvas=document.getElementById(options.id);
+                var ctx=canvas.getContext("2d");
+
+                ctx.save();
+                let bgImg=new Image();
+                bgImg.src=this.bgImg;
+                bgImg.onload=function(){
+                    ctx.drawImage(bgImg,0,0);
+                    ctx.restore();
+
+
+                    ctx.save();
+                    var img = new Image();
+                    img.src = options.avatar;
+                    img.onload=function () {
+                        that.circleImg(ctx, img, 95, 101, 150);
+                        ctx.restore();
+
+                        //
+                        that.drawText(ctx,options.name,490,170);
+                        that.drawText(ctx,options.level,880,170);
+
+                        that.drawText(ctx,options.certificateNo,490,275);
+                        that.drawText(ctx,options.date,880,275);
+
+                        that.drawText(ctx,options.issuer,490,380);
+                        //
+                        let dataUrl = canvas.toDataURL('image/jpeg');
+                        options.callback&&options.callback(dataUrl);
+                    }
+                }
+            },
+            toAdd:function () {
+                console.log('this.id:',this.id);
+                this.$router.push({name:'addStudent',params:{'id':this.id}});
             }
         },
         mounted () {
             /**/
             this.id=this.$route.params.id;
-         /*   this.course=JSON.parse(localStorage.getItem('curCourse'));*/
+            this.account=Vue.getAccountInfo();
+            this.coach=this.account.type=='coach'?this.account:this.coach;
+            console.log('this.coach:',this.coach);
             /**/
             this.getCourse();
             this.getList();

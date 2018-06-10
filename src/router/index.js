@@ -55,11 +55,6 @@ export default new Router({
                     component: resolve => require(['../page/course/CourseDetail.vue'], resolve)
                 },
                 {
-                    path: '/studentList',
-                    name:'studentList',
-                    component: resolve => require(['../page/admin/Tem.vue'], resolve)
-                },
-                {
                     path: '/audit',
                     name:'audit',
                     component: resolve => require(['../page/admin/Tem.vue'], resolve)
@@ -84,12 +79,37 @@ export default new Router({
                     name:'certificateStatistics',
                     component: resolve => require(['../page/admin/CertificateStatistics.vue'], resolve)
                 },
+                {
+                    path: '/addStudent/:id',
+                    name:'addStudent',
+                    component: resolve => require(['../page/course/AddStudent.vue'], resolve)
+                },
+                {
+                    path: '/studentList',
+                    name:'studentList',
+                    component: resolve => require(['../page/student/StudentList.vue'], resolve)
+                },
+                {
+                    path: '/studentDetail/:id',
+                    name:'studentDetail',
+                    component: resolve => require(['../page/student/StudentDetail.vue'], resolve)
+                },
+                {
+                    path: '/coachCertificateStatistics',
+                    name:'coachCertificateStatistics',
+                    component: resolve => require(['../page/coach/CoachCertificateStatistics.vue'], resolve)
+                },
             ]
         },
         {
             path: '/login/:type?',
             name:'login',
             component: resolve => require(['../page/account/Login.vue'], resolve)
+        },
+        {
+            path: '/instructorActivation',
+            name:'instructorActivation',
+            component: resolve => require(['../page/account/InstructorActivation.vue'], resolve)
         },
     ]
 })

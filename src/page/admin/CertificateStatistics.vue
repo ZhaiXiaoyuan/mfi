@@ -174,6 +174,9 @@
         },
         data() {
             return {
+                account:{},
+                coach:{},
+
                 levelOptions:[
                     {
                         value:null,
@@ -243,7 +246,7 @@
                     ...Vue.sessionInfo(),
                     pageIndex:this.pager.pageIndex,
                     pageSize:this.pager.pageSize,
-                    possessorId:null,
+                    possessorId:this.coach.id,
                     mfiLevel:this.selectedLevel,
                     certificateState:null,
                     searchContent:this.keyword,
@@ -253,7 +256,7 @@
                     this.pager.loading=false;
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
-                        this.entryList=JSON.parse(data.instructorList);
+                        this.entryList=JSON.parse(data.certificateList);
                         console.log('this.entryList:', this.entryList);
                         this.pager.total=data.count;
                     }
@@ -265,6 +268,8 @@
 
         },
         mounted () {
+            this.account=Vue.getAccountInfo();
+            this.coach=this.account.type=='coach'?this.account:this.coach;
             /**/
             this.getList();
 

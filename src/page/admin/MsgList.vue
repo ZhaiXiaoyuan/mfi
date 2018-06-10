@@ -239,9 +239,9 @@
             },
             del:function (index) {
                 let item=this.entryList[index];
-                this.$confirm(this.$t("title.tips",{msg:item.title}), this.$t("title.tips"), {
+                this.$confirm(this.$t("tips.delMsg",{msg:item.title}), this.$t("title.tips"), {
                     confirmButtonText: this.$t("btn.sure"),
-                    cancelButtonText: this.$t("tips.cancel"),
+                    cancelButtonText: this.$t("btn.cancel"),
                     type: 'warning'
                 }).then(() => {
                     let params={
