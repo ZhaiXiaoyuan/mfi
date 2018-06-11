@@ -282,7 +282,7 @@
             this.getList();
 
             //临时测试
-           /* let payModalInstance=this.payModal({
+          /*  let payModalInstance=this.payModal({
                 userId:this.account.id,
                 level:'M0',
                 callback:function (data) {

@@ -4,7 +4,7 @@
             <language></language>
             <div class="cm-panel">
                 <div class="panel-hd">
-                    <span class="title">{{$t("title.instructorActivation")}}</span>
+                    <span class="title">{{$t("title.studentActivation")}}</span>
                 </div>
                 <div class="panel-bd">
                     <div class="cm-detail-block detail-block">
@@ -20,7 +20,7 @@
                             </div>
                             <div class="cm-input-row">
                                 <span class="field">{{$t("label.email")}}</span>
-                                <input type="text" v-model="newForm.email" readonly class="cm-input cm-disabled">
+                                <input type="text" v-model="newForm.email" class="cm-input">
                             </div>
                             <div class="cm-input-row">
                                 <span class="field">{{$t("label.pwd")}}</span>
@@ -71,26 +71,6 @@
                                 <span class="field">{{$t("label.address")}}</span>
                                 <input type="text" v-model="newForm.address" class="cm-input">
                             </div>
-                            <div class="cm-input-row">
-                                <span class="field">{{$t('label.firstAid')}}</span>
-                                <div class="cm-input-pic-uploader">
-                                    <div class="wrapper">
-                                        <img :src="basicConfig.filePrefix+newForm.firstAidPic" v-if="newForm.firstAidPic">
-                                        <i class="icon el-icon-upload" v-if="!newForm.firstAidPic"></i>
-                                        <input  type="file" id="firstAidFileInput" accept="image/*" @change="selectFirstAidFile()">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="cm-input-row">
-                                <span class="field">{{$t('label.insurance')}}</span>
-                                <div class="cm-input-pic-uploader">
-                                    <div class="wrapper">
-                                        <img :src="basicConfig.filePrefix+newForm.insurancePic" v-if="newForm.insurancePic">
-                                        <i class="icon el-icon-upload" v-if="!newForm.insurancePic"></i>
-                                        <input  type="file" id="insuranceFileInput" accept="image/*" @change="selectInsuranceFileFile()">
-                                    </div>
-                                </div>
-                            </div>
                             <div class="cm-input-row" style="margin-top: 40px;">
                                 <span class="field"></span>
                                 <div class="cm-btn submit-btn" @click="save()">{{$t('btn.activation')}}</div>
@@ -138,80 +118,6 @@
         text-align: center;
         line-height: 50px;
     }
-    .cm-calender{
-        width: 300px !important;
-        height: 50px !important;
-        input{
-            width: 100% !important;
-            height: 100% !important;
-        }
-    }
-    .cm-avatar-uploader{
-        text-align: center;
-        .wrapper{
-            position: relative;
-        }
-        img{
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-        }
-        input{
-            position: absolute;
-            top:0px;
-            left: 0px;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            cursor: pointer;
-            opacity: 0;
-        }
-        .name{
-            margin-top: 10px;
-            font-size: 14px;
-            color: #999;
-        }
-    }
-    .cm-input-pic-uploader{
-        text-align: left;
-        width: 300px;
-        .wrapper{
-            position: relative;
-            width: 80px;
-            border: 1px solid #5560aa;
-            height: 80px;
-            line-height: 80px;
-        }
-        img{
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-        }
-        .icon{
-            position: absolute;
-            top:0px;
-            bottom: 0px;
-            left: 0px;
-            right: 0px;
-            margin: auto;
-            font-size: 50px;
-        }
-        input{
-            position: absolute;
-            top:0px;
-            left: 0px;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            cursor: pointer;
-            opacity: 0;
-        }
-        .name{
-            margin-top: 10px;
-            font-size: 14px;
-            color: #999;
-        }
-    }
 </style>
 <script>
     import Vue from 'vue'
@@ -229,8 +135,6 @@
                 newForm:{
                     avatar:null,
                     email:null,
-                    insurancePic:null,
-                    firstAidPic:null,
                 },
                 uploading:false,
                 otherPicList:[],
@@ -249,7 +153,7 @@
                 let params={
                     timeStamp:Vue.genTimestamp(),
                     aesData:this.aesData,
-                    role:'instructor',
+                    role:'student',
                 }
                 Vue.api.getEmailByAesData(params).then((resp)=>{
                     if(resp.respCode=='2000'){
@@ -257,12 +161,8 @@
                         console.log('this.user:',this.user);
                         this.newForm.email=this.user.email;
                         this.newForm.avatar=this.user.headPic;
-                        if(this.user.insurancePic){
-                            this.newForm.insurancePic=this.user.insurancePic+'?random='+Math.random();
-                        }
-                        if(this.user.firstAidPic){
-                            this.newForm.firstAidPic=this.user.firstAidPic+'?random='+Math.random();
-                        }
+                        this.newForm.insurancePic=this.user.insurancePic;
+                        this.newForm.firstAidPic=this.user.firstAidPic;
                     }else{
 
                     }
@@ -317,14 +217,6 @@
                     Vue.operationFeedback({type:'warn',text:this.$t("holder.address")});
                     return;
                 }
-                if(!this.newForm.firstAidPic){
-                    Vue.operationFeedback({type:'warn',text:this.$t("holder.firstAid")});
-                    return;
-                }
-                if(!this.newForm.insurancePic){
-                    Vue.operationFeedback({type:'warn',text:this.$t("holder.insurance")});
-                    return;
-                }
                 let params={
                     imeStamp:Vue.genTimestamp(),
                     userId:this.user.id,
@@ -344,14 +236,14 @@
                 let fb=Vue.operationFeedback({text:this.$t("tips.save")});
                 Vue.api.setUserBaseInfo(params).then((resp)=>{
                     if(resp.respCode=='2000'){
-                        Vue.api.activate({imeStamp:Vue.genTimestamp(),aesData:this.aesData,role:'instructor'}).then((resp)=>{
+                        Vue.api.activate({imeStamp:Vue.genTimestamp(),aesData:this.aesData,role:'student'}).then((resp)=>{
                             if(resp.respCode=='2000'){
                                 //
-                                Vue.api.coachLogin({timeStamp:Vue.genTimestamp(),email:this.newForm.email,password:md5.hex(this.newForm.pwd)}).then((resp)=>{
+                                Vue.api.studentLogin({timeStamp:Vue.genTimestamp(),email:this.newForm.email,password:this.newForm.pwd}).then((resp)=>{
                                     if(resp.respCode=='2000'){
                                         let data=JSON.parse(resp.respMsg);
                                         this.$cookie.set('account',JSON.stringify({
-                                            type:'coach',
+                                            type:'student',
                                             account:this.newForm.email,
                                             ...data
                                         }),7);
@@ -359,7 +251,7 @@
                                             type:'complete',
                                             text:this.$t("tips.loginS")
                                         });
-                                        this.$router.push({name:'courseList',params:{}});
+                                        this.$router.push({name:'studentCourseList',params:{}});
                                     }else{
                                         fb.setOptions({
                                             type:'warn',
@@ -388,43 +280,6 @@
                 Vue.api.setHeadPic(formData).then((resp)=>{
                     this.uploading=false;
                     if(resp.respCode=='2000'){
-                        this.getEmailByAesData();
-                        fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
-                    }else{
-                        fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
-                    }
-                });
-            },
-            selectFirstAidFile:function () {
-                let file=document.getElementById('firstAidFileInput').files[0];
-                let formData = new FormData();
-                formData.append('timestamp',Vue.genTimestamp());
-                formData.append('userId',this.user.id);
-                formData.append('firstAidPic',file);
-                this.uploading=true;
-                let fb=Vue.operationFeedback({text:this.$t("tips.save")});
-                Vue.api.setFirstAidPic(formData).then((resp)=>{
-                    this.uploading=false;
-                    if(resp.respCode=='2000'){
-                        this.getEmailByAesData();
-                        fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
-                    }else{
-                        fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
-                    }
-                });
-            },
-            selectInsuranceFileFile:function () {
-                let file=document.getElementById('insuranceFileInput').files[0];
-                let formData = new FormData();
-                formData.append('timestamp',Vue.genTimestamp());
-                formData.append('userId',this.user.id);
-                formData.append('insurancePic',file);
-                this.uploading=true;
-                let fb=Vue.operationFeedback({text:this.$t("tips.save")});
-                Vue.api.setInsurancePic(formData).then((resp)=>{
-                    this.uploading=false;
-                    if(resp.respCode=='2000'){
-                        this.getEmailByAesData();
                         fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
                     }else{
                         fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});

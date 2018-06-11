@@ -90,7 +90,7 @@ export default new Router({
                     component: resolve => require(['../page/student/StudentList.vue'], resolve)
                 },
                 {
-                    path: '/studentDetail/:id',
+                    path: '/studentDetail/:id?',
                     name:'studentDetail',
                     component: resolve => require(['../page/student/StudentDetail.vue'], resolve)
                 },
@@ -98,6 +98,16 @@ export default new Router({
                     path: '/coachCertificateStatistics',
                     name:'coachCertificateStatistics',
                     component: resolve => require(['../page/coach/CoachCertificateStatistics.vue'], resolve)
+                },
+                {
+                    path: '/studentCourseList',
+                    name:'studentCourseList',
+                    component: resolve => require(['../page/student/StudentCourseList.vue'], resolve)
+                },
+                {
+                    path: '/studentCourseDetail/:id',
+                    name:'studentCourseDetail',
+                    component: resolve => require(['../page/student/SCourseDetail.vue'], resolve)
                 },
             ]
         },
@@ -110,6 +120,11 @@ export default new Router({
             path: '/instructorActivation',
             name:'instructorActivation',
             component: resolve => require(['../page/account/InstructorActivation.vue'], resolve)
+        },
+        {
+            path: '/studentActivation',
+            name:'studentActivation',
+            component: resolve => require(['../page/account/StudentActivation.vue'], resolve)
         },
     ]
 })

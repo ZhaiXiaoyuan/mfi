@@ -61,7 +61,7 @@ const cn = {
         buyDate:'购买日期',
         student:'学员',
         grantDate:'日期',
-
+        instructorName:'教练名称',
     },
     holder: {
         account:'请输入账号',
@@ -89,6 +89,8 @@ const cn = {
         lName:'请输入名',
         gender:'请输入性别',
         eContact:'请输入紧急联系人',
+        insurance:'请上传保险证明',
+        firstAid:'请上传急救证明',
     },
     btn:{
         adminLogin:'管理员登录',
@@ -161,6 +163,7 @@ const cn = {
         myStudent:'我的学员',
         my:'我的',
         activation:'激活账号',
+        edit:'编辑信息',
     },
     title:{
         super:'超级管理员',
@@ -196,6 +199,8 @@ const cn = {
         certificateRecord:'我的证书授权记录',
         instructorActivation:'教练账号激活',
         studentActivation:'学员账号激活',
+        myCourseStatus:'我的课程状态',
+        accountSetting:'账号设置',
     },
     tips:{
         login:'登录中...',
@@ -210,6 +215,9 @@ const cn = {
         save:'保存中...',
         saveS:'保存成功',
         saveF:'保存失败，{msg}',
+        handle:'操作中...',
+        handleS:'操作成功',
+        handleF:'操作失败，{msg}',
         delAdmin:'确定删除管理员账号：{msg}？',
         delMsg:'确定删除消息：{msg}？',
         total:'共{msg}条记录',

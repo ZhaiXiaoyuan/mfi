@@ -22,7 +22,7 @@
                         <el-row style="padding: 50px 0px;text-align: center;">
                             <div class="cm-btn add-btn" @click="emailDialogFlag=true">{{$t('btn.email')}}</div>
                             <div class="cm-btn add-btn" @click="selectStudentDialogFlag=true">{{$t('btn.fromMyStudent')}}</div>
-                            <div class="cm-btn add-btn">{{$t('btn.newStudent')}}</div>
+                            <div class="cm-btn add-btn" @click="newStudentDialogFlag=true">{{$t('btn.newStudent')}}</div>
                         </el-row>
                     </div>
                 </div>

@@ -19,7 +19,7 @@
     .language{
         position: fixed;
         z-index: 100;
-        top:30px;
+        top:20px;
         right: 45px;
     }
     ul{

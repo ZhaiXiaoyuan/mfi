@@ -59,6 +59,7 @@ const tw = {
         buyDate:'購買日期',
         student:'學員',
         grantDate:'日期',
+        instructorName:'教練名稱',
     },
     holder: {
         account:'請輸入賬號',
@@ -86,6 +87,8 @@ const tw = {
         lName:'請輸入名',
         gender:'請輸入性別',
         eContact:'請輸入緊急聯系人',
+        insurance:'請上傳保險證明',
+        firstAid:'請上傳急救證明',
     },
     btn:{
         adminLogin:'管理員登錄',
@@ -158,6 +161,7 @@ const tw = {
         myStudent:'我的學員',
         my:'我的',
         activation:'激活賬號',
+        edit:'編輯信息',
     },
     title:{
         super:'超級管理員',
@@ -193,6 +197,8 @@ const tw = {
         certificateRecord:'我的證書授權記錄',
         instructorActivation:'教練賬號激活',
         studentActivation:'學員賬號激活',
+        myCourseStatus:'我的課程狀態',
+        accountSetting:'賬號設置',
     },
     tips:{
         login:'登錄中...',
@@ -207,6 +213,9 @@ const tw = {
         save:'保存中...',
         saveS:'保存成功',
         saveF:'保存失敗，{msg}',
+        handle:'操作中...',
+        handleS:'操作成功',
+        handleF:'操作失敗，{msg}',
         delAdmin:'確定刪除管理員賬號：{msg}？',
         delMsg:'確定刪除消息：{msg}？',
         developing:'功能開發中',

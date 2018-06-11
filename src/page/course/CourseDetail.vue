@@ -100,7 +100,7 @@
                                 <span class="cm-text" :class="{'pass':item.mfiLevelState.openWater=='pass'}"> {{partStatus[item.mfiLevelState.openWater]}}</span>
                             </td>
                             <td>
-                                <span class="cm-text">{{grantStatus[item.certificate]}}</span>
+                                <span class="cm-text">{{grantStatus[item.certificate.length>20?'granted':item.certificate]}}</span>
                             </td>
                           <!--  <td v-if="account.type=='coach'">
                                 <span class="handle" v-if="item.certificate=='pending'||item.certificate=='granted'">&mdash;</span>
@@ -225,14 +225,16 @@
                                 </el-select>
                             </td>
                             <td>
-                                <span class="cm-text">{{grantStatus[item.certificate]}}</span>
+                                <span class="cm-text">{{grantStatus[item.certificate.length>20?'granted':item.certificate]}}</span>
                             </td>
                             <td>
                                   <span class="handle" v-if="item.certificate=='pending'||item.certificate=='granted'">&mdash;</span>
-                                  <el-button class="small handle-btn" @click="toStudent(index)" v-if="item.certificate=='waiting'||item.certificate=='grant'||(item.certificate&&item.certificate.length>20)">{{$t('btn.student')}}</el-button>
+                                  <el-button class="small handle-btn" @click="toStudent(item)" v-if="item.certificate=='waiting'||item.certificate=='grant'||(item.certificate&&item.certificate.length>20)">{{$t('btn.student')}}</el-button>
                                   <el-button class="small handle-btn" @click="grant(item)"  v-if="item.certificate=='waiting'&&unusedList.length>0">{{$t('btn.grant')}}</el-button>
-                                <el-button class="small handle-btn"   v-if="item.certificate=='waiting'&&unusedList.length==0">{{$t('btn.buyToGrant')}}</el-button>
-                                <el-button class="small handle-btn" @click="toViewCertificate(item)" v-if="(item.certificate&&item.certificate.length>20)">{{$t('btn.viewCertificate')}}</el-button>
+                                  <el-button class="small handle-btn"   v-if="item.certificate=='waiting'&&unusedList.length==0" @click="toPay(item)">{{$t('btn.buyToGrant')}}</el-button>
+<!--
+                                  <el-button class="small handle-btn" @click="toViewCertificate(item)" v-if="(item.certificate&&item.certificate.length>20)">{{$t('btn.viewCertificate')}}</el-button>
+-->
                             </td>
                         </tr>
                         </tbody>
@@ -349,6 +351,8 @@
 
                 unusedList:[],
                 bgImg:require('../../images/common/card-bg.jpg'),
+
+                granting:false,
             }
         },
         created(){
@@ -395,7 +399,7 @@
                     }
                 });
             },
-            getUnusedCertificate:function () {
+            getUnusedCertificate:function (callback) {
                 let params={
                     ...Vue.sessionInfo(),
                     possessorId:this.coach.id,
@@ -408,6 +412,7 @@
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
                         this.unusedList=JSON.parse(data.certificateList);
+                        callback&&callback(this.unusedList);
                     }
                 });
             },
@@ -439,33 +444,37 @@
                     }
                 });
             },
-            toStudent:function () {
-
+            toStudent:function (item) {
+                this.$router.push({name:'studentDetail',params:{id:item.mfiLevelState.userId}});
             },
             grant:function (item) {
                 this.$confirm(this.$t("tips.grant",{msg:item.studentName,level:item.mfiLevelState.mfiLevel}), this.$t("title.tips"), {
                     confirmButtonText: this.$t("btn.sure"),
                     cancelButtonText: this.$t("btn.cancel"),
                 }).then(() => {
-                    let certificate=this.unusedList[0];
-                    let params={
-                        ...Vue.sessionInfo(),
-                        certificateId:certificate.id,
-                        userId:item.mfiLevelState.userId,
-                        possessorId:this.coach.id,
-                    }
-                    let fb=Vue.operationFeedback({text:this.$t("tips.setting")});
-                    Vue.api.grant(params).then((resp)=>{
-                        if(resp.respCode=='2000'){
-                            this.unusedList.splice(0,1);
-                            this.getList();
-                            fb.setOptions({type:'complete', text:this.$t("tips.settingS")});
-                        }else{
-                            fb.setOptions({type:'warn', text:this.$t("tips.settingF",{msg:resp.respMsg})});
-                        }
-                    });
+                    this.grantSubmit(item);
                 }).catch(() => {
 
+                });
+            },
+            grantSubmit:function (item,callback) {
+                let certificate=this.unusedList[0];
+                let params={
+                    ...Vue.sessionInfo(),
+                    certificateId:certificate.id,
+                    userId:item.mfiLevelState.userId,
+                    possessorId:this.coach.id,
+                }
+                let fb=Vue.operationFeedback({text:this.$t("tips.setting")});
+                Vue.api.grant(params).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        this.unusedList.splice(0,1);
+                        this.getList();
+                        fb.setOptions({type:'complete', text:this.$t("tips.settingS")});
+                        callback&&callback();
+                    }else{
+                        fb.setOptions({type:'warn', text:this.$t("tips.settingF",{msg:resp.respMsg})});
+                    }
                 });
             },
             toViewCertificate:function (item) {
@@ -541,6 +550,35 @@
             toAdd:function () {
                 console.log('this.id:',this.id);
                 this.$router.push({name:'addStudent',params:{'id':this.id}});
+            },
+            toPay:function (item) {
+                console.log('this.unusedList:',this.unusedList);
+                let interval=null;
+                let fb=null;
+                let payModalInstance=this.payModal({
+                    userId:this.account.id,
+                    level:this.course.mfiLevel,
+                    callback:(data)=>{
+                       // payModalInstance.close();
+                        fb=Vue.operationFeedback({text:this.$t("tips.handle")});
+                        interval=setInterval(()=>{
+                            this.getUnusedCertificate((data)=>{
+                                if(data.length>0&&!this.granting){
+                                    fb.setOptions({type:'complete', text:this.$t("tips.handleS")});
+                                    this.granting=true;
+                                    clearInterval(interval);
+                                    this.grantSubmit(item,()=>{
+                                        payModalInstance.close();
+                                    });
+                                }
+                            })
+                        },2000)
+                    },
+                    closeCallback:()=>{
+                        clearInterval(interval);
+                        fb&&fb.setOptions({type:'warn', text:'cancel',delayForDelete:0});
+                    }
+                });
             }
         },
         mounted () {

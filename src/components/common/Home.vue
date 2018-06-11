@@ -12,6 +12,7 @@
         top:0px;
         left: 300px;
         background: none;
+        padding: 30px;
     }
 </style>
 <script>

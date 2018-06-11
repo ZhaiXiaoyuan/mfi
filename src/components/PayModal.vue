@@ -82,6 +82,7 @@
           userId:null,
           level:null,
           callback:null,
+          closeCallback:null,
       }
     },
     data: function () {
@@ -108,6 +109,7 @@
         close:function () {
             this.$el.remove();
             this.$destroy();
+            this.options.closeCallback&&this.options.closeCallback();
         }
     },
     created: function () {

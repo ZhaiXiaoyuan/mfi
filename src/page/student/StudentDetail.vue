@@ -110,6 +110,11 @@
                           <!--  <span class="cm-link-btn" style="padding-left: 20px;" v-if="certificateList.length>3">{{$t('btn.viewAll')}}</span>-->
                         </div>
                     </div>
+                    <div class="block-bd" v-if="account.type=='student'">
+                        <div class="btn-list">
+                            <div class="cm-btn btn" @click="editDialogFlag=true">{{$t("btn.edit")}}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -146,22 +151,22 @@
                         <tbody>
                         <tr v-for="(item,index) in entryList">
                             <td>
-                                {{item.courseId}}
+                                {{item.course.courseId}}
                             </td>
                             <td>
-                                {{item.courseName}}
+                                {{item.course.courseName}}
                             </td>
                             <td>
-                                {{item.mfiLevel}}
+                                {{item.course.mfiLevel}}
                             </td>
                             <td>
-                                {{item.site}}
+                                {{item.course.site}}
                             </td>
                             <td>
-                                {{item.startTime}}
+                                {{item.course.startTime}}
                             </td>
                             <td>
-                                <span class="handle" @click="$router.push({name:'courseDetail',params:{id:item.courseId}})">{{$t('btn.detail')}}</span>
+                                <span class="handle" @click="$router.push({name:'courseDetail',params:{id:item.course.courseId}})">{{$t('btn.detail')}}</span>
                             </td>
                         </tr>
                         </tbody>
@@ -240,6 +245,70 @@
             </div>
         </el-dialog>
 
+
+        <el-dialog :title='$t("title.accountSetting")' class="edit-dialog cm-dialog edit-dialog" :visible.sync="editDialogFlag" v-if="editDialogFlag" width="40%">
+            <div class="form-win">
+                <div class="form">
+                    <div class="cm-input-row">
+                        <span class="field">{{$t("label.email")}}</span>
+                        <input type="text" v-model="editForm.email" class="cm-input">
+                    </div>
+                    <div class="cm-input-row">
+                        <span class="field">{{$t("label.pwd")}}</span>
+                        <input type="password" v-model="editForm.password" class="cm-input">
+                    </div>
+                    <div class="cm-input-row">
+                        <span class="field">{{$t("label.fName")}}</span>
+                        <input type="text" v-model="editForm.familyName" class="cm-input">
+                    </div>
+                    <div class="cm-input-row">
+                        <span class="field">{{$t("label.lName")}}</span>
+                        <input type="text" v-model="editForm.name" class="cm-input">
+                    </div>
+                    <div class="cm-input-row">
+                        <span class="field">{{$t("label.gender")}}</span>
+                        <input type="text" v-model="editForm.gender" class="cm-input">
+                    </div>
+                    <div class="cm-input-row">
+                        <span class="field">{{$t("label.birth")}}</span>
+                        <el-date-picker
+                            class="cm-calender"
+                            v-model="editForm.birth"
+                            type="date"
+                            :placeholder="$t('el.datepicker.selectDate')">
+                        </el-date-picker>
+                    </div>
+                    <div class="cm-input-row">
+                        <span class="field">{{$t("label.phone")}}</span>
+                        <input type="text" v-model="editForm.phone" class="cm-input">
+                    </div>
+                    <div class="cm-input-row">
+                        <span class="field">{{$t("label.eContact")}}</span>
+                        <input type="text" v-model="editForm.emergencyPhone" class="cm-input">
+                    </div>
+                    <div class="cm-input-row">
+                        <span class="field">{{$t("label.country")}}</span>
+                        <input type="text" v-model="editForm.country" class="cm-input">
+                    </div>
+                    <div class="cm-input-row">
+                        <span class="field">{{$t("label.province")}}</span>
+                        <input type="text" v-model="editForm.province" class="cm-input">
+                    </div>
+                    <div class="cm-input-row">
+                        <span class="field">{{$t("label.city")}}</span>
+                        <input type="text" v-model="editForm.city" class="cm-input">
+                    </div>
+                    <div class="cm-input-row">
+                        <span class="field">{{$t("label.address")}}</span>
+                        <input type="text" v-model="editForm.address" class="cm-input">
+                    </div>
+                </div>
+            </div>
+            <div class="handle-list">
+                <div class="cm-btn cm-handle-btn handle-btn" @click="editDialogFlag=false">{{$t("btn.cancel")}}</div>
+                <div class="cm-btn cm-handle-btn handle-btn" @click="saveEdit()">{{$t("btn.submit")}}</div>
+            </div>
+        </el-dialog>
     </div>
 </template>
 <style lang="less" rel="stylesheet/less">
@@ -310,6 +379,27 @@
                     &+.btn{
                         margin-left: 20px;
                     }
+                }
+            }
+        }
+    }
+    .edit-dialog{
+        .el-dialog{
+            width: 700px !important;
+        }
+        .form-win{
+            width: 100%;
+            height: 400px;
+            overflow-y: scroll;
+            .field{
+                width: 180px;
+            }
+            .cm-input-row{
+                .cm-input{
+                    height: 50px;
+                }
+                &.cm-input-row{
+                    margin-top: 15px;
                 }
             }
         }
@@ -424,6 +514,9 @@
                 },
                 entryList:[],
 
+                editDialogFlag:false,
+                editForm:{}
+
             }
         },
         created(){
@@ -535,17 +628,19 @@
                 Vue.api.getUserCertificate(params).then((resp)=>{
                     if(resp.respCode=='2000'){
                         this.rawCertificateList=JSON.parse(resp.respMsg);
+                        console.log('this.rawCertificateList:',this.rawCertificateList);
 
                         setTimeout(()=>{
                             this.rawCertificateList.forEach((item,i)=>{
                                 item.certificate=JSON.parse(item.certificate);
+                                item.user=JSON.parse(item.user)
                                 this.draw({
                                     id:'canvas'+i,
                                     avatar:'http://39.108.11.197/mfiFile/user/749cf6929012427c81c45fd619d5e33d-headPic-image.jpeg',//临时测试
-                                    name:item.certificate.possessorId,
+                                    name:item.possessorName,
                                     level:item.certificate.mfiLevel,
                                     certificateNo:item.certificate.serialCode,
-                                    date:Vue.formatDate(item.certificate.createdAt,'yyyy-MM-dd'),
+                                    date:Vue.formatDate(item.certificate.updatedAt,'yyyy-MM-dd'),
                                     issuer:item.certificate.schoolSerialCode,
                                     callback:(data)=>{
                                         item.filePath=data;
@@ -553,7 +648,6 @@
                                     }
                                 });
                             });
-                            console.log('this.certificateList:',this.certificateList);
                         },1000)
                     }else{
 
@@ -570,7 +664,10 @@
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
                         this.user=data;
-                        console.log('data2:',data);
+
+                        this.editForm=JSON.parse(JSON.stringify(this.user));
+                        this.editForm.password=null;
+                        console.log('this.editForm:',this.editForm);
                     }else{
 
                     }
@@ -591,6 +688,10 @@
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
                         this.entryList=JSON.parse(data.courseList);
+                        this.entryList.forEach((item,i)=>{
+                            item.course=JSON.parse(item.course),
+                            item.instructor=JSON.parse(item.instructor)
+                        })
                         this.pager.total=data.count;
                     }
                 });
@@ -643,16 +744,87 @@
 
                         that.drawText(ctx,options.issuer,490,380);
                         //
-                        let dataUrl = canvas.toDataURL('image/jpeg');
-                        options.callback&&options.callback(dataUrl);
+                       try{
+                           let dataUrl = canvas.toDataURL('image/jpeg');
+                           options.callback&&options.callback(dataUrl);
+                       }catch (e){
+
+                       }
                     }
                 }
-            }
+            },
+            saveEdit:function () {
+                if(!this.editForm.email){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.email")});
+                    return;
+                }
+                if(!this.editForm.familyName){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.fName")});
+                    return;
+                }
+                if(!this.editForm.name){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.lName")});
+                    return;
+                }
+                if(!this.editForm.gender){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.gender")});
+                    return;
+                }
+                if(!this.editForm.birth){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.birth")});
+                    return;
+                }
+                if(!this.editForm.phone){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.phone")});
+                    return;
+                }
+                if(!this.editForm.emergencyPhone){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.eContact")});
+                    return;
+                }
+                if(!this.editForm.country){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.country")});
+                    return;
+                }
+                if(!this.editForm.province){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.province")});
+                    return;
+                }
+                if(!this.editForm.city){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.city")});
+                    return;
+                }
+                if(!this.editForm.address){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.address")});
+                    return;
+                }
+                let params={
+                    imeStamp:Vue.genTimestamp(),
+                    userId:this.id,
+                    ...this.editForm
+                }
+                let fb=Vue.operationFeedback({text:this.$t("tips.save")});
+                Vue.api.setUserBaseInfo(params).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        Object.assign(this.account,this.editForm);
+                        this.user=this.account;
+                        this.$cookie.set('account',JSON.stringify({
+                            type:'student',
+                            account:this.account.email,
+                            ...this.account
+                        }),7);
+                        fb.setOptions({type:'complete', text:this.$t("tips.saveS",{msg:resp.respMsg})});
+                        this.editDialogFlag=false;
+                    }else{
+                        fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                    }
+                });
+            },
         },
         mounted () {
             /**/
-            this.id=this.$route.params.id;
             this.account=Vue.getAccountInfo();
+            this.id=this.account.type=='student'?this.account.id:this.$route.params.id;
 
             /**/
             this.getUserBaseInfo();

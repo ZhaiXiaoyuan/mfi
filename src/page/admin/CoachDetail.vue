@@ -488,13 +488,14 @@
                         setTimeout(()=>{
                             this.rawCertificateList.forEach((item,i)=>{
                                 item.certificate=JSON.parse(item.certificate);
+                                item.user=JSON.parse(item.user);
                                 this.draw({
                                     id:'canvas'+i,
                                     avatar:'http://39.108.11.197/mfiFile/user/749cf6929012427c81c45fd619d5e33d-headPic-image.jpeg',//临时测试
-                                    name:item.certificate.possessorId,
+                                    name:item.possessorName,
                                     level:item.certificate.mfiLevel,
                                     certificateNo:item.certificate.serialCode,
-                                    date:Vue.formatDate(item.certificate.createdAt,'yyyy-MM-dd'),
+                                    date:Vue.formatDate(item.certificate.updatedAt,'yyyy-MM-dd'),
                                     issuer:item.certificate.schoolSerialCode,
                                     callback:(data)=>{
                                         item.filePath=data;
@@ -502,7 +503,6 @@
                                     }
                                 });
                             });
-                            console.log('this.certificateList:',this.certificateList);
                         },1000)
                     }else{
 

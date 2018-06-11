@@ -174,6 +174,8 @@
             }
             else if(this.account.type=='coach'){
                 this.accountAccess=['10','11','12','13'];
+            }else if(this.account.type=='student'){
+                this.accountAccess=['14','15'];
             }
             this.initItems();
         },
@@ -251,6 +253,16 @@
                        code:'13',
                        icon: 'my-icon',
                        index: '/coachDetail',
+                       title: this.$t("btn.my"),
+                   },{
+                       code:'14',
+                       icon: 'course-icon',
+                       index: '/studentCourseList',
+                       title: this.$t("btn.myCourse"),
+                   },{
+                       code:'15',
+                       icon: 'my-icon',
+                       index: '/studentDetail',
                        title: this.$t("btn.my"),
                    },];
                /*菜单权限配置*/

@@ -232,6 +232,29 @@
                             });
                         }
                     });
+                }else if(this.type=='student'){
+                    params.email=this.account;
+                    params.password=md5.hex(params.password);
+                    Vue.api.studentLogin(params).then((resp)=>{
+                        if(resp.respCode=='2000'){
+                            let data=JSON.parse(resp.respMsg);
+                            this.$cookie.set('account',JSON.stringify({
+                                type:this.type,
+                                account:this.account,
+                                ...data
+                            }),7);
+                            fb.setOptions({
+                                type:'complete',
+                                text:this.$t("tips.loginS")
+                            });
+                            this.$router.push({name:'studentCourseList',params:{}});
+                        }else{
+                            fb.setOptions({
+                                type:'warn',
+                                text:this.$t("tips.loginF")
+                            });
+                        }
+                    });
                 }
             }
         },

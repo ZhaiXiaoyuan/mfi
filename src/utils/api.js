@@ -325,6 +325,22 @@ export default {
                 params: params
             });
         },
+        //学生登陆
+        studentLogin:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/student/login',
+                params: params
+            });
+        },
+        //获取学生mfi等级阶段状态
+        getStudentMfiLevelState:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/course/getStudentMfiLevelState',
+                params: params
+            });
+        },
     }
   },
 

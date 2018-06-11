@@ -59,6 +59,7 @@ const en = {
         buyDate:'purchase date',
         student:'student',
         grantDate:'grant date',
+        instructorName:'instructor name',
     },
     holder: {
         account:'please enter your account',
@@ -86,6 +87,8 @@ const en = {
         lName:'please select the last name',
         gender:'please select the gender',
         eContact:'please select the emergency contact',
+        insurance:'please upload the insurance certification',
+        firstAid:'please upload the first aid certification',
     },
     btn:{
         adminLogin:'administrator login',
@@ -157,7 +160,8 @@ const en = {
         newStudent:'new student',
         myStudent:'Student',
         my:'My',
-        activation:'activation'
+        activation:'activation',
+        edit:'edit',
     },
     title:{
         super:'Super Administrator',
@@ -193,6 +197,8 @@ const en = {
         certificateRecord:'Certificate Record',
         instructorActivation:'Instructor Activation',
         studentActivation:'Student Activation',
+        myCourseStatus:'My Course Status',
+        accountSetting:'Account Setting',
     },
     tips:{
         login:'logining...',
@@ -203,10 +209,13 @@ const en = {
         settingF:'setting failure,{msg}',
         delete:'deleting...',
         deleteS:'delete successfully',
-        deleteF:'delete failure，{msg}',
+        deleteF:'delete failure,{msg}',
         save:'saving...',
         saveS:'save successfully',
-        saveF:'save failure，{msg}',
+        saveF:'save failure,{msg}',
+        handle:'handling...',
+        handleS:'handle successfully',
+        handleF:'handle failure,{msg}',
         delAdmin:'are you sure to delete this Administrator:{msg}？',
         delMsg:'are you sure to delete this message：{msg}？',
         total:'total {msg} records',
