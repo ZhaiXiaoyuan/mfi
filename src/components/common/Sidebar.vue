@@ -42,10 +42,10 @@
         left: 0;
         top: 0px;
         bottom:0;
-        width: 300px;
+        width: 280px;
         background: #fff8fe;
         .user-info{
-            padding: 40px 20px 60px 20px;
+            padding: 40px 10px;
             text-align: center;
             color: #5560aa;
             font-size: 20px;
@@ -122,6 +122,52 @@
         color: #fff;
         text-align: center;
         line-height: 80px;
+    }
+    @media screen and (max-width: 1600px) {
+        .logo-icon{
+            width: 60px;
+            height: 58px;
+        }
+        .sidebar{
+            width: 250px;
+            .user-info{
+                padding: 25px 5px;
+                .name{
+                    font-size: 16px;
+                }
+                .role{
+                    font-size: 24px;
+                }
+                .account{
+
+                }
+            }
+        }
+        .sidebar >ul{
+            .icon-wrap{
+                margin-left: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 25px;
+            }
+            li{
+                height: 60px;
+                .line{
+                    width: 5px;
+                }
+                .title{
+                    font-size: 16px;
+                }
+            }
+        }
+        .logout-btn{
+            width: 180px;
+            height: 70px;
+            line-height: 66px;
+            font-size: 20px;
+            bottom: 20px;
+        }
     }
 </style>
 
@@ -209,7 +255,7 @@
                    {
                        code:'05',
                        icon: 'student-icon',
-                       index: '/studentList',
+                       index: '/adminStudentList',
                        title: this.$t("btn.studentModule"),
                    },
                    {

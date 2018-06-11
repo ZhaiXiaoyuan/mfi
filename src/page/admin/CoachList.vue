@@ -190,7 +190,7 @@
                         value:null,
                         label:this.$t("btn.all"),
                     },*/
-                    {
+                   /* {
                         value:'M0',
                         label:'M0',
                     },
@@ -205,7 +205,7 @@
                     {
                         value:'M3',
                         label:'M3',
-                    },
+                    },*/
                     {
                         value:'MBI',
                         label:'MBI',
@@ -355,6 +355,12 @@
                 let fb=Vue.operationFeedback({text:this.$t("tips.save")});
                 Vue.api.addCoach(params).then((resp)=>{
                     if(resp.respCode=='2000'){
+                        this. newForm={
+                            email:null,
+                            level:null,
+                            status:'nonactivated',
+                            school:null,
+                        };
                         this.getList();
                         this.dialogFormVisible=false;
                         fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
@@ -365,8 +371,8 @@
             },
             toDetail:function (index) {
                 let coach=this.entryList[index];
-                localStorage.setItem('curCoach',JSON.stringify(coach));
-                this.$router.push({name:'coachDetail',params:{}});
+                /*localStorage.setItem('curCoach',JSON.stringify(coach));*/
+                this.$router.push({name:'coachDetail',params:{id:coach.id}});
             },
         },
         mounted () {

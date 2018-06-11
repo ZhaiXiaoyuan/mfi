@@ -157,7 +157,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="(item,index) in entryList">
+                        <tr v-for="(item,index) in entryList" :class="{'cm-disabled':item.studentState=='nonActivated'}">
                             <td>
                                 {{item.studentEmail}}
                             </td>

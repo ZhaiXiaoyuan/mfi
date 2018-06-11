@@ -2,17 +2,33 @@
     <div class="page-content">
         <div class="cm-panel">
             <div class="panel-hd">
-                <div class="cm-btn cm-return-btn" v-if="account.type=='admin'" @click="$router.back();">
-                    <div class="wrapper">
-                        <i class="icon el-icon-arrow-left"></i>
-                        {{$t('btn.back')}}
-                    </div>
-                </div>
+               <span class="title">{{$t('title.allStudent')}}</span>
             </div>
             <div class="panel-bd">
                 <div class="cm-list-block" v-loading="pager.loading">
                     <div class="block-hd">
-                        <span class="title">{{$t('title.someoneStudent',{msg:coach.name})}}</span>
+                        <div class="con-item">
+                            <span class="label">{{$t("label.level")}}</span>
+                            <el-select v-model="selectedLevel" @change="levelChange" class="handle cm-select">
+                                <el-option
+                                    v-for="(item,index) in levelOptions"
+                                    :key="index"
+                                    :label="item.label"
+                                    :value="item.value">
+                                </el-option>
+                            </el-select>
+                        </div>
+                        <div class="con-item">
+                            <span class="label">{{$t("label.status")}}</span>
+                            <el-select v-model="selectedStatus" @change="statusChange" class="handle cm-select">
+                                <el-option
+                                    v-for="(item,index) in options"
+                                    :key="index"
+                                    :label="item.label"
+                                    :value="item.value">
+                                </el-option>
+                            </el-select>
+                        </div>
                         <div class="con-item con-item-search">
                             <el-input :placeholder='$t("holder.certificateStatisticsSearch")' v-model="keyword" @keyup.enter.native="getList()"  class="cm-search">
                                 <el-button slot="append" class="cm-btn" icon="el-icon-search" @click="getList()"></el-button>
@@ -79,7 +95,72 @@
         data() {
             return {
                 account:{},
-                coach:{},
+
+                levelOptions:[
+                     {
+                        value:null,
+                        label:this.$t("btn.all"),
+                     },
+                    {
+                        value:'M0',
+                        label:'M0',
+                    },
+                    {
+                        value:'M1',
+                        label:'M1',
+                    },
+                    {
+                        value:'M2',
+                        label:'M2',
+                    },
+                    {
+                        value:'M3',
+                        label:'M3',
+                    },
+                    {
+                        value:'MBI',
+                        label:'MBI',
+                    },
+                    {
+                        value:'MI',
+                        label:'MI',
+                    },
+                    {
+                        value:'MMI',
+                        label:'MMI',
+                    },
+                    {
+                        value:'MIT',
+                        label:'MIT',
+                    },
+                ],
+                selectedLevel:null,
+                options:[
+                    {
+                        value:null,
+                        label:this.$t("btn.all"),
+                     },
+                    {
+                        label:this.$t("btn.nonactivated"),
+                        value:'nonactivated'
+                    },
+                    {
+                        label:this.$t("btn.certified"),
+                        value:'certified'
+                    },
+                    {
+                        label:this.$t("btn.pending"),
+                        value:'pending'
+                    },{
+                        label:this.$t("btn.fail"),
+                        value:'fail'
+                    },
+                    {
+                        label:this.$t("btn.disable"),
+                        value:'disable'
+                    }
+                ],
+                selectedStatus:null,
 
                 keyword:null,
                 pager:{
@@ -104,30 +185,33 @@
                 this.pager.pageIndex=pageIndex?pageIndex:1;
                 let params={
                     ...Vue.sessionInfo(),
-                    userId:this.coach.id,
                     pageIndex:this.pager.pageIndex,
                     pageSize:this.pager.pageSize,
-                    mfiLevel:'',
-                    canJoinCourseId:null,
+                    mfiLevel:this.selectedLevel,
+                    studentAccountStatus:this.selectedStatus,
                     searchContent:this.keyword,
                 }
                 this.pager.loading=true;
-                Vue.api.getInstrutorStudentList(params).then((resp)=>{
+                Vue.api.getStudentList(params).then((resp)=>{
                     this.pager.loading=false;
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
                         this.entryList=JSON.parse(data.studentList);
+                        console.log('this.entryList:',this.entryList);
                         this.pager.total=data.count;
                     }
                 });
             },
+            levelChange:function (data) {
+                this.getList();
+            },
+            statusChange:function (data) {
+                this.getList();
+            },
         },
         mounted () {
             /**/
-            this.coach=JSON.parse(localStorage.getItem('curCoach'));
             this.account=Vue.getAccountInfo();
-            this.coach=this.account.type=='coach'?this.account:this.coach;
-            console.log('this.coach:',this.coach);
 
             /**/
             this.getList();

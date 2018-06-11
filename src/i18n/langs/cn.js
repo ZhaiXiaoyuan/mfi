@@ -30,7 +30,7 @@ const cn = {
         school:'学校',
         fName:'姓',
         lName:'名',
-        gender:'姓名',
+        gender:'性别',
         birth:'生日',
         contact:'号码',
         eContact:'紧急联系人',
@@ -91,6 +91,8 @@ const cn = {
         eContact:'请输入紧急联系人',
         insurance:'请上传保险证明',
         firstAid:'请上传急救证明',
+        avatar:'请上传头像',
+        reason:'请输入原因',
     },
     btn:{
         adminLogin:'管理员登录',
@@ -163,7 +165,9 @@ const cn = {
         myStudent:'我的学员',
         my:'我的',
         activation:'激活账号',
-        edit:'编辑信息',
+        editInfo:'编辑信息',
+        toPass:'通过',
+        toReject:'驳回',
     },
     title:{
         super:'超级管理员',
@@ -201,6 +205,9 @@ const cn = {
         studentActivation:'学员账号激活',
         myCourseStatus:'我的课程状态',
         accountSetting:'账号设置',
+        auditFail:'审核失败',
+        allStudent:'所有学员',
+        someoneCertificateRecord:'{msg}的证书授权记录',
     },
     tips:{
         login:'登录中...',

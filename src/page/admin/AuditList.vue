@@ -52,22 +52,27 @@
                         <tbody>
                         <tr v-for="(item,index) in entryList">
                             <td>
-                                {{item.email}}
+
                             </td>
                             <td>
-                                {{item.name}}&nbsp;{{item.familyName}}
+
                             </td>
                             <td>
-                                {{item.mfiLevel}}
+
                             </td>
                             <td>
-                                {{item.instructorAccountStatus}}
+                                {{item.type|itemFind('value',options).label}}
                             </td>
-                          <!--  <td>
-                                2018.02.22
-                            </td>-->
                             <td>
-                                <span class="handle" @click="toDetail(index)" :class="{'cm-disabled':item.instructorAccountStatus=='nonActivated'}">{{$t('btn.detail')}}</span>
+                                {{item.state}}
+                            </td>
+                            <td>
+                                {{item.createdAt|formatDate('yyyy-MM-dd hh:mm')}}
+                            </td>
+                            <td>
+                                <el-button class="small handle-btn" @click="toDetail(item)">{{$t('btn.detail')}}</el-button>
+                                <el-button class="small handle-btn" v-if="item.state!='pass'" @click="toAudit('pass',item)">{{$t('btn.toPass')}}</el-button>
+                                <el-button class="small handle-btn" v-if="item.state!='fail'" @click="toAudit('fail',item)">{{$t('btn.toReject')}}</el-button>
                             </td>
                         </tr>
                         </tbody>
@@ -85,81 +90,22 @@
                 </div>
             </div>
         </div>
-        <el-dialog :title='$t("title.newCoach")' class="edit-dialog cm-dialog school-dialog" :visible.sync="dialogFormVisible" v-if="dialogFormVisible" width="40%">
+
+        <el-dialog :title='$t("title.auditFail")' class="edit-dialog cm-dialog audit-input-dialog" :visible.sync="dialogFormVisible" v-if="dialogFormVisible" width="40%">
             <div class="form">
                 <div class="cm-input-row">
-                    <span class="field">{{$t("label.email")}}</span>
-                    <input type="text" v-model="newForm.email" class="cm-input">
-                </div>
-                <div class="cm-input-row">
-                    <span class="field">{{$t("label.level")}}</span>
-                    <el-select v-model="newForm.level" class="handle cm-select">
-                        <el-option
-                            v-for="(item,index) in levelOptions"
-                            :key="index"
-                            :label="item.label"
-                            :value="item.value">
-                        </el-option>
-                    </el-select>
-                </div>
-                <div class="cm-input-row">
-                    <span class="field">{{$t("label.school")}}</span>
-                    <el-select v-model="newForm.school" class="handle cm-select">
-                        <el-option
-                            v-for="(item,index) in schoolOptions"
-                            :key="index"
-                            :label="item.label"
-                            :value="item.value">
-                        </el-option>
-                    </el-select>
-                </div>
-                <div class="cm-input-row">
-                    <span class="field">{{$t("label.status")}}</span>
-                    <el-select v-model="newForm.status" class="handle cm-select" disabled>
-                        <el-option
-                            v-for="(item,index) in options"
-                            :key="index"
-                            :label="item.label"
-                            :value="item.value">
-                        </el-option>
-                    </el-select>
+                    <textarea v-model="reason" :placeholder="$t('holder.reason')" maxlength="200" cols="30" rows="10"></textarea>
                 </div>
             </div>
             <div class="handle-list">
                 <div class="cm-btn cm-handle-btn handle-btn" @click="dialogFormVisible=false">{{$t("btn.cancel")}}</div>
-                <div class="cm-btn cm-handle-btn handle-btn" @click="save">{{$t("btn.submit")}}</div>
+                <div class="cm-btn cm-handle-btn handle-btn" @click="toReject()">{{$t("btn.submit")}}</div>
             </div>
         </el-dialog>
     </div>
 </template>
 <style lang="less" rel="stylesheet/less">
-    .add-msg-dialog{
-        color: #5360aa;
-        .el-dialog{
-            width: 580px !important;
-        }
-       .el-dialog__header{
-           text-align: center;
-           padding: 30px 20px;
-           .el-dialog__title{
-               font-size: 28px;
-               color: #5360aa;
-           }
-       }
-        .el-dialog__body{
-            padding-top: 0px;
-        }
-        textarea{
-            width: 100%;
-            height: 270px;
-            border: 1px solid #e5e5e5;
-            border-radius: 5px;
-            padding: 20px;
-            color: #5360aa;
-            font-size: 16px;
-            resize: none;
-        }
-    }
+
 </style>
 <script>
     import Vue from 'vue'
@@ -185,24 +131,6 @@
                     },
                 ],
                 selectedType:null,
-                schoolOptions:[ {
-                    label:this.$t("btn.configurable"),
-                    value:'configurable'
-                },],
-
-                listLevelOptions:[],
-                listOptions:[],
-                selectedLevel:null,
-                selectedStatus:null,
-
-
-                dialogFormVisible:false,
-                newForm:{
-                    email:null,
-                    level:null,
-                    status:'nonactivated',
-                    school:null,
-                },
 
                 state:'pending',//pending:待审核 pass:已审核 fail:以驳回
                 pager:{
@@ -212,6 +140,10 @@
                     loading:false,
                 },
                 entryList:[],
+
+                dialogFormVisible:false,
+                reason:null,
+                curItem:null,
             }
         },
         created(){
@@ -252,45 +184,69 @@
                 this.selectedType=data;
                 this.getList();
             },
-            save:function () {
-                if(!this.newForm.email){
-                    Vue.operationFeedback({type:'warn',text:this.$t("holder.email")});
-                    return;
+            toDetail:function (item) {
+                if(item.type=='instructorDueAudit'){
+                    this.$router.push({name:'coachDetail',params:{id:item.userId}});
+                }else if(item.type=='studentToInstructor'){
+                    this.$router.push({name:'studentDetail',params:{id:item.userId}});
                 }
-                if(!this.newForm.level){
-                    Vue.operationFeedback({type:'warn',text:this.$t("holder.level")});
-                    return;
+            },
+            toAudit:function (state,item) {
+                this.curItem=item;
+                if(state=='fail'){
+                    this.dialogFormVisible=true;
+                }else if(state=='pass'){
+                    let params={
+                        ...Vue.sessionInfo(),
+                        adminId:this.account.id,
+                        userId:this.curItem.userId,
+                        type:this.curItem.type,
+                        state:'pass',
+                        msg:this.reason,
+                    }
+                    let fb=Vue.operationFeedback({text:this.$t("tips.setting")});
+                    Vue.api.operateAudit(params).then((resp)=>{
+                        if(resp.respCode=='2000'){
+                            this.getList();
+                            fb.setOptions({type:'complete', text:this.$t("tips.settingS")});
+                        }else{
+                            fb.setOptions({type:'warn', text:this.$t("tips.settingF",{msg:resp.respMsg})});
+                        }
+                    });
                 }
-                if(!this.newForm.school){
-                    Vue.operationFeedback({type:'warn',text:this.$t("holder.school")});
+            },
+            toReject:function () {
+               /* if(!this.reason){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.reason")});
                     return;
-                }
+                }*/
                 let params={
                     ...Vue.sessionInfo(),
-                    email:this.newForm.email,
-                    mfiLevel:this.newForm.level,
-                    schoolConfigParm:this.newForm.school,
+                    adminId:this.account.id,
+                    userId:this.curItem.userId,
+                    type:this.curItem.type,
+                    state:'fail',
+                    msg:this.reason,
                 }
-                let fb=Vue.operationFeedback({text:this.$t("tips.save")});
-                Vue.api.addCoach(params).then((resp)=>{
+                let fb=Vue.operationFeedback({text:this.$t("tips.setting")});
+                Vue.api.operateAudit(params).then((resp)=>{
                     if(resp.respCode=='2000'){
+                        this.reason=null;
                         this.getList();
                         this.dialogFormVisible=false;
-                        fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
+                        fb.setOptions({type:'complete', text:this.$t("tips.settingS")});
                     }else{
-                        fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                        fb.setOptions({type:'warn', text:this.$t("tips.settingF",{msg:resp.respMsg})});
                     }
                 });
-            },
-            toDetail:function (index) {
-                let coach=this.entryList[index];
-                localStorage.setItem('curCoach',JSON.stringify(coach));
-                this.$router.push({name:'coachDetail',params:{}});
             },
         },
         mounted () {
             /**/
+            this.account=Vue.getAccountInfo();
+            /**/
             this.getList();
+
         },
     }
 </script>

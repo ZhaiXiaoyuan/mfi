@@ -341,6 +341,22 @@ export default {
                 params: params
             });
         },
+        //操作审核
+        operateAudit:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/audit/operateAudit',
+                params: params
+            });
+        },
+        //获取学生列表
+        getStudentList:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/student/getStudentList',
+                params: params
+            });
+        },
     }
   },
 

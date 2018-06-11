@@ -7,7 +7,7 @@
                     <span class="title">{{$t("title.instructorActivation")}}</span>
                 </div>
                 <div class="panel-bd">
-                    <div class="cm-detail-block detail-block">
+                    <div class="cm-detail-block">
                         <div class="block-bd form">
                             <div class="cm-input-row">
                                 <span class="field"></span>
@@ -107,7 +107,7 @@
         width: 100%;
         height: 100%;
         overflow: auto;
-        padding: 50px 0px;
+        padding: 40px 0px;
     }
     .activation-page{
         width: 700px;
@@ -119,14 +119,6 @@
         .field{
             width: 180px;
         }
-        .cm-input-row{
-            .cm-input{
-                height: 50px;
-            }
-            &.cm-input-row{
-                margin-top: 15px;
-            }
-        }
     }
     .submit-btn{
         height: 50px;
@@ -137,80 +129,6 @@
         color: #fff;
         text-align: center;
         line-height: 50px;
-    }
-    .cm-calender{
-        width: 300px !important;
-        height: 50px !important;
-        input{
-            width: 100% !important;
-            height: 100% !important;
-        }
-    }
-    .cm-avatar-uploader{
-        text-align: center;
-        .wrapper{
-            position: relative;
-        }
-        img{
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-        }
-        input{
-            position: absolute;
-            top:0px;
-            left: 0px;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            cursor: pointer;
-            opacity: 0;
-        }
-        .name{
-            margin-top: 10px;
-            font-size: 14px;
-            color: #999;
-        }
-    }
-    .cm-input-pic-uploader{
-        text-align: left;
-        width: 300px;
-        .wrapper{
-            position: relative;
-            width: 80px;
-            border: 1px solid #5560aa;
-            height: 80px;
-            line-height: 80px;
-        }
-        img{
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-        }
-        .icon{
-            position: absolute;
-            top:0px;
-            bottom: 0px;
-            left: 0px;
-            right: 0px;
-            margin: auto;
-            font-size: 50px;
-        }
-        input{
-            position: absolute;
-            top:0px;
-            left: 0px;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            cursor: pointer;
-            opacity: 0;
-        }
-        .name{
-            margin-top: 10px;
-            font-size: 14px;
-            color: #999;
-        }
     }
 </style>
 <script>
@@ -269,6 +187,10 @@
                 });
             },
             save:function () {
+                if(!this.newForm.avatar){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.avatar")});
+                    return;
+                }
                 if(!this.newForm.email){
                     Vue.operationFeedback({type:'warn',text:this.$t("holder.email")});
                     return;
@@ -333,7 +255,7 @@
                     familyName:this.newForm.fName,
                     name:this.newForm.lName,
                     gender:this.newForm.gender,
-                    birth:this.newForm.birth.birth,
+                    birth:Vue.formatDate(this.newForm.birth,'yyyy-MM-dd'),
                     country:this.newForm.country,
                     province:this.newForm.province,
                     city:this.newForm.city,

@@ -61,7 +61,7 @@
         .block-hd{
             text-align: center;
             font-size: 30px;
-            p+{
+            p+p{
                 padding-top: 10px;
                 font-size: 40px;
             }
@@ -129,6 +129,69 @@
         padding: 12px 20px;
         border-radius: 5px;
         border: 1px solid #fff;
+    }
+    @media screen and (max-width: 1600px) {
+        .login-panel{
+            width: 822px;
+            height: 500px;
+        }
+        .form-block{
+            margin-top: 50px;
+            margin-right: 30px;
+            width: 280px;
+            .block-hd{
+                font-size: 24px;
+                p+p{
+                    padding-top: 5px;
+                    font-size: 30px;
+                }
+            }
+            .block-bd{
+                margin-top: 30px;
+            }
+            .input-row{
+                p{
+                    font-size: 18px;
+                    padding-bottom: 5px;
+                }
+                .input-item{
+                    position: relative;
+                    input{
+                        height: 50px;
+                        font-size: 16px;
+                        border-radius: 8px;
+                    }
+                    .icon{
+                        position: absolute;
+                        top:0px;
+                        right: 15px;
+                        bottom: 0px;
+                        margin: auto;
+                    }
+                }
+                &+.input-row{
+                    margin-top: 10px;
+                }
+            }
+            .handle-btn{
+                margin-top: 25px;
+                width: 280px;
+                height: 50px;
+                border-radius: 8px;
+                background: #5560aa;
+                font-size:20px;
+                color: #fff;
+                text-align: center;
+                line-height: 50px;
+            }
+        }
+        .help{
+            position: absolute;
+            right: 40px;
+            bottom: 50px;
+            font-size: 18px;
+            color: #606aaf;
+        }
     }
 </style>
 <script>

@@ -30,7 +30,7 @@ const tw = {
         school:"學校",
         fName:'姓',
         lName:'名',
-        gender:'姓名',
+        gender:'性別',
         birth:'生日',
         contact:'號碼',
         eContact:'緊急聯系人',
@@ -89,6 +89,8 @@ const tw = {
         eContact:'請輸入緊急聯系人',
         insurance:'請上傳保險證明',
         firstAid:'請上傳急救證明',
+        avatar:'請上傳頭像',
+        reason:'請輸入原因',
     },
     btn:{
         adminLogin:'管理員登錄',
@@ -161,7 +163,9 @@ const tw = {
         myStudent:'我的學員',
         my:'我的',
         activation:'激活賬號',
-        edit:'編輯信息',
+        editInfo:'編輯信息',
+        toPass:'通過',
+        toReject:'駁回',
     },
     title:{
         super:'超級管理員',
@@ -199,6 +203,9 @@ const tw = {
         studentActivation:'學員賬號激活',
         myCourseStatus:'我的課程狀態',
         accountSetting:'賬號設置',
+        auditFail:'審核失敗',
+        allStudent:'所有學員',
+        someoneCertificateRecord:'{msg}的證書授權記錄',
     },
     tips:{
         login:'登錄中...',

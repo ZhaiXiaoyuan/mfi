@@ -50,6 +50,11 @@
             }
         }
     }
+    @media screen and (max-width: 1600px) {
+        .language{
+            top:10px;
+        }
+    }
 </style>
 <script>
     export default{

@@ -10,9 +10,15 @@
 <style>
     .content{
         top:0px;
-        left: 300px;
+        left: 280px;
         background: none;
         padding: 30px;
+    }
+    @media screen and (max-width: 1600px) {
+        .content{
+            left: 250px;
+            padding: 20px;
+        }
     }
 </style>
 <script>

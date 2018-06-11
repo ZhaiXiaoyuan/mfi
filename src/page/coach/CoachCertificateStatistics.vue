@@ -2,7 +2,8 @@
     <div class="page-content coach-list">
         <div class="cm-panel">
             <div class="panel-hd">
-                <span class="title">{{$t("title.certificateRecord")}}</span>
+                <span class="title" v-if="account.type=='coach'">{{$t("title.certificateRecord")}}</span>
+                <span class="title"  v-if="account.type=='admin'">{{$t("title.someoneCertificateRecord",{msg:coach.name})}}</span>
             </div>
             <div class="panel-bd">
                 <div class="cm-list-block" v-loading="pager.loading">
@@ -178,6 +179,7 @@
         },
         data() {
             return {
+                id:null,
                 account:{},
                 coach:{},
 
@@ -250,7 +252,7 @@
                     ...Vue.sessionInfo(),
                     pageIndex:this.pager.pageIndex,
                     pageSize:this.pager.pageSize,
-                    possessorId:this.coach.id,
+                    possessorId:this.id,
                     mfiLevel:this.selectedLevel,
                     certificateState:null,
                     searchContent:this.keyword,
@@ -277,7 +279,10 @@
         },
         mounted () {
             this.account=Vue.getAccountInfo();
+            this.coach=JSON.parse(localStorage.getItem('curCoach'));
             this.coach=this.account.type=='coach'?this.account:this.coach;
+            this.id=this.account.type=='coach'?this.account.id:this.$route.params.id;
+            console.log('this.coach:',this.coach);
             /**/
             this.getList();
 

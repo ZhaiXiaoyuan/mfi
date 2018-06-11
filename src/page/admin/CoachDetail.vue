@@ -121,9 +121,9 @@
                     </div>
                     <div class="block-bd" v-if="account.type=='admin'">
                         <div class="btn-list">
-                            <div class="btn">{{$t("btn.student")}}</div>
-                            <div class="btn" @click="toCourse">{{$t("btn.course")}}</div>
-                            <div class="btn">{{$t("btn.AuthorizationRecord")}}</div>
+                            <div class="btn" @click="$router.push({name:'studentList',params:{id:coach.id}})">{{$t("btn.student")}}</div>
+                            <div class="btn" @click="toCourse()">{{$t("btn.course")}}</div>
+                            <div class="btn" @click="$router.push({name:'coachCertificateStatistics',params:{id:coach.id}})">{{$t("btn.AuthorizationRecord")}}</div>
                         </div>
                     </div>
                 </div>
@@ -194,77 +194,7 @@
     </div>
 </template>
 <style lang="less" rel="stylesheet/less">
-    .detail-block{
-        padding: 40px 20px;
-        .avatar{
-            width: 200px;
-            height: 200px;
-            border-radius: 5px;
-        }
-        .info-row{
-            &+.info-row{
-                margin-top: 25px;
-            }
-        }
-        .info-item{
-            position: relative;
-            font-size: 18px;
-            padding: 0px 5px;
-            .label{
 
-            }
-            .value{
-                color: #999;
-            }
-            .icon{
-                position: absolute;
-                top:0px;
-                bottom:0px;
-                right: 0px;
-                margin: auto;
-                cursor: pointer;
-            }
-        }
-        .block-bd{
-            .title{
-                font-size: 18px;
-                color: #5360aa;
-                padding: 10px;
-            }
-            &.block-bd{
-                border-top: 1px solid #e5e5e5;
-            }
-            .pic-list{
-                overflow: hidden;
-                li{
-                    float: left;
-                    text-align: center;
-                    margin: 5px 25px 5px 0px;
-                    img{
-                        width: 140px;
-                        height: 100px;
-                    }
-                    .label{
-                        text-align: center;
-                    }
-                }
-            }
-            .btn-list{
-                .btn{
-                    display: inline-block;
-                    font-size: 16px;
-                    color: #5360aa;
-                    border-radius: 5px;
-                    border: 1px solid #5360aa;
-                    padding: 8px 15px;
-                    cursor: pointer;
-                    &+.btn{
-                        margin-left: 20px;
-                    }
-                }
-            }
-        }
-    }
 </style>
 <script>
     import Vue from 'vue'

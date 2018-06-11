@@ -27,3 +27,12 @@ Vue.filter('formatDate',function(date,fmt){
     if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
   return fmt;
 });
+
+/*属性映射*/
+Vue.filter('itemFind',function(keyValue,keyName,arr){
+   let targetItem=arr.find((item)=>{
+       return item[keyName]==keyValue;
+   });
+    return targetItem;
+});
+

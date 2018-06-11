@@ -89,6 +89,8 @@ const en = {
         eContact:'please select the emergency contact',
         insurance:'please upload the insurance certification',
         firstAid:'please upload the first aid certification',
+        avatar:'please upload your avatar',
+        reason:'please enter the reason'
     },
     btn:{
         adminLogin:'administrator login',
@@ -161,7 +163,9 @@ const en = {
         myStudent:'Student',
         my:'My',
         activation:'activation',
-        edit:'edit',
+        editInfo:'edit',
+        toPass:'pass',
+        toReject:'reject',
     },
     title:{
         super:'Super Administrator',
@@ -199,6 +203,9 @@ const en = {
         studentActivation:'Student Activation',
         myCourseStatus:'My Course Status',
         accountSetting:'Account Setting',
+        auditFail:'Reject',
+        allStudent:'All Student',
+        someoneCertificateRecord:'{msg}\'s Certificate Record',
     },
     tips:{
         login:'logining...',

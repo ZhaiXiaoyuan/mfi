@@ -112,7 +112,7 @@
                     </div>
                     <div class="block-bd" v-if="account.type=='student'">
                         <div class="btn-list">
-                            <div class="cm-btn btn" @click="editDialogFlag=true">{{$t("btn.edit")}}</div>
+                            <div class="cm-btn btn" @click="editDialogFlag=true">{{$t("btn.editInfo")}}</div>
                         </div>
                     </div>
                 </div>

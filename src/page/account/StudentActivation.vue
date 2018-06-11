@@ -7,7 +7,7 @@
                     <span class="title">{{$t("title.studentActivation")}}</span>
                 </div>
                 <div class="panel-bd">
-                    <div class="cm-detail-block detail-block">
+                    <div class="cm-detail-block">
                         <div class="block-bd form">
                             <div class="cm-input-row">
                                 <span class="field"></span>
@@ -87,7 +87,7 @@
         width: 100%;
         height: 100%;
         overflow: auto;
-        padding: 50px 0px;
+        padding: 40px 0px;
     }
     .activation-page{
         width: 700px;
@@ -160,15 +160,17 @@
                         this.user=JSON.parse(resp.respMsg);
                         console.log('this.user:',this.user);
                         this.newForm.email=this.user.email;
-                        this.newForm.avatar=this.user.headPic;
-                        this.newForm.insurancePic=this.user.insurancePic;
-                        this.newForm.firstAidPic=this.user.firstAidPic;
+                        this.newForm.avatar=this.user.headPic?this.user.headPic+'?=random'+Math.random():null;
                     }else{
 
                     }
                 });
             },
             save:function () {
+                if(!this.newForm.avatar){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.avatar")});
+                    return;
+                }
                 if(!this.newForm.email){
                     Vue.operationFeedback({type:'warn',text:this.$t("holder.email")});
                     return;
@@ -225,7 +227,7 @@
                     familyName:this.newForm.fName,
                     name:this.newForm.lName,
                     gender:this.newForm.gender,
-                    birth:this.newForm.birth.birth,
+                    birth:Vue.formatDate(this.newForm.birth,'yyyy-MM-dd'),
                     country:this.newForm.country,
                     province:this.newForm.province,
                     city:this.newForm.city,
@@ -239,7 +241,7 @@
                         Vue.api.activate({imeStamp:Vue.genTimestamp(),aesData:this.aesData,role:'student'}).then((resp)=>{
                             if(resp.respCode=='2000'){
                                 //
-                                Vue.api.studentLogin({timeStamp:Vue.genTimestamp(),email:this.newForm.email,password:this.newForm.pwd}).then((resp)=>{
+                                Vue.api.studentLogin({timeStamp:Vue.genTimestamp(),email:this.newForm.email,password:md5.hex(this.newForm.pwd)}).then((resp)=>{
                                     if(resp.respCode=='2000'){
                                         let data=JSON.parse(resp.respMsg);
                                         this.$cookie.set('account',JSON.stringify({
@@ -279,6 +281,7 @@
                 let fb=Vue.operationFeedback({text:this.$t("tips.save")});
                 Vue.api.setHeadPic(formData).then((resp)=>{
                     this.uploading=false;
+                    this.getEmailByAesData();
                     if(resp.respCode=='2000'){
                         fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
                     }else{
