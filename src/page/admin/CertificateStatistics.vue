@@ -59,7 +59,7 @@
                                 {{item.orderRecordId}}
                             </td>
                             <td>
-
+                                {{item.possessor&&item.possessor.email}}
                             </td>
                             <td>
                                 {{item.schoolSerialCode}}
@@ -69,6 +69,9 @@
                             </td>
                             <td>
                                 1
+                            </td>
+                            <td>
+
                             </td>
                             <td>
                                 {{item.createdAt|formatDate('yyyy-MM-dd')}}
@@ -259,10 +262,12 @@
                     this.pager.loading=false;
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
-                        this.entryList=JSON.parse(data.certificateList);
-                        this.entryList.forEach((item,i)=>{
+                        let list=JSON.parse(data.certificateList);
+                        this.entryList=[];
+                        list.forEach((item,i)=>{
                             item.possessor=item.possessor?JSON.parse(item.possessor):null;
                             item.user=item.user?JSON.parse(item.user):null;
+                            this.entryList.push(item);
                         })
                         console.log('this.entryList:', this.entryList);
                         this.pager.total=data.count;

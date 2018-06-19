@@ -210,7 +210,7 @@ const tw = {
     tips:{
         login:'登錄中...',
         loginS:'登錄成功',
-        loginFail:'登錄失敗',
+        loginF:'登錄失敗',
         setting:'設置中...',
         settingS:'設置成功',
         settingF:'設置失敗，{msg}',

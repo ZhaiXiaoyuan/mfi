@@ -75,7 +75,7 @@
                                 <span v-if="!item.userId">-</span>
                             </td>
                             <td>
-                                <el-button class="small handle-btn" v-if="item.userId">{{$t('btn.viewCertificate')}}</el-button>
+                                <el-button class="small handle-btn" v-if="item.userId" @click="toViewCertificate(item)">{{$t('btn.viewCertificate')}}</el-button>
                                 <span v-if="!item.userId">-</span>
                             </td>
                         </tr>
@@ -94,6 +94,7 @@
                 </div>
             </div>
         </div>
+        <canvas width="1200" id="canvas"  height="675" style="display:none;border:1px solid #d3d3d3;background:#ffffff;"></canvas>
         <el-dialog :title='$t("title.newCoach")' class="edit-dialog cm-dialog school-dialog" :visible.sync="dialogFormVisible" v-if="dialogFormVisible" width="40%">
             <div class="form">
                 <div class="cm-input-row">
@@ -235,6 +236,7 @@
                     loading:false,
                 },
                 entryList:[],
+                bgImg:require('../../images/common/card-bg.jpg'),
             }
         },
         created(){
@@ -275,7 +277,73 @@
             levelChange:function (data) {
                 this.getList();
             },
+            toViewCertificate:function (item) {
+                console.log('item:',item);
+                this.draw({
+                    id:'canvas',
+                    avatar:Vue.basicConfig.filePrefix+item.user.headPic,
+                    name:item.user.name+' '+item.user.familyName,
+                    level:item.mfiLevel,
+                    certificateNo:item.serialCode,
+                    date:Vue.formatDate(item.updatedAt,'yyyy-MM-dd'),
+                    issuer:item.schoolSerialCode,
+                    callback:(data)=>{
+                        Vue.viewPicModal({
+                            imgUrl:data,
+                        });
+                    }
+                });
+            },
+            circleImg:function(ctx, img, x, y, r) {
+                ctx.save();
+                var d =2 * r;
+                var cx = x + r;
+                var cy = y + r;
+                ctx.arc(cx, cy, r, 0, 2 * Math.PI);
+                ctx.clip();
+                ctx.drawImage(img, x, y, d, d);
+                ctx.restore();
+            },
+            drawText:function (ctx,text,x,y) {
+                ctx.save();
+                ctx.font = "32px ' Helvetica Neue', Helvetica, Arial, 'Microsoft Yahei', 'Hiragino Sans GB', 'Heiti SC', 'WenQuanYi Micro Hei'";
+                ctx.fillStyle = "#666";
+                ctx.fillText(text,x,y,300);
+                ctx.restore();
+            },
+            draw:function (options) {
+                let that=this;
+                var canvas=document.getElementById(options.id);
+                var ctx=canvas.getContext("2d");
 
+                ctx.save();
+                let bgImg=new Image();
+                bgImg.src=this.bgImg;
+                bgImg.onload=function(){
+                    ctx.drawImage(bgImg,0,0);
+                    ctx.restore();
+
+                    ctx.save();
+                    var img = new Image();
+                    img.src = options.avatar;
+                    img.onload=function () {
+                        that.circleImg(ctx, img, 95, 101, 150);
+                        ctx.restore();
+
+                        //
+                        that.drawText(ctx,options.name,490,170);
+                        that.drawText(ctx,options.level,880,170);
+
+                        that.drawText(ctx,options.certificateNo,490,275);
+                        that.drawText(ctx,options.date,880,275);
+
+                        that.drawText(ctx,options.issuer,490,380);
+                        //
+                        let dataUrl = canvas.toDataURL('image/jpeg');
+                        options.callback&&options.callback(dataUrl);
+                    }
+                }
+            },
         },
         mounted () {
             this.account=Vue.getAccountInfo();
@@ -286,17 +354,6 @@
             /**/
             this.getList();
 
-            //临时测试
-          /*  let payModalInstance=this.payModal({
-                userId:this.account.id,
-                level:'M0',
-                callback:function (data) {
-                    console.log(2333);
-                /!*    setTimeout(()=>{
-                        payModalInstance.close();
-                    },5000)*!/
-                }
-            });*/
         },
     }
 </script>

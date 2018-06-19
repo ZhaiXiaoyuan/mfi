@@ -229,7 +229,7 @@
                             </td>
                             <td>
                                   <span class="handle" v-if="item.certificate=='pending'||item.certificate=='granted'">&mdash;</span>
-                                  <el-button class="small handle-btn" @click="toStudent(item)" v-if="item.certificate=='waiting'||item.certificate=='grant'||(item.certificate&&item.certificate.length>20)">{{$t('btn.student')}}</el-button>
+                                  <el-button class="small handle-btn" @click="toStudent(item)" v-if="item.certificate=='waiting'||item.certificate=='grant'||(item.certificate&&item.certificate.length>20)">{{$t('btn.detail')}}</el-button>
                                   <el-button class="small handle-btn" @click="grant(item)"  v-if="item.certificate=='waiting'&&unusedList.length>0">{{$t('btn.grant')}}</el-button>
                                   <el-button class="small handle-btn"   v-if="item.certificate=='waiting'&&unusedList.length==0" @click="toPay(item)">{{$t('btn.buyToGrant')}}</el-button>
 <!--

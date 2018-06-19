@@ -52,22 +52,22 @@
                         <tbody>
                         <tr v-for="(item,index) in entryList">
                             <td>
-
+                                {{item.user.email}}
                             </td>
                             <td>
-
+                                {{item.user.name}}
                             </td>
                             <td>
-
+                                {{item.user.mfiLevel}}
                             </td>
                             <td>
                                 {{item.type|itemFind('value',options).label}}
                             </td>
                             <td>
-                                {{item.state}}
+                                {{item.audit.state}}
                             </td>
                             <td>
-                                {{item.createdAt|formatDate('yyyy-MM-dd hh:mm')}}
+                                {{item.audit.createdAt|formatDate('yyyy-MM-dd hh:mm')}}
                             </td>
                             <td>
                                 <el-button class="small handle-btn" @click="toDetail(item)">{{$t('btn.detail')}}</el-button>
@@ -170,6 +170,11 @@
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
                         this.entryList=JSON.parse(data.auditList);
+                        for(let i=0;i<this.entryList.length;i++){
+                            let item=this.entryList[i];
+                            item.audit=JSON.parse(item.audit);
+                            item.user=JSON.parse(item.user);
+                        }
                         console.log('this.entryList:', this.entryList);
                         this.pager.total=data.count;
                     }
@@ -185,10 +190,10 @@
                 this.getList();
             },
             toDetail:function (item) {
-                if(item.type=='instructorDueAudit'){
-                    this.$router.push({name:'coachDetail',params:{id:item.userId}});
-                }else if(item.type=='studentToInstructor'){
-                    this.$router.push({name:'studentDetail',params:{id:item.userId}});
+                if(item.audit.type=='instructorDueAudit'){
+                    this.$router.push({name:'coachDetail',params:{id:item.user.id}});
+                }else if(item.audit.type=='studentToInstructor'){
+                    this.$router.push({name:'studentDetail',params:{id:item.user.id}});
                 }
             },
             toAudit:function (state,item) {
@@ -199,8 +204,8 @@
                     let params={
                         ...Vue.sessionInfo(),
                         adminId:this.account.id,
-                        userId:this.curItem.userId,
-                        type:this.curItem.type,
+                        userId:this.curItem.user.id,
+                        type:this.curItem.audit.type,
                         state:'pass',
                         msg:this.reason,
                     }
@@ -223,8 +228,8 @@
                 let params={
                     ...Vue.sessionInfo(),
                     adminId:this.account.id,
-                    userId:this.curItem.userId,
-                    type:this.curItem.type,
+                    userId:this.curItem.user.id,
+                    type:this.curItem.audit.type,
                     state:'fail',
                     msg:this.reason,
                 }

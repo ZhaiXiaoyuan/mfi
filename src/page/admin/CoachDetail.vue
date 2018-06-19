@@ -220,7 +220,7 @@
                      value:null,
                      label:this.$t("btn.all"),
                      },*/
-                    {
+                  /*  {
                         value:'M0',
                         label:'M0',
                     },
@@ -235,7 +235,7 @@
                     {
                         value:'M3',
                         label:'M3',
-                    },
+                    },*/
                     {
                         value:'MBI',
                         label:'MBI',
@@ -414,6 +414,7 @@
                 Vue.api.getUserCertificate(params).then((resp)=>{
                     if(resp.respCode=='2000'){
                         this.rawCertificateList=JSON.parse(resp.respMsg);
+                        console.log('this.rawCertificateList:',this.rawCertificateList);
 
                         setTimeout(()=>{
                             this.rawCertificateList.forEach((item,i)=>{
@@ -421,8 +422,8 @@
                                 item.user=JSON.parse(item.user);
                                 this.draw({
                                     id:'canvas'+i,
-                                    avatar:'http://39.108.11.197/mfiFile/user/749cf6929012427c81c45fd619d5e33d-headPic-image.jpeg',//临时测试
-                                    name:item.possessorName,
+                                    avatar:Vue.basicConfig.filePrefix+item.user.headPic,
+                                    name:item.user.name+' '+item.user.familyName,
                                     level:item.certificate.mfiLevel,
                                     certificateNo:item.certificate.serialCode,
                                     date:Vue.formatDate(item.certificate.updatedAt,'yyyy-MM-dd'),
