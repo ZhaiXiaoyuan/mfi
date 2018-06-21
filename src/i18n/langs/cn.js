@@ -212,7 +212,7 @@ const cn = {
     tips:{
         login:'登录中...',
         loginS:'登录成功',
-        loginFail:'登录失败',
+        loginF:'登录失败',
         setting:'设置中...',
         settingS:'设置成功',
         settingF:'设置失败，{msg}',
