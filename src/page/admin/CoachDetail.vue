@@ -15,7 +15,15 @@
                     <div class="block-bd">
                         <el-row>
                             <el-col :span="5">
-                                <img class="avatar" :src="coach.headPic?basicConfig.filePrefix+coach.headPic:defaultAvatar" alt="">
+                                <div class="to-upload" style="width: 160px;height: 160px;">
+                                    <img class="avatar" :src="coach.headPic?basicConfig.filePrefix+coach.headPic:defaultAvatar" alt="">
+                                    <div class="cm-btn upload-btn"  v-if="account.type=='coach'">
+                                        <div class="wrapper">
+                                            <i class="icon upload-icon"></i>
+                                            <input  type="file" id="file-input" accept="image/*" @change="selectFile()">
+                                        </div>
+                                    </div>
+                                </div>
                             </el-col>
                             <el-col :span="18">
                                 <el-row class="info-row">
@@ -66,6 +74,7 @@
                                         <span class="label">{{$t('label.status')}}：</span>
                                         <span class="value">{{coach.instructorAccountStatus}}</span>
                                         <i class="icon setting-min-icon" @click="statusSettingDialogFlag=true" v-if="account.type=='admin'"></i>
+                                        <span style="margin-left: 10px;" class="cm-btn btn" @click="addAudit()" v-if="account.type=='coach'&&(coach.instructorAccountStatus=='pending'||coach.instructorAccountStatus=='fail')">{{$t("btn.applyForAudit")}}</span>
                                     </el-col>
                                 </el-row>
                                 <el-row class="info-row">
@@ -75,7 +84,7 @@
                                     </el-col>
                                     <el-col :span="9" :offset="1" class="info-item">
                                         <span class="label">{{$t('label.auditDate')}}：</span>
-                                        <span class="value">2018.02.22</span>
+                                        <span class="value"></span>
                                     </el-col>
                                 </el-row>
                             </el-col>
@@ -124,6 +133,11 @@
                             <div class="btn" @click="$router.push({name:'studentList',params:{id:coach.id}})">{{$t("btn.student")}}</div>
                             <div class="btn" @click="toCourse()">{{$t("btn.course")}}</div>
                             <div class="btn" @click="$router.push({name:'coachCertificateStatistics',params:{id:coach.id}})">{{$t("btn.AuthorizationRecord")}}</div>
+                        </div>
+                    </div>
+                    <div class="block-bd" v-if="account.type=='coach'">
+                        <div class="btn-list">
+                            <div class="cm-btn btn" @click="editDialogFlag=true">{{$t("btn.editInfo")}}</div>
                         </div>
                     </div>
                 </div>
@@ -191,10 +205,93 @@
             </div>
         </el-dialog>
 
+        <el-dialog :title='$t("title.accountSetting")' class="edit-dialog cm-dialog edit-dialog" :visible.sync="editDialogFlag" v-if="editDialogFlag" width="40%">
+            <div class="form-win">
+                <div class="form">
+                    <div class="cm-input-row">
+                        <span class="field">{{$t("label.email")}}</span>
+                        <input type="text" v-model="editForm.email" readonly class="cm-input cm-disabled">
+                    </div>
+                    <div class="cm-input-row">
+                        <span class="field">{{$t("label.pwd")}}</span>
+                        <input type="password" v-model="editForm.password" class="cm-input">
+                    </div>
+                    <div class="cm-input-row">
+                        <span class="field">{{$t("label.fName")}}</span>
+                        <input type="text" v-model="editForm.familyName" class="cm-input">
+                    </div>
+                    <div class="cm-input-row">
+                        <span class="field">{{$t("label.lName")}}</span>
+                        <input type="text" v-model="editForm.name" class="cm-input">
+                    </div>
+                    <div class="cm-input-row">
+                        <span class="field">{{$t("label.gender")}}</span>
+                        <input type="text" v-model="editForm.gender" class="cm-input">
+                    </div>
+                    <div class="cm-input-row">
+                        <span class="field">{{$t("label.birth")}}</span>
+                        <el-date-picker
+                            class="cm-calender"
+                            v-model="editForm.birth"
+                            type="date"
+                            :placeholder="$t('el.datepicker.selectDate')">
+                        </el-date-picker>
+                    </div>
+                    <div class="cm-input-row">
+                        <span class="field">{{$t("label.phone")}}</span>
+                        <input type="text" v-model="editForm.phone" class="cm-input">
+                    </div>
+                    <div class="cm-input-row">
+                        <span class="field">{{$t("label.eContact")}}</span>
+                        <input type="text" v-model="editForm.emergencyPhone" class="cm-input">
+                    </div>
+                    <div class="cm-input-row">
+                        <span class="field">{{$t("label.country")}}</span>
+                        <input type="text" v-model="editForm.country" class="cm-input">
+                    </div>
+                    <div class="cm-input-row">
+                        <span class="field">{{$t("label.province")}}</span>
+                        <input type="text" v-model="editForm.province" class="cm-input">
+                    </div>
+                    <div class="cm-input-row">
+                        <span class="field">{{$t("label.city")}}</span>
+                        <input type="text" v-model="editForm.city" class="cm-input">
+                    </div>
+                    <div class="cm-input-row">
+                        <span class="field">{{$t("label.address")}}</span>
+                        <input type="text" v-model="editForm.address" class="cm-input">
+                    </div>
+                </div>
+            </div>
+            <div class="handle-list">
+                <div class="cm-btn cm-handle-btn handle-btn" @click="editDialogFlag=false">{{$t("btn.cancel")}}</div>
+                <div class="cm-btn cm-handle-btn handle-btn" @click="saveEdit()">{{$t("btn.submit")}}</div>
+            </div>
+        </el-dialog>
     </div>
 </template>
 <style lang="less" rel="stylesheet/less">
-
+    .edit-dialog{
+        .el-dialog{
+            width: 700px !important;
+        }
+        .form-win{
+            width: 100%;
+            height: 400px;
+            overflow-y: scroll;
+            .field{
+                width: 180px;
+            }
+            .cm-input-row{
+                .cm-input{
+                    height: 50px;
+                }
+                &.cm-input-row{
+                    margin-top: 15px;
+                }
+            }
+        }
+    }
 </style>
 <script>
     import Vue from 'vue'
@@ -297,6 +394,9 @@
                 },
                 rawCertificateList:[],
                 certificateList:[],
+
+                editDialogFlag:false,
+                editForm:{}
 
             }
         },
@@ -414,6 +514,7 @@
                 Vue.api.getUserCertificate(params).then((resp)=>{
                     if(resp.respCode=='2000'){
                         this.rawCertificateList=JSON.parse(resp.respMsg);
+                        this.certificateList=[];
                         console.log('this.rawCertificateList:',this.rawCertificateList);
 
                         setTimeout(()=>{
@@ -451,6 +552,8 @@
                         let data=JSON.parse(resp.respMsg);
                         this.coach=data;
                         this.getUserCertificate();
+                        this.aidPicList=[];
+                        this.otherPicList=[];
                         if(this.coach.firstAidPic){
                             this.aidPicList.push({
                                 filePath:Vue.basicConfig.filePrefix+this.coach.firstAidPic
@@ -473,6 +576,9 @@
                         this.statusForm.status=this.coach.instructorAccountStatus;
                         this.schoolForm.school=this.coach.school;
                         console.log('this.coach:',this.coach);
+                        //
+                        this.editForm=JSON.parse(JSON.stringify(this.coach));
+                        this.editForm.password=null;
                     }else{
 
                     }
@@ -528,7 +634,116 @@
                         options.callback&&options.callback(dataUrl);
                     }
                 }
-            }
+            },
+            saveEdit:function () {
+                if(!this.editForm.email){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.email")});
+                    return;
+                }
+                if(!this.editForm.familyName){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.fName")});
+                    return;
+                }
+                if(!this.editForm.name){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.lName")});
+                    return;
+                }
+                if(!this.editForm.gender){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.gender")});
+                    return;
+                }
+                if(!this.editForm.birth){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.birth")});
+                    return;
+                }else{
+                    this.editForm.birth=Vue.tools.formatDate(this.editForm.birth,'yyyy-MM-dd');
+                }
+                if(!this.editForm.phone){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.phone")});
+                    return;
+                }
+                if(!this.editForm.emergencyPhone){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.eContact")});
+                    return;
+                }
+                if(!this.editForm.country){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.country")});
+                    return;
+                }
+                if(!this.editForm.province){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.province")});
+                    return;
+                }
+                if(!this.editForm.city){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.city")});
+                    return;
+                }
+                if(!this.editForm.address){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.address")});
+                    return;
+                }
+                let params={
+                    imeStamp:Vue.genTimestamp(),
+                    userId:this.id,
+                    ...this.editForm
+                }
+                let fb=Vue.operationFeedback({text:this.$t("tips.save")});
+                Vue.api.setUserBaseInfo(params).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        Object.assign(this.account,this.editForm);
+                        this.coach=this.account;
+                        this.$cookie.set('account',JSON.stringify({
+                            type:'coach',
+                            account:this.account.email,
+                            ...this.account
+                        }),7);
+                        fb.setOptions({type:'complete', text:this.$t("tips.saveS",{msg:resp.respMsg})});
+                        this.editDialogFlag=false;
+                    }else{
+                        fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                    }
+                });
+            },
+            selectFile:function () {
+                let file=document.getElementById('file-input').files[0];
+                let formData = new FormData();
+                let sessionInfo=Vue.sessionInfo();
+                formData.append('timestamp',sessionInfo.timestamp);
+                formData.append('userId',this.account.id);
+                formData.append('headPic',file);
+                this.uploading=true;
+                let fb=Vue.operationFeedback({text:this.$t("tips.save")});
+                Vue.api.setHeadPic(formData).then((resp)=>{
+                    this.uploading=false;
+                    if(resp.respCode=='2000'){
+                        this.getUserBaseInfo();
+                        fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
+                    }else{
+                        fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                    }
+                });
+            },
+            addAudit:function () {
+                if(this.isSetting){
+                    return;
+                }
+                let params={
+                    ...Vue.sessionInfo(),
+                    userId:this.coach.id,
+                    type:'instructorDueAudit',
+                }
+                let fb=Vue.operationFeedback({text:this.$t("tips.handle")});
+                this.isSetting=true;
+                Vue.api.addAudit(params).then((resp)=>{
+                    this.isSetting=false;
+                    if(resp.respCode=='2000'){
+                        fb.setOptions({type:'complete', text:this.$t("tips.handleS")});
+                        localStorage.setItem('curCoach',JSON.stringify(this.coach));
+                    }else{
+                        fb.setOptions({type:'warn', text:this.$t("tips.handleF",{ msg: resp.respMsg})});
+                    }
+                });
+            },
         },
         mounted () {
             /**/

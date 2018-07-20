@@ -357,6 +357,14 @@ export default {
                 params: params
             });
         },
+        //添加审核
+        addAudit:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/audit/addAudit',
+                params: params
+            });
+        },
     }
   },
 

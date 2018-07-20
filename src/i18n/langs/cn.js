@@ -168,6 +168,7 @@ const cn = {
         editInfo:'编辑信息',
         toPass:'通过',
         toReject:'驳回',
+        applyForAudit:'申请审核'
     },
     title:{
         super:'超级管理员',

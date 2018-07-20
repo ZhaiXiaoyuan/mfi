@@ -166,6 +166,7 @@ const tw = {
         editInfo:'編輯信息',
         toPass:'通過',
         toReject:'駁回',
+        applyForAudit:'申請審核',
     },
     title:{
         super:'超級管理員',

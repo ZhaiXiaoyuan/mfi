@@ -71,8 +71,8 @@
                             </td>
                             <td>
                                 <el-button class="small handle-btn" @click="toDetail(item)">{{$t('btn.detail')}}</el-button>
-                                <el-button class="small handle-btn" v-if="item.state!='pass'" @click="toAudit('pass',item)">{{$t('btn.toPass')}}</el-button>
-                                <el-button class="small handle-btn" v-if="item.state!='fail'" @click="toAudit('fail',item)">{{$t('btn.toReject')}}</el-button>
+                                <el-button class="small handle-btn" v-if="item.audit.state=='pending'" @click="toAudit('pass',item)">{{$t('btn.toPass')}}</el-button>
+                                <el-button class="small handle-btn" v-if="item.audit.state=='pending'" @click="toAudit('fail',item)">{{$t('btn.toReject')}}</el-button>
                             </td>
                         </tr>
                         </tbody>

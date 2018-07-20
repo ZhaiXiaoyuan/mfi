@@ -1,10 +1,11 @@
 <template>
     <div class="login-page">
-        <div class="cm-btn switch-btn" v-if="type=='super'||type=='coach'||type=='student'" @click="switchType('admin')">{{$t("btn.adminLogin")}}</div>
+        <div class="cm-btn switch-btn" v-if="type=='super'" @click="switchType('admin')">{{$t("btn.adminLogin")}}</div>
 
-        <div class="cm-btn switch-btn" v-if="type=='admin'&&preType=='super'" @click="switchType('super')">{{$t("btn.superLogin")}}</div>
-        <div class="cm-btn switch-btn" v-if="type=='admin'&&preType=='coach'" @click="switchType('coach')">{{$t("btn.coachLogin")}}</div>
-        <div class="cm-btn switch-btn" v-if="type=='admin'&&preType=='student'" @click="switchType('student')">{{$t("btn.studentLogin")}}</div>
+        <div class="cm-btn switch-btn" v-if="type=='admin'" @click="switchType('super')">{{$t("btn.superLogin")}}</div>
+
+        <div class="cm-btn switch-btn" v-if="type=='student'" @click="switchType('coach')">{{$t("btn.coachLogin")}}</div>
+        <div class="cm-btn switch-btn" v-if="type=='coach'" @click="switchType('student')">{{$t("btn.studentLogin")}}</div>
         <language></language>
         <div class="login-panel">
             <div class="form-block">

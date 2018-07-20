@@ -14,8 +14,14 @@
                 <div class="cm-detail-block detail-block">
                     <div class="block-bd">
                         <el-row>
-                            <el-col :span="5">
+                            <el-col :span="5" class="to-upload">
                                 <img class="avatar" :src="user.headPic?basicConfig.filePrefix+user.headPic:defaultAvatar" alt="">
+                                <div class="cm-btn upload-btn" v-if="account.type=='student'">
+                                   <div class="wrapper">
+                                       <i class="icon upload-icon"></i>
+                                       <input  type="file" id="file-input" accept="image/*" @change="selectFile()">
+                                   </div>
+                                </div>
                             </el-col>
                             <el-col :span="18">
                                 <el-row class="info-row">
@@ -628,6 +634,7 @@
                 Vue.api.getUserCertificate(params).then((resp)=>{
                     if(resp.respCode=='2000'){
                         this.rawCertificateList=JSON.parse(resp.respMsg);
+                        this.certificateList=[];
                         console.log('this.rawCertificateList:',this.rawCertificateList);
 
                         setTimeout(()=>{
@@ -773,6 +780,8 @@
                 if(!this.editForm.birth){
                     Vue.operationFeedback({type:'warn',text:this.$t("holder.birth")});
                     return;
+                }else{
+                    this.editForm.birth=Vue.tools.formatDate(this.editForm.birth,'yyyy-MM-dd');
                 }
                 if(!this.editForm.phone){
                     Vue.operationFeedback({type:'warn',text:this.$t("holder.phone")});
@@ -815,6 +824,25 @@
                         }),7);
                         fb.setOptions({type:'complete', text:this.$t("tips.saveS",{msg:resp.respMsg})});
                         this.editDialogFlag=false;
+                    }else{
+                        fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                    }
+                });
+            },
+            selectFile:function () {
+                let file=document.getElementById('file-input').files[0];
+                let formData = new FormData();
+                let sessionInfo=Vue.sessionInfo();
+                formData.append('timestamp',sessionInfo.timestamp);
+                formData.append('userId',this.user.id);
+                formData.append('headPic',file);
+                this.uploading=true;
+                let fb=Vue.operationFeedback({text:this.$t("tips.save")});
+                Vue.api.setHeadPic(formData).then((resp)=>{
+                    this.uploading=false;
+                    this.getUserBaseInfo();
+                    if(resp.respCode=='2000'){
+                        fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
                     }else{
                         fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
                     }

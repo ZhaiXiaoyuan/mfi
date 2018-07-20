@@ -166,6 +166,7 @@ const en = {
         editInfo:'edit',
         toPass:'pass',
         toReject:'reject',
+        applyForAudit:'apply for audit',
     },
     title:{
         super:'Super Administrator',
