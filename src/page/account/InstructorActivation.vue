@@ -356,7 +356,7 @@
         },
         mounted () {
             /**/
-            this.aesData=this.$route.query.data.replace(' ','+');
+            this.aesData=this.$route.query.data.replace(/\s/g, "+");
             /**/
             this.getEmailByAesData();
         },
