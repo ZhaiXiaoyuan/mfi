@@ -288,7 +288,11 @@
                                 type:'complete',
                                 text:this.$t("tips.loginS")
                             });
-                            this.$router.push({name:'courseList',params:{}});
+                            if(data.instructorAccountStatus=='pending'||data.instructorAccountStatus=='fail'){
+                                this.$router.push({name:'coachDetail',params:{}});
+                            }else{
+                                this.$router.push({name:'courseList',params:{}});
+                            }
                         }else{
                             fb.setOptions({
                                 type:'warn',

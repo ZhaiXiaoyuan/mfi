@@ -17,7 +17,7 @@
                             <el-col :span="5">
                                 <div class="to-upload" style="width: 160px;height: 160px;">
                                     <img class="avatar" :src="coach.headPic?basicConfig.filePrefix+coach.headPic:defaultAvatar" alt="">
-                                    <div class="cm-btn upload-btn"  v-if="account.type=='coach'">
+                                    <div class="upload-btn"  v-if="account.type=='coach'">
                                         <div class="wrapper">
                                             <i class="icon upload-icon"></i>
                                             <input  type="file" id="file-input" accept="image/*" @change="selectFile()">
@@ -25,7 +25,7 @@
                                     </div>
                                 </div>
                             </el-col>
-                            <el-col :span="18">
+                            <el-col :span="19">
                                 <el-row class="info-row">
                                     <el-col :span="5" class="info-item">
                                         <span class="label">{{$t('label.fName')}}：</span>
@@ -57,7 +57,7 @@
                                     <el-col :span="9" :offset="1" class="info-item">
                                         <span class="label">{{$t('label.school')}}：</span>
                                         <span class="value">{{coach.school}}</span>
-                                        <i class="icon setting-min-icon" @click="schoolSettingDialogFlag=true" v-if="account.type=='admin'"></i>
+                                        <i class="icon setting-min-icon" @click="schoolSettingDialogFlag=true" v-if="account.type=='admin'||account.type=='coach'"></i>
                                     </el-col>
                                 </el-row>
                                 <el-row class="info-row">
@@ -78,32 +78,29 @@
                                     </el-col>
                                 </el-row>
                                 <el-row class="info-row">
-                                    <el-col :span="13" class="info-item">
+                                    <el-col :span="5" class="info-item">
                                         <span class="label">{{$t('label.address')}}：</span>
                                         <span class="value">{{coach.address}}</span>
+                                    </el-col>
+                                    <el-col :span="7" :offset="1" class="info-item">
+                                        <span class="label">{{$t('label.contact')}}：</span>
+                                        <span class="value">{{coach.phone}}</span>
                                     </el-col>
                                     <el-col :span="9" :offset="1" class="info-item">
                                         <span class="label">{{$t('label.auditDate')}}：</span>
                                         <span class="value"></span>
                                     </el-col>
                                 </el-row>
-                            </el-col>
-                        </el-row>
-                        <el-row style="margin-top: 20px;">
-                            <el-col :span="7" class="info-item">
-                                <span class="label">{{$t('label.email')}}：</span>
-                                <span class="value">{{coach.email}}</span>
-
-                            </el-col>
-                            <el-col :span="7" :offset="1" class="info-item">
-                                <span class="label">{{$t('label.contact')}}：</span>
-                                <span class="value">{{coach.phone}}</span>
-
-                            </el-col>
-                            <el-col :span="7"  :offset="1" class="info-item">
-                                <span class="label">{{$t('label.eContact')}}: </span>
-                                <span class="value">{{coach.emergencyPhone}}</span>
-
+                                <el-row  class="info-row">
+                                    <el-col :span="5" class="info-item">
+                                        <span class="label">{{$t('label.eContact')}}: </span>
+                                        <span class="value">{{coach.emergencyPhone}}</span>
+                                    </el-col>
+                                    <el-col :span="9"  :offset="1" class="info-item">
+                                        <span class="label">{{$t('label.email')}}：</span>
+                                        <span class="value">{{coach.email}}</span>
+                                    </el-col>
+                                </el-row>
                             </el-col>
                         </el-row>
                     </div>
@@ -122,9 +119,15 @@
                     <div class="block-bd">
                         <p class="title">{{$t('title.oCertificate')}}</p>
                         <ul class="pic-list">
-                            <li v-for="(item,index) in  otherPicList" @click="viewPicModal({imgUrl:item.filePath})">
+                            <li v-for="(item,index) in  otherPicList" class="to-upload" @click="viewPicModal({imgUrl:item.filePath})">
                                 <img :src="item.filePath">
                                 <p class="label">{{item.label}}</p>
+                                <div class="upload-btn"  v-if="account.type=='coach'">
+                                    <div class="wrapper">
+                                        <i class="icon upload-icon"></i>
+                                        <input  type="file" :id="'file-'+index" accept="image/*" @change="uploadOCertificate(index)" @click="stopPropagation($event)">
+                                    </div>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -189,7 +192,7 @@
             <div class="form">
                 <div class="cm-input-row">
                     <span class="field">{{$t("label.level")}}</span>
-                    <el-select v-model="schoolForm.school" class="handle cm-select">
+                    <el-select v-model="schoolForm.school" filterable class="handle cm-select">
                         <el-option
                             v-for="(item,index) in schoolOptions"
                             :key="index"
@@ -309,7 +312,6 @@
                 bgImg:require('../../images/common/card-bg.jpg'),
 
                 coach:{},
-                aidPicList:[],
                 otherPicList:[],
 
                 levelOptions:[
@@ -334,8 +336,8 @@
                         label:'M3',
                     },*/
                     {
-                        value:'MBI',
-                        label:'MBI',
+                        value:'BMI',
+                        label:'BMI',
                     },
                     {
                         value:'MI',
@@ -552,23 +554,18 @@
                         let data=JSON.parse(resp.respMsg);
                         this.coach=data;
                         this.getUserCertificate();
-                        this.aidPicList=[];
                         this.otherPicList=[];
-                        if(this.coach.firstAidPic){
-                            this.aidPicList.push({
-                                filePath:Vue.basicConfig.filePrefix+this.coach.firstAidPic
-                            })
-                        }
+                        console.log('dddd:',this.coach.firstAidPic);
                         if(this.coach.firstAidPic){
                             this.otherPicList.push({
                                 label:this.$t('label.firstAid'),
-                                filePath:Vue.basicConfig.filePrefix+this.coach.firstAidPic
+                                filePath:Vue.basicConfig.filePrefix+this.coach.firstAidPic+"?r="+Math.random()
                             })
                         }
                         if(this.coach.insurancePic){
                             this.otherPicList.push({
                                 label:this.$t('label.insurance'),
-                                filePath:Vue.basicConfig.filePrefix+this.coach.insurancePic
+                                filePath:Vue.basicConfig.filePrefix+this.coach.insurancePic+"?r="+Math.random()
                             })
                         }
 
@@ -741,6 +738,49 @@
                         localStorage.setItem('curCoach',JSON.stringify(this.coach));
                     }else{
                         fb.setOptions({type:'warn', text:this.$t("tips.handleF",{ msg: resp.respMsg})});
+                    }
+                });
+            },
+            uploadOCertificate:function (index) {
+                if(index==0){
+                    this.selectFirstAidFile();
+                }else if(index==1){
+                    this.selectInsuranceFileFile();
+                }
+            },
+            selectFirstAidFile:function () {
+                let file=document.getElementById('file-0').files[0];
+                let formData = new FormData();
+                formData.append('timestamp',Vue.genTimestamp());
+                formData.append('userId',this.account.id);
+                formData.append('firstAidPic',file);
+                this.uploading=true;
+                let fb=Vue.operationFeedback({text:this.$t("tips.save")});
+                Vue.api.setFirstAidPic(formData).then((resp)=>{
+                    this.uploading=false;
+                    if(resp.respCode=='2000'){
+                        this.getUserBaseInfo();
+                        fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
+                    }else{
+                        fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                    }
+                });
+            },
+            selectInsuranceFileFile:function () {
+                let file=document.getElementById('file-1').files[0];
+                let formData = new FormData();
+                formData.append('timestamp',Vue.genTimestamp());
+                formData.append('userId',this.account.id);
+                formData.append('insurancePic',file);
+                this.uploading=true;
+                let fb=Vue.operationFeedback({text:this.$t("tips.save")});
+                Vue.api.setInsurancePic(formData).then((resp)=>{
+                    this.uploading=false;
+                    if(resp.respCode=='2000'){
+                        this.getUserBaseInfo();
+                        fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
+                    }else{
+                        fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
                     }
                 });
             },

@@ -23,7 +23,7 @@
                                    </div>
                                 </div>
                             </el-col>
-                            <el-col :span="18">
+                            <el-col :span="19">
                                 <el-row class="info-row">
                                     <el-col :span="5" class="info-item">
                                         <span class="label">{{$t('label.fName')}}：</span>
@@ -75,32 +75,29 @@
                                     </el-col>
                                 </el-row>
                                 <el-row class="info-row">
-                                    <el-col :span="13" class="info-item">
+                                    <el-col :span="5" class="info-item">
                                         <span class="label">{{$t('label.address')}}：</span>
                                         <span class="value">{{user.address}}</span>
                                     </el-col>
+                                    <el-col :span="7" :offset="1" class="info-item">
+                                        <span class="label">{{$t('label.contact')}}：</span>
+                                        <span class="value">{{user.phone}}</span>
+                                    </el-col>
                                     <el-col :span="9" :offset="1" class="info-item">
                                         <span class="label">{{$t('label.auditDate')}}：</span>
-                                        <span class="value">2018.02.22</span>
+                                        <span class="value"></span>
                                     </el-col>
                                 </el-row>
-                            </el-col>
-                        </el-row>
-                        <el-row style="margin-top: 20px;">
-                            <el-col :span="7" class="info-item">
-                                <span class="label">{{$t('label.email')}}：</span>
-                                <span class="value">{{user.email}}</span>
-
-                            </el-col>
-                            <el-col :span="7" :offset="1" class="info-item">
-                                <span class="label">{{$t('label.contact')}}：</span>
-                                <span class="value">{{user.phone}}</span>
-
-                            </el-col>
-                            <el-col :span="7"  :offset="1" class="info-item">
-                                <span class="label">{{$t('label.eContact')}}: </span>
-                                <span class="value">{{user.emergencyPhone}}</span>
-
+                                <el-row  class="info-row">
+                                    <el-col :span="5" class="info-item">
+                                        <span class="label">{{$t('label.eContact')}}: </span>
+                                        <span class="value">{{user.emergencyPhone}}</span>
+                                    </el-col>
+                                    <el-col :span="9"  :offset="1" class="info-item">
+                                        <span class="label">{{$t('label.email')}}：</span>
+                                        <span class="value">{{user.email}}</span>
+                                    </el-col>
+                                </el-row>
                             </el-col>
                         </el-row>
                     </div>
@@ -451,8 +448,8 @@
                         label:'M3',
                     },
                     {
-                        value:'MBI',
-                        label:'MBI',
+                        value:'BMI',
+                        label:'BMI',
                     },
                     {
                         value:'MI',
