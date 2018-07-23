@@ -86,10 +86,11 @@
                                         <span class="label">{{$t('label.contact')}}：</span>
                                         <span class="value">{{coach.phone}}</span>
                                     </el-col>
-                                    <el-col :span="9" :offset="1" class="info-item">
+                                    <!--功能临时注释-->
+                                   <!-- <el-col :span="9" :offset="1" class="info-item">
                                         <span class="label">{{$t('label.auditDate')}}：</span>
                                         <span class="value"></span>
-                                    </el-col>
+                                    </el-col>-->
                                 </el-row>
                                 <el-row  class="info-row">
                                     <el-col :span="5" class="info-item">

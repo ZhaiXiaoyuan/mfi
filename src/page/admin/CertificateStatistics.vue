@@ -59,7 +59,7 @@
                                 {{item.orderRecordId}}
                             </td>
                             <td>
-                                {{item.possessor&&item.possessor.email}}
+                                {{item.possessor?item.possessor.email:'-'}}
                             </td>
                             <td>
                                 {{item.schoolSerialCode}}
@@ -71,7 +71,7 @@
                                 1
                             </td>
                             <td>
-
+                                {{item.orderRecord?item.orderRecord.tpMsg.payment_fee:'-'}}
                             </td>
                             <td>
                                 {{item.createdAt|formatDate('yyyy-MM-dd')}}
@@ -267,6 +267,11 @@
                         list.forEach((item,i)=>{
                             item.possessor=item.possessor?JSON.parse(item.possessor):null;
                             item.user=item.user?JSON.parse(item.user):null;
+                            if(item.orderRecord){
+                                let orderInfo=JSON.parse(item.orderRecord);
+                                orderInfo.tpMsg=JSON.parse(orderInfo.tpMsg);
+                                item.orderRecord=orderInfo;
+                            }
                             this.entryList.push(item);
                         })
                         console.log('this.entryList:', this.entryList);
