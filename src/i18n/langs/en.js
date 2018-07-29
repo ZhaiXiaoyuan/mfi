@@ -60,6 +60,7 @@ const en = {
         student:'student',
         grantDate:'grant date',
         instructorName:'instructor name',
+        customerService:'customer service'
     },
     holder: {
         account:'please enter your account',
@@ -229,6 +230,7 @@ const en = {
         total:'total {msg} records',
         developing:'developing',
         grant:'are you sure to grant {level} to {msg}？',
+        forbidden:"your account is forbidden!"
     },
     el: {
         colorpicker: {

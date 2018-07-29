@@ -62,6 +62,7 @@ const cn = {
         student:'学员',
         grantDate:'日期',
         instructorName:'教练名称',
+        customerService:"客服",
     },
     holder: {
         account:'请输入账号',
@@ -231,6 +232,7 @@ const cn = {
         total:'共{msg}条记录',
         developing:'功能开发中',
         grant:'确定授予：{msg}{level}证书？',
+        forbidden:"您的账号已禁用！",
     },
     el: {
         colorpicker: {

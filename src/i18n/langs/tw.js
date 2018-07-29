@@ -60,6 +60,7 @@ const tw = {
         student:'學員',
         grantDate:'日期',
         instructorName:'教練名稱',
+        customerService:"客服",
     },
     holder: {
         account:'請輸入賬號',
@@ -228,6 +229,7 @@ const tw = {
         delMsg:'確定刪除消息：{msg}？',
         developing:'功能開發中',
         grant:'確定授予：{msg}{level}证书？',
+        forbidden:"您的賬號已禁用！",
     },
     el: {
         colorpicker: {

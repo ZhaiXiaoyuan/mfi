@@ -7,8 +7,8 @@ import OperationFeedback from './OperationFeedback';
 import ViewPicModal from './ViewPicModal';
 import Language from './Language';
 import PayModal from './PayModal';
-/*import Modal from './Modal';
-import AlertModal from './AlertModal';*/
+import Modal from './Modal';
+import AlertModal from './AlertModal';
 
 
 /*全局组件注册配置*/
@@ -20,14 +20,14 @@ export default {
     Vue.component('ViewPicModal',ViewPicModal);
     Vue.component('Language',Language);
     Vue.component('PayModal',PayModal);
-  /*  Vue.component('Modal',Modal);
-    Vue.component('AlertModal',AlertModal);*/
+    Vue.component('Modal',Modal);
+    Vue.component('AlertModal',AlertModal);
 
     /*方法调度方式*/
     let OperationFeedbackConstructor = Vue.extend(OperationFeedback);
     let ViewPicModalConstructor = Vue.extend(ViewPicModal);
     let PayModalConstructor = Vue.extend(PayModal);
-/*    let AlertModalConstructor=Vue.extend(AlertModal);*/
+    let AlertModalConstructor=Vue.extend(AlertModal);
     const functionObject={
         /**
          * 操作提示
@@ -100,9 +100,9 @@ export default {
          * 提示弹窗
          * @param options
          */
-       /* alert:function (options) {
+        alert:function (options) {
             options={...{
-                className: 'alert-modal', /!*模态框的className*!/
+                className: 'alert-modal', /*模态框的className*/
                 title: '温馨提示',//提示标题
                 html: '',   //提示内容
                 yes: '确 定',
@@ -115,7 +115,7 @@ export default {
             instance.options=options;
             instance.$mount();
             parentEle.appendChild(instance.$el);
-        },*/
+        },
     }
     /**/
     Object.assign(Vue,functionObject);

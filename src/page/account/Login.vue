@@ -290,7 +290,14 @@
                             });
                             if(data.instructorAccountStatus=='pending'||data.instructorAccountStatus=='fail'){
                                 this.$router.push({name:'coachDetail',params:{}});
-                            }else{
+                            }else if(data.instructorAccountStatus=='disable'){
+                                this.alert({
+                                    title:this.$t("title.tips"),
+                                    html:'<div style="text-align: center;"><p style="font-size: 22px;">'+this.$t("tips.forbidden")+'</p><p style="font-size: 18px;padding-top: 10px;">'+this.$t("label.customerService")+'<span style="color: #5560aa;">:12345678</span></p></div>',
+                                    yes:this.$t("btn.sure"),
+                                })
+                            }
+                            else{
                                 this.$router.push({name:'courseList',params:{}});
                             }
                         }else{
