@@ -168,6 +168,7 @@ const en = {
         toPass:'pass',
         toReject:'reject',
         applyForAudit:'apply for audit',
+        myAudit:'my audit',
     },
     title:{
         super:'Super Administrator',
@@ -208,6 +209,11 @@ const en = {
         auditFail:'Reject',
         allStudent:'All Student',
         someoneCertificateRecord:'{msg}\'s Certificate Record',
+        nonactivated:'nonactivated',
+        pending:'pending',
+        certified:'certified',
+        fail:'fail',
+        disable:'disable',
     },
     tips:{
         login:'logining...',

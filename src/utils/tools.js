@@ -47,7 +47,41 @@ export default {
           basicConfig:{
               //临时测试
               basicUrl:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://39.108.11.197',
-              filePrefix:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://39.108.11.197'
+              filePrefix:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://39.108.11.197',
+              levelOptions:[
+                  {
+                      value:'M0',
+                      label:'M0',
+                  },
+                  {
+                      value:'M1',
+                      label:'M1',
+                  },
+                  {
+                      value:'M2',
+                      label:'M2',
+                  },
+                  {
+                      value:'M3',
+                      label:'M3',
+                  },
+                  {
+                      value:'MBI',
+                      label:'MBI',
+                  },
+                  {
+                      value:'MI',
+                      label:'MI',
+                  },
+                  {
+                      value:'MMI',
+                      label:'MMI',
+                  },
+                  {
+                      value:'MIT',
+                      label:'MIT',
+                  },
+              ],
           },
         /*生成请求时间戳*/
         genTimestamp:function () {
@@ -134,6 +168,26 @@ export default {
                 return{};
             }
         },
+          genLevelConfig:function (options) {
+            console.log('options:',options);
+              let instrutorLevelLimit={
+                  'all':["M0","M1","M2","M3","MBI","MI","MMI","MIT"],
+                  'MIT':["M0","M1","M2","M3","MBI","MI","MMI","MIT"],
+                  'MMI':["M0","M1","M2","M3","MBI","MI","MMI"],
+                  'MI':["M0","M1","M2","M3","MBI"],
+                  'MBI':["M0","M1"],
+              }
+              let temList=instrutorLevelLimit[options.level];
+              console.log('temList:',temList);
+              let levelList=[];
+              temList.forEach((item,i)=>{
+                  levelList.push(  {
+                      value:item,
+                      label:item,
+                  });
+              });
+              return levelList;
+          }
       }
 
       Object.assign(Vue, Vue.tools);

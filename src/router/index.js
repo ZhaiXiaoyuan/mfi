@@ -114,6 +114,11 @@ export default new Router({
                     name:'adminStudentList',
                     component: resolve => require(['../page/admin/AdminStudentList.vue'], resolve)
                 },
+                {
+                    path: '/userAuditList',
+                    name:'userAuditList',
+                    component: resolve => require(['../page/common/UserAuditList.vue'], resolve)
+                },
             ]
         },
         {

@@ -11,7 +11,11 @@
                 </div>
             </div>
             <div class="panel-bd">
-                <div class="cm-detail-block detail-block">
+                <div class="cm-detail-block detail-block" style="padding-top: 0px;">
+                    <div class="status">
+                        {{$t("title."+account.instructorAccountStatus)}}
+                        <div class="cm-btn btn" @click="$router.push({name:'userAuditList',params:{}})">{{$t('btn.myAudit')}}</div>
+                    </div>
                     <div class="block-bd">
                         <el-row>
                             <el-col :span="5">
@@ -57,7 +61,7 @@
                                     <el-col :span="9" :offset="1" class="info-item">
                                         <span class="label">{{$t('label.school')}}：</span>
                                         <span class="value">{{coach.school}}</span>
-                                        <i class="icon setting-min-icon" @click="schoolSettingDialogFlag=true" v-if="account.type=='admin'||account.type=='coach'"></i>
+                                        <i class="icon setting-min-icon" @click="schoolSettingDialogFlag=true" v-if="account.type=='admin'||(account.type=='coach'&&account.school=='configurable')"></i>
                                     </el-col>
                                 </el-row>
                                 <el-row class="info-row">
@@ -337,8 +341,8 @@
                         label:'M3',
                     },*/
                     {
-                        value:'BMI',
-                        label:'BMI',
+                        value:'MBI',
+                        label:'MBI',
                     },
                     {
                         value:'MI',
@@ -378,6 +382,7 @@
                     label:this.$t("btn.configurable"),
                     value:'configurable'
                 },],
+                schoolDetail:null,
 
                 isSetting:false,
 
@@ -477,6 +482,7 @@
                     if(resp.respCode=='2000'){
                         fb.setOptions({type:'complete', text:this.$t("tips.settingS")});
                         this.coach.school=this.schoolForm.school;
+                        this.account.school=this.schoolForm.school;
                         this.schoolSettingDialogFlag=false;
                         localStorage.setItem('curCoach',JSON.stringify(this.coach));
                     }else{
@@ -495,6 +501,9 @@
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
                         let list=JSON.parse(data.schoolList);
+                        if(this.account.type=='coach'){
+                            this.schoolOptions=[];
+                        }
                         list.forEach((item,i)=>{
                             this.schoolOptions.push({
                                 label:item.serialCode,
@@ -556,7 +565,6 @@
                         this.coach=data;
                         this.getUserCertificate();
                         this.otherPicList=[];
-                        console.log('dddd:',this.coach.firstAidPic);
                         if(this.coach.firstAidPic){
                             this.otherPicList.push({
                                 label:this.$t('label.firstAid'),
@@ -789,8 +797,10 @@
         mounted () {
             /**/
             this.account=Vue.getAccountInfo();
+            console.log('this.account:',this.account);
 
             this.id=this.account.type=='coach'?this.account.id:this.$route.params.id;
+
 
             /**/
             this.getUserBaseInfo();

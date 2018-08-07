@@ -121,6 +121,13 @@ export default {
                 params: params
             });
         },
+        getSchoolDetail:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/school/getSchool',
+                params: params
+            });
+        },
         updateSchool:function (params) {
             return Vue.http.ajax({
                 method: 'post',
@@ -202,6 +209,13 @@ export default {
             return Vue.http.ajax({
                 method: 'post',
                 url: basicUrl+'/audit/getAuditList',
+                params: params
+            });
+        },
+        getUserAuditList:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/audit/getAudit',
                 params: params
             });
         },

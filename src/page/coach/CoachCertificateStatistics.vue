@@ -184,44 +184,7 @@
                 account:{},
                 coach:{},
 
-                levelOptions:[
-                    {
-                        value:null,
-                        label:this.$t("btn.all"),
-                    },
-                    {
-                        value:'M0',
-                        label:'M0',
-                    },
-                    {
-                        value:'M1',
-                        label:'M1',
-                    },
-                    {
-                        value:'M2',
-                        label:'M2',
-                    },
-                    {
-                        value:'M3',
-                        label:'M3',
-                    },
-                    {
-                        value:'BMI',
-                        label:'BMI',
-                    },
-                    {
-                        value:'MI',
-                        label:'MI',
-                    },
-                    {
-                        value:'MMI',
-                        label:'MMI',
-                    },
-                    {
-                        value:'MIT',
-                        label:'MIT',
-                    },
-                ],
+                levelOptions:[],
 
                 selectedLevel:null,
 
@@ -351,6 +314,12 @@
             this.coach=this.account.type=='coach'?this.account:this.coach;
             this.id=this.account.type=='coach'?this.account.id:this.$route.params.id;
             console.log('this.coach:',this.coach);
+            //
+            this.levelOptions=this.genLevelConfig({level:this.account.mfiLevel});
+            this.levelOptions.unshift({
+                value:null,
+                label:this.$t("btn.all"),
+            });
             /**/
             this.getList();
 

@@ -169,7 +169,8 @@ const cn = {
         editInfo:'编辑信息',
         toPass:'通过',
         toReject:'驳回',
-        applyForAudit:'申请审核'
+        applyForAudit:'申请审核',
+        myAudit:'我的审核',
     },
     title:{
         super:'超级管理员',
@@ -210,6 +211,11 @@ const cn = {
         auditFail:'审核失败',
         allStudent:'所有学员',
         someoneCertificateRecord:'{msg}的证书授权记录',
+        nonactivated:'账号未激活',
+        pending:'账号审核中',
+        certified:'账号已审核',
+        fail:'账号审核失败',
+        disable:'账号已禁用',
     },
     tips:{
         login:'登录中...',

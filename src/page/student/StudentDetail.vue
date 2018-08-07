@@ -11,7 +11,11 @@
                 </div>
             </div>
             <div class="panel-bd">
-                <div class="cm-detail-block detail-block">
+                <div class="cm-detail-block detail-block" style="padding-top: 0px;">
+                    <div class="status">
+                        {{$t("title."+account.studentAccountStatus)}}
+                        <div class="cm-btn btn" @click="$router.push({name:'userAuditList',params:{}})">{{$t('btn.myAudit')}}</div>
+                    </div>
                     <div class="block-bd">
                         <el-row>
                             <el-col :span="5" class="to-upload">
@@ -70,7 +74,7 @@
                                     </el-col>
                                     <el-col :span="9" :offset="1" class="info-item">
                                         <span class="label">{{$t('label.status')}}：</span>
-                                        <span class="value">{{user.instructorAccountStatus}}</span>
+                                        <span class="value">{{user.studentAccountStatus}}</span>
                                         <i class="icon setting-min-icon" @click="statusSettingDialogFlag=true"  v-if="account.type=='admin'"></i>
                                     </el-col>
                                 </el-row>
@@ -318,11 +322,6 @@
 <style lang="less" rel="stylesheet/less">
     .detail-block{
         padding: 40px 20px;
-        .avatar{
-            width: 200px;
-            height: 200px;
-            border-radius: 5px;
-        }
         .info-row{
             &+.info-row{
                 margin-top: 25px;
@@ -449,8 +448,8 @@
                         label:'M3',
                     },
                     {
-                        value:'BMI',
-                        label:'BMI',
+                        value:'MBI',
+                        label:'MBI',
                     },
                     {
                         value:'MI',

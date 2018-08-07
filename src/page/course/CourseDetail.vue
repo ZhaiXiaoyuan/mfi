@@ -253,7 +253,7 @@
                 <canvas width="1200" id="canvas"  height="675" style="display:none;border:1px solid #d3d3d3;background:#ffffff;"></canvas>
             </div>
         </div>
-        <div class="cm-btn cm-add-btn" v-if="account.type=='coach'" @click="toAdd()">
+        <div class="cm-btn cm-add-btn" :class="{'cm-disabled':account.instructorAccountStatus!='certified'}" v-if="account.type=='coach'" @click="toAdd()">
             <div class="icon-wrap">
                 <i class="icon add-cross-icon"></i>
             </div>

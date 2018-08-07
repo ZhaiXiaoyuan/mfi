@@ -168,6 +168,7 @@ const tw = {
         toPass:'通過',
         toReject:'駁回',
         applyForAudit:'申請審核',
+        myAudit:'我的審核',
     },
     title:{
         super:'超級管理員',
@@ -208,6 +209,11 @@ const tw = {
         auditFail:'審核失敗',
         allStudent:'所有學員',
         someoneCertificateRecord:'{msg}的證書授權記錄',
+        nonactivated:'賬號未激活',
+        pending:'賬號審核中',
+        certified:'賬號已審核',
+        fail:'賬號審核失敗',
+        disable:'账号已禁用',
     },
     tips:{
         login:'登錄中...',

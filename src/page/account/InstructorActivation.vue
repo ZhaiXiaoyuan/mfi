@@ -73,7 +73,7 @@
                             </div>
                             <div class="cm-input-row">
                                 <span class="field">{{$t('label.firstAid')}}</span>
-                                <div class="cm-input-pic-uploader">
+                                <div class="cm-input-pic-uploader square">
                                     <div class="wrapper">
                                         <img :src="basicConfig.filePrefix+newForm.firstAidPic" v-if="newForm.firstAidPic">
                                         <i class="icon el-icon-upload" v-if="!newForm.firstAidPic"></i>
@@ -83,7 +83,7 @@
                             </div>
                             <div class="cm-input-row">
                                 <span class="field">{{$t('label.insurance')}}</span>
-                                <div class="cm-input-pic-uploader">
+                                <div class="cm-input-pic-uploader square">
                                     <div class="wrapper">
                                         <img :src="basicConfig.filePrefix+newForm.insurancePic" v-if="newForm.insurancePic">
                                         <i class="icon el-icon-upload" v-if="!newForm.insurancePic"></i>

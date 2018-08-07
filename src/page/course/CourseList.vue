@@ -2,7 +2,7 @@
     <div class="page-content coach-list">
         <div class="cm-panel">
             <div class="panel-hd">
-                <div class="cm-btn cm-return-btn" @click="$router.back();">
+                <div class="cm-btn cm-return-btn" @click="$router.back();"  v-if="account.type=='admin'">
                     <div class="wrapper">
                         <i class="icon el-icon-arrow-left"></i>
                         {{$t('btn.back')}}
@@ -56,7 +56,7 @@
                         <tbody>
                         <tr v-for="(item,index) in entryList">
                             <td>
-                                {{item.courseId}}
+                                {{item.courseNo}}
                             </td>
                             <td>
                                 {{item.courseName}}
@@ -90,7 +90,7 @@
             </div>
         </div>
 
-        <div class="cm-btn cm-add-btn" v-if="account.type=='coach'" @click="dialogFormVisible=true">
+        <div class="cm-btn cm-add-btn" :class="{'cm-disabled':account.instructorAccountStatus!='certified'}" v-if="account.type=='coach'" @click="dialogFormVisible=true">
             <div class="icon-wrap">
                 <i class="icon add-cross-icon"></i>
             </div>
@@ -151,44 +151,7 @@
                 account:{},
                 coach:{},
 
-                levelOptions:[
-                   /* {
-                        value:null,
-                        label:this.$t("btn.all"),
-                    },*/
-                    {
-                        value:'M0',
-                        label:'M0',
-                    },
-                    {
-                        value:'M1',
-                        label:'M1',
-                    },
-                    {
-                        value:'M2',
-                        label:'M2',
-                    },
-                    {
-                        value:'M3',
-                        label:'M3',
-                    },
-                    {
-                        value:'BMI',
-                        label:'BMI',
-                    },
-                    {
-                        value:'MI',
-                        label:'MI',
-                    },
-                    {
-                        value:'MMI',
-                        label:'MMI',
-                    },
-                    {
-                        value:'MIT',
-                        label:'MIT',
-                    },
-                ],
+                levelOptions:[],
                 listLevelOptions:[],
                 selectedLevel:null,
 
@@ -233,7 +196,9 @@
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
                         this.entryList=JSON.parse(data.courseList);
-                        console.log('this.entryList:',this.entryList);
+                        this.entryList.forEach((item,i)=>{
+                            item.courseNo=item.school+item.courseId.substring(item.courseId.length-5)
+                        });
                         this.pager.total=data.courseCount;
                     }
                 });
@@ -290,10 +255,11 @@
             this.coach=this.account.type=='coach'?this.account:this.coach;
 
             /**/
-            this.listLevelOptions=[].concat(this.levelOptions,[{
+            this.levelOptions=this.genLevelConfig({level:this.account.mfiLevel});
+            this.listLevelOptions=[{
                 value:null,
                 label:this.$t("btn.all"),
-            }]);
+            }].concat(this.levelOptions);
             /**/
             this.getList();
         },

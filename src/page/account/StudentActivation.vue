@@ -253,7 +253,7 @@
                                             type:'complete',
                                             text:this.$t("tips.loginS")
                                         });
-                                        this.$router.push({name:'studentCourseList',params:{}});
+                                        this.$router.push({name:'studentDetail',params:{}});
                                     }else{
                                         fb.setOptions({
                                             type:'warn',
