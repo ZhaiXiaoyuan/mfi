@@ -847,7 +847,7 @@ body{
     padding: 40px 20px;
     .status{
         position: relative;
-        display: flex;
+        display: none;
         align-items: center;
         justify-content: center;
         height: 40px;
@@ -936,6 +936,12 @@ body{
                     margin-left: 20px;
                 }
             }
+        }
+    }
+    &.show-status{
+        padding-top: 0px;
+        .status{
+            display: flex;
         }
     }
 }

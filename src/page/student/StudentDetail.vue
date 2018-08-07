@@ -11,14 +11,13 @@
                 </div>
             </div>
             <div class="panel-bd">
-                <div class="cm-detail-block detail-block" style="padding-top: 0px;">
-                    <div class="status">
+                <div class="cm-detail-block detail-block" :class="{'show-status':account.type=='student'}">
+                    <div class="status" v-if="account.type=='student'">
                         {{$t("title."+account.studentAccountStatus)}}
-                        <div class="cm-btn btn" @click="$router.push({name:'userAuditList',params:{}})">{{$t('btn.myAudit')}}</div>
                     </div>
                     <div class="block-bd">
                         <el-row>
-                            <el-col :span="5" class="to-upload">
+                            <el-col :span="5" class="to-upload"  style="width: 160px;height: 160px;">
                                 <img class="avatar" :src="user.headPic?basicConfig.filePrefix+user.headPic:defaultAvatar" alt="">
                                 <div class="cm-btn upload-btn" v-if="account.type=='student'">
                                    <div class="wrapper">
@@ -39,10 +38,15 @@
                                         <span class="value">{{user.name}}</span>
 
                                     </el-col>
-                                    <el-col :span="9" :offset="1" class="info-item">
+                                 <!--   <el-col :span="9" :offset="1" class="info-item">
                                         <span class="label">{{$t('label.level')}}：</span>
                                         <span class="value">{{user.mfiLevel}}</span>
                                         <i class="icon setting-min-icon" @click="levelSettingDialogFlag=true"  v-if="account.type=='admin'"></i>
+                                    </el-col>-->
+                                    <el-col :span="9" :offset="1" class="info-item">
+                                        <span class="label">{{$t('label.status')}}：</span>
+                                        <span class="value">{{user.studentAccountStatus}}</span>
+                                        <i class="icon setting-min-icon" @click="statusSettingDialogFlag=true"  v-if="account.type=='admin'"></i>
                                     </el-col>
                                 </el-row>
                                 <el-row class="info-row">
@@ -56,11 +60,11 @@
                                         <span class="value">{{user.birth}}</span>
 
                                     </el-col>
-                                    <el-col :span="9" :offset="1" class="info-item">
+                                  <!--  <el-col :span="9" :offset="1" class="info-item">
                                         <span class="label">{{$t('label.school')}}：</span>
                                         <span class="value">{{user.school}}</span>
                                         <i class="icon setting-min-icon" @click="schoolSettingDialogFlag=true" v-if="account.type=='admin'"></i>
-                                    </el-col>
+                                    </el-col>-->
                                 </el-row>
                                 <el-row class="info-row">
                                     <el-col :span="5" class="info-item">
@@ -71,11 +75,6 @@
                                     <el-col :span="7" :offset="1" class="info-item">
                                         <span class="label">{{$t('label.city')}}：</span>
                                         <span class="value">{{user.city}}</span>
-                                    </el-col>
-                                    <el-col :span="9" :offset="1" class="info-item">
-                                        <span class="label">{{$t('label.status')}}：</span>
-                                        <span class="value">{{user.studentAccountStatus}}</span>
-                                        <i class="icon setting-min-icon" @click="statusSettingDialogFlag=true"  v-if="account.type=='admin'"></i>
                                     </el-col>
                                 </el-row>
                                 <el-row class="info-row">

@@ -21,7 +21,8 @@
                     </div>
                     <div class="block-bd">
                         <div class="msg-content" v-if="curMsg.fileUrl">
-                            <pdf :src="curMsg.fileUrl"></pdf>
+                            <pdf v-for="i in numPages"
+                                 :key="i" :page="i" :src="task" style="display: inline-block;width: 100%"></pdf>
                         </div>
                     </div>
                 </div>
@@ -58,6 +59,8 @@
         data() {
             return {
                 curMsg:{},
+                numPages:0,
+                task:null
             }
         },
         created(){
@@ -76,6 +79,11 @@
         mounted () {
             this.curMsg=JSON.parse(localStorage.getItem('curMsg'));
             this.curMsg.fileUrl=Vue.basicConfig.filePrefix+this.curMsg.fileUrl;
+            this.task=pdf.createLoadingTask(this.curMsg.fileUrl);
+
+            this.task.then(pdf => {
+                this.numPages = pdf.numPages;
+            });
         },
     }
 </script>

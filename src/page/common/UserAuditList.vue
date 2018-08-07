@@ -44,9 +44,9 @@
                             <th>
                                 {{$t("label.submitDate")}}
                             </th>
-                            <th>
+                         <!--   <th>
                                 {{$t("label.handle")}}
-                            </th>
+                            </th>-->
                         </tr>
                         </thead>
                         <tbody>
@@ -64,14 +64,14 @@
                                 {{item.type|itemFind('value',options).label}}
                             </td>
                             <td>
-                                {{item.audit.state}}
+                                {{item.state}}
                             </td>
                             <td>
-                                {{item.audit.createdAt|formatDate('yyyy-MM-dd hh:mm')}}
+                                {{item.createdAt|formatDate('yyyy-MM-dd hh:mm')}}
                             </td>
-                            <td>
-                                <!--<el-button class="small handle-btn" @click="toDetail(item)">{{$t('btn.detail')}}</el-button>-->
-                            </td>
+                          <!--  <td>
+                                <el-button class="small handle-btn" @click="toDetail(item)">{{$t('btn.detail')}}</el-button>
+                            </td>-->
                         </tr>
                         </tbody>
                     </table>
@@ -161,19 +161,21 @@
                     pageSize:this.pager.pageSize,
                     type:this.selectedType,
                     state:this.state,
+                    userId:this.account.id
                 }
                 this.pager.loading=true;
                 Vue.api.getUserAuditList(params).then((resp)=>{
                     this.pager.loading=false;
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
+                        let user=JSON.parse(data.user)
+                        console.log('data:',data);
                         this.entryList=JSON.parse(data.auditList);
                         for(let i=0;i<this.entryList.length;i++){
                             let item=this.entryList[i];
-                            item.audit=JSON.parse(item.audit);
-                            item.user=JSON.parse(item.user);
+                            item.user=user;
                         }
-                        console.log('this.entryList:', this.entryList);
+                        console.log('this.entryList:',this.entryList);
                         this.pager.total=data.count;
                     }
                 });

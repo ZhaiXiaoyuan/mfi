@@ -219,7 +219,12 @@
                 this.accountAccess=['03','04','05','06','07','08','09'];
             }
             else if(this.account.type=='coach'){
-                this.accountAccess=['10','11','12','13'];
+                if(this.account.instructorAccountStatus=='certified'){
+
+                    this.accountAccess=['10','11','16','12','13',];
+                }else{
+                    this.accountAccess=['13']
+                }
             }else if(this.account.type=='student'){
                 this.accountAccess=['14','15'];
             }
@@ -310,6 +315,11 @@
                        icon: 'my-icon',
                        index: '/studentDetail',
                        title: this.$t("btn.my"),
+                   }, {
+                       code:'16',
+                       icon: 'audit-icon',
+                       index: '/userAuditList',
+                       title: this.$t("btn.myAudit"),
                    },];
                /*菜单权限配置*/
                this.items=[];

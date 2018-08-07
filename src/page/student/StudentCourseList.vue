@@ -59,7 +59,7 @@
                         <tbody>
                         <tr v-for="(item,index) in entryList">
                             <td>
-                                {{item.course.courseId}}
+                                {{item.course.courseNo}}
                             </td>
                             <td>
                                 {{item.instructor.name}}
@@ -189,9 +189,11 @@
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
                         this.entryList=JSON.parse(data.courseList);
+                        console.log('this.entryList:',this.entryList);
                         this.entryList.forEach((item,i)=>{
-                            item.course=JSON.parse(item.course),
-                                item.instructor=JSON.parse(item.instructor)
+                            item.course=JSON.parse(item.course);
+                            item.instructor=JSON.parse(item.instructor);
+                            item.course.courseNo=item.course.school+item.course.courseId.substring(item.course.courseId.length-5)
                         })
                         this.pager.total=data.count;
                     }

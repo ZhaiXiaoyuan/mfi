@@ -255,7 +255,7 @@
             this.coach=this.account.type=='coach'?this.account:this.coach;
 
             /**/
-            this.levelOptions=this.genLevelConfig({level:this.account.mfiLevel});
+            this.levelOptions=this.genLevelConfig({level:this.account.type=='coach'?this.account.mfiLevel:'all'});
             this.listLevelOptions=[{
                 value:null,
                 label:this.$t("btn.all"),

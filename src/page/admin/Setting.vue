@@ -3,12 +3,16 @@
         <div class="cm-panel edit-panel">
             <div class="panel-hd">修改密码</div>
             <div class="cm-input-row">
-                <span class="field">{{$t("label.pwd")}}</span>
-                <input type="password" v-model="pwd" class="cm-input">
+                <div class="row-wrap">
+                    <span class="field">{{$t("label.pwd")}}</span>
+                    <input type="password" v-model="pwd" class="cm-input">
+                </div>
             </div>
             <div class="cm-input-row" style="margin-top: 60px;">
-                <div class="cm-btn cm-handle-btn" @click="updatePwd()">
-                    {{$t("btn.submit")}}
+                <div class="row-wrap">
+                    <div class="cm-btn cm-handle-btn" @click="updatePwd()" style="width: 300px">
+                        {{$t("btn.submit")}}
+                    </div>
                 </div>
             </div>
         </div>
@@ -30,6 +34,17 @@
         background: #fff8fe;
         border-radius: 10px;
         box-shadow: 1px 5px 10px rgba(85,96,170,0.4);
+        text-align: center;
+        .row-wrap{
+            position: relative;
+            display: block;
+            width: 300px;
+            .field{
+                position: absolute;
+                left: -35%;
+                line-height: 50px;
+            }
+        }
         .panel-hd{
             justify-content: center;
             font-size: 28px;

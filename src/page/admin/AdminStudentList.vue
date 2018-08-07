@@ -47,6 +47,9 @@
                             <th>
                                 {{$t("label.level")}}
                             </th>
+                            <th>
+                                {{$t("label.status")}}
+                            </th>
                             <th>{{$t("label.handle")}}</th>
                         </tr>
                         </thead>
@@ -60,6 +63,9 @@
                             </td>
                             <td>
                                 {{item.mfiLevel}}
+                            </td>
+                            <td>
+                                {{item.studentAccountStatus}}
                             </td>
                             <td>
                                 <span class="handle" @click="()=>{$router.push({name:'studentDetail',params:{id:item.id}})}">{{$t("btn.detail")}}</span>

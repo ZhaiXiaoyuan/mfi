@@ -11,10 +11,9 @@
                 </div>
             </div>
             <div class="panel-bd">
-                <div class="cm-detail-block detail-block" style="padding-top: 0px;">
-                    <div class="status">
+                <div class="cm-detail-block detail-block" :class="{'show-status':account.type=='coach'}">
+                    <div class="status" v-if="account.type=='coach'">
                         {{$t("title."+account.instructorAccountStatus)}}
-                        <div class="cm-btn btn" @click="$router.push({name:'userAuditList',params:{}})">{{$t('btn.myAudit')}}</div>
                     </div>
                     <div class="block-bd">
                         <el-row>
@@ -197,7 +196,7 @@
             <div class="form">
                 <div class="cm-input-row">
                     <span class="field">{{$t("label.level")}}</span>
-                    <el-select v-model="schoolForm.school" filterable class="handle cm-select">
+                    <el-select filterable v-model="schoolForm.school" filterable class="handle cm-select">
                         <el-option
                             v-for="(item,index) in schoolOptions"
                             :key="index"

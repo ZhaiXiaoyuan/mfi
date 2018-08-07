@@ -12,7 +12,7 @@
             <div class="panel-bd">
                 <div class="cm-detail-block detail-block">
                     <div class="block-bd">
-                       <p class="title cm-title">{{$t("title.courseDetail",{ msg:course.courseNo})}}</p>
+                       <p class="title cm-title" style="padding-left: 5px;">{{$t("title.courseDetail",{ msg:course.courseNo})}}</p>
                         <el-row>
                             <el-col :span="12" class="info-item">
                                 <span class="label">{{$t('label.courseNo')}}：</span>

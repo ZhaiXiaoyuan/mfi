@@ -12,7 +12,7 @@
             <div class="panel-bd">
                 <div class="cm-detail-block detail-block">
                     <div class="block-bd">
-                        <p class="title cm-title">{{$t("title.addStudent")}}</p>
+                        <p class="title cm-title" style="padding-left: 5px;">{{$t("title.addStudent")}}</p>
                         <el-row>
                             <el-col :span="12" class="info-item">
                                 <span class="label">{{$t('label.courseNo')}}：</span>
@@ -82,41 +82,11 @@
         <el-dialog :title='$t("title.newStudent")' class="edit-dialog cm-dialog new-student-dialog" :visible.sync="newStudentDialogFlag" v-if="newStudentDialogFlag">
             <div class="form">
                 <div class="cm-input-row">
-                    <span class="field">{{$t("label.email")}}</span>
-                    <input type="text" v-model="newForm.email" class="cm-input">
+                    <div class="row-wrap">
+                        <span class="field">{{$t("label.email")}}</span>
+                        <input type="text" v-model="newForm.email" class="cm-input">
+                    </div>
                 </div>
-              <!--  <div class="cm-input-row">
-                    <span class="field">{{$t("label.fName")}}</span>
-                    <input type="text" v-model="newForm.fName" class="cm-input">
-                </div>
-                <div class="cm-input-row">
-                    <span class="field">{{$t("label.lName")}}</span>
-                    <input type="text" v-model="newForm.lName" class="cm-input">
-                </div>
-                <div class="cm-input-row">
-                    <span class="field">{{$t("label.gender")}}</span>
-                    <input type="text" v-model="newForm.gender" class="cm-input">
-                </div>
-                <div class="cm-input-row">
-                    <span class="field">{{$t("label.eContact")}}</span>
-                    <input type="text" v-model="newForm.eContact" class="cm-input">
-                </div>
-                <div class="cm-input-row">
-                    <span class="field">{{$t("label.country")}}</span>
-                    <input type="text" v-model="newForm.country" class="cm-input">
-                </div>
-                <div class="cm-input-row">
-                    <span class="field">{{$t("label.province")}}</span>
-                    <input type="text" v-model="newForm.province" class="cm-input">
-                </div>
-                <div class="cm-input-row">
-                    <span class="field">{{$t("label.city")}}</span>
-                    <input type="text" v-model="newForm.city" class="cm-input">
-                </div>
-                <div class="cm-input-row">
-                    <span class="field">{{$t("label.address")}}</span>
-                    <input type="text" v-model="newForm.address" class="cm-input">
-                </div>-->
             </div>
             <div class="handle-list">
                 <div class="cm-btn cm-handle-btn handle-btn" @click="newStudentDialogFlag=false">{{$t("btn.cancel")}}</div>
@@ -233,11 +203,23 @@
             width: 170px;
         }
         .cm-input-row{
+            text-align: center;
             .cm-input{
                 height: 50px;
             }
             &.cm-input-row{
                 margin-top: 15px;
+            }
+            .row-wrap{
+                position: relative;
+                display: block;
+                width: 300px;
+                .field{
+                    position: absolute;
+                    width: 88px;
+                    left: -42%;
+                    line-height: 50px;
+                }
             }
         }
     }
