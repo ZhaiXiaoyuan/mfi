@@ -66,8 +66,8 @@ export default {
                       label:'M3',
                   },
                   {
-                      value:'MBI',
-                      label:'MBI',
+                      value:'BMI',
+                      label:'BMI',
                   },
                   {
                       value:'MI',
@@ -171,11 +171,11 @@ export default {
           genLevelConfig:function (options) {
             console.log('options:',options);
               let instrutorLevelLimit={
-                  'all':["M0","M1","M2","M3","MBI","MI","MMI","MIT"],
-                  'MIT':["M0","M1","M2","M3","MBI","MI","MMI","MIT"],
-                  'MMI':["M0","M1","M2","M3","MBI","MI","MMI"],
-                  'MI':["M0","M1","M2","M3","MBI"],
-                  'MBI':["M0","M1"],
+                  'all':["M0","M1","M2","M3","BMI","MI","MMI","MIT"],
+                  'MIT':["M0","M1","M2","M3","BMI","MI","MMI","MIT"],
+                  'MMI':["M0","M1","M2","M3"],
+                  'MI':["M0","M1","M2"],
+                  'BMI':["M0","M1"],
               }
               let temList=instrutorLevelLimit[options.level];
               console.log('temList:',temList);

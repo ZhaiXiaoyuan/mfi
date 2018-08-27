@@ -112,7 +112,7 @@
         },
         data() {
             return {
-                dialogFormVisible:false,
+                dialogFormVisible:true,//临时测试
                 keyword:null,
                 pager:{
                     pageSize:20,
@@ -237,11 +237,22 @@
                 let item=this.entryList[index];
                 Object.assign(this.editForm,item);
                 this.dialogFormVisible=true;
+            },
+            getRegionConfig:function () {
+                Vue.api.getRegionConfig({ ...Vue.sessionInfo()}).then((resp)=>{
+                    if(resp.respCode=='2000'){
+
+                    }else{
+
+                    }
+                });
             }
         },
         mounted () {
             /**/
             this.getList();
+            //
+            this.getRegionConfig();
         },
     }
 </script>

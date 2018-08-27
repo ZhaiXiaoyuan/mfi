@@ -407,7 +407,8 @@
                     mfiLevel:this.course.mfiLevel,
                     certificateState:'unuse',
                     pageSize:200,
-                    pageIndex:1
+                    pageIndex:1,
+                    searchContent:''
                 }
                 Vue.api.getInstructorBuyCertificate(params).then((resp)=>{
                     if(resp.respCode=='2000'){
@@ -555,17 +556,25 @@
             toPay:function (item) {
                 console.log('this.unusedList:',this.unusedList);
                 let interval=null;
-                let fb=null;
                 let payModalInstance=this.payModal({
                     userId:this.account.id,
                     level:this.course.mfiLevel,
                     callback:(data)=>{
                        // payModalInstance.close();
-                        fb=Vue.operationFeedback({text:this.$t("tips.handle")});
+
+                        let alertInstance=this.alert({
+                            title:"",
+                            html:'<div style="text-align: center;"><div><i class="icon loading-icon"></i></div><div>'+this.$t('tips.payingTips')+'</div></div>',
+                            yes:this.$t('btn.cancel'),
+                            lock:true,
+                            ok:()=>{
+                                payModalInstance.close();
+                            }
+                        });
                         interval=setInterval(()=>{
                             this.getUnusedCertificate((data)=>{
                                 if(data.length>0&&!this.granting){
-                                    fb.setOptions({type:'complete', text:this.$t("tips.handleS")});
+                                    alertInstance.close();
                                     this.granting=true;
                                     clearInterval(interval);
                                     this.grantSubmit(item,()=>{
@@ -577,7 +586,6 @@
                     },
                     closeCallback:()=>{
                         clearInterval(interval);
-                        fb&&fb.setOptions({type:'warn', text:'cancel',delayForDelete:0});
                     }
                 });
             }
@@ -591,6 +599,11 @@
             /**/
             this.getCourse();
             this.getList();
+            //
+            let testArr=[1,2,3,4]
+            for(let i=0;i<4;i++){
+                testArr.splice(0,1);
+            }
         },
     }
 </script>

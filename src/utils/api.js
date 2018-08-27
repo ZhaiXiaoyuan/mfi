@@ -41,7 +41,7 @@ export default {
 
     /**/
     //临时测试
-    let basicUrl=false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356/mfi':'http://39.108.11.197/mfi';
+    let basicUrl=false&&process.env.NODE_ENV=='development'?'/api':'http://39.108.11.197/mfi';
     Vue.api={
         //
      superLogin:function (params) {
@@ -376,6 +376,14 @@ export default {
             return Vue.http.ajax({
                 method: 'post',
                 url: basicUrl+'/audit/addAudit',
+                params: params
+            });
+        },
+        //获取国家地区配置
+        getRegionConfig:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/school/getAddress',
                 params: params
             });
         },

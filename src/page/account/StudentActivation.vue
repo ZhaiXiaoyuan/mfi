@@ -36,7 +36,10 @@
                             </div>
                             <div class="cm-input-row">
                                 <span class="field">{{$t("label.gender")}}</span>
-                                <input type="text" v-model="newForm.gender" class="cm-input">
+                                <div class="input-wrap">
+                                    <el-radio v-model="newForm.gender" label="M">M</el-radio>
+                                    <el-radio v-model="newForm.gender" label="F">F</el-radio>
+                                </div>
                             </div>
                             <div class="cm-input-row">
                                 <span class="field">{{$t("label.birth")}}</span>
@@ -292,7 +295,7 @@
         },
         mounted () {
             /**/
-            this.aesData=this.$route.query.data.replace(' ','+');
+            this.aesData=this.$route.query.data.replace(/\s+/g,"+");
             /**/
             this.getEmailByAesData();
         },

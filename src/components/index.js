@@ -107,6 +107,7 @@ export default {
                 html: '',   //提示内容
                 yes: '确 定',
                 ok:null,//回调
+                lock:false,
             },...options};
             //
             let parentEle=document.getElementById('app');
@@ -115,6 +116,9 @@ export default {
             instance.options=options;
             instance.$mount();
             parentEle.appendChild(instance.$el);
+            return {
+                close:instance.close
+            }
         },
     }
     /**/

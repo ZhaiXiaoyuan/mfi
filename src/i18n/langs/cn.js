@@ -12,11 +12,11 @@ const cn = {
         disable:'停用',
         phone:'手机',
         name:'姓名',
-        country:'国家',
+        country:'国家/地区',
         region:'地区',
         address:'地址',
         code:'编号',
-        province:'省份/地区',
+        province:'省份',
         city:'城市',
         stick:'置顶',
         show:'展示',
@@ -94,6 +94,8 @@ const cn = {
         firstAid:'请上传急救证明',
         avatar:'请上传头像',
         reason:'请输入原因',
+        content:'请输入内容',
+        nayContent:'请输入内容或者上传文件',
     },
     btn:{
         adminLogin:'管理员登录',
@@ -239,6 +241,7 @@ const cn = {
         developing:'功能开发中',
         grant:'确定授予：{msg}{level}证书？',
         forbidden:"您的账号已禁用！",
+        payingTips:'操作中，请勿刷新或关闭窗口！'
     },
     el: {
         colorpicker: {

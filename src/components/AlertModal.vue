@@ -32,7 +32,8 @@
             yes: '确 定',
             no: '取 消',
             ok:null,//确定的回调
-            cancel:null,//取消的回调
+            cancel:null,//取消的回调,
+            lock:false,
           }
         }
       }

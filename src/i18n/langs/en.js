@@ -12,7 +12,7 @@ const en = {
         disable:'disable',
         phone:'phone',
         name:'name',
-        country:'country',
+        country:'country/region',
         region:'region',
         address:'address',
         code:'code',
@@ -91,7 +91,9 @@ const en = {
         insurance:'please upload the insurance certification',
         firstAid:'please upload the first aid certification',
         avatar:'please upload your avatar',
-        reason:'please enter the reason'
+        reason:'please enter the reason',
+        content:'please enter the content',
+        nayContent:'please enter the content,or upload the file',
     },
     btn:{
         adminLogin:'administrator login',
@@ -236,7 +238,8 @@ const en = {
         total:'total {msg} records',
         developing:'developing',
         grant:'are you sure to grant {level} to {msg}？',
-        forbidden:"your account is forbidden!"
+        forbidden:"your account is forbidden!",
+        payingTips:'Handling,please don\'t refresh or close the window!',
     },
     el: {
         colorpicker: {

@@ -22,7 +22,7 @@
                         <el-row style="padding: 50px 0px;text-align: center;">
                             <div class="cm-btn add-btn" @click="emailDialogFlag=true">{{$t('btn.email')}}</div>
                             <div class="cm-btn add-btn" @click="selectStudentDialogFlag=true">{{$t('btn.fromMyStudent')}}</div>
-                            <div class="cm-btn add-btn" @click="newStudentDialogFlag=true">{{$t('btn.newStudent')}}</div>
+                            <div class="cm-btn add-btn" v-if="course.mfiLevel!='M0'&&course.mfiLevel!='M1'" @click="newStudentDialogFlag=true">{{$t('btn.newStudent')}}</div>
                         </el-row>
                     </div>
                 </div>
@@ -271,7 +271,7 @@
                     if(resp.respCode=='2000'){
                         this.course=JSON.parse(resp.respMsg);
                         this.course.courseNo=this.course.school+this.course.courseId.substring(this.course.courseId.length-5)
-                      /*  console.log('this.course:',this.course);*/
+                     /*   console.log('this.course:',this.course);*/
                     }
                 });
             },

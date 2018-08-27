@@ -14,12 +14,13 @@
                 <div class="cm-detail-block">
                     <div class="block-hd">
                         <span class="title">{{curMsg.title}}</span>
-                        <a :href="curMsg.fileUrl" target="_blank" class="cm-btn download-btn">
+                        <a :href="curMsg.fileUrl" v-if="curMsg.fileUrl" target="_blank" class="cm-btn download-btn">
                             <i class="icon el-icon-download"></i>
                             {{$t('btn.download')}}
                         </a>
                     </div>
                     <div class="block-bd">
+                        <div class="text-content" v-if="curMsg.content&&curMsg.content!='null'" v-html="curMsg.content"></div>
                         <div class="msg-content" v-if="curMsg.fileUrl">
                             <pdf v-for="i in numPages"
                                  :key="i" :page="i" :src="task" style="display: inline-block;width: 100%"></pdf>
@@ -43,6 +44,11 @@
             padding: 10px;
             opacity: 0.7;
         }
+    }
+    .text-content{
+        color: #666;
+        line-height: 28px;
+        padding-bottom: 50px;
     }
     .msg-content{
         min-height: 600px;
@@ -78,12 +84,15 @@
         },
         mounted () {
             this.curMsg=JSON.parse(localStorage.getItem('curMsg'));
-            this.curMsg.fileUrl=Vue.basicConfig.filePrefix+this.curMsg.fileUrl;
-            this.task=pdf.createLoadingTask(this.curMsg.fileUrl);
+            console.log('this.curMsg:',this.curMsg);
+            if(this.curMsg.fileUrl){
+                this.curMsg.fileUrl=Vue.basicConfig.filePrefix+this.curMsg.fileUrl;
+                this.task=pdf.createLoadingTask(this.curMsg.fileUrl);
 
-            this.task.then(pdf => {
-                this.numPages = pdf.numPages;
-            });
+                this.task.then(pdf => {
+                    this.numPages = pdf.numPages;
+                });
+            }
         },
     }
 </script>

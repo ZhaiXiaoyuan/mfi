@@ -30,7 +30,8 @@
                                 {{item.title}}
                             </td>
                             <td>
-                                {{item.fileUrl.split('massage/')[1]}}
+                                <span v-if="item.fileUrl">{{item.fileUrl.split('massage/')[1]}}</span>
+                                <span v-if="!item.fileUrl">-</span>
                             </td>
                             <td>
                                 {{item.createdAt|formatDate('yyyy-MM-dd hh:mm:ss')}}
@@ -70,7 +71,8 @@
             <p>{{$t('btn.addMsg')}}</p>
         </div>
         <el-dialog :title="$t('title.addMsg')" class="edit-dialog cm-dialog add-msg-dialog" :visible.sync="dialogFormVisible" v-if="dialogFormVisible" width="40%">
-            <textarea v-model="title" cols="30" rows="10"></textarea>
+            <input type="text" v-model="title" :placeholder="$t('holder.title')" >
+            <textarea v-model="content" cols="30" rows="10"  :placeholder="$t('holder.content')" ></textarea>
             <div class="cm-file-uploader" :class="{'uploading':uploadStatus=='uploading','uploaded':uploadStatus=='uploaded'}">
                 <el-progress class="progress" :text-inside="true" :stroke-width="20" :percentage="80" color="#5560aa"></el-progress>
                 <div class="btn-wrap">
@@ -106,9 +108,19 @@
         .el-dialog__body{
             padding-top: 0px;
         }
-        textarea{
+        input{
             width: 100%;
-            height: 270px;
+            height: 40px;
+            border: 1px solid #e5e5e5;
+            border-radius: 5px;
+            padding:0px 20px;
+            color: #5360aa;
+            font-size: 16px;
+        }
+        textarea{
+            margin-top: 20px;
+            width: 100%;
+            height: 220px;
             border: 1px solid #e5e5e5;
             border-radius: 5px;
             padding: 20px;
@@ -155,6 +167,7 @@
                 ],
 
                 title:null,
+                content:null,
                 uploadFb:null,
                 uploadedCount:0,
                 files:[],
@@ -217,18 +230,24 @@
                     Vue.operationFeedback({type:'warn',text:this.$t("holder.title")});
                     return;
                 }
-                if(this.files.length==0){
-                    Vue.operationFeedback({type:'warn',text:this.$t("holder.upload")});
+                if(!this.content&&this.files.length==0){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.nayContent")});
                     return;
                 }
                 let formData = new FormData();
                 formData.append("timeStamp",Vue.sessionInfo().timeStamp);
                 formData.append("creator", this.account.id);
                 formData.append("title", this.title);
-                formData.append("file", this.files[0]);
+                formData.append("content", this.content);
+                if(this.files.length>0){
+                    formData.append("file", this.files[0]);
+                }
                 let fb=Vue.operationFeedback({text:this.$t("tips.save")});
                 Vue.api.addMessage(formData).then((resp)=>{
                     if(resp.respCode=='2000'){
+                        this.title=null;
+                        this.content=null;
+                        this.files=[];
                         this.getList();
                         this. dialogFormVisible=false;
                         fb.setOptions({type:'complete', text:this.$t("tips.saveS")});

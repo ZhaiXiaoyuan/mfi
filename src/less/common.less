@@ -694,6 +694,12 @@ body{
         color: #5560aa;
         word-break: break-all;
     }
+    .input-wrap{
+        padding: 0px 10px 0px 10px;
+        width: 300px;
+        background: #fff;
+        font-size: 20px;
+    }
     &+.cm-input-row{
         margin-top: 15px;
     }
@@ -1064,4 +1070,13 @@ body{
         color: #5560aa;
     }
 
+}
+
+/*element-ui样式覆盖*/
+.el-radio__input.is-checked .el-radio__inner{
+    border-color: #5360aa;
+    background: #5360aa;
+}
+.el-radio__input.is-checked+.el-radio__label{
+    color:#5360aa;
 }

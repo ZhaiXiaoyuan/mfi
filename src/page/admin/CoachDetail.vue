@@ -233,7 +233,11 @@
                     </div>
                     <div class="cm-input-row">
                         <span class="field">{{$t("label.gender")}}</span>
-                        <input type="text" v-model="editForm.gender" class="cm-input">
+                        <div class="input-wrap">
+                            <el-radio v-model="editForm.gender" label="M">M</el-radio>
+                            <el-radio v-model="editForm.gender" label="F">F</el-radio>
+                        </div>
+                       <!-- <input type="text" v-model="editForm.gender" class="cm-input">-->
                     </div>
                     <div class="cm-input-row">
                         <span class="field">{{$t("label.birth")}}</span>
@@ -340,8 +344,8 @@
                         label:'M3',
                     },*/
                     {
-                        value:'MBI',
-                        label:'MBI',
+                        value:'BMI',
+                        label:'BMI',
                     },
                     {
                         value:'MI',

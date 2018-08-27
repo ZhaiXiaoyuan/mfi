@@ -12,7 +12,7 @@ const tw = {
         disable:'停用',
         phone:'手機',
         name:'姓名',
-        country:'國家',
+        country:'國家/地區',
         region:'地區',
         address:'地址',
         code:'編號',
@@ -92,6 +92,8 @@ const tw = {
         firstAid:'請上傳急救證明',
         avatar:'請上傳頭像',
         reason:'請輸入原因',
+        content:'請輸入內容',
+        nayContent:'請輸入內容或者上傳文件',
     },
     btn:{
         adminLogin:'管理員登錄',
@@ -236,6 +238,7 @@ const tw = {
         developing:'功能開發中',
         grant:'確定授予：{msg}{level}证书？',
         forbidden:"您的賬號已禁用！",
+        payingTips:'操作中，請勿刷新或關閉窗口！',
     },
     el: {
         colorpicker: {

@@ -89,7 +89,15 @@
       return {
           tokenConfig:{
               'M0':'6P96Z9GWVXTE2',
-              'M1':'XRFB5G85EYQ7W'
+              'M1':'XRFB5G85EYQ7W',
+              'M2':'A4KLLA7RQ5N42',
+              'M3':'VHGBX5Y9D7H2L',
+              'BMI':'ATKL87265PHFG',
+              'MI':'UDHUFVYBLX994',
+              'MMI':'7ETBBSTY4RASS',
+              'instructorQualification':'TLLCVT5X7E98C',
+              'professionalMembersFee':'3R62EWX84Z54A',
+              'schoolQualification':'J9M8MNQCER4BE',
           },
           token:null,
           temOrderId:null,
