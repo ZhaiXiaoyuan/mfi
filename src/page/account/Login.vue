@@ -282,7 +282,8 @@
                             this.$cookie.set('account',JSON.stringify({
                                 type:this.type,
                                 account:this.account,
-                                ...data
+                                ...data.user,
+                                ...data.instructorPayment
                             }),7);
                             fb.setOptions({
                                 type:'complete',

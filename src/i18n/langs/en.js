@@ -150,7 +150,7 @@ const en = {
         auditModule:'Audit',
         certificateModule:'Certificate Statistics',
         settingModule:'Setting',
-        configurable:'configurable',
+        configurable:'mfi-individual',
         dueAudit:'instructor due audit',
         toInstructor:'student to instructor',
         auditPending:'pending',
@@ -173,6 +173,7 @@ const en = {
         toReject:'reject',
         applyForAudit:'apply for audit',
         myAudit:'my audit',
+        go:'go',
     },
     title:{
         super:'Super Administrator',
@@ -242,6 +243,8 @@ const en = {
         grant:'are you sure to grant {level} to {msg}？',
         forbidden:"your account is forbidden!",
         payingTips:'Handling,please don\'t refresh or close the window!',
+        annualFeelForProfessionalMembers:'Please pay the annual fee for professional members',
+        instructorQualification:'Please pay the annual fee for instructor qualification',
     },
     el: {
         colorpicker: {

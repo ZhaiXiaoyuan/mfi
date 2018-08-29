@@ -150,7 +150,7 @@ const tw = {
         auditModule:'審核',
         certificateModule:'證書統計',
         settingModule:'設置',
-        configurable:'可自行設置',
+        configurable:'個人教練',
         dueAudit:'教練賬號到期證書審核',
         toInstructor:'學員轉教練賬號審核',
         auditPending:'待審核',
@@ -173,6 +173,7 @@ const tw = {
         toReject:'駁回',
         applyForAudit:'申請審核',
         myAudit:'我的審核',
+        go:'前往',
     },
     title:{
         super:'超級管理員',
@@ -241,6 +242,8 @@ const tw = {
         grant:'確定授予：{msg}{level}证书？',
         forbidden:"您的賬號已禁用！",
         payingTips:'操作中，請勿刷新或關閉窗口！',
+        annualFeelForProfessionalMembers:'請繳納專業會員年費',
+        instructorQualification:'請繳納教練資格註冊延續年費',
     },
     el: {
         colorpicker: {

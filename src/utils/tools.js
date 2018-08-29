@@ -169,7 +169,6 @@ export default {
             }
         },
           genLevelConfig:function (options) {
-            console.log('options:',options);
               let instrutorLevelLimit={
                   'all':["M0","M1","M2","M3","BMI","MI","MMI","MIT"],
                   'MIT':["M0","M1","M2","M3","BMI","MI","MMI","MIT"],

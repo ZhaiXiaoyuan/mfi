@@ -61,7 +61,15 @@
                             </div>
                             <div class="cm-input-row">
                                 <span class="field">{{$t("label.country")}}</span>
-                                <input type="text" v-model="newForm.country" class="cm-input">
+                                <el-select v-model="newForm.country" filterable>
+                                    <el-option
+                                        v-for="item in regionList"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.label">
+                                    </el-option>
+                                </el-select>
+                             <!--   <input type="text" v-model="newForm.country" class="cm-input">-->
                             </div>
                             <div class="cm-input-row">
                                 <span class="field">{{$t("label.province")}}</span>
@@ -156,6 +164,7 @@
                 },
                 uploading:false,
                 otherPicList:[],
+                regionList:[],
             }
         },
         created(){
@@ -357,12 +366,34 @@
                     }
                 });
             },
+            getRegionConfig:function () {
+                Vue.api.getRegionConfig({ ...Vue.sessionInfo()}).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        this.regionList=JSON.parse(resp.respMsg);
+                        if(this.$i18n.locale=='cn'){
+                            this.regionList.forEach((item,i)=>{
+                                item.label=item.chineseName;
+                                item.value=item.code;
+                            })
+                        }else{
+                            this.regionList.forEach((item,i)=>{
+                                item.label=item.englishName;
+                                item.value=item.code;
+                            })
+                        }
+                    }else{
+
+                    }
+                });
+            }
         },
         mounted () {
             /**/
             this.aesData=this.$route.query.data.replace(/\s/g, "+");
             /**/
             this.getEmailByAesData();
+            /**/
+            this.getRegionConfig();
         },
     }
 </script>

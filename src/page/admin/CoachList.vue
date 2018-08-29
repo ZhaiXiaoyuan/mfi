@@ -301,8 +301,11 @@
                     this.pager.loading=false;
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
-                        this.entryList=JSON.parse(data.instructorList);
-                        console.log('this.entryList:', this.entryList);
+                        try {
+                            this.entryList=JSON.parse(data.instructorList);
+                        }catch (e) {
+
+                        }
                         this.pager.total=data.count;
                     }
                 });
@@ -323,7 +326,7 @@
                 Vue.api.getSchoolList(params).then((resp)=>{
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
-                        let list=JSON.parse(data.schoolList);
+                        let list=data.schoolList;
                         list.forEach((item,i)=>{
                             this.schoolOptions.push({
                                 label:item.serialCode,

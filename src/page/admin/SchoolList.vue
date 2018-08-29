@@ -74,7 +74,7 @@
             <div class="form">
                 <div class="cm-input-row">
                     <span class="field">{{$t("label.country")}}</span>
-                    <el-select v-model="editForm.country" filterable>
+                    <el-select v-model="editForm.code" filterable :class="{'cm-disabled':editForm.id}">
                         <el-option
                             v-for="item in regionList"
                             :key="item.value"
@@ -131,11 +131,13 @@
                 entryList:[],
                 isSetting:false,
                 editForm:{
+                    code:null,
                     country:null,
                     province:null,
                     city:null,
                     address:null,
                     serialCode:null,
+                    password:null,
                 },
                 options:[
                     {
@@ -182,7 +184,7 @@
                     this.pager.loading=false;
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
-                        this.entryList=JSON.parse(data.schoolList);
+                        this.entryList=data.schoolList;
                         this.pager.total=data.count;
                      /*   this.entryList.forEach((item,i)=>{
 
@@ -196,7 +198,7 @@
                 this.editForm={};
             },
             save:function () {
-                if(!this.editForm.country){
+                if(!this.editForm.code&&!this.editForm.id){
                     Vue.operationFeedback({type:'warn',text:this.$t("holder.country")});
                     return;
                 }
@@ -216,6 +218,10 @@
                     Vue.operationFeedback({type:'warn',text:this.$t("holder.postcode")});
                     return;
                 }
+                let selectedCountry=this.regionList.find((item,i)=>{
+                    return item.value==this.editForm.code;
+                })
+                this.editForm.country=selectedCountry.label;
                 let params={
                     ...this.editForm
                 }

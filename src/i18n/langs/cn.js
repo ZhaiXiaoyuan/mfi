@@ -152,7 +152,7 @@ const cn = {
         auditModule:'审核',
         certificateModule:'证书统计',
         settingModule:'设置',
-        configurable:'可自行设置',
+        configurable:'个人教练',
         dueAudit:'教练账号到期证书审核',
         toInstructor:'学员转教练账号审核',
         auditPending:'待审核',
@@ -175,6 +175,7 @@ const cn = {
         toReject:'驳回',
         applyForAudit:'申请审核',
         myAudit:'我的审核',
+        go:'前往',
     },
     title:{
         super:'超级管理员',
@@ -243,7 +244,9 @@ const cn = {
         developing:'功能开发中',
         grant:'确定授予：{msg}{level}证书？',
         forbidden:"您的账号已禁用！",
-        payingTips:'操作中，请勿刷新或关闭窗口！'
+        payingTips:'操作中，请勿刷新或关闭窗口！',
+        annualFeelForProfessionalMembers:'请缴纳专业會員年費',
+        instructorQualification:'请缴纳教練資格註冊延續年費',
     },
     el: {
         colorpicker: {

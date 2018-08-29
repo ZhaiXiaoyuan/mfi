@@ -13,7 +13,11 @@
             <div class="panel-bd">
                 <div class="cm-detail-block detail-block" :class="{'show-status':account.type=='coach'}">
                     <div class="status" v-if="account.type=='coach'">
-                        {{$t("title."+account.instructorAccountStatus)}}
+                        <span>{{$t("title."+account.instructorAccountStatus)}}</span>
+                    </div>
+                    <div class="payment-status" v-if="account.type=='coach'">
+                        <div><span>{{$t("tips.annualFeelForProfessionalMembers")}}</span><span class="cm-btn btn">{{$t("btn.go")}}</span></div>
+                        <div><span>{{$t("tips.instructorQualification")}}</span><span class="cm-btn btn">{{$t("btn.go")}}</span></div>
                     </div>
                     <div class="block-bd">
                         <el-row>
@@ -263,7 +267,7 @@
                                 v-for="item in regionList"
                                 :key="item.value"
                                 :label="item.label"
-                                :value="item.value">
+                                :value="item.label">
                             </el-option>
                         </el-select>
                      <!--   <input type="text" v-model="editForm.country" class="cm-input">-->
@@ -290,6 +294,27 @@
     </div>
 </template>
 <style lang="less" rel="stylesheet/less">
+    .payment-status{
+        color: #F56C6C;
+        font-size: 16px;
+        text-align: center;
+        padding-bottom: 10px;
+        >div{
+            &+div{
+                margin-top: 5px;
+            }
+        }
+        .btn{
+            margin-left: 10px;
+            display: inline-block;
+            font-size: 12px;
+            color: #5360aa;
+            border-radius: 5px;
+            border: 1px solid #5360aa;
+            padding: 2px 12px;
+            cursor: pointer;
+        }
+    }
     .edit-dialog{
         .el-dialog{
             width: 700px !important;
@@ -512,7 +537,7 @@
                 Vue.api.getSchoolList(params).then((resp)=>{
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
-                        let list=JSON.parse(data.schoolList);
+                        let list=data.schoolList;
                         if(this.account.type=='coach'){
                             this.schoolOptions=[];
                         }
@@ -574,7 +599,7 @@
                 Vue.api.getUserBaseInfo(params).then((resp)=>{
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
-                        this.coach=data;
+                        this.coach={...data.instructorPayment,...data.user};
                         this.getUserCertificate();
                         this.otherPicList=[];
                         if(this.coach.firstAidPic){
@@ -822,6 +847,43 @@
                         }
                     }else{
 
+                    }
+                });
+            },
+            toPay:function (options) {
+                console.log('this.unusedList:',this.unusedList);
+                let interval=null;
+                let payModalInstance=this.payModal({
+                    userId:this.account.id,
+                    level:options.type,
+                    callback:(data)=>{
+                        // payModalInstance.close();
+
+                        let alertInstance=this.alert({
+                            title:"",
+                            html:'<div style="text-align: center;"><div><i class="icon loading-icon"></i></div><div>'+this.$t('tips.payingTips')+'</div></div>',
+                            yes:this.$t('btn.cancel'),
+                            lock:true,
+                            ok:()=>{
+                                payModalInstance.close();
+                            }
+                        });
+                        interval=setInterval(()=>{
+                            /*this.getUnusedCertificate((data)=>{
+                                if(data.length>0&&!this.granting){
+                                    alertInstance.close();
+                                    this.granting=true;
+                                    clearInterval(interval);
+                                    this.grantSubmit(item,()=>{
+                                        Vue.operationFeedback({type:'complete',text:this.$t("tips.handleS")});
+                                        payModalInstance.close();
+                                    });
+                                }
+                            })*/
+                        },2000)
+                    },
+                    closeCallback:()=>{
+                        clearInterval(interval);
                     }
                 });
             }

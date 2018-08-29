@@ -41,7 +41,7 @@
             width: 300px;
             .field{
                 position: absolute;
-                left: -35%;
+                left: -48%;
                 line-height: 50px;
             }
         }
