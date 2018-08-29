@@ -63,6 +63,7 @@ const cn = {
         grantDate:'日期',
         instructorName:'教练名称',
         customerService:"客服",
+        postcode:'邮编',
     },
     holder: {
         account:'请输入账号',
@@ -96,6 +97,7 @@ const cn = {
         reason:'请输入原因',
         content:'请输入内容',
         nayContent:'请输入内容或者上传文件',
+        postcode:'请输入邮编',
     },
     btn:{
         adminLogin:'管理员登录',

@@ -61,6 +61,7 @@ const tw = {
         grantDate:'日期',
         instructorName:'教練名稱',
         customerService:"客服",
+        postcode:'郵編',
     },
     holder: {
         account:'請輸入賬號',
@@ -94,6 +95,7 @@ const tw = {
         reason:'請輸入原因',
         content:'請輸入內容',
         nayContent:'請輸入內容或者上傳文件',
+        postcode:'請輸入郵編',
     },
     btn:{
         adminLogin:'管理員登錄',

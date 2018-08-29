@@ -74,7 +74,15 @@
             <div class="form">
                 <div class="cm-input-row">
                     <span class="field">{{$t("label.country")}}</span>
-                    <input type="text" v-model="editForm.country" class="cm-input">
+                    <el-select v-model="editForm.country" filterable>
+                        <el-option
+                            v-for="item in regionList"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                        </el-option>
+                    </el-select>
+                   <!-- <input type="text" v-model="editForm.country" class="cm-input">-->
                 </div>
                 <div class="cm-input-row">
                     <span class="field">{{$t("label.province")}}</span>
@@ -89,8 +97,8 @@
                     <input type="text" v-model="editForm.address" class="cm-input">
                 </div>
                 <div class="cm-input-row">
-                    <span class="field">{{$t("label.code")}}</span>
-                    <input type="text" v-model="editForm.serialCode" class="cm-input">
+                    <span class="field">{{$t("label.postcode")}}</span>
+                    <input type="text" v-model="editForm.postcode" class="cm-input">
                 </div>
             </div>
             <div class="handle-list">
@@ -112,7 +120,7 @@
         },
         data() {
             return {
-                dialogFormVisible:true,//临时测试
+                dialogFormVisible:false,
                 keyword:null,
                 pager:{
                     pageSize:20,
@@ -149,6 +157,7 @@
                 uploadedCount:0,
                 files:[],
                 uploadStatus:null,
+                regionList:[],
             }
         },
         created(){
@@ -203,8 +212,8 @@
                     Vue.operationFeedback({type:'warn',text:this.$t("holder.address")});
                     return;
                 }
-                if(!this.editForm.serialCode){
-                    Vue.operationFeedback({type:'warn',text:this.$t("holder.code")});
+                if(!this.editForm.postcode){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.postcode")});
                     return;
                 }
                 let params={
@@ -241,7 +250,18 @@
             getRegionConfig:function () {
                 Vue.api.getRegionConfig({ ...Vue.sessionInfo()}).then((resp)=>{
                     if(resp.respCode=='2000'){
-
+                        this.regionList=JSON.parse(resp.respMsg);
+                        if(this.$i18n.locale=='cn'){
+                            this.regionList.forEach((item,i)=>{
+                                item.label=item.chineseName;
+                                item.value=item.code;
+                            })
+                        }else{
+                            this.regionList.forEach((item,i)=>{
+                                item.label=item.englishName;
+                                item.value=item.code;
+                            })
+                        }
                     }else{
 
                     }

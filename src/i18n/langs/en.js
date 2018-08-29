@@ -60,7 +60,8 @@ const en = {
         student:'student',
         grantDate:'grant date',
         instructorName:'instructor name',
-        customerService:'customer service'
+        customerService:'customer service',
+        postcode:'postcode',
     },
     holder: {
         account:'please enter your account',
@@ -94,6 +95,7 @@ const en = {
         reason:'please enter the reason',
         content:'please enter the content',
         nayContent:'please enter the content,or upload the file',
+        postcode:'please enter your postcode',
     },
     btn:{
         adminLogin:'administrator login',
