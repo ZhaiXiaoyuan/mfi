@@ -12,12 +12,12 @@
             </div>
             <div class="panel-bd">
                 <div class="cm-detail-block detail-block" :class="{'show-status':account.type=='coach'}">
-                    <div class="status" v-if="account.type=='coach'">
+                    <div class="status" v-if="account.type=='coach'&&account.professionalMembersFee!='notPay'">
                         <span>{{$t("title."+account.instructorAccountStatus)}}</span>
                     </div>
-                    <div class="payment-status" v-if="account.type=='coach'">
-                        <div><span>{{$t("tips.annualFeelForProfessionalMembers")}}</span><span class="cm-btn btn">{{$t("btn.go")}}</span></div>
-                        <div><span>{{$t("tips.instructorQualification")}}</span><span class="cm-btn btn">{{$t("btn.go")}}</span></div>
+                    <div class="payment-status" v-if="account.type=='coach'&&(account.professionalMembersFee=='notPay'||account.instructorQualification=='notPay')">
+                        <div v-if="account.professionalMembersFee=='notPay'"><span>{{$t("tips.annualFeelForProfessionalMembers")}}</span><span class="cm-btn btn" @click="toPay({type:'professionalMembersFee'})">{{$t("btn.go")}}</span></div>
+                        <div v-if="account.instructorQualification=='notPay'"><span>{{$t("tips.instructorQualification")}}</span><span class="cm-btn btn" @click="toPay({type:'instructorQualification'})">{{$t("btn.go")}}</span></div>
                     </div>
                     <div class="block-bd">
                         <el-row>
@@ -223,9 +223,12 @@
                         <span class="field">{{$t("label.email")}}</span>
                         <input type="text" v-model="editForm.email" readonly class="cm-input cm-disabled">
                     </div>
-                    <div class="cm-input-row">
+                    <div class="cm-input-row input-row">
                         <span class="field">{{$t("label.pwd")}}</span>
-                        <input type="password" v-model="editForm.password" class="cm-input">
+                        <div class="input-item">
+                            <input :type="showPassword?'text':'password'" v-model="editForm.password" class="cm-input">
+                            <i class="icon" :class="{'eye-close-icon':showPassword,'eye-open-icon':!showPassword}" @click="showPassword=!showPassword"></i>
+                        </div>
                     </div>
                     <div class="cm-input-row">
                         <span class="field">{{$t("label.fName")}}</span>
@@ -298,7 +301,7 @@
         color: #F56C6C;
         font-size: 16px;
         text-align: center;
-        padding-bottom: 10px;
+        padding: 10px 0px;
         >div{
             &+div{
                 margin-top: 5px;
@@ -414,10 +417,11 @@
                         value:'disable'
                     }
                 ],
-                schoolOptions:[{
+                schoolOptions:[
+                  /*  {
                     label:this.$t("btn.configurable"),
-                    value:'configurable'
-                },],
+                    value:'mfi-individual '},*/
+                ],
                 schoolDetail:null,
 
                 isSetting:false,
@@ -439,6 +443,7 @@
                 rawCertificateList:[],
                 certificateList:[],
 
+                showPassword:false,
                 editDialogFlag:false,
                 editForm:{},
                 regionList:[],
@@ -473,6 +478,7 @@
                         this.coach.mfiLevel=this.levelForm.level;
                         this.levelSettingDialogFlag=false;
                         localStorage.setItem('curCoach',JSON.stringify(this.coach));
+                        this.getUserBaseInfo();
                     }else{
                         fb.setOptions({type:'warn', text:this.$t("tips.settingF",{ msg: resp.respMsg})});
                     }
@@ -865,22 +871,28 @@
                             yes:this.$t('btn.cancel'),
                             lock:true,
                             ok:()=>{
+                                interval&&clearInterval(interval);
                                 payModalInstance.close();
                             }
                         });
                         interval=setInterval(()=>{
-                            /*this.getUnusedCertificate((data)=>{
-                                if(data.length>0&&!this.granting){
-                                    alertInstance.close();
-                                    this.granting=true;
-                                    clearInterval(interval);
-                                    this.grantSubmit(item,()=>{
-                                        Vue.operationFeedback({type:'complete',text:this.$t("tips.handleS")});
-                                        payModalInstance.close();
-                                    });
+                            Vue.api.getUserBaseInfo({  ...Vue.sessionInfo(), userId:this.id, role:'instructor'}).then((resp)=>{
+                                if(resp.respCode=='2000'){
+                                    let data=JSON.parse(resp.respMsg);
+                                    if(options.type=='professionalMembersFee'&&data.instructorPayment.professionalMembersFee=='pay'){
+                                        alertInstance.close();
+                                        clearInterval(interval);
+                                        window.location.reload();
+                                    }else if(options.type=='instructorQualification'&&data.instructorPayment.instructorQualification=='pay'){
+                                        alertInstance.close();
+                                        clearInterval(interval);
+                                        window.location.reload();
+                                    }
+                                }else{
+
                                 }
-                            })*/
-                        },2000)
+                            });
+                        },3000)
                     },
                     closeCallback:()=>{
                         clearInterval(interval);

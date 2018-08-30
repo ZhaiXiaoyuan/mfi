@@ -7,7 +7,10 @@
             </div>
             <div class="cm-input-row">
                 <span class="field">{{$t("label.pwd")}}</span>
-                <input type="password" v-model="pwd" class="cm-input">
+                <div class="input-item">
+                    <input :type="showPassword?'text':'password'" v-model="pwd" class="cm-input">
+                    <i class="icon" :class="{'eye-close-icon':showPassword,'eye-open-icon':!showPassword}" @click="showPassword=!showPassword"></i>
+                </div>
             </div>
             <div class="cm-input-row">
                 <span class="field">{{$t("label.phone")}}</span>
@@ -56,6 +59,7 @@
                 pwd:null,
                 phone:null,
                 name:null,
+                showPassword:false,
             }
         },
         created(){

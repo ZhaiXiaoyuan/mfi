@@ -24,7 +24,10 @@
                             </div>
                             <div class="cm-input-row">
                                 <span class="field">{{$t("label.pwd")}}</span>
-                                <input type="password" v-model="newForm.pwd" class="cm-input">
+                                <div class="input-item">
+                                    <input :type="showPassword?'text':'password'" v-model="newForm.pwd" class="cm-input">
+                                    <i class="icon" :class="{'eye-close-icon':showPassword,'eye-open-icon':!showPassword}" @click="showPassword=!showPassword"></i>
+                                </div>
                             </div>
                             <div class="cm-input-row">
                                 <span class="field">{{$t("label.fName")}}</span>
@@ -161,10 +164,12 @@
                     email:null,
                     insurancePic:null,
                     firstAidPic:null,
+                    gender:'M',
                 },
                 uploading:false,
                 otherPicList:[],
                 regionList:[],
+                showPassword:false,
             }
         },
         created(){

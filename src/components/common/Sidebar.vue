@@ -221,7 +221,7 @@
             else if(this.account.type=='coach'){
                 if(this.account.instructorAccountStatus=='certified'){
 
-                    this.accountAccess=['10','11','16','12','13',];
+                    this.accountAccess=['03','10','11','16','12','13',];
                 }else{
                     this.accountAccess=['13']
                 }

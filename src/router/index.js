@@ -3,7 +3,7 @@ import Router from 'vue-router';
 
 Vue.use(Router);
 
-export default new Router({
+const router= new Router({
     routes: [
         {
             path: '/',
@@ -137,4 +137,55 @@ export default new Router({
             component: resolve => require(['../page/account/StudentActivation.vue'], resolve)
         },
     ]
+});
+//注册全局导航守卫
+router.beforeEach((to, from,next) => {
+
+    /* let userInfo=sessionStorage.getItem('userInfo')?JSON.parse(sessionStorage.getItem('userInfo')):null;
+     if(!userInfo){
+     Vue.api.getUserInfo({...Vue.sessionInfo()}).then((resp)=>{
+     if(resp.status=='success'){
+     let userInfo=JSON.parse(resp.message);
+     sessionStorage.setItem('userInfo',JSON.stringify(userInfo));
+     if(userInfo.status==20){
+     next();
+     }else{
+     router.push({name:'forbidden'});
+     }
+     }
+     })
+     }else {
+     if(userInfo.status==20){
+     next();
+     }else{
+     router.push({name:'forbidden'});
+     }
+     }*/
+
+    //进入非登录页前刷新并判断用户状态
+    if(to.name!='login'){
+        let account=Vue.getAccountInfo();
+        if(account.type=='coach'||account.type=='student'){
+            Vue.api.getUserBaseInfo({  ...Vue.sessionInfo(), userId:account.id, role:account.type=='coach'?'instructor':'student'}).then((resp)=>{
+                if(resp.respCode=='2000'){
+                    let data=JSON.parse(resp.respMsg);
+                   Vue.cookie.set('account',JSON.stringify({
+                        type:account.type,
+                        account:account.account,
+                        ...data.user,
+                        ...data.instructorPayment
+                    }),7);
+                }else{
+
+                }
+                next();
+            });
+        }else{
+            next();
+        }
+    }else{
+        next();
+    }
+
 })
+export default router;

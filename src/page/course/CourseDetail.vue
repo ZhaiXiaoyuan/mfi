@@ -231,8 +231,7 @@
                                   <span class="handle" v-if="item.certificate=='pending'||item.certificate=='granted'">&mdash;</span>
                                   <el-button class="small handle-btn" @click="toStudent(item)" v-if="item.certificate=='waiting'||item.certificate=='grant'||(item.certificate&&item.certificate.length>20)">{{$t('btn.detail')}}</el-button>
                                   <el-button class="small handle-btn" @click="grant(item)"  v-if="item.certificate=='waiting'&&unusedList.length>0">{{$t('btn.grant')}}</el-button>
-                                <!--临时测试-->
-                                  <el-button class="small handle-btn"   v-if="true||item.certificate=='waiting'&&unusedList.length==0" @click="toPay(item)">{{$t('btn.buyToGrant')}}</el-button>
+                                  <el-button class="small handle-btn"   v-if="item.certificate=='waiting'&&unusedList.length==0" @click="toPay(item)">{{$t('btn.buyToGrant')}}</el-button>
 <!--
                                   <el-button class="small handle-btn" @click="toViewCertificate(item)" v-if="(item.certificate&&item.certificate.length>20)">{{$t('btn.viewCertificate')}}</el-button>
 -->
@@ -254,7 +253,7 @@
                 <canvas width="1200" id="canvas"  height="675" style="display:none;border:1px solid #d3d3d3;background:#ffffff;"></canvas>
             </div>
         </div>
-        <div class="cm-btn cm-add-btn" :class="{'cm-disabled':account.instructorAccountStatus!='certified'}" v-if="account.type=='coach'" @click="toAdd()">
+        <div class="cm-btn cm-add-btn" :class="{'cm-disabled':account.instructorAccountStatus!='certified'||account.instructorQualification=='notPay'}" v-if="account.type=='coach'" @click="toAdd()">
             <div class="icon-wrap">
                 <i class="icon add-cross-icon"></i>
             </div>
@@ -409,7 +408,8 @@
                     certificateState:'unuse',
                     pageSize:200,
                     pageIndex:1,
-                    searchContent:''
+                    searchContent:'',
+                    schoolSerialCode:this.coach.school
                 }
                 Vue.api.getInstructorBuyCertificate(params).then((resp)=>{
                     if(resp.respCode=='2000'){
@@ -434,7 +434,7 @@
                     openWater:state.openWater!='pass'?'':'pass',
                     studio:state.studio!='pass'?'':'pass',
                 }
-                let fb=Vue.operationFeedback({text:this.$t("tips.save")});
+                let fb=Vue.operationFeedback({text:this.$t("tips.save"),delayForDelete:1000});
                 this.isLoading=true;
                 Vue.api.setStudentMfiLevelState(params).then((resp)=>{
                     this.isLoading=false;

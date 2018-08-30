@@ -68,7 +68,10 @@
                 </div>
                 <div class="cm-input-row">
                     <span class="field">{{$t("label.pwd")}}</span>
-                    <input type="password" v-model="editForm.pwd" class="cm-input">
+                    <div class="input-item">
+                        <input :type="showPassword?'text':'password'" v-model="editForm.pwd" class="cm-input">
+                        <i class="icon" :class="{'eye-close-icon':showPassword,'eye-open-icon':!showPassword}" @click="showPassword=!showPassword"></i>
+                    </div>
                 </div>
             </div>
             <div class="handle-list">
@@ -100,6 +103,7 @@
                 entryList:[],
                 isSetting:false,
                 editForm:null,
+                showPassword:false,
             }
         },
         created(){

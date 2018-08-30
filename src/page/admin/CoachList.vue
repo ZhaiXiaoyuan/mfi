@@ -301,11 +301,14 @@
                     this.pager.loading=false;
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
-                        try {
-                            this.entryList=JSON.parse(data.instructorList);
-                        }catch (e) {
-
-                        }
+                        console.log('data:',data);
+                        let list=data.instructorList;
+                        list.forEach((item,i)=>{
+                            this.entryList.push({
+                                ...item.instructorPayment,
+                                ...item.user
+                            })
+                        })
                         this.pager.total=data.count;
                     }
                 });
@@ -374,7 +377,7 @@
             },
             toDetail:function (index) {
                 let coach=this.entryList[index];
-                /*localStorage.setItem('curCoach',JSON.stringify(coach));*/
+                localStorage.setItem('curCoach',JSON.stringify(coach));
                 this.$router.push({name:'coachDetail',params:{id:coach.id}});
             },
         },

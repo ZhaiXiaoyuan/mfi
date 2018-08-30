@@ -90,7 +90,8 @@
             </div>
         </div>
 
-        <div class="cm-btn cm-add-btn" :class="{'cm-disabled':account.instructorAccountStatus!='certified'}" v-if="account.type=='coach'" @click="dialogFormVisible=true">
+        <!--临时测试-->
+        <div class="cm-btn cm-add-btn" :class="{'cm-disabled':account.instructorAccountStatus!='certified'||account.instructorQualification=='notPay'}" v-if="account.type=='coach'" @click="dialogFormVisible=true">
             <div class="icon-wrap">
                 <i class="icon add-cross-icon"></i>
             </div>

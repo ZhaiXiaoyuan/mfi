@@ -256,6 +256,7 @@
                     mfiLevel:this.selectedLevel,
                     certificateState:null,
                     searchContent:this.keyword,
+                    schoolSerialCode:'',
                 }
                 this.pager.loading=true;
                 Vue.api.getInstructorBuyCertificate(params).then((resp)=>{

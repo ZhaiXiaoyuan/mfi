@@ -387,6 +387,14 @@ export default {
                 params: params
             });
         },
+        //学校账号登录
+        schoolLogin:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/school/login',
+                params: params
+            });
+        },
     }
   },
 

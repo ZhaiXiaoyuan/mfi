@@ -24,7 +24,10 @@
                             </div>
                             <div class="cm-input-row">
                                 <span class="field">{{$t("label.pwd")}}</span>
-                                <input type="password" v-model="newForm.pwd" class="cm-input">
+                                <div class="input-item">
+                                    <input :type="showPassword?'text':'password'" v-model="newForm.pwd" class="cm-input">
+                                    <i class="icon" :class="{'eye-close-icon':showPassword,'eye-open-icon':!showPassword}" @click="showPassword=!showPassword"></i>
+                                </div>
                             </div>
                             <div class="cm-input-row">
                                 <span class="field">{{$t("label.fName")}}</span>
@@ -60,7 +63,15 @@
                             </div>
                             <div class="cm-input-row">
                                 <span class="field">{{$t("label.country")}}</span>
-                                <input type="text" v-model="newForm.country" class="cm-input">
+                                <el-select v-model="newForm.country" filterable>
+                                    <el-option
+                                        v-for="item in regionList"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.label">
+                                    </el-option>
+                                </el-select>
+                                <!--<input type="text" v-model="newForm.country" class="cm-input">-->
                             </div>
                             <div class="cm-input-row">
                                 <span class="field">{{$t("label.province")}}</span>
@@ -138,9 +149,12 @@
                 newForm:{
                     avatar:null,
                     email:null,
+                    gender:'M',
                 },
                 uploading:false,
                 otherPicList:[],
+                regionList:[],
+                showPassword:false,
             }
         },
         created(){
@@ -292,12 +306,34 @@
                     }
                 });
             },
+            getRegionConfig:function () {
+                Vue.api.getRegionConfig({ ...Vue.sessionInfo()}).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        this.regionList=JSON.parse(resp.respMsg);
+                        if(this.$i18n.locale=='cn'){
+                            this.regionList.forEach((item,i)=>{
+                                item.label=item.chineseName;
+                                item.value=item.code;
+                            })
+                        }else{
+                            this.regionList.forEach((item,i)=>{
+                                item.label=item.englishName;
+                                item.value=item.code;
+                            })
+                        }
+                    }else{
+
+                    }
+                });
+            }
         },
         mounted () {
             /**/
             this.aesData=this.$route.query.data.replace(/\s+/g,"+");
             /**/
             this.getEmailByAesData();
+            /**/
+            this.getRegionConfig();
         },
     }
 </script>

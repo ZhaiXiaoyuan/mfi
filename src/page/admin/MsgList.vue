@@ -37,7 +37,7 @@
                                 {{item.createdAt|formatDate('yyyy-MM-dd hh:mm:ss')}}
                             </td>
                             <td>
-                                <el-select v-model="item.state" class="handle status-select-handle" @change="setState(index)">
+                                <el-select v-model="item.state" class="handle status-select-handle" @change="setState(index)" v-if="account.type=='admin'">
                                     <el-option
                                         v-for="entry in options"
                                         :key="entry.value"
@@ -46,7 +46,7 @@
                                     </el-option>
                                 </el-select>
                                 <span class="handle" @click="toDetail(index)">{{$t('btn.view')}}</span>
-                                <span class="handle" @click="del(index)">{{$t('btn.del')}}</span>
+                                <span class="handle" @click="del(index)" v-if="account.type=='admin'">{{$t('btn.del')}}</span>
                             </td>
                         </tr>
                         </tbody>
@@ -64,7 +64,7 @@
                 </div>
             </div>
         </div>
-        <div class="cm-btn cm-add-btn" @click="dialogFormVisible=true">
+        <div class="cm-btn cm-add-btn" v-if="account.type=='admin'" @click="dialogFormVisible=true">
             <div class="icon-wrap">
                 <i class="icon add-msg-icon"></i>
             </div>
@@ -138,7 +138,7 @@
         },
         data() {
             return {
-                account:null,
+                account:{},
 
                 test:'',
                 dialogFormVisible:false,

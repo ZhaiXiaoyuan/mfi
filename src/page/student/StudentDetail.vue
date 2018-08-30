@@ -262,7 +262,10 @@
                     </div>
                     <div class="cm-input-row">
                         <span class="field">{{$t("label.pwd")}}</span>
-                        <input type="password" v-model="editForm.password" class="cm-input">
+                        <div class="input-item">
+                            <input :type="showPassword?'text':'password'" v-model="editForm.password" class="cm-input">
+                            <i class="icon" :class="{'eye-close-icon':showPassword,'eye-open-icon':!showPassword}" @click="showPassword=!showPassword"></i>
+                        </div>
                     </div>
                     <div class="cm-input-row">
                         <span class="field">{{$t("label.fName")}}</span>
@@ -304,7 +307,7 @@
                                 v-for="item in regionList"
                                 :key="item.value"
                                 :label="item.label"
-                                :value="item.value">
+                                :value="item.label">
                             </el-option>
                         </el-select>
                         <!--<input type="text" v-model="editForm.country" class="cm-input">-->
@@ -531,6 +534,7 @@
                 editDialogFlag:false,
                 editForm:{},
                 regionList:[],
+                showPassword:false,
 
             }
         },
@@ -625,7 +629,7 @@
                 Vue.api.getSchoolList(params).then((resp)=>{
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
-                        let list=JSON.parse(data.schoolList);
+                        let list=data.schoolList;
                         list.forEach((item,i)=>{
                             this.schoolOptions.push({
                                 label:item.serialCode,
@@ -679,7 +683,7 @@
                 Vue.api.getUserBaseInfo(params).then((resp)=>{
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
-                        this.user=data;
+                        this.user=data.user;
 
                         this.editForm=JSON.parse(JSON.stringify(this.user));
                         this.editForm.password=null;
