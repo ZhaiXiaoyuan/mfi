@@ -119,6 +119,11 @@ const router= new Router({
                     name:'userAuditList',
                     component: resolve => require(['../page/common/UserAuditList.vue'], resolve)
                 },
+                {
+                    path: '/schoolDetail',
+                    name:'schoolDetail',
+                    component: resolve => require(['../page/school/SchoolDetail.vue'], resolve)
+                },
             ]
         },
         {
@@ -169,16 +174,44 @@ router.beforeEach((to, from,next) => {
             Vue.api.getUserBaseInfo({  ...Vue.sessionInfo(), userId:account.id, role:account.type=='coach'?'instructor':'student'}).then((resp)=>{
                 if(resp.respCode=='2000'){
                     let data=JSON.parse(resp.respMsg);
-                   Vue.cookie.set('account',JSON.stringify({
+                    account={
                         type:account.type,
                         account:account.account,
                         ...data.user,
                         ...data.instructorPayment
-                    }),7);
+                    };
+                    Vue.cookie.set('account',JSON.stringify(account),7);
+                    if(account.type=='coach'&&to.name!='coachDetail'){
+                        if(account.instructorAccountStatus=='pending'||account.instructorAccountStatus=='fail'||account.professionalMembersFee=='notPay'){
+                            router.push({name:'coachDetail'});
+                        }
+                    }else if(account.type=='student'){
+
+                    }
                 }else{
 
                 }
                 next();
+            });
+        }else if(account.type=='school'){
+            Vue.api.getSchoolDetail({
+                ...Vue.sessionInfo(),
+                serialCode:account.serialCode,
+            }).then((resp)=>{
+                if(resp.respCode=='2000'){
+                    let data=JSON.parse(resp.respMsg);
+                    account={...data.school,...data.schoolPayment};
+                    console.log('stete:',account);
+                    if(account.schoolQualification=='notPay'&&to.name!='schoolDetail'){
+                        next({
+                            path: '/schoolDetail',
+                        })
+                    }else{
+                        next();
+                    }
+                }else{
+                    next();
+                }
             });
         }else{
             next();

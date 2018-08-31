@@ -244,6 +244,7 @@ const tw = {
         payingTips:'操作中，請勿刷新或關閉窗口！',
         annualFeelForProfessionalMembers:'請繳納專業會員年費',
         instructorQualification:'請繳納教練資格註冊延續年費',
+        schoolQualification:'請繳納資格延續年費',
     },
     el: {
         colorpicker: {

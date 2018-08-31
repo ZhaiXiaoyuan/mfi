@@ -220,13 +220,19 @@
             }
             else if(this.account.type=='coach'){
                 if(this.account.instructorAccountStatus=='certified'){
-
                     this.accountAccess=['03','10','11','16','12','13',];
                 }else{
                     this.accountAccess=['13']
                 }
             }else if(this.account.type=='student'){
                 this.accountAccess=['14','15'];
+            }else if(this.account.type=='school'){
+                this.accountAccess=['07','17'];
+                if(this.account.schoolQualification=='notPay'){
+                    this.accountAccess=['17'];
+                }else{
+                    this.accountAccess=['07','17'];
+                }
             }
             this.initItems();
         },
@@ -320,6 +326,11 @@
                        icon: 'audit-icon',
                        index: '/userAuditList',
                        title: this.$t("btn.myAudit"),
+                   },{
+                       code:'17',
+                       icon: 'my-icon',
+                       index: '/schoolDetail',
+                       title: this.$t("btn.my"),
                    },];
                /*菜单权限配置*/
                this.items=[];

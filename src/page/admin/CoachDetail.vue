@@ -584,6 +584,7 @@
                                     certificateNo:item.certificate.serialCode,
                                     date:Vue.formatDate(item.certificate.updatedAt,'yyyy-MM-dd'),
                                     issuer:item.certificate.schoolSerialCode,
+                                    instructor:item.possessorName,
                                     callback:(data)=>{
                                         item.filePath=data;
                                         this.certificateList.push(item);
@@ -678,6 +679,7 @@
                         that.drawText(ctx,options.date,880,275);
 
                         that.drawText(ctx,options.issuer,490,380);
+                        that.drawText(ctx,options.instructor,880,380);
                         //
                         let dataUrl = canvas.toDataURL('image/jpeg');
                         options.callback&&options.callback(dataUrl);

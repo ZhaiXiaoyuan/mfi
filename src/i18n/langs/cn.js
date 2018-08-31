@@ -245,8 +245,9 @@ const cn = {
         grant:'确定授予：{msg}{level}证书？',
         forbidden:"您的账号已禁用！",
         payingTips:'操作中，请勿刷新或关闭窗口！',
-        annualFeelForProfessionalMembers:'请缴纳专业會員年費',
-        instructorQualification:'请缴纳教練資格註冊延續年費',
+        annualFeelForProfessionalMembers:'请缴纳专业会员年费',
+        instructorQualification:'请缴纳教练资格註册延续年费',
+        schoolQualification:'请缴纳资格延续年费',
     },
     el: {
         colorpicker: {

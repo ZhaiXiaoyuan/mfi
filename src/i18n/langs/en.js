@@ -245,6 +245,7 @@ const en = {
         payingTips:'Handling,please don\'t refresh or close the window!',
         annualFeelForProfessionalMembers:'Please pay the annual fee for professional members',
         instructorQualification:'Please pay the annual fee for instructor qualification',
+        schoolQualification:'Please pay the annual fee for school qualification',
     },
     el: {
         colorpicker: {

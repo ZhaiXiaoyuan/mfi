@@ -231,6 +231,7 @@
                         let list=JSON.parse(data.certificateList);
                         list.forEach((item,i)=>{
                             item.user=JSON.parse(item.user);
+                            item.possessor=JSON.parse(item.possessor);
                         })
                         this.entryList=list;
                         console.log('this.entryList:', this.entryList);
@@ -251,6 +252,7 @@
                     certificateNo:item.serialCode,
                     date:Vue.formatDate(item.updatedAt,'yyyy-MM-dd'),
                     issuer:item.schoolSerialCode,
+                    instructor:item.possessor.name+(item.possessor.familyName?item.possessor.familyName:''),
                     callback:(data)=>{
                         Vue.viewPicModal({
                             imgUrl:data,
@@ -302,6 +304,7 @@
                         that.drawText(ctx,options.date,880,275);
 
                         that.drawText(ctx,options.issuer,490,380);
+                        that.drawText(ctx,options.instructor,880,380);
                         //
                         let dataUrl = canvas.toDataURL('image/jpeg');
                         options.callback&&options.callback(dataUrl);

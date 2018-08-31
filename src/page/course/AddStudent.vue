@@ -16,7 +16,7 @@
                         <el-row>
                             <el-col :span="12" class="info-item">
                                 <span class="label">{{$t('label.courseNo')}}：</span>
-                                <span class="value">{{course.courseNo}}</span>
+                                <span class="value">{{course.courseId}}</span>
                             </el-col>
                         </el-row>
                         <el-row style="padding: 50px 0px;text-align: center;">
@@ -270,7 +270,6 @@
                 Vue.api.getCourseDetail(params).then((resp)=>{
                     if(resp.respCode=='2000'){
                         this.course=JSON.parse(resp.respMsg);
-                        this.course.courseNo=this.course.school+this.course.courseId.substring(this.course.courseId.length-5)
                      /*   console.log('this.course:',this.course);*/
                     }
                 });

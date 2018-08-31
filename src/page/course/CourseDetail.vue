@@ -16,7 +16,7 @@
                         <el-row>
                             <el-col :span="12" class="info-item">
                                 <span class="label">{{$t('label.courseNo')}}：</span>
-                                <span class="value">{{course.courseNo}}</span>
+                                <span class="value">{{course.courseId}}</span>
                             </el-col>
                             <el-col :span="12" class="info-item">
                                 <span class="label">{{$t('label.level')}}：</span>
@@ -394,8 +394,6 @@
                 Vue.api.getCourseDetail(params).then((resp)=>{
                     if(resp.respCode=='2000'){
                         this.course=JSON.parse(resp.respMsg);
-                        this.course.courseNo=this.course.school+this.course.courseId.substring(this.course.courseId.length-5)
-                        console.log('this.course:',this.course);
                         this.getUnusedCertificate();
                     }
                 });
@@ -482,21 +480,6 @@
             },
             toViewCertificate:function (item) {
                 console.log('item:',item);
-                //临时测试
-                this.draw({
-                    id:'canvas',
-                    avatar:'http://39.108.11.197/mfiFile/user/749cf6929012427c81c45fd619d5e33d-headPic-image.jpeg',
-                    name:item.studentName,
-                    level:item.mfiLevelState.mfiLevel,
-                    certificateNo:item.certificate,
-                    date:'2018-05-05',
-                    issuer:'233',
-                    callback:(data)=>{
-                        Vue.viewPicModal({
-                            imgUrl:data,
-                        });
-                    }
-                });
             },
             circleImg:function(ctx, img, x, y, r) {
                 ctx.save();

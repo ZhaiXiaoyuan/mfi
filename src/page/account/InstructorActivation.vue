@@ -293,13 +293,14 @@
                                         this.$cookie.set('account',JSON.stringify({
                                             type:'coach',
                                             account:this.newForm.email,
-                                            ...data
+                                            ...data.instructorPayment,
+                                            ...data.user,
                                         }),7);
                                         fb.setOptions({
                                             type:'complete',
                                             text:this.$t("tips.loginS")
                                         });
-                                        this.$router.push({name:'courseList',params:{}});
+                                        this.$router.push({name:'coachDetail',params:{}});
                                     }else{
                                         fb.setOptions({
                                             type:'warn',

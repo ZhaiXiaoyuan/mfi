@@ -84,7 +84,7 @@
                                 <span class="cm-text" :class="{'pass':item.mfiLevelState.openWater=='pass'}"> {{partStatus[item.mfiLevelState.openWater]}}</span>
                             </td>
                             <td>
-                                <span class="cm-text">{{grantStatus[item.certificate]}}</span>
+                                <span class="cm-text">{{grantStatus[typeof item.certificate=='object'?'granted':item.certificate]}}</span>
                             </td>
                         </tr>
                         </tbody>
@@ -193,28 +193,6 @@
         computed: {
         },
         methods: {
-            getList:function (pageIndex) {
-                this.pager.pageIndex=pageIndex?pageIndex:1;
-                let params={
-                    ...Vue.sessionInfo(),
-                    pageIndex:this.pager.pageIndex,
-                    pageSize:this.pager.pageSize,
-                    courseId:this.id,
-                }
-                this.pager.loading=true;
-                Vue.api.getCourseStudentList(params).then((resp)=>{
-                    this.pager.loading=false;
-                    if(resp.respCode=='2000'){
-                        let data=JSON.parse(resp.respMsg);
-                        this.entryList=JSON.parse(data.courseParticipantList);
-                        this.entryList.forEach((item,i)=>{
-                            item.mfiLevelState=JSON.parse(item.mfiLevelState)
-                        })
-                        console.log('this.entryList:',this.entryList);
-                        this.pager.total=data.count;
-                    }
-                });
-            },
             getCourse:function () {
                 let params={
                     ...Vue.sessionInfo(),
@@ -237,7 +215,8 @@
                 }
                 Vue.api.getStudentMfiLevelState(params).then((resp)=>{
                     if(resp.respCode=='2000'){
-                        this.entryList.push({mfiLevelState:JSON.parse(resp.respMsg)});
+                        let data=JSON.parse(resp.respMsg);
+                        this.entryList.push(data);
                     }
                 });
             },
