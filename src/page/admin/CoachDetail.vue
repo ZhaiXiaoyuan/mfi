@@ -79,7 +79,7 @@
                                     </el-col>
                                     <el-col :span="9" :offset="1" class="info-item">
                                         <span class="label">{{$t('label.status')}}：</span>
-                                        <span class="value">{{coach.instructorAccountStatus}}</span>
+                                        <span class="value">{{$t('btn.'+coach.instructorAccountStatus)}}</span>
                                         <i class="icon setting-min-icon" @click="statusSettingDialogFlag=true" v-if="account.type=='admin'"></i>
                                         <span style="margin-left: 10px;" class="cm-btn btn" @click="addAudit()" v-if="account.type=='coach'&&(coach.instructorAccountStatus=='pending'||coach.instructorAccountStatus=='fail')">{{$t("btn.applyForAudit")}}</span>
                                     </el-col>
@@ -398,7 +398,7 @@
                 ],
                 options:[
                   /*  {
-                        label:this.$t("btn.nonactivated"),
+                        label:this.$t("btn.nonActivated"),
                         value:'nonactivated'
                     },*/
                     {

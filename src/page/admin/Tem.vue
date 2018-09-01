@@ -230,7 +230,7 @@
                      label:this.$t("btn.all"),
                      },*/
                     {
-                        label:this.$t("btn.nonactivated"),
+                        label:this.$t("btn.nonActivated"),
                         value:'nonactivated'
                     },
                     {

@@ -65,7 +65,7 @@
                                 {{item.mfiLevel}}
                             </td>
                             <td>
-                                {{item.studentAccountStatus}}
+                                {{$t("btn."+item.studentAccountStatus)}}
                             </td>
                             <td>
                                 <span class="handle" @click="()=>{$router.push({name:'studentDetail',params:{id:item.id}})}">{{$t("btn.detail")}}</span>
@@ -147,7 +147,7 @@
                         label:this.$t("btn.all"),
                      },
                     {
-                        label:this.$t("btn.nonactivated"),
+                        label:this.$t("btn.nonActivated"),
                         value:'nonactivated'
                     },
                     {

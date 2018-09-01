@@ -186,6 +186,17 @@ export default {
                   });
               });
               return levelList;
+          },
+          deviceType:function (options) {
+              options={...{},...options}
+              var isMobile=false;
+              if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
+                 options.mobile&&options.mobile();
+                  isMobile=true;
+              }else{
+                  options.pc&&options.pc();
+              }
+              return isMobile;
           }
       }
 

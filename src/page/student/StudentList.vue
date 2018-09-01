@@ -49,7 +49,7 @@
                                 {{item.mfiLevel}}
                             </td>
                             <td>
-                                {{item.studentAccountStatus}}
+                                {{$t("btn."+item.studentAccountStatus)}}
                             </td>
                             <td>
                                 <span class="handle" @click="()=>{$router.push({name:'studentDetail',params:{id:item.id}})}">{{$t("btn.detail")}}</span>

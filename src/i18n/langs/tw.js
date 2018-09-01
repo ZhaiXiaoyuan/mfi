@@ -62,6 +62,7 @@ const tw = {
         instructorName:'教練名稱',
         customerService:"客服",
         postcode:'郵編',
+        quantity:'人數',
     },
     holder: {
         account:'請輸入賬號',
@@ -129,8 +130,9 @@ const tw = {
         detail:'詳情',
         all:'全部',
         newCoach:'新建教練賬號',
-        nonactivated:'未激活',
-        certified:'已審核',
+        nonActivated:'未激活',
+      /*  certified:'已審核',*/
+        certified:'已註冊（激活）',
         pending:'待審核',
         fail:'審核不通過',
         disable:'禁用',
@@ -144,7 +146,7 @@ const tw = {
         waitingGrant:'等待授予',
         unused:'未授予',
         used:'已授予',
-        granted:'已授予',
+        granted:'已發證書',
         grant:'授予',
         studentModule:'學員',
         auditModule:'審核',
@@ -245,6 +247,7 @@ const tw = {
         annualFeelForProfessionalMembers:'請繳納專業會員年費',
         instructorQualification:'請繳納教練資格註冊延續年費',
         schoolQualification:'請繳納資格延續年費',
+        mobileTips:'激活成功，請在電腦打開網頁！',
     },
     el: {
         colorpicker: {

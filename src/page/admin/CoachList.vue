@@ -70,7 +70,7 @@
                                 {{item.mfiLevel}}
                             </td>
                             <td>
-                                {{item.instructorAccountStatus}}
+                                {{$t("btn."+item.instructorAccountStatus)}}
                             </td>
                           <!--  <td>
                                 2018.02.22
@@ -229,7 +229,7 @@
                      label:this.$t("btn.all"),
                      },*/
                     {
-                        label:this.$t("btn.nonactivated"),
+                        label:this.$t("btn.nonActivated"),
                         value:'nonactivated'
                     },
                     {
@@ -248,10 +248,7 @@
                         value:'disable'
                     }
                 ],
-                schoolOptions:[ {
-                    label:this.$t("btn.configurable"),
-                    value:'configurable'
-                },],
+                schoolOptions:[],
 
                 listLevelOptions:[],
                 listOptions:[],

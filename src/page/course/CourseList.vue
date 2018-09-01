@@ -46,6 +46,9 @@
                                 {{$t("label.site")}}
                             </th>
                             <th>
+                                {{$t("label.quantity")}}
+                            </th>
+                            <th>
                                 {{$t("label.startTime")}}
                             </th>
                             <th>
@@ -66,6 +69,9 @@
                             </td>
                             <td>
                                 {{item.site}}
+                            </td>
+                            <td>
+                                {{item.count}}
                             </td>
                             <td>
                                 {{item.startTime}}
@@ -90,7 +96,6 @@
             </div>
         </div>
 
-        <!--临时测试-->
         <div class="cm-btn cm-add-btn" :class="{'cm-disabled':account.instructorAccountStatus!='certified'||account.instructorQualification=='notPay'}" v-if="account.type=='coach'" @click="dialogFormVisible=true">
             <div class="icon-wrap">
                 <i class="icon add-cross-icon"></i>

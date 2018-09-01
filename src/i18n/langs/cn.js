@@ -64,6 +64,7 @@ const cn = {
         instructorName:'教练名称',
         customerService:"客服",
         postcode:'邮编',
+        quantity:'人数',
     },
     holder: {
         account:'请输入账号',
@@ -99,6 +100,10 @@ const cn = {
         nayContent:'请输入内容或者上传文件',
         postcode:'请输入邮编',
     },
+    value:{
+        certified:'',
+
+    },
     btn:{
         adminLogin:'管理员登录',
         superLogin:'超级管理员登录',
@@ -131,8 +136,9 @@ const cn = {
         detail:'详情',
         all:'全部',
         newCoach:'新建教练账号',
-        nonactivated:'未激活',
-        certified:'已审核',
+        nonActivated:'未激活',
+      /*  certified:'已审核',*/
+        certified:'已註册（激活）',
         pending:'待审核',
         fail:'审核不通过',
         disable:'禁用',
@@ -146,7 +152,7 @@ const cn = {
         waitingGrant:'等待授予',
         unused:'未授予',
         used:'已授予',
-        granted:'已授予',
+        granted:'已发证书',
         grant:'授予',
         studentModule:'学员',
         auditModule:'审核',
@@ -248,6 +254,7 @@ const cn = {
         annualFeelForProfessionalMembers:'请缴纳专业会员年费',
         instructorQualification:'请缴纳教练资格註册延续年费',
         schoolQualification:'请缴纳资格延续年费',
+        mobileTips:'激活成功，请在电脑打开网页！',
     },
     el: {
         colorpicker: {

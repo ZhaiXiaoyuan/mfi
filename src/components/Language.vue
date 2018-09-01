@@ -20,11 +20,20 @@
         position: fixed;
         z-index: 100;
         top:20px;
-        right: 45px;
+        right: 0px;
+        background: #5560aa;
+        height: 36px;
+        border-top-left-radius: 18px;
+        border-bottom-left-radius: 18px;
+        display: flex;
+        align-items: center;
+        padding: 0px 10px;
+
     }
     ul{
         /*display: flex;
         align-items: center;*/
+        overflow: hidden;
         li{
             float: left;
             position: relative;

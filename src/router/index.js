@@ -200,8 +200,8 @@ router.beforeEach((to, from,next) => {
             }).then((resp)=>{
                 if(resp.respCode=='2000'){
                     let data=JSON.parse(resp.respMsg);
-                    account={...data.school,...data.schoolPayment};
-                    console.log('stete:',account);
+                    account={ type:account.type,account:account.account,...data.school,...data.schoolPayment};
+                    Vue.cookie.set('account',JSON.stringify(account),7);
                     if(account.schoolQualification=='notPay'&&to.name!='schoolDetail'){
                         next({
                             path: '/schoolDetail',

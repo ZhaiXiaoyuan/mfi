@@ -132,6 +132,84 @@
         text-align: center;
         line-height: 50px;
     }
+    @media screen and (max-width: 1000px) {
+        .activation-page{
+            width: 95%;
+            .form{
+                padding: 20px 0px;
+            }
+        }
+        .cm-detail-block{
+            padding: 0px 20px;
+        }
+        .cm-input-row{
+            display: block;
+            .field{
+                display: block;
+                width: 100%;
+                margin-right: 10px;
+                padding-bottom: 5px;
+                font-size: 16px;
+                text-align: left;
+            }
+            .input-wrap{
+                padding: 0px 10px 0px 10px;
+                width: 100%;
+                background: #fff;
+                font-size: 20px;
+            }
+            .el-input__inner{
+                width: 60%;
+                height: 50px;
+                font-size: 14px;
+            }
+            .cm-input{
+                padding: 0px 10px 0px 10px;
+                width: 100%;
+                height: 50px;
+                background: #fff;
+                font-size: 16px;
+                border: none;
+                border-radius: 10px;
+                box-shadow: 0px 1px 10px rgba(85,96,170,0.3);
+            }
+            .cm-calender{
+                width: 100%!important;
+            }
+            .el-select{
+                width: 100%;
+                input{
+                    width: 100%;
+                }
+            }
+            .cm-btn{
+                width: 100%;
+            }
+            .input-item{
+                position: relative;
+                input{
+                    padding: 0px 50px 0px 10px;
+                }
+                .icon{
+                    position: absolute;
+                    top:0px;
+                    right: 15px;
+                    bottom: 0px;
+                    margin: auto;
+                }
+            }
+            &+.cm-input-row{
+                margin-top: 15px;
+            }
+            .cm-select{
+                width: 300px;
+                height: 50px;
+                input{
+                    height: 50px;
+                }
+            }
+        }
+    }
 </style>
 <script>
     import Vue from 'vue'
@@ -257,27 +335,41 @@
                     if(resp.respCode=='2000'){
                         Vue.api.activate({imeStamp:Vue.genTimestamp(),aesData:this.aesData,role:'student'}).then((resp)=>{
                             if(resp.respCode=='2000'){
-                                //
-                                Vue.api.studentLogin({timeStamp:Vue.genTimestamp(),email:this.newForm.email,password:md5.hex(this.newForm.pwd)}).then((resp)=>{
-                                    if(resp.respCode=='2000'){
-                                        let data=JSON.parse(resp.respMsg);
-                                        this.$cookie.set('account',JSON.stringify({
-                                            type:'student',
-                                            account:this.newForm.email,
-                                            ...data
-                                        }),7);
-                                        fb.setOptions({
-                                            type:'complete',
-                                            text:this.$t("tips.loginS")
-                                        });
-                                        this.$router.push({name:'studentDetail',params:{}});
-                                    }else{
-                                        fb.setOptions({
-                                            type:'warn',
-                                            text:this.$t("tips.loginF")
-                                        });
-                                    }
-                                });
+                                if(Vue.tools.deviceType()){
+                                    fb.setOptions({
+                                        type:'complete',
+                                        text:'',
+                                        delayForDelete:0,
+                                    });
+                                    Vue.alert({
+                                        title:"",
+                                        html:'<div style="text-align: center">'+this.$t("tips.mobileTips")+'</div>',
+                                        lock:true,
+                                        yes:this.$t("btn.sure")
+                                    });
+                                }else{
+                                    //
+                                    Vue.api.studentLogin({timeStamp:Vue.genTimestamp(),email:this.newForm.email,password:md5.hex(this.newForm.pwd)}).then((resp)=>{
+                                        if(resp.respCode=='2000'){
+                                            let data=JSON.parse(resp.respMsg);
+                                            this.$cookie.set('account',JSON.stringify({
+                                                type:'student',
+                                                account:this.newForm.email,
+                                                ...data
+                                            }),7);
+                                            fb.setOptions({
+                                                type:'complete',
+                                                text:this.$t("tips.loginS")
+                                            });
+                                            this.$router.push({name:'studentDetail',params:{}});
+                                        }else{
+                                            fb.setOptions({
+                                                type:'warn',
+                                                text:this.$t("tips.loginF")
+                                            });
+                                        }
+                                    });
+                                }
                             }else{
                                 fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
                             }

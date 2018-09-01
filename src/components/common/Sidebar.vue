@@ -227,7 +227,7 @@
             }else if(this.account.type=='student'){
                 this.accountAccess=['14','15'];
             }else if(this.account.type=='school'){
-                this.accountAccess=['07','17'];
+                console.log('this.accountddd:',this.account);
                 if(this.account.schoolQualification=='notPay'){
                     this.accountAccess=['17'];
                 }else{

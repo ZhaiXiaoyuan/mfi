@@ -234,6 +234,7 @@
                             Vue.api.getSchoolDetail({...Vue.sessionInfo(), serialCode:this.account.serialCode,}).then((resp)=>{
                                 if(resp.respCode=='2000'){
                                     let data=JSON.parse(resp.respMsg);
+                                    let school={...data.school,...data.schoolPayment};
                                     if(data.schoolQualification=='pay'){
                                         alertInstance.close();
                                         clearInterval(interval);
