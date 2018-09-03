@@ -335,7 +335,7 @@
                     });
                 }else if(this.type=='school'){
                     params.serialCode=this.account;
-                    /*params.password=md5.hex(params.password);*/
+                    params.password=md5.hex(params.password);
                     Vue.api.schoolLogin(params).then((resp)=>{
                         if(resp.respCode=='2000'){
                             let data=JSON.parse(resp.respMsg);

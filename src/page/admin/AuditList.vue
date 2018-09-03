@@ -214,6 +214,8 @@
                         if(resp.respCode=='2000'){
                             this.getList();
                             fb.setOptions({type:'complete', text:this.$t("tips.settingS")});
+                            //发证书
+                            this.certificate(item);
                         }else{
                             fb.setOptions({type:'warn', text:this.$t("tips.settingF",{msg:resp.respMsg})});
                         }
@@ -242,6 +244,21 @@
                         fb.setOptions({type:'complete', text:this.$t("tips.settingS")});
                     }else{
                         fb.setOptions({type:'warn', text:this.$t("tips.settingF",{msg:resp.respMsg})});
+                    }
+                });
+            },
+            certificate:function (item) {
+                let params={
+                    ...Vue.sessionInfo(),
+                    adminId:this.account.id,
+                    userId:item.user.id,
+                    mfiLevel:item.user.mfiLevel,
+                }
+                Vue.api.grantCertificateToInstrutor(params).then((resp)=>{
+                    if(resp.respCode=='2000'){
+
+                    }else{
+
                     }
                 });
             },

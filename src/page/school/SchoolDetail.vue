@@ -68,38 +68,40 @@
     </div>
 </template>
 <style lang="less" rel="stylesheet/less">
-  .payment-status{
-        color: #F56C6C;
-        font-size: 16px;
-        text-align: center;
-        padding: 10px 0px;
-        >div{
-            &+div{
-                margin-top: 5px;
+    .school-detail{
+        .payment-status{
+            color: #F56C6C;
+            font-size: 16px;
+            text-align: center;
+            padding: 10px 0px;
+            >div{
+                &+div{
+                    margin-top: 5px;
+                }
+            }
+            .btn{
+                margin-left: 10px;
+                display: inline-block;
+                font-size: 12px;
+                color: #5360aa;
+                border-radius: 5px;
+                border: 1px solid #5360aa;
+                padding: 2px 12px;
+                cursor: pointer;
             }
         }
-        .btn{
-            margin-left: 10px;
-            display: inline-block;
-            font-size: 12px;
-            color: #5360aa;
-            border-radius: 5px;
-            border: 1px solid #5360aa;
-            padding: 2px 12px;
-            cursor: pointer;
+        .handle-list{
+            display: flex;
+            margin-top: 40px;
+            width: 300px;
+            .handle-btn{
+                padding: 0px 35px;
+                &+.handle-btn{
+                    margin-left: auto;
+                }
+            }
         }
     }
-  .handle-list{
-      display: flex;
-      margin-top: 40px;
-      width: 300px;
-      .handle-btn{
-          padding: 0px 35px;
-          &+.handle-btn{
-              margin-left: auto;
-          }
-      }
-  }
 </style>
 <script>
     import Vue from 'vue'

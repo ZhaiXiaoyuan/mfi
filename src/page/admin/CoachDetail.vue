@@ -23,7 +23,7 @@
                         <el-row>
                             <el-col :span="5">
                                 <div class="to-upload" style="width: 160px;height: 160px;">
-                                    <img class="avatar" :src="coach.headPic?basicConfig.filePrefix+coach.headPic:defaultAvatar" alt="">
+                                    <img class="avatar" :src="coach.headPic?basicConfig.filePrefix+coach.headPic+'?r='+Math.random():defaultAvatar" alt="">
                                     <div class="upload-btn"  v-if="account.type=='coach'">
                                         <div class="wrapper">
                                             <i class="icon upload-icon"></i>
@@ -757,21 +757,28 @@
             },
             selectFile:function () {
                 let file=document.getElementById('file-input').files[0];
-                let formData = new FormData();
-                let sessionInfo=Vue.sessionInfo();
-                formData.append('timestamp',sessionInfo.timestamp);
-                formData.append('userId',this.account.id);
-                formData.append('headPic',file);
-                this.uploading=true;
-                let fb=Vue.operationFeedback({text:this.$t("tips.save")});
-                Vue.api.setHeadPic(formData).then((resp)=>{
-                    this.uploading=false;
-                    if(resp.respCode=='2000'){
-                        this.getUserBaseInfo();
-                        fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
-                    }else{
-                        fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
-                    }
+                Vue.tools.imgCompress({
+                    file:file,
+                    width:'400',
+                    quality:0.5,
+                   callback:(data)=>{
+                       let formData = new FormData();
+                       let sessionInfo=Vue.sessionInfo();
+                       formData.append('timestamp',sessionInfo.timestamp);
+                       formData.append('userId',this.account.id);
+                       formData.append('headPic',data);
+                       this.uploading=true;
+                       let fb=Vue.operationFeedback({text:this.$t("tips.save")});
+                       Vue.api.setHeadPic(formData).then((resp)=>{
+                           this.uploading=false;
+                           if(resp.respCode=='2000'){
+                               this.getUserBaseInfo();
+                               fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
+                           }else{
+                               fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                           }
+                       });
+                   }
                 });
             },
             addAudit:function () {
@@ -804,37 +811,52 @@
             },
             selectFirstAidFile:function () {
                 let file=document.getElementById('file-0').files[0];
-                let formData = new FormData();
-                formData.append('timestamp',Vue.genTimestamp());
-                formData.append('userId',this.account.id);
-                formData.append('firstAidPic',file);
-                this.uploading=true;
-                let fb=Vue.operationFeedback({text:this.$t("tips.save")});
-                Vue.api.setFirstAidPic(formData).then((resp)=>{
-                    this.uploading=false;
-                    if(resp.respCode=='2000'){
-                        this.getUserBaseInfo();
-                        fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
-                    }else{
-                        fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                Vue.tools.imgCompress({
+                    file:file,
+                    width:'800',
+                    quality:0.8,
+                    callback:(data)=>{
+                        let formData = new FormData();
+                        formData.append('timestamp',Vue.genTimestamp());
+                        formData.append('userId',this.account.id);
+                        formData.append('firstAidPic',data);
+                        this.uploading=true;
+                        let fb=Vue.operationFeedback({text:this.$t("tips.save")});
+                        Vue.api.setFirstAidPic(formData).then((resp)=>{
+                            this.uploading=false;
+                            if(resp.respCode=='2000'){
+                                this.getUserBaseInfo();
+                                fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
+                            }else{
+                                fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                            }
+                        });
                     }
                 });
+
             },
             selectInsuranceFileFile:function () {
                 let file=document.getElementById('file-1').files[0];
-                let formData = new FormData();
-                formData.append('timestamp',Vue.genTimestamp());
-                formData.append('userId',this.account.id);
-                formData.append('insurancePic',file);
-                this.uploading=true;
-                let fb=Vue.operationFeedback({text:this.$t("tips.save")});
-                Vue.api.setInsurancePic(formData).then((resp)=>{
-                    this.uploading=false;
-                    if(resp.respCode=='2000'){
-                        this.getUserBaseInfo();
-                        fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
-                    }else{
-                        fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                Vue.tools.imgCompress({
+                    file:file,
+                    width:'800',
+                    quality:0.8,
+                    callback:(data)=>{
+                        let formData = new FormData();
+                        formData.append('timestamp',Vue.genTimestamp());
+                        formData.append('userId',this.account.id);
+                        formData.append('insurancePic',data);
+                        this.uploading=true;
+                        let fb=Vue.operationFeedback({text:this.$t("tips.save")});
+                        Vue.api.setInsurancePic(formData).then((resp)=>{
+                            this.uploading=false;
+                            if(resp.respCode=='2000'){
+                                this.getUserBaseInfo();
+                                fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
+                            }else{
+                                fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                            }
+                        });
                     }
                 });
             },

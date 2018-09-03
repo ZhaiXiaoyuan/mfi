@@ -164,7 +164,12 @@ export default {
             if(account&&account!='undefined'){
                 return JSON.parse(account);
             }else{
-                router.push({name:'login'});
+                let curSite=window.location.href;
+                if(curSite.indexOf('studentActivation')>-1||curSite.indexOf('instructorActivation')>-1){
+
+                }else{
+                    router.push({name:'login'});
+                }
                 return{};
             }
         },
@@ -197,6 +202,50 @@ export default {
                   options.pc&&options.pc();
               }
               return isMobile;
+          },
+          // base64转文件
+          dataURItoBlob: function (dataURI) {
+              var byteString = atob(dataURI.split(',')[1]);
+              var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+              var ab = new ArrayBuffer(byteString.length);
+              var ia = new Uint8Array(ab);
+              for (var i = 0; i < byteString.length; i++) {
+                  ia[i] = byteString.charCodeAt(i);
+              }
+              return new Blob([ab], { type: mimeString });
+          },
+          imgCompress:function (options) {
+              options={...{
+                      width:1080,
+                      quality:0.8,
+                      minSize:10000*10,
+                  },...options}
+                  if(options.file.size<options.minSize){
+                      options.callback&&options.callback(options.file);
+                  }else{
+                      // 通过canvas压缩图片
+                      var reader = new FileReader();
+                      reader.readAsDataURL(options.file);
+                      var img = new Image;
+                      var shortImg=new Image;
+                      console.log('000:',options.file);
+                      var width = options.width, //图像大小
+                          quality = options.quality, //图像质量
+                          canvas = document.createElement("canvas"),
+                          drawer = canvas.getContext("2d");
+                      reader.onload= function (e) {
+                          img.src = this.result;
+                          img.onload = function () {
+                              canvas.width = width;
+                              canvas.height = width * (img.height / img.width);
+                              drawer.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                              let data =Vue.tools.dataURItoBlob(canvas.toDataURL(options.file.type, quality));
+                              console.log('data:',data);
+                              options.callback&&options.callback(data);
+                          }
+                      }
+                  }
           }
       }
 
