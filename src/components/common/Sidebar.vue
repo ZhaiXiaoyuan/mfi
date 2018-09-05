@@ -231,7 +231,7 @@
                 if(this.account.schoolQualification=='notPay'){
                     this.accountAccess=['17'];
                 }else{
-                    this.accountAccess=['07','17'];
+                    this.accountAccess=['04','07','17'];
                 }
             }
             this.initItems();

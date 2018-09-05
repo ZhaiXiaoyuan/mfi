@@ -292,6 +292,7 @@
                     mfiLevel:this.selectedLevel,
                     instructorAccountStatus:this.selectedStatus,
                     searchContent:this.keyword,
+                    school:this.account.type=='school'?this.account.account:'',
                 }
                 this.pager.loading=true;
                 Vue.api.getCoachList(params).then((resp)=>{
@@ -327,12 +328,19 @@
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
                         let list=data.schoolList;
-                        list.forEach((item,i)=>{
+                        if(this.account.type=='school'){
                             this.schoolOptions.push({
-                                label:item.serialCode,
-                                value:item.serialCode,
+                                label:this.account.account,
+                                value:this.account.account
                             })
-                        })
+                        }else{
+                            list.forEach((item,i)=>{
+                                this.schoolOptions.push({
+                                    label:item.serialCode,
+                                    value:item.serialCode,
+                                })
+                            })
+                        }
                     }
                 });
             },
@@ -379,6 +387,8 @@
             },
         },
         mounted () {
+            /**/
+            this.account=Vue.getAccountInfo();
             /**/
             this.listLevelOptions=[].concat(this.levelOptions,[{
                 value:null,
