@@ -395,6 +395,22 @@ export default {
                 params: params
             });
         },
+        //免除教练费用
+        instructorFeeWaiver:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/order/createInstructorPayOrder',
+                params: params
+            });
+        },
+        //免除学校费用
+        schoolFeeWaiver:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/order/createSchoolPayOrder',
+                params: params
+            });
+        },
     }
   },
 

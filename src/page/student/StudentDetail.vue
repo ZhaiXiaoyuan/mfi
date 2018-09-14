@@ -632,8 +632,8 @@
                         let list=data.schoolList;
                         list.forEach((item,i)=>{
                             this.schoolOptions.push({
-                                label:item.serialCode,
-                                value:item.serialCode,
+                                label:item.school.serialCode,
+                                value:item.school.serialCode,
                             })
                         })
                     }

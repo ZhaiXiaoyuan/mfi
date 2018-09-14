@@ -176,6 +176,9 @@ const tw = {
         applyForAudit:'申請審核',
         myAudit:'我的審核',
         go:'前往',
+        professionalMembersFeeWaiver:'免除專業會員年費',
+        instructorQualificationFeeWaiver:'免除教練資格註冊延續年費',
+        schoolQualificationFeeWaiver:'免除資格延續年費',
     },
     title:{
         super:'超級管理員',
@@ -248,6 +251,7 @@ const tw = {
         instructorQualification:'請繳納教練資格註冊延續年費',
         schoolQualification:'請繳納資格延續年費',
         mobileTips:'激活成功，請在電腦打開網頁！',
+        apiError:'操作出错，改账号或已存在！'
     },
     el: {
         colorpicker: {

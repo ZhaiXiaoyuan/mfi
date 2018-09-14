@@ -202,6 +202,7 @@
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
                         let list=data.courseList;
+                        this.entryList=[];
                         list.forEach((item,i)=>{
                             this.entryList.push({...item.course,count:item.count});
                         });

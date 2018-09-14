@@ -182,6 +182,9 @@ const cn = {
         applyForAudit:'申请审核',
         myAudit:'我的审核',
         go:'前往',
+        professionalMembersFeeWaiver:'免除专业会员年费',
+        instructorQualificationFeeWaiver:'免除教练资格註册延续年费',
+        schoolQualificationFeeWaiver:'免除资格延续年费',
     },
     title:{
         super:'超级管理员',
@@ -255,6 +258,8 @@ const cn = {
         instructorQualification:'请缴纳教练资格註册延续年费',
         schoolQualification:'请缴纳资格延续年费',
         mobileTips:'激活成功，请在电脑打开网页！',
+        apiError:'操作出错，改账号或已存在！'
+
     },
     el: {
         colorpicker: {

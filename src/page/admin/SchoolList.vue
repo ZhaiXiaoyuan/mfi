@@ -47,6 +47,7 @@
                             </td>
                             <td>
                                 <span class="handle" @click="toEdit(index)">{{$t("btn.edit")}}</span>
+                                <span class="handle" @click="feeWaiver(item)" v-if="item.schoolQualification=='notPay'">{{$t("btn.schoolQualificationFeeWaiver")}}</span>
                             </td>
                         </tr>
                         </tbody>
@@ -184,11 +185,12 @@
                     this.pager.loading=false;
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
-                        this.entryList=data.schoolList;
+                        this.entryList=[];
+                        let list=data.schoolList;
                         this.pager.total=data.count;
-                     /*   this.entryList.forEach((item,i)=>{
-
-                         })*/
+                        list.forEach((item,i)=>{
+                            this.entryList.push({...item.school,...item.schoolPayment});
+                         })
                         console.log('this.entryList:',this.entryList);
                     }
                 });
@@ -272,9 +274,27 @@
 
                     }
                 });
+            },
+            feeWaiver:function (item) {
+                let params={
+                    ...Vue.sessionInfo(),
+                    adminId:this.account.id,
+                    schoolSerialCode:item.serialCode,
+                }
+                let fb=Vue.operationFeedback({text:this.$t("tips.handle")});
+                Vue.api.schoolFeeWaiver(params).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        item.schoolQualification='pay';
+                        fb.setOptions({type:'complete', text:this.$t("tips.handleS")});
+                    }else{
+                        fb.setOptions({type:'warn', text:this.$t("tips.handleF",{ msg: resp.respMsg})});
+                    }
+                });
             }
         },
         mounted () {
+            /**/
+            this.account=Vue.getAccountInfo();
             /**/
             this.getList();
             //

@@ -175,6 +175,9 @@ const en = {
         applyForAudit:'apply for audit',
         myAudit:'my audit',
         go:'go',
+        professionalMembersFeeWaiver:'professional members fee waiver',
+        instructorQualificationFeeWaiver:'instructor qualification fee waiver',
+        schoolQualificationFeeWaiver:'school qualification fee waiver',
     },
     title:{
         super:'Super Administrator',
@@ -215,7 +218,7 @@ const en = {
         auditFail:'Reject',
         allStudent:'All Student',
         someoneCertificateRecord:'{msg}\'s Certificate Record',
-        nonactivated:'nonactivated',
+        nonActivated:'nonactivated',
         pending:'pending',
         certified:'activate',
         fail:'fail',
@@ -248,6 +251,7 @@ const en = {
         instructorQualification:'Please pay the annual fee for instructor qualification',
         schoolQualification:'Please pay the annual fee for school qualification',
         mobileTips:'Activate successfully,please access on the cumputer!',
+        apiError:'Error,this account has been used!'
     },
     el: {
         colorpicker: {

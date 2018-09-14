@@ -11,13 +11,17 @@
                 </div>
             </div>
             <div class="panel-bd">
-                <div class="cm-detail-block detail-block" :class="{'show-status':account.type=='coach'}">
+                <div class="cm-detail-block detail-block show-status">
                     <div class="status" v-if="account.type=='coach'&&account.professionalMembersFee!='notPay'">
                         <span>{{$t("title."+account.instructorAccountStatus)}}</span>
                     </div>
                     <div class="payment-status" v-if="account.type=='coach'&&(account.professionalMembersFee=='notPay'||account.instructorQualification=='notPay')">
                         <div v-if="account.professionalMembersFee=='notPay'"><span>{{$t("tips.annualFeelForProfessionalMembers")}}</span><span class="cm-btn btn" @click="toPay({type:'professionalMembersFee'})">{{$t("btn.go")}}</span></div>
                         <div v-if="account.instructorQualification=='notPay'"><span>{{$t("tips.instructorQualification")}}</span><span class="cm-btn btn" @click="toPay({type:'instructorQualification'})">{{$t("btn.go")}}</span></div>
+                    </div>
+                    <div class="payment-status" v-if="account.type=='admin'&&(coach.professionalMembersFee=='notPay'||coach.instructorQualification=='notPay')">
+                        <div v-if="coach.professionalMembersFee=='notPay'"><span class="cm-btn btn" @click="feeWaiver('professionalMembersFee')">{{$t("btn.professionalMembersFeeWaiver")}}</span></div>
+                        <div v-if="coach.instructorQualification=='notPay'"><span class="cm-btn btn" @click="feeWaiver('instructorQualification')">{{$t("btn.instructorQualificationFeeWaiver")}}</span></div>
                     </div>
                     <div class="block-bd">
                         <el-row>
@@ -549,8 +553,8 @@
                         }
                         list.forEach((item,i)=>{
                             this.schoolOptions.push({
-                                label:item.serialCode,
-                                value:item.serialCode,
+                                label:item.school.serialCode,
+                                value:item.school.serialCode,
                             })
                         })
                     }
@@ -920,6 +924,23 @@
                     },
                     closeCallback:()=>{
                         clearInterval(interval);
+                    }
+                });
+            },
+            feeWaiver:function (type) {
+                let params={
+                    ...Vue.sessionInfo(),
+                    adminId:this.account.id,
+                    userId:this.coach.id,
+                    itemNumber:type,
+                }
+                let fb=Vue.operationFeedback({text:this.$t("tips.handle")});
+                Vue.api.instructorFeeWaiver(params).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        this.getUserBaseInfo();
+                        fb.setOptions({type:'complete', text:this.$t("tips.handleS")});
+                    }else{
+                        fb.setOptions({type:'warn', text:this.$t("tips.handleF",{ msg: resp.respMsg})});
                     }
                 });
             }

@@ -258,6 +258,9 @@
                 Vue.api.getEmailByAesData(params).then((resp)=>{
                     if(resp.respCode=='2000'){
                         this.user=JSON.parse(resp.respMsg);
+                        if(this.user&&this.user.studentAccountStatus!='nonActivated'){
+                            this.$router.push({name:'login',params:{type:'student'}});
+                        }
                         console.log('this.user:',this.user);
                         this.newForm.email=this.user.email;
                         this.newForm.avatar=this.user.headPic?this.user.headPic+'?=random'+Math.random():null;
@@ -375,6 +378,14 @@
                                         }
                                     });
                                 }
+                            }else if(resp.respCode=='4000'){
+                                fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                                this.alert({
+                                    title:'',
+                                    html:'<div style="text-align: center;color:red;">'+this.$t("tips.apiError")+'</div> ',
+                                    yes:this.$t("btn.sure"),
+                                    lock:true,
+                                });
                             }else{
                                 fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
                             }
@@ -404,6 +415,14 @@
                             this.getEmailByAesData();
                             if(resp.respCode=='2000'){
                                 fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
+                            }else if(resp.respCode=='4000'){
+                                fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                                this.alert({
+                                    title:'',
+                                    html:'<div style="text-align: center;color:red;">'+this.$t("tips.apiError")+'</div> ',
+                                    yes:this.$t("btn.sure"),
+                                    lock:true,
+                                });
                             }else{
                                 fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
                             }

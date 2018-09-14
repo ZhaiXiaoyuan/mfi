@@ -274,6 +274,9 @@
                     if(resp.respCode=='2000'){
                         this.user=JSON.parse(resp.respMsg);
                         console.log('this.user:',this.user);
+                        if(this.user&&this.user.instructorAccountStatus!='nonActivated'){
+                            this.$router.push({name:'login',params:{type:'coach'}});
+                        }
                         this.newForm.email=this.user.email;
                         this.newForm.avatar=this.user.headPic;
                         if(this.user.insurancePic){
@@ -282,8 +285,13 @@
                         if(this.user.firstAidPic){
                             this.newForm.firstAidPic=this.user.firstAidPic+'?random='+Math.random();
                         }
-                    }else{
-
+                    }else if(resp.respCode=='4000'){
+                        this.alert({
+                            title:'',
+                            html:'<div style="text-align: center;color:red;">'+this.$t("tips.apiError")+'</div> ',
+                            yes:this.$t("btn.sure"),
+                            lock:true,
+                        });
                     }
                 });
             },
@@ -405,6 +413,14 @@
                                         }
                                     });
                                 }
+                            }else if(resp.respCode=='4000'){
+                                fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                                this.alert({
+                                    title:'',
+                                    html:'<div style="text-align: center;color:red;">'+this.$t("tips.apiError")+'</div> ',
+                                    yes:this.$t("btn.sure"),
+                                    lock:true,
+                                });
                             }else{
                                 fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
                             }
@@ -434,6 +450,14 @@
                             if(resp.respCode=='2000'){
                                 this.getEmailByAesData();
                                 fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
+                            }else if(resp.respCode=='4000'){
+                                fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                                this.alert({
+                                    title:'',
+                                    html:'<div style="text-align: center;color:red;">'+this.$t("tips.apiError")+'</div> ',
+                                    yes:this.$t("btn.sure"),
+                                    lock:true,
+                                });
                             }else{
                                 fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
                             }
@@ -459,6 +483,14 @@
                             if(resp.respCode=='2000'){
                                 this.getEmailByAesData();
                                 fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
+                            }else if(resp.respCode=='4000'){
+                                fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                                this.alert({
+                                    title:'',
+                                    html:'<div style="text-align: center;color:red;">'+this.$t("tips.apiError")+'</div> ',
+                                    yes:this.$t("btn.sure"),
+                                    lock:true,
+                                });
                             }else{
                                 fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
                             }
@@ -486,6 +518,14 @@
                             if(resp.respCode=='2000'){
                                 this.getEmailByAesData();
                                 fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
+                            }else if(resp.respCode=='4000'){
+                                fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                                this.alert({
+                                    title:'',
+                                    html:'<div style="text-align: center;color:red;">'+this.$t("tips.apiError")+'</div> ',
+                                    yes:this.$t("btn.sure"),
+                                    lock:true,
+                                });
                             }else{
                                 fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
                             }

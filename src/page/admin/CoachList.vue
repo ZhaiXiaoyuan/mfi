@@ -300,6 +300,7 @@
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
                         console.log('data:',data);
+                        this.entryList=[];
                         let list=data.instructorList;
                         list.forEach((item,i)=>{
                             this.entryList.push({
@@ -328,6 +329,7 @@
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
                         let list=data.schoolList;
+                        console.log('list:',list);
                         if(this.account.type=='school'){
                             this.schoolOptions.push({
                                 label:this.account.account,
@@ -336,8 +338,8 @@
                         }else{
                             list.forEach((item,i)=>{
                                 this.schoolOptions.push({
-                                    label:item.serialCode,
-                                    value:item.serialCode,
+                                    label:item.school.serialCode,
+                                    value:item.school.serialCode,
                                 })
                             })
                         }
