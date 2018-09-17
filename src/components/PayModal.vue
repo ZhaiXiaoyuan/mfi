@@ -99,6 +99,18 @@
               'professionalMembersFee':'3R62EWX84Z54A',
               'schoolQualification':'J9M8MNQCER4BE',
           },
+          prodTokenConfig:{
+              'M0':'M59NSGGZGYLA2',
+              'M1':'SEAVR5JK4T36N',
+              'M2':'TXHZYBLWD8YPG',
+              'M3':'DP8FMHGC8UQ6Y',
+              'BMI':'8LXENYQ5QJGNJ',
+              'MI':'CE5GA58V6Y6J2',
+              'MMI':'PCJYUVT7ZMXUW',
+              'instructorQualification':'3CZF28KCQ7QY4',
+              'professionalMembersFee':'NKCU4RC4X3GPQ',
+              'schoolQualification':'5GQTJAKBK5BLC',
+          },
           token:null,
           temOrderId:null,
       }
@@ -125,7 +137,8 @@
     },
     mounted: function () {
         /**/
-        this.token=this.tokenConfig[this.options.level];
+        //临时测试
+        this.token=false&&process.env.NODE_ENV=='development'?this.tokenConfig[this.options.level]:this.prodTokenConfig[this.options.level];
         this.temOrderId=this.options.userId+'-'+this.options.level+'-'+Vue.genTimestamp();
       /*  console.log('this.token:',this.token);
         console.log('this.temOderId:',this.temOrderId);*/

@@ -332,13 +332,13 @@
                         console.log('list:',list);
                         if(this.account.type=='school'){
                             this.schoolOptions.push({
-                                label:this.account.account,
+                                label:this.account.account+(this.account.name?(' '+this.account.name):''),
                                 value:this.account.account
                             })
                         }else{
                             list.forEach((item,i)=>{
                                 this.schoolOptions.push({
-                                    label:item.school.serialCode,
+                                    label:item.school.serialCode+(item.school.name?(' '+item.school.name):''),
                                     value:item.school.serialCode,
                                 })
                             })

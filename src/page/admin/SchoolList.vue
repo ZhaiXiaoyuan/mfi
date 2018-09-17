@@ -17,6 +17,9 @@
                         <thead>
                         <tr>
                             <th>
+                                {{$t("label.schoolName")}}
+                            </th>
+                            <th>
                                 {{$t("label.country")}}
                             </th>
                             <th>
@@ -33,6 +36,9 @@
                         </thead>
                         <tbody>
                         <tr v-for="(item,index) in entryList">
+                            <td>
+                                {{item.name}}
+                            </td>
                             <td>
                                 {{item.country}}
                             </td>
@@ -73,6 +79,10 @@
         </div>
         <el-dialog :title='(editForm.id?$t("title.editSchool"):$t("title.addSchool"))' class="edit-dialog cm-dialog school-dialog" :visible.sync="dialogFormVisible" v-if="dialogFormVisible" width="40%">
             <div class="form">
+                <div class="cm-input-row">
+                    <span class="field">{{$t("label.schoolName")}}</span>
+                    <input type="text" v-model="editForm.name" class="cm-input">
+                </div>
                 <div class="cm-input-row">
                     <span class="field">{{$t("label.country")}}</span>
                     <el-select v-model="editForm.code" filterable :class="{'cm-disabled':editForm.id}">
@@ -200,6 +210,10 @@
                 this.editForm={};
             },
             save:function () {
+                if(!this.editForm.name){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.schoolName")});
+                    return;
+                }
                 if(!this.editForm.code&&!this.editForm.id){
                     Vue.operationFeedback({type:'warn',text:this.$t("holder.country")});
                     return;

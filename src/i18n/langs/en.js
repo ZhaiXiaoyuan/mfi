@@ -33,6 +33,7 @@ const en = {
         gender:'gender',
         birth:'birthday',
         contact:'contact',
+        eContactName:'emergency contact name',
         eContact:'emergency contact',
         insurance:'insurance certificate',
         firstAid:'first aid certificate',
@@ -63,6 +64,7 @@ const en = {
         customerService:'customer service',
         postcode:'postcode',
         quantity:'students count',
+        schoolName:'school name'
     },
     holder: {
         account:'please enter your account',
@@ -89,7 +91,8 @@ const en = {
         fName:'please select the family name',
         lName:'please select the last name',
         gender:'please select the gender',
-        eContact:'please select the emergency contact',
+        eContactName:'please enter the emergency contact name',
+        eContact:'please enter the emergency contact',
         insurance:'please upload the insurance certification',
         firstAid:'please upload the first aid certification',
         avatar:'please upload your avatar',
@@ -97,6 +100,7 @@ const en = {
         content:'please enter the content',
         nayContent:'please enter the content,or upload the file',
         postcode:'please enter your postcode',
+        schoolName:'please enter the school name',
     },
     btn:{
         adminLogin:'administrator login',

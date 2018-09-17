@@ -40,8 +40,8 @@ export default {
     }
 
     /**/
-    //临时测试
-    let basicUrl=false&&process.env.NODE_ENV=='development'?'/api':'http://39.108.11.197/mfi';
+    /*let basicUrl=false&&process.env.NODE_ENV=='development'?'/api':'http://39.108.11.197/mfi';*/
+      let basicUrl=false&&process.env.NODE_ENV=='development'?'/api':'http://www.mermaidfederation.com/mfi';
     Vue.api={
         //
      superLogin:function (params) {
@@ -408,6 +408,14 @@ export default {
             return Vue.http.ajax({
                 method: 'post',
                 url: basicUrl+'/order/createSchoolPayOrder',
+                params: params
+            });
+        },
+        //管理员授予学生证书
+        grantByAdmin:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/student/grantCertificateToStudent',
                 params: params
             });
         },

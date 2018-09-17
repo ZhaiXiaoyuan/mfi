@@ -71,9 +71,9 @@
                             <th>
                                 {{$t("label.status")}}
                             </th>
-                           <!-- <th v-if="account.type=='coach'">
+                            <th v-if="account.type=='admin'">
                                 {{$t("label.handle")}}
-                            </th>-->
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -102,10 +102,10 @@
                             <td>
                                 <span class="cm-text">{{grantStatus[item.certificate.length>20?'granted':item.certificate]}}</span>
                             </td>
-                          <!--  <td v-if="account.type=='coach'">
+                            <td v-if="account.type=='admin'">
                                 <span class="handle" v-if="item.certificate=='pending'||item.certificate=='granted'">&mdash;</span>
-                                <span class="handle cm-btn" @click="grant(index)"  v-if="item.certificate=='waiting'">{{$t('btn.grant')}}</span>
-                            </td>-->
+                                <span class="handle cm-btn" @click="adminGrant(item)"  v-if="item.certificate=='waiting'">{{$t('btn.grant')}}</span>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -475,6 +475,24 @@
                         callback&&callback();
                     }else{
                         fb.setOptions({type:'warn', text:this.$t("tips.settingF",{msg:resp.respMsg})});
+                    }
+                });
+            },
+            adminGrant:function (item) {//管理员授予
+                var state=item.mfiLevelState;
+                let params={
+                    ...Vue.sessionInfo(),
+                    userId:state.userId,
+                    mfiLevel:state.mfiLevel,
+                    adminId:this.account.id
+                }
+                let fb=Vue.operationFeedback({text:this.$t("tips.handle"),delayForDelete:1000});
+                Vue.api.grantByAdmin(params).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        this.getList();
+                        fb.setOptions({type:'complete', text:this.$t("tips.handleS")});
+                    }else{
+                        fb.setOptions({type:'warn', text:this.$t("tips.handleF",{msg:resp.respMsg})});
                     }
                 });
             },

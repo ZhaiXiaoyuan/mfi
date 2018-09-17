@@ -58,6 +58,10 @@
                                 <input type="text" v-model="newForm.phone" class="cm-input">
                             </div>
                             <div class="cm-input-row">
+                                <span class="field">{{$t("label.eContactName")}}</span>
+                                <input type="text" v-model="newForm.emergencyName" class="cm-input">
+                            </div>
+                            <div class="cm-input-row">
                                 <span class="field">{{$t("label.eContact")}}</span>
                                 <input type="text" v-model="newForm.eContact" class="cm-input">
                             </div>
@@ -301,6 +305,9 @@
                 if(!this.newForm.phone){
                     Vue.operationFeedback({type:'warn',text:this.$t("holder.phone")});
                     return;
+                } if(!this.newForm.emergencyName){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.eContactName")});
+                    return;
                 }
                 if(!this.newForm.eContact){
                     Vue.operationFeedback({type:'warn',text:this.$t("holder.eContact")});
@@ -336,6 +343,7 @@
                     city:this.newForm.city,
                     address:this.newForm.address,
                     phone:this.newForm.phone,
+                    emergencyName:this.newForm.emergencyName,
                     emergencyPhone:this.newForm.eContact,
                 }
                 let fb=Vue.operationFeedback({text:this.$t("tips.save")});

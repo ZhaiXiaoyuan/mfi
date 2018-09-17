@@ -94,7 +94,11 @@
                                 </el-row>
                                 <el-row  class="info-row">
                                     <el-col :span="5" class="info-item">
-                                        <span class="label">{{$t('label.eContact')}}: </span>
+                                        <span class="label">{{$t('label.eContactName')}}: </span>
+                                        <span class="value">{{user.emergencyName}}</span>
+                                    </el-col>
+                                    <el-col :span="7"  :offset="1" class="info-item">
+                                        <span class="label">{{$t('label.eContact')}}：</span>
                                         <span class="value">{{user.emergencyPhone}}</span>
                                     </el-col>
                                     <el-col :span="9"  :offset="1" class="info-item">
@@ -295,6 +299,10 @@
                     <div class="cm-input-row">
                         <span class="field">{{$t("label.phone")}}</span>
                         <input type="text" v-model="editForm.phone" class="cm-input">
+                    </div>
+                    <div class="cm-input-row">
+                        <span class="field">{{$t("label.eContactName")}}</span>
+                        <input type="text" v-model="editForm.emergencyName" class="cm-input">
                     </div>
                     <div class="cm-input-row">
                         <span class="field">{{$t("label.eContact")}}</span>
@@ -632,7 +640,7 @@
                         let list=data.schoolList;
                         list.forEach((item,i)=>{
                             this.schoolOptions.push({
-                                label:item.school.serialCode,
+                                label:item.school.serialCode+(item.school.name?(' '+item.school.name):''),
                                 value:item.school.serialCode,
                             })
                         })
@@ -800,6 +808,10 @@
                 }
                 if(!this.editForm.phone){
                     Vue.operationFeedback({type:'warn',text:this.$t("holder.phone")});
+                    return;
+                }
+                if(!this.editForm.emergencyName){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.eContactName")});
                     return;
                 }
                 if(!this.editForm.emergencyPhone){
