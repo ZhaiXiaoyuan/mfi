@@ -204,7 +204,7 @@ export default {
               }
               return isMobile;
           },
-          // base64转文件
+          // base64转blob
           dataURItoBlob: function (dataURI) {
               var byteString = atob(dataURI.split(',')[1]);
               var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
@@ -247,6 +247,28 @@ export default {
                           }
                       }
                   }
+          },
+          //
+          fileToBlob:function (file,callback) {
+              if (!file) {
+                  return false
+              }
+              var reader = new FileReader()
+              reader.onload = (e) => {
+                  let data
+                  if (typeof e.target.result === 'object') {
+                      // 把Array Buffer转化为blob 如果是base64不需要
+                      data = window.URL.createObjectURL(new Blob([e.target.result]))
+                  } else {
+                      data = e.target.result
+                  }
+                  //
+                 callback&&callback(data);
+              }
+              // 转化为base64
+              // reader.readAsDataURL(file)
+              // 转化为blob
+              reader.readAsArrayBuffer(file);
           }
       }
 

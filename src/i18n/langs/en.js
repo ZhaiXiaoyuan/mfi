@@ -182,6 +182,7 @@ const en = {
         professionalMembersFeeWaiver:'professional members fee waiver',
         instructorQualificationFeeWaiver:'instructor qualification fee waiver',
         schoolQualificationFeeWaiver:'school qualification fee waiver',
+        activationEmail:'send the activation email',
     },
     title:{
         super:'Super Administrator',

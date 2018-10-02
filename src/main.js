@@ -14,6 +14,7 @@ import './utils/filters'
 import components from './components'
 import i18n from './i18n/i18n';
 
+
 Vue.use(ElementUI, { size: 'small' });
 
 /*---安装第三方插件---*/

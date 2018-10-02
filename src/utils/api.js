@@ -419,6 +419,22 @@ export default {
                 params: params
             });
         },
+        //重新发送教练激活邮件
+        reSentInstructorActivationEmail:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/instructor/reSentInstructorActivationEmail',
+                params: params
+            });
+        },
+        //重新发送学员账号激活邮件
+        reSentStudentActivationEmail:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/student/reSentStudentActivationEmail',
+                params: params
+            });
+        },
     }
   },
 

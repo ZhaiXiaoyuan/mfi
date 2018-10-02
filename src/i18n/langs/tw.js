@@ -183,6 +183,7 @@ const tw = {
         professionalMembersFeeWaiver:'免除專業會員年費',
         instructorQualificationFeeWaiver:'免除教練資格註冊延續年費',
         schoolQualificationFeeWaiver:'免除資格延續年費',
+        activationEmail:'重新發送激活郵件',
     },
     title:{
         super:'超級管理員',
@@ -223,7 +224,7 @@ const tw = {
         auditFail:'審核失敗',
         allStudent:'所有學員',
         someoneCertificateRecord:'{msg}的證書授權記錄',
-        nonactivated:'賬號未激活',
+        nonActivated:'賬號未激活',
         pending:'賬號審核中',
         certified:'賬號已審核',
         fail:'賬號審核失敗',

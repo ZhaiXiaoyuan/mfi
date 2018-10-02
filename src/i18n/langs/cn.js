@@ -189,6 +189,7 @@ const cn = {
         professionalMembersFeeWaiver:'免除专业会员年费',
         instructorQualificationFeeWaiver:'免除教练资格註册延续年费',
         schoolQualificationFeeWaiver:'免除资格延续年费',
+        activationEmail:'重新发送激活邮件',
     },
     title:{
         super:'超级管理员',
@@ -229,7 +230,7 @@ const cn = {
         auditFail:'审核失败',
         allStudent:'所有学员',
         someoneCertificateRecord:'{msg}的证书授权记录',
-        nonactivated:'账号未激活',
+        nonActivated:'账号未激活',
         pending:'账号审核中',
         certified:'账号已审核',
         fail:'账号审核失败',

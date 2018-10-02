@@ -77,6 +77,7 @@
                             </td>-->
                             <td>
                                 <span class="handle" @click="toDetail(index)" :class="{'cm-disabled':item.instructorAccountStatus=='nonActivated'}">{{$t('btn.detail')}}</span>
+                                <span class="handle" @click="reSentInstructorActivationEmail(item)" v-if="account.type=='admin'&&item.instructorAccountStatus=='nonActivated'">{{$t('btn.activationEmail')}}</span>
                             </td>
                         </tr>
                         </tbody>
@@ -272,6 +273,7 @@
                     loading:false,
                 },
                 entryList:[],
+                requesting:false,
             }
         },
         created(){
@@ -379,6 +381,25 @@
                         fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
                     }else{
                         fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                    }
+                });
+            },
+            reSentInstructorActivationEmail:function (item) {
+                if(this.requesting){
+                    return;
+                }
+                let params={
+                    ...Vue.sessionInfo(),
+                    email:item.email,
+                }
+                let fb=Vue.operationFeedback({text:this.$t("tips.handle")});
+                this.requesting=true;
+                Vue.api.reSentInstructorActivationEmail(params).then((resp)=>{
+                    this.requesting=false;
+                    if(resp.respCode=='2000'){
+                        fb.setOptions({type:'complete', text:this.$t("tips.handleS")});
+                    }else{
+                        fb.setOptions({type:'warn', text:this.$t("tips.handleF",{msg:resp.respMsg})});
                     }
                 });
             },

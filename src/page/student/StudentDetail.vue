@@ -112,8 +112,8 @@
                     <div class="block-bd">
                        <p class="title">{{$t('title.lCertificate')}}</p>
                         <ul class="pic-list">
-                            <li v-for="(item,index) in  certificateList" @click="viewPicModal({imgUrl:item.filePath})">
-                                <img :src="item.filePath">
+                            <li v-for="(item,index) in  certificateList" :style="{background: 'url('+item.filePath+') no-repeat center',backgroundSize: 'cover'}" @click="viewPicModal({imgUrl:item.filePath})">
+
                             </li>
                         </ul>
                         <div style="text-align: right;">
@@ -692,8 +692,11 @@
                 Vue.api.getUserBaseInfo(params).then((resp)=>{
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
+                        this.getUserCertificate();
                         this.user=data.user;
-
+                        if(this.user.headPic){
+                            this.user.headPic=this.user.headPic+"?r="+Math.random();
+                        }
                         this.editForm=JSON.parse(JSON.stringify(this.user));
                         this.editForm.password=null;
                         console.log('this.editForm:',this.editForm);
@@ -858,29 +861,28 @@
             },
             selectFile:function () {
                 let file=document.getElementById('file-input').files[0];
-
-                Vue.tools.imgCompress({
-                    file:file,
-                    width:'400',
-                    quality:0.5,
-                    callback:(data)=>{
-                        let formData = new FormData();
-                        let sessionInfo=Vue.sessionInfo();
-                        formData.append('timestamp',sessionInfo.timestamp);
-                        formData.append('userId',this.user.id);
-                        formData.append('headPic',data);
-                        this.uploading=true;
-                        let fb=Vue.operationFeedback({text:this.$t("tips.save")});
-                        Vue.api.setHeadPic(formData).then((resp)=>{
-                            this.uploading=false;
-                            this.getUserBaseInfo();
-                            if(resp.respCode=='2000'){
-                                fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
-                            }else{
-                                fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
-                            }
-                        });
-                    }
+                Vue.tools.fileToBlob(file,(data)=>{
+                    this.cropModal({
+                        img:data,
+                        ok:(data)=>{
+                            let formData = new FormData();
+                            let sessionInfo=Vue.sessionInfo();
+                            formData.append('timestamp',sessionInfo.timestamp);
+                            formData.append('userId',this.user.id);
+                            formData.append('headPic',data);
+                            this.uploading=true;
+                            let fb=Vue.operationFeedback({text:this.$t("tips.save")});
+                            Vue.api.setHeadPic(formData).then((resp)=>{
+                                this.uploading=false;
+                                this.getUserBaseInfo();
+                                if(resp.respCode=='2000'){
+                                    fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
+                                }else{
+                                    fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                                }
+                            });
+                        }
+                    });
                 });
             },
             getRegionConfig:function () {
@@ -911,7 +913,6 @@
 
             /**/
             this.getUserBaseInfo();
-            this.getUserCertificate();
             this.getList();
             /**/
             this.getSchoolList();

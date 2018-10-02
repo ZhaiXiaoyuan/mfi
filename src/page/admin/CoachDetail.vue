@@ -123,8 +123,8 @@
                     <div class="block-bd">
                        <p class="title">{{$t('title.lCertificate')}}</p>
                         <ul class="pic-list">
-                            <li v-for="(item,index) in  certificateList" @click="viewPicModal({imgUrl:item.filePath})">
-                                <img :src="item.filePath">
+                            <li v-for="(item,index) in  certificateList" @click="viewPicModal({imgUrl:item.filePath})"  :style="{background: 'url('+item.filePath+') no-repeat center',backgroundSize: 'cover'}">
+
                             </li>
                         </ul>
                         <div style="text-align: right;">
@@ -353,11 +353,12 @@
     }
 </style>
 <script>
-    import Vue from 'vue'
+    import Vue from 'vue';
+    import vueCropper from 'vue-cropper'
 
     export default {
         components: {
-
+            vueCropper
         },
         data() {
             return {
@@ -366,7 +367,6 @@
                 account:{},
                 defaultAvatar:require('../../images/common/default-avatar.png'),
                 bgImg:require('../../images/common/card-bg.jpg'),
-
                 coach:{},
                 otherPicList:[],
 
@@ -619,6 +619,9 @@
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
                         this.coach={...data.instructorPayment,...data.user};
+                        if(this.coach.headPic){
+                            this.coach.headPic=this.coach.headPic+"?r="+Math.random();
+                        }
                         this.getUserCertificate();
                         this.otherPicList=[];
                         if(this.coach.firstAidPic){
@@ -773,28 +776,28 @@
             },
             selectFile:function () {
                 let file=document.getElementById('file-input').files[0];
-                Vue.tools.imgCompress({
-                    file:file,
-                    width:'400',
-                    quality:0.5,
-                   callback:(data)=>{
-                       let formData = new FormData();
-                       let sessionInfo=Vue.sessionInfo();
-                       formData.append('timestamp',sessionInfo.timestamp);
-                       formData.append('userId',this.account.id);
-                       formData.append('headPic',data);
-                       this.uploading=true;
-                       let fb=Vue.operationFeedback({text:this.$t("tips.save")});
-                       Vue.api.setHeadPic(formData).then((resp)=>{
-                           this.uploading=false;
-                           if(resp.respCode=='2000'){
-                               this.getUserBaseInfo();
-                               fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
-                           }else{
-                               fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
-                           }
-                       });
-                   }
+                Vue.tools.fileToBlob(file,(data)=>{
+                    this.cropModal({
+                        img:data,
+                        ok:(data)=>{
+                            let formData = new FormData();
+                            let sessionInfo=Vue.sessionInfo();
+                            formData.append('timestamp',sessionInfo.timestamp);
+                            formData.append('userId',this.account.id);
+                            formData.append('headPic',data);
+                            this.uploading=true;
+                            let fb=Vue.operationFeedback({text:this.$t("tips.save")});
+                            Vue.api.setHeadPic(formData).then((resp)=>{
+                                this.uploading=false;
+                                if(resp.respCode=='2000'){
+                                    this.getUserBaseInfo();
+                                    fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
+                                }else{
+                                    fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                                }
+                            });
+                        }
+                    });
                 });
             },
             addAudit:function () {

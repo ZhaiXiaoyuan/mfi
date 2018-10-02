@@ -9,6 +9,7 @@ import Language from './Language';
 import PayModal from './PayModal';
 import Modal from './Modal';
 import AlertModal from './AlertModal';
+import CropModal from './CropModal';
 
 
 /*全局组件注册配置*/
@@ -22,12 +23,14 @@ export default {
     Vue.component('PayModal',PayModal);
     Vue.component('Modal',Modal);
     Vue.component('AlertModal',AlertModal);
+    Vue.component('CropModal',CropModal);
 
     /*方法调度方式*/
     let OperationFeedbackConstructor = Vue.extend(OperationFeedback);
     let ViewPicModalConstructor = Vue.extend(ViewPicModal);
     let PayModalConstructor = Vue.extend(PayModal);
     let AlertModalConstructor=Vue.extend(AlertModal);
+    let CropModalConstructor=Vue.extend(CropModal);
     const functionObject={
         /**
          * 操作提示
@@ -113,6 +116,37 @@ export default {
             let parentEle=document.getElementById('app');
             //
             let instance=new AlertModalConstructor({});
+            instance.options=options;
+            instance.$mount();
+            parentEle.appendChild(instance.$el);
+            return {
+                close:instance.close
+            }
+        },
+        /**
+         * 图片裁剪弹窗
+         * @param options
+         */
+        cropModal:function (options) {
+            options={...{
+                img:null,
+                size: 1,
+                full: false,
+                outputType: 'jpeg',
+                canMove: true,
+                fixedBox: false,
+                original: false,
+                canMoveBox: true,
+                autoCrop: true,
+                centerBox: false,
+                fixedNumber:[1,1],
+                fixed:true,
+                ok:null,
+            },...options};
+            //
+            let parentEle=document.getElementById('app');
+            //
+            let instance=new CropModalConstructor({});
             instance.options=options;
             instance.$mount();
             parentEle.appendChild(instance.$el);

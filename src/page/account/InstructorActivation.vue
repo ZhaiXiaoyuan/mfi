@@ -279,7 +279,8 @@
                         this.user=JSON.parse(resp.respMsg);
                         console.log('this.user:',this.user);
                         if(this.user&&this.user.instructorAccountStatus!='nonActivated'){
-                            this.$router.push({name:'login',params:{type:'coach'}});
+                            window.location.href=window.location.origin;
+                          /*  this.$router.push({name:'login',params:{type:'coach'}});*/
                         }
                         this.newForm.email=this.user.email;
                         this.newForm.avatar=this.user.headPic;
@@ -441,37 +442,36 @@
             },
             selectFile:function () {
                 let file=document.getElementById('file-input').files[0];
-
-                Vue.tools.imgCompress({
-                    file:file,
-                    width:'400',
-                    quality:0.5,
-                    callback:(data)=>{
-                        let formData = new FormData();
-                        let sessionInfo=Vue.sessionInfo();
-                        formData.append('timestamp',sessionInfo.timestamp);
-                        formData.append('userId',this.user.id);
-                        formData.append('headPic',data);
-                        this.uploading=true;
-                        let fb=Vue.operationFeedback({text:this.$t("tips.save")});
-                        Vue.api.setHeadPic(formData).then((resp)=>{
-                            this.uploading=false;
-                            if(resp.respCode=='2000'){
-                                this.getEmailByAesData();
-                                fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
-                            }else if(resp.respCode=='4000'){
-                                fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
-                                this.alert({
-                                    title:'',
-                                    html:'<div style="text-align: center;color:red;">'+this.$t("tips.apiError")+'</div> ',
-                                    yes:this.$t("btn.sure"),
-                                    lock:true,
-                                });
-                            }else{
-                                fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
-                            }
-                        });
-                    }
+                Vue.tools.fileToBlob(file,(data)=>{
+                    this.cropModal({
+                        img:data,
+                        ok:(data)=>{
+                            let formData = new FormData();
+                            let sessionInfo=Vue.sessionInfo();
+                            formData.append('timestamp',sessionInfo.timestamp);
+                            formData.append('userId',this.user.id);
+                            formData.append('headPic',data);
+                            this.uploading=true;
+                            let fb=Vue.operationFeedback({text:this.$t("tips.save")});
+                            Vue.api.setHeadPic(formData).then((resp)=>{
+                                this.uploading=false;
+                                if(resp.respCode=='2000'){
+                                    this.getEmailByAesData();
+                                    fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
+                                }else if(resp.respCode=='4000'){
+                                    fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                                    this.alert({
+                                        title:'',
+                                        html:'<div style="text-align: center;color:red;">'+this.$t("tips.apiError")+'</div> ',
+                                        yes:this.$t("btn.sure"),
+                                        lock:true,
+                                    });
+                                }else{
+                                    fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                                }
+                            });
+                        }
+                    });
                 });
             },
             selectFirstAidFile:function () {
