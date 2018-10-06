@@ -48,6 +48,9 @@
                                 {{$t("label.level")}}
                             </th>
                             <th>
+                                {{$t("label.school")}}
+                            </th>
+                            <th>
                                 {{$t("label.status")}}
                             </th>
                           <!--  <th>
@@ -70,6 +73,9 @@
                                 {{item.mfiLevel}}
                             </td>
                             <td>
+                                {{item.school}}
+                            </td>
+                            <td>
                                 {{$t("btn."+item.instructorAccountStatus)}}
                             </td>
                           <!--  <td>
@@ -78,6 +84,12 @@
                             <td>
                                 <span class="handle" @click="toDetail(index)" :class="{'cm-disabled':item.instructorAccountStatus=='nonActivated'}">{{$t('btn.detail')}}</span>
                                 <span class="handle" @click="reSentInstructorActivationEmail(item)" v-if="account.type=='admin'&&item.instructorAccountStatus=='nonActivated'">{{$t('btn.activationEmail')}}</span>
+                                <span class="handle" @click="toSetSchool(item)" v-if="account.type=='admin'&&item.instructorAccountStatus!='nonActivated'">{{$t('btn.school')}}</span>
+                                <span class="handle" @click="toSetStatus(item)" v-if="account.type=='admin'&&item.instructorAccountStatus!='nonActivated'">{{$t('btn.status')}}</span>
+                                <div class="handle-row" v-if="account.type=='admin'&&item.instructorAccountStatus!='nonActivated'">
+                                    <span style="display: block" class="handle" @click="feeWaiver('professionalMembersFee',item)" v-if="item.professionalMembersFee=='notPay'">{{$t("btn.professionalMembersFeeWaiver")}}</span>
+                                    <span class="handle" @click="feeWaiver('instructorQualification',item)" v-if="item.instructorQualification=='notPay'">{{$t("btn.instructorQualificationFeeWaiver")}}</span>
+                                </div>
                             </td>
                         </tr>
                         </tbody>
@@ -144,6 +156,44 @@
             <div class="handle-list">
                 <div class="cm-btn cm-handle-btn handle-btn" @click="dialogFormVisible=false">{{$t("btn.cancel")}}</div>
                 <div class="cm-btn cm-handle-btn handle-btn" @click="save">{{$t("btn.submit")}}</div>
+            </div>
+        </el-dialog>
+        <el-dialog :title='$t("title.schoolSetting")' class="edit-dialog cm-dialog school-dialog" :visible.sync="schoolSettingDialogFlag" v-if="schoolSettingDialogFlag" width="40%">
+            <div class="form">
+                <div class="cm-input-row">
+                    <span class="field">{{$t("label.level")}}</span>
+                    <el-select filterable v-model="schoolForm.school" filterable class="handle cm-select">
+                        <el-option
+                            v-for="(item,index) in schoolOptions"
+                            :key="index"
+                            :label="item.label"
+                            :value="item.value">
+                        </el-option>
+                    </el-select>
+                </div>
+            </div>
+            <div class="handle-list">
+                <div class="cm-btn cm-handle-btn handle-btn" @click="schoolSettingDialogFlag=false">{{$t("btn.cancel")}}</div>
+                <div class="cm-btn cm-handle-btn handle-btn" @click="saveSchool">{{$t("btn.submit")}}</div>
+            </div>
+        </el-dialog>
+        <el-dialog :title='$t("title.statusSetting")' class="edit-dialog cm-dialog school-dialog" :visible.sync="statusSettingDialogFlag" v-if="statusSettingDialogFlag" width="40%">
+            <div class="form">
+                <div class="cm-input-row">
+                    <span class="field">{{$t("label.level")}}</span>
+                    <el-select v-model="statusForm.status" class="handle cm-select">
+                        <el-option
+                            v-for="(item,index) in options"
+                            :key="index"
+                            :label="item.label"
+                            :value="item.value">
+                        </el-option>
+                    </el-select>
+                </div>
+            </div>
+            <div class="handle-list">
+                <div class="cm-btn cm-handle-btn handle-btn" @click="statusSettingDialogFlag=false">{{$t("btn.cancel")}}</div>
+                <div class="cm-btn cm-handle-btn handle-btn" @click="saveStatus">{{$t("btn.submit")}}</div>
             </div>
         </el-dialog>
     </div>
@@ -274,6 +324,16 @@
                 },
                 entryList:[],
                 requesting:false,
+                curItem:null,
+                isSetting:false,
+                schoolSettingDialogFlag:false,
+                schoolForm:{
+                    school:null,
+                },
+                statusSettingDialogFlag:false,
+                statusForm:{
+                    status:null,
+                },
             }
         },
         created(){
@@ -311,6 +371,7 @@
                             })
                         })
                         this.pager.total=data.count;
+                        console.log('this.entryList:',this.entryList);
                     }
                 });
             },
@@ -407,6 +468,95 @@
                 let coach=this.entryList[index];
                 localStorage.setItem('curCoach',JSON.stringify(coach));
                 this.$router.push({name:'coachDetail',params:{id:coach.id}});
+            },
+            feeWaiver:function (type,item) {
+
+                this.$confirm(type=='professionalMembersFee'?this.$t("tips.professionalMembersFeeWaiver"):this.$t("tips.instructorQualificationFeeWaiver"), this.$t("title.tips"), {
+                    confirmButtonText: this.$t("btn.sure"),
+                    cancelButtonText: this.$t("btn.cancel"),
+                }).then(() => {
+                    let params={
+                        ...Vue.sessionInfo(),
+                        adminId:this.account.id,
+                        userId:item.id,
+                        itemNumber:type,
+                    }
+                    let fb=Vue.operationFeedback({text:this.$t("tips.handle")});
+                    Vue.api.instructorFeeWaiver(params).then((resp)=>{
+                        if(resp.respCode=='2000'){
+                            if(type=='professionalMembersFee'){
+                                item.professionalMembersFee='pay';
+                            }else if(type=='instructorQualification'){
+                                item.instructorQualification='pay';
+                            }
+                            fb.setOptions({type:'complete', text:this.$t("tips.handleS")});
+                        }else{
+                            fb.setOptions({type:'warn', text:this.$t("tips.handleF",{ msg: resp.respMsg})});
+                        }
+                    });
+                }).catch(() => {
+
+                });
+            },
+            toSetSchool:function (item) {
+                this.curItem=item;
+                this.schoolSettingDialogFlag=true;
+            },
+            saveSchool:function () {
+                if(!this.curItem){
+                    return
+                }
+                if(this.isSetting){
+                    return;
+                }
+                let params={
+                    ...Vue.sessionInfo(),
+                    adminId:this.account.id,
+                    userId:this.curItem.id,
+                    schoolConfigParm:this.schoolForm.school,
+                }
+                let fb=Vue.operationFeedback({text:this.$t("tips.setting")});
+                this.isSetting=true;
+                Vue.api.setInstructorSchoolConfigParm(params).then((resp)=>{
+                    this.isSetting=false;
+                    if(resp.respCode=='2000'){
+                        fb.setOptions({type:'complete', text:this.$t("tips.settingS")});
+                        this.curItem.school=this.schoolForm.school;
+                        this.schoolSettingDialogFlag=false;
+                    }else{
+                        fb.setOptions({type:'warn', text:this.$t("tips.settingF",{ msg: resp.respMsg})});
+                    }
+                });
+            },
+            toSetStatus:function (item) {
+                this.curItem=item;
+                this.statusSettingDialogFlag=true;
+            },
+            saveStatus:function () {
+                if(!this.curItem){
+                    return
+                }
+                if(this.isSetting){
+                    return;
+                }
+                let params={
+                    ...Vue.sessionInfo(),
+                    adminId:this.account.id,
+                    userId:this.curItem.id,
+                    instructorAccountStatus:this.statusForm.status,
+                }
+                let fb=Vue.operationFeedback({text:this.$t("tips.setting")});
+                this.isSetting=true;
+                Vue.api.setInstructorAccountStatus(params).then((resp)=>{
+                    this.isSetting=false;
+                    if(resp.respCode=='2000'){
+                        fb.setOptions({type:'complete', text:this.$t("tips.settingS")});
+                        this.curItem.instructorAccountStatus=this.statusForm.status;
+                        this.statusSettingDialogFlag=false;
+                    }else{
+                        fb.setOptions({type:'warn', text:this.$t("tips.settingF",{ msg: resp.respMsg})});
+                    }
+                });
             },
         },
         mounted () {

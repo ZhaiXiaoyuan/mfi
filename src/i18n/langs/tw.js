@@ -184,6 +184,7 @@ const tw = {
         instructorQualificationFeeWaiver:'免除教練資格註冊延續年費',
         schoolQualificationFeeWaiver:'免除資格延續年費',
         activationEmail:'重新發送激活郵件',
+        status:'狀態',
     },
     title:{
         super:'超級管理員',
@@ -206,6 +207,7 @@ const tw = {
         levelSetting:'等級設置',
         schoolSetting:'學校設置',
         auditingSetting:'審核設置',
+        statusSetting:'狀態設置',
         someoneCourse:'{msg}的課程信息',
         courseDetail:'{msg} 課程詳情',
         certificateStatistics:'證書統計',
@@ -256,7 +258,10 @@ const tw = {
         instructorQualification:'請繳納教練資格註冊延續年費',
         schoolQualification:'請繳納資格延續年費',
         mobileTips:'激活成功，請在電腦打開網頁！',
-        apiError:'操作出错，改账号或已存在！'
+        apiError:'操作出错，改账号或已存在！',
+        professionalMembersFeeWaiver:'確定免除該教練的專業會員年費？',
+        instructorQualificationFeeWaiver:'確定免除該教練的資格註冊延續年費？',
+        schoolQualificationFeeWaiver:'確定免除該學校的資格延續年費？',
     },
     el: {
         colorpicker: {

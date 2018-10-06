@@ -184,7 +184,7 @@
             </div>
         </el-dialog>
 
-        <el-dialog :title='$t("title.auditingSetting")' class="edit-dialog cm-dialog school-dialog" :visible.sync="statusSettingDialogFlag" v-if="statusSettingDialogFlag" width="40%">
+        <el-dialog :title='$t("title.statusSetting")' class="edit-dialog cm-dialog school-dialog" :visible.sync="statusSettingDialogFlag" v-if="statusSettingDialogFlag" width="40%">
             <div class="form">
                 <div class="cm-input-row">
                     <span class="field">{{$t("label.level")}}</span>

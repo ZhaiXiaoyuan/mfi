@@ -428,6 +428,14 @@ body{
                  /*   border: 1px solid #5360aa;*/
                     border-radius: 4px;
                 }
+                .handle-row{
+                    padding: 4px 0px;
+                    .handle{
+                        display: block;
+                        &+.handle{
+                        }
+                    }
+                }
                 .handle-btn{
                     padding: 6px 10px;
                     &.handle-btn{
@@ -1085,7 +1093,7 @@ body{
     .cm-search{
         .el-input__inner{
             height: 40px;
-            width: 280px;
+            width: 240px;
             font-size: 14px;
         }
         .el-input-group__append{

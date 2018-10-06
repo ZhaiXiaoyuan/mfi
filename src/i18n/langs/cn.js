@@ -190,6 +190,7 @@ const cn = {
         instructorQualificationFeeWaiver:'免除教练资格註册延续年费',
         schoolQualificationFeeWaiver:'免除资格延续年费',
         activationEmail:'重新发送激活邮件',
+        status:'状态',
     },
     title:{
         super:'超级管理员',
@@ -212,6 +213,7 @@ const cn = {
         levelSetting:'等级设置',
         schoolSetting:'学校设置',
         auditingSetting:'审核设置',
+        statusSetting:'状态设置',
         someoneCourse:'{msg}的课程信息',
         courseDetail:'{msg} 课程详情',
         certificateStatistics:'证书统计',
@@ -263,7 +265,10 @@ const cn = {
         instructorQualification:'请缴纳教练资格註册延续年费',
         schoolQualification:'请缴纳资格延续年费',
         mobileTips:'激活成功，请在电脑打开网页！',
-        apiError:'操作出错，改账号或已存在！'
+        apiError:'操作出错，改账号或已存在！',
+        professionalMembersFeeWaiver:'确定免除该教练的专业会员年费？',
+        instructorQualificationFeeWaiver:'确定免除该教练的资格註册延续年费？',
+        schoolQualificationFeeWaiver:'确定免除该学校的资格延续年费？',
 
     },
     el: {

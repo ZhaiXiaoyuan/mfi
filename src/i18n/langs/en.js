@@ -183,6 +183,7 @@ const en = {
         instructorQualificationFeeWaiver:'instructor qualification fee waiver',
         schoolQualificationFeeWaiver:'school qualification fee waiver',
         activationEmail:'send the activation email',
+        status:'status',
     },
     title:{
         super:'Super Administrator',
@@ -205,6 +206,7 @@ const en = {
         levelSetting:'Level Setting',
         schoolSetting:'School Setting',
         auditingSetting:'Auditing Setting',
+        statusSetting:'Status Setting',
         someoneCourse:'{msg}\'s course',
         courseDetail:'{msg} Detail',
         certificateStatistics:'Certificate Statistics',
@@ -256,7 +258,10 @@ const en = {
         instructorQualification:'Please pay the annual fee for instructor qualification',
         schoolQualification:'Please pay the annual fee for school qualification',
         mobileTips:'Activate successfully,please access on the cumputer!',
-        apiError:'Error,this account has been used!'
+        apiError:'Error,this account has been used!',
+        professionalMembersFeeWaiver:'are you sure to waive the professional members fee?',
+        instructorQualificationFeeWaiver:'are you sure to waive the instructor qualification fee?',
+        schoolQualificationFeeWaiver:'are you sure to waive the school qualification fee',
     },
     el: {
         colorpicker: {
