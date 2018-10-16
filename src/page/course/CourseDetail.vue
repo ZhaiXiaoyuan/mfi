@@ -71,9 +71,9 @@
                             <th>
                                 {{$t("label.status")}}
                             </th>
-                            <th v-if="account.type=='admin'">
+                          <!--  <th v-if="account.type=='admin'">
                                 {{$t("label.handle")}}
-                            </th>
+                            </th>-->
                         </tr>
                         </thead>
                         <tbody>
@@ -102,10 +102,10 @@
                             <td>
                                 <span class="cm-text">{{grantStatus[item.certificate.length>20?'granted':item.certificate]}}</span>
                             </td>
-                            <td v-if="account.type=='admin'">
+                         <!--   <td v-if="account.type=='admin'">
                                 <span class="handle" v-if="item.certificate=='pending'||item.certificate=='granted'">&mdash;</span>
                                 <span class="handle cm-btn" @click="adminGrant(item)"  v-if="item.certificate=='waiting'">{{$t('btn.grant')}}</span>
-                            </td>
+                            </td>-->
                         </tr>
                         </tbody>
                     </table>

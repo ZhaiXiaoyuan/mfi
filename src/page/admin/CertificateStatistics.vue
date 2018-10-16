@@ -68,10 +68,10 @@
                                 {{item.mfiLevel}}
                             </td>
                             <td>
-                                1
+                                {{item.mfiLevel=='M0'?20:1}}
                             </td>
                             <td>
-                                {{item.orderRecord?item.orderRecord.tpMsg.payment_fee:'-'}}
+                                {{item.orderRecord?item.orderRecord.paymentGross:'-'}}
                             </td>
                             <td>
                                 {{item.createdAt|formatDate('yyyy-MM-dd')}}
