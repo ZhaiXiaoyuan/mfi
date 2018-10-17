@@ -64,7 +64,8 @@ const en = {
         customerService:'customer service',
         postcode:'postcode',
         quantity:'students count',
-        schoolName:'school name'
+        schoolName:'school name',
+        paymentAccount:'payment account'
     },
     holder: {
         account:'please enter your account',

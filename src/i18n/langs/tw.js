@@ -65,6 +65,7 @@ const tw = {
         postcode:'郵編',
         quantity:'人數',
         schoolName:'學校名',
+        paymentAccount:'支付賬號'
     },
     holder: {
         account:'請輸入賬號',

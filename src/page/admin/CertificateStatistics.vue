@@ -34,6 +34,9 @@
                                 {{$t("label.buyer")}}
                             </th>
                             <th>
+                                {{$t("label.paymentAccount")}}
+                            </th>
+                            <th>
                                 {{$t("label.school")}}
                             </th>
                             <th>
@@ -60,6 +63,9 @@
                             </td>
                             <td>
                                 {{item.possessor?item.possessor.email:'-'}}
+                            </td>
+                            <td>
+                                {{item.orderRecord?item.orderRecord.business:'-'}}
                             </td>
                             <td>
                                 {{item.schoolSerialCode}}

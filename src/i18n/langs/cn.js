@@ -67,6 +67,7 @@ const cn = {
         postcode:'邮编',
         quantity:'人数',
         schoolName:'学校名',
+        paymentAccount:'支付賬號'
     },
     holder: {
         account:'请输入账号',
