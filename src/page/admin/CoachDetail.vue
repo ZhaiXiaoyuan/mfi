@@ -673,6 +673,7 @@
 
                 ctx.save();
                 let bgImg=new Image();
+                bgImg.crossOrigin="anonymous";
                 bgImg.src=this.bgImg;
                 bgImg.onload=function(){
                     ctx.drawImage(bgImg,0,0);
@@ -681,6 +682,7 @@
 
                     ctx.save();
                     var img = new Image();
+                    img.crossOrigin="anonymous";
                     img.src = options.avatar;
                     img.onload=function () {
                         that.circleImg(ctx, img, 95, 101, 150);
