@@ -592,7 +592,7 @@
                                     id:'canvas'+i,
                                     avatar:Vue.basicConfig.filePrefix+item.user.headPic,
                                     name:item.user.name+' '+item.user.familyName,
-                                    level:item.certificate.mfiLevel,
+                                    level:item.certificate.mfiLevel=='BMI'?'BASIC MERMAID INSTRUCTOR':item.certificate.mfiLevel,
                                     certificateNo:item.certificate.serialCode,
                                     date:Vue.formatDate(item.certificate.updatedAt,'yyyy-MM-dd'),
                                     issuer:item.certificate.schoolSerialCode,

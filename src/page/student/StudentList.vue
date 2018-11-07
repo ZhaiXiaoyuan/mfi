@@ -43,7 +43,7 @@
                                 {{item.email}}
                             </td>
                             <td>
-                                {{item.name}}
+                                {{item.name+item.familyName}}
                             </td>
                             <td>
                                 {{item.mfiLevel}}

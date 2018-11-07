@@ -248,7 +248,7 @@
                     id:'canvas',
                     avatar:Vue.basicConfig.filePrefix+item.user.headPic,
                     name:item.user.name+' '+item.user.familyName,
-                    level:item.mfiLevel,
+                    level:item.mfiLevel=='BMI'?'BASIC MERMAID INSTRUCTOR':item.mfiLevel,
                     certificateNo:item.serialCode,
                     date:Vue.formatDate(item.updatedAt,'yyyy-MM-dd'),
                     issuer:item.schoolSerialCode,
@@ -319,7 +319,7 @@
             this.id=this.account.type=='coach'?this.account.id:this.$route.params.id;
             console.log('this.coach:',this.coach);
             //
-            this.levelOptions=this.genLevelConfig({level:this.account.mfiLevel});
+            this.levelOptions=this.genLevelConfig({level:this.coach.mfiLevel});
             this.levelOptions.unshift({
                 value:null,
                 label:this.$t("btn.all"),

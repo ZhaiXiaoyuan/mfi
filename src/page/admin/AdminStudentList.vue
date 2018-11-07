@@ -54,12 +54,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="(item,index) in entryList" :class="{'cm-disabled':item.studentAccountStatus=='nonActivated'}">
+                        <tr v-for="(item,index) in entryList">
                             <td>
                                 {{item.email}}
                             </td>
                             <td>
-                                {{item.name}}
+                                {{item.name+item.familyName}}
                             </td>
                             <td>
                                 {{item.mfiLevel}}
@@ -68,7 +68,8 @@
                                 {{$t("btn."+item.studentAccountStatus)}}
                             </td>
                             <td>
-                                <span class="handle" @click="()=>{$router.push({name:'studentDetail',params:{id:item.id}})}">{{$t("btn.detail")}}</span>
+                                <span class="handle" @click="()=>{$router.push({name:'studentDetail',params:{id:item.id}})}" :class="{'cm-disabled':item.studentAccountStatus=='nonActivated'}">{{$t("btn.detail")}}</span>
+                                <span class="handle" @click="reSentStudentActivationEmail(item)" v-if="account.type=='admin'&&item.studentAccountStatus=='nonActivated'">{{$t('btn.activationEmail')}}</span>
                             </td>
                         </tr>
                         </tbody>
@@ -213,6 +214,25 @@
             },
             statusChange:function (data) {
                 this.getList();
+            },
+            reSentStudentActivationEmail:function (item) {
+                if(this.requesting){
+                    return;
+                }
+                let params={
+                    ...Vue.sessionInfo(),
+                    email:item.email,
+                }
+                let fb=Vue.operationFeedback({text:this.$t("tips.handle")});
+                this.requesting=true;
+                Vue.api.reSentStudentActivationEmail(params).then((resp)=>{
+                    this.requesting=false;
+                    if(resp.respCode=='2000'){
+                        fb.setOptions({type:'complete', text:this.$t("tips.handleS")});
+                    }else{
+                        fb.setOptions({type:'warn', text:this.$t("tips.handleF",{msg:resp.respMsg})});
+                    }
+                });
             },
         },
         mounted () {
