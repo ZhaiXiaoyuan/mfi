@@ -435,6 +435,14 @@ export default {
                 params: params
             });
         },
+        //设置打印实体证书状态
+        setCertificateEntity:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/certificate/setCertificateEntity',
+                params: params
+            });
+        },
     }
   },
 

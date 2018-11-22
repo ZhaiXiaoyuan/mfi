@@ -75,8 +75,18 @@
                                 <span v-if="!item.userId">-</span>
                             </td>
                             <td>
+                                <el-button class="small handle-btn" @click="()=>{$router.push({name:'studentDetail',params:{id:item.user.id}})}">{{$t("btn.studentDetail")}}</el-button>
                                 <el-button class="small handle-btn" v-if="item.userId" @click="toViewCertificate(item)">{{$t('btn.viewCertificate')}}</el-button>
                                 <span v-if="!item.userId">-</span>
+                                <el-select v-model="item.entity" v-if="account.type=='admin'" @change="statusChange(index)" class="handle-btn cm-select cm-select-min">
+                                    <el-option
+                                        v-for="(entry,subIndex) in printStatusOptions"
+                                        :class="(item.entityStatus.index+1!=entry.index?'cm-disabled':'')"
+                                        :key="subIndex"
+                                        :label="entry.label"
+                                        :value="entry.value">
+                                    </el-option>
+                                </el-select>
                             </td>
                         </tr>
                         </tbody>
@@ -94,7 +104,7 @@
                 </div>
             </div>
         </div>
-        <canvas width="1200" id="canvas"  height="675" style="display:none;border:1px solid #d3d3d3;background:#ffffff;"></canvas>
+        <canvas width="1240" id="canvas"  height="744" style="display:none;border:1px solid #d3d3d3;background:#ffffff;"></canvas>
         <el-dialog :title='$t("title.newCoach")' class="edit-dialog cm-dialog school-dialog" :visible.sync="dialogFormVisible" v-if="dialogFormVisible" width="40%">
             <div class="form">
                 <div class="cm-input-row">
@@ -200,6 +210,34 @@
                 },
                 entryList:[],
                 bgImg:require('../../images/common/card-bg.jpg'),
+
+                printStatusOptions:[
+                    {
+                        label:this.$t("btn.notPrint"),
+                        value:'notPrint',
+                        index:0,
+                    },
+                    {
+                        label:this.$t("btn.printing"),
+                        value:'printing',
+                        index:1,
+                    },
+                    {
+                        label:this.$t("btn.hasPrint"),
+                        value:'hasPrint',
+                        index:2,
+                    },
+                    {
+                        label:this.$t("btn.hasSent"),
+                        value:'hasSent',
+                        index:3,
+                    },
+                    {
+                        label:this.$t("btn.finish"),
+                        value:'finish',
+                        index:4,
+                    },
+                ],
             }
         },
         created(){
@@ -232,15 +270,37 @@
                         list.forEach((item,i)=>{
                             item.user=JSON.parse(item.user);
                             item.possessor=JSON.parse(item.possessor);
+                            item.entityStatus=this.printStatusOptions.find((entry,index)=>{
+                                return item.entity==entry.value;
+                            })
                         })
                         this.entryList=list;
-                        console.log('this.entryList:', this.entryList);
                         this.pager.total=data.count;
                     }
                 });
             },
             levelChange:function (data) {
                 this.getList();
+            },
+            statusChange:function (index) {
+                let item=this.entryList[index];
+                console.log('item:',item);
+                let params={
+                    ...Vue.sessionInfo(),
+                    certificateId:item.id,
+                    entity:item.entity
+                }
+                let fb=Vue.operationFeedback({text:this.$t("tips.setting")});
+                Vue.api.setCertificateEntity(params).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        item.entityStatus=this.printStatusOptions.find((entry,index)=>{
+                            return item.entity==entry.value;
+                        })
+                        fb.setOptions({type:'complete', text:this.$t("tips.settingS")});
+                    }else{
+                        fb.setOptions({type:'warn', text:this.$t("tips.settingF",{msg:resp.respMsg})});
+                    }
+                });
             },
             toViewCertificate:function (item) {
                 console.log('item:',item);
@@ -270,10 +330,11 @@
                 ctx.drawImage(img, x, y, d, d);
                 ctx.restore();
             },
-            drawText:function (ctx,text,x,y) {
+            drawText:function (ctx,text,x,y,fontSize) {
+                fontSize=fontSize?fontSize:32;
                 ctx.save();
-                ctx.font = "32px ' Helvetica Neue', Helvetica, Arial, 'Microsoft Yahei', 'Hiragino Sans GB', 'Heiti SC', 'WenQuanYi Micro Hei'";
-                ctx.fillStyle = "#666";
+                ctx.font = fontSize+"px ' Helvetica Neue', Helvetica, Arial, 'Microsoft Yahei', 'Hiragino Sans GB', 'Heiti SC', 'WenQuanYi Micro Hei'";
+                ctx.fillStyle = "#333";
                 ctx.fillText(text,x,y,300);
                 ctx.restore();
             },
@@ -284,27 +345,39 @@
 
                 ctx.save();
                 let bgImg=new Image();
+                bgImg.crossOrigin="anonymous";
                 bgImg.src=this.bgImg;
                 bgImg.onload=function(){
                     ctx.drawImage(bgImg,0,0);
                     ctx.restore();
 
+
                     ctx.save();
                     var img = new Image();
+                    img.crossOrigin="anonymous";
                     img.src = options.avatar;
                     img.onload=function () {
-                        that.circleImg(ctx, img, 95, 101, 150);
+                        that.circleImg(ctx, img, 95, 80, 150);
                         ctx.restore();
-
                         //
-                        that.drawText(ctx,options.name,490,170);
-                        that.drawText(ctx,options.level,880,170);
+                        that.drawText(ctx,'Name:',710,100);
+                        that.drawText(ctx,options.name,815,100,'40');
 
-                        that.drawText(ctx,options.certificateNo,490,275);
-                        that.drawText(ctx,options.date,880,275);
+                        that.drawText(ctx,'Level:',718,145);
+                        that.drawText(ctx,options.level,815,145);
 
-                        that.drawText(ctx,options.issuer,490,380);
-                        that.drawText(ctx,options.instructor,880,380);
+                        that.drawText(ctx,'Certification Number:',503,190);
+                        that.drawText(ctx,options.certificateNo,815,190);
+
+                        that.drawText(ctx,'Certification Date:',548,235);
+                        that.drawText(ctx,options.date,815,235);
+
+                        that.drawText(ctx,'Issusing Instructor:',533,280);
+                        that.drawText(ctx,options.instructor,815,280);
+
+                        that.drawText(ctx,'Issusing School:',568,325);
+                        that.drawText(ctx,options.issuer,815,325);
+
                         //
                         let dataUrl = canvas.toDataURL('image/jpeg');
                         options.callback&&options.callback(dataUrl);
@@ -317,7 +390,6 @@
             this.coach=JSON.parse(localStorage.getItem('curCoach'));
             this.coach=this.account.type=='coach'?this.account:this.coach;
             this.id=this.account.type=='coach'?this.account.id:this.$route.params.id;
-            console.log('this.coach:',this.coach);
             //
             this.levelOptions=this.genLevelConfig({level:this.coach.mfiLevel});
             this.levelOptions.unshift({

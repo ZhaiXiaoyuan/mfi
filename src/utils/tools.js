@@ -183,7 +183,6 @@ export default {
                   'BMI':["M0","M1"],
               }
               let temList=instrutorLevelLimit[options.level];
-              console.log('temList:',temList);
               let levelList=[];
               temList.forEach((item,i)=>{
                   levelList.push(  {

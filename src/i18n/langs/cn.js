@@ -192,6 +192,12 @@ const cn = {
         schoolQualificationFeeWaiver:'免除资格延续年费',
         activationEmail:'重新发送激活邮件',
         status:'状态',
+        notPrint:'未打印',
+        printing:'打印中',
+        hasPrint:'已打印',
+        hasSent:'已寄送',
+        finish:'已完成',
+        studentDetail:'学员详情',
     },
     title:{
         super:'超级管理员',

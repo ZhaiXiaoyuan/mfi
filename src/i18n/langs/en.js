@@ -185,6 +185,12 @@ const en = {
         schoolQualificationFeeWaiver:'school qualification fee waiver',
         activationEmail:'send the activation email',
         status:'status',
+        notPrint:'not print',
+        printing:'printing',
+        hasPrint:'has print',
+        hasSent:'has sent',
+        finish:'finish',
+        studentDetail:'student detail',
     },
     title:{
         super:'Super Administrator',

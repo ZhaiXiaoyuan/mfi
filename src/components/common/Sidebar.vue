@@ -209,7 +209,6 @@
 
             /**/
             this.account=this.getAccountInfo();
-            console.log('this.account:',this.account);
 
             this.accountAccess=null;
             if(this.account.type=='super'){

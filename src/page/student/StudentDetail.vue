@@ -1,6 +1,6 @@
 <template>
     <div class="page-content coach-detail">
-        <canvas width="1200" v-for="(item,index) in rawCertificateList" :id="'canvas'+index"  height="675" style="display:none;border:1px solid #d3d3d3;background:#ffffff;"></canvas>
+        <canvas width="1240" v-for="(item,index) in rawCertificateList" :id="'canvas'+index"  height="744" style="display:none;border:1px solid #d3d3d3;background:#ffffff;"></canvas>
         <div class="cm-panel">
             <div class="panel-hd">
                 <div class="cm-btn cm-return-btn" @click="$router.back();">
@@ -739,21 +739,22 @@
                 ctx.drawImage(img, x, y, d, d);
                 ctx.restore();
             },
-            drawText:function (ctx,text,x,y) {
+            drawText:function (ctx,text,x,y,fontSize) {
+                fontSize=fontSize?fontSize:32;
                 ctx.save();
-                ctx.font = "32px ' Helvetica Neue', Helvetica, Arial, 'Microsoft Yahei', 'Hiragino Sans GB', 'Heiti SC', 'WenQuanYi Micro Hei'";
-                ctx.fillStyle = "#666";
+                ctx.font = fontSize+"px ' Helvetica Neue', Helvetica, Arial, 'Microsoft Yahei', 'Hiragino Sans GB', 'Heiti SC', 'WenQuanYi Micro Hei'";
+                ctx.fillStyle = "#333";
                 ctx.fillText(text,x,y,300);
                 ctx.restore();
             },
             draw:function (options) {
-                console.log('id:',options.id);
                 let that=this;
                 var canvas=document.getElementById(options.id);
                 var ctx=canvas.getContext("2d");
 
                 ctx.save();
                 let bgImg=new Image();
+                bgImg.crossOrigin="anonymous";
                 bgImg.src=this.bgImg;
                 bgImg.onload=function(){
                     ctx.drawImage(bgImg,0,0);
@@ -762,27 +763,33 @@
 
                     ctx.save();
                     var img = new Image();
+                    img.crossOrigin="anonymous";
                     img.src = options.avatar;
                     img.onload=function () {
-                        that.circleImg(ctx, img, 95, 101, 150);
+                        that.circleImg(ctx, img, 95, 80, 150);
                         ctx.restore();
+                        //
+                        that.drawText(ctx,'Name:',710,100);
+                        that.drawText(ctx,options.name,815,100,'40');
+
+                        that.drawText(ctx,'Level:',718,145);
+                        that.drawText(ctx,options.level,815,145);
+
+                        that.drawText(ctx,'Certification Number:',503,190);
+                        that.drawText(ctx,options.certificateNo,815,190);
+
+                        that.drawText(ctx,'Certification Date:',548,235);
+                        that.drawText(ctx,options.date,815,235);
+
+                        that.drawText(ctx,'Issusing Instructor:',533,280);
+                        that.drawText(ctx,options.instructor,815,280);
+
+                        that.drawText(ctx,'Issusing School:',568,325);
+                        that.drawText(ctx,options.issuer,815,325);
 
                         //
-                        that.drawText(ctx,options.name,490,170);
-                        that.drawText(ctx,options.level,880,170);
-
-                        that.drawText(ctx,options.certificateNo,490,275);
-                        that.drawText(ctx,options.date,880,275);
-
-                        that.drawText(ctx,options.issuer,490,380);
-                        that.drawText(ctx,options.instructor,880,380);
-                        //
-                       try{
-                           let dataUrl = canvas.toDataURL('image/jpeg');
-                           options.callback&&options.callback(dataUrl);
-                       }catch (e){
-
-                       }
+                        let dataUrl = canvas.toDataURL('image/jpeg');
+                        options.callback&&options.callback(dataUrl);
                     }
                 }
             },

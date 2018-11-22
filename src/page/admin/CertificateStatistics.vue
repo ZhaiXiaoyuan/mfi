@@ -276,7 +276,7 @@
                             item.user=item.user?JSON.parse(item.user):null;
                             if(item.orderRecord){
                                 let orderInfo=JSON.parse(item.orderRecord);
-                                orderInfo.tpMsg=JSON.parse(orderInfo.tpMsg);
+                               /* orderInfo.tpMsg=JSON.parse(orderInfo.tpMsg);*/
                                 item.orderRecord=orderInfo;
                             }
                             this.entryList.push(item);

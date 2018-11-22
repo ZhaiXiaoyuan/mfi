@@ -186,6 +186,12 @@ const tw = {
         schoolQualificationFeeWaiver:'免除資格延續年費',
         activationEmail:'重新發送激活郵件',
         status:'狀態',
+        notPrint:'未打印',
+        printing:'打印中',
+        hasPrint:'已打印',
+        hasSent:'已寄送',
+        finish:'已完成',
+        studentDetail:'學員詳情',
     },
     title:{
         super:'超級管理員',
