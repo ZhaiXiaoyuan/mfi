@@ -468,7 +468,7 @@
                 let fb=Vue.operationFeedback({text:this.$t("tips.setting")});
                 Vue.api.grant(params).then((resp)=>{
                     if(resp.respCode=='2000'){
-                        this.unusedList.splice(0,1);
+                        this.unusedList.pop();
                         this.getList();
                         fb.setOptions({type:'complete', text:this.$t("tips.settingS")});
                         callback&&callback();
