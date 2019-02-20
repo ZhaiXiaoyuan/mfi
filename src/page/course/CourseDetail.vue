@@ -458,7 +458,7 @@
                 });
             },
             grantSubmit:function (item,callback) {
-                let certificate=this.unusedList[0];
+                let certificate=this.unusedList.pop();
                 let params={
                     ...Vue.sessionInfo(),
                     certificateId:certificate.id,
@@ -468,7 +468,6 @@
                 let fb=Vue.operationFeedback({text:this.$t("tips.setting")});
                 Vue.api.grant(params).then((resp)=>{
                     if(resp.respCode=='2000'){
-                        this.unusedList.pop();
                         this.getList();
                         fb.setOptions({type:'complete', text:this.$t("tips.settingS")});
                         callback&&callback();
