@@ -118,7 +118,7 @@ const cn = {
         help:'帮助',
         administrator:'管理员',
         add:'添加',
-        massage:'站内消息',
+        message:'站内消息',
         coach:'教练',
         school:'学校',
         logout:'退出',
@@ -198,6 +198,7 @@ const cn = {
         hasSent:'已寄送',
         finish:'已完成',
         studentDetail:'学员详情',
+        toHome:'首页',
     },
     title:{
         super:'超级管理员',

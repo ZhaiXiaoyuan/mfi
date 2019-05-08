@@ -1,11 +1,14 @@
 <template>
     <div class="login-page">
-        <div class="cm-btn switch-btn" v-if="type=='super'" @click="switchType('admin')">{{$t("btn.adminLogin")}}</div>
+        <div class="switch-panel">
+            <a href="http://www.mermaidfederation.com/" class="cm-btn switch-btn">{{$t("btn.toHome")}}</a>
+            <div class="cm-btn switch-btn" v-if="type=='super'" @click="switchType('admin')">{{$t("btn.adminLogin")}}</div>
 
-        <div class="cm-btn switch-btn" v-if="type=='admin'" @click="switchType('super')">{{$t("btn.superLogin")}}</div>
+            <div class="cm-btn switch-btn" v-if="type=='admin'" @click="switchType('super')">{{$t("btn.superLogin")}}</div>
 
-        <div class="cm-btn switch-btn" v-if="type=='student'" @click="switchType('coach')">{{$t("btn.coachLogin")}}</div>
-        <div class="cm-btn switch-btn" v-if="type=='coach'" @click="switchType('student')">{{$t("btn.studentLogin")}}</div>
+            <div class="cm-btn switch-btn" v-if="type=='student'" @click="switchType('coach')">{{$t("btn.coachLogin")}}</div>
+            <div class="cm-btn switch-btn" v-if="type=='coach'" @click="switchType('student')">{{$t("btn.studentLogin")}}</div>
+        </div>
         <language></language>
         <div class="login-panel">
             <div class="form-block">
@@ -120,17 +123,26 @@
         font-size: 20px;
         color: #606aaf;
     }
-    .switch-btn{
+    .switch-panel{
         position: fixed;
         z-index: 100;
         top:45px;
         left: 45px;
+    }
+    .switch-btn{
+      /*  position: fixed;
+        z-index: 100;
+        top:45px;
+        left: 45px;*/
         display: inline-block;
         font-size: 20px;
         color: #fff;
         padding: 12px 20px;
         border-radius: 5px;
         border: 1px solid #fff;
+        &+.switch-btn{
+            margin-left: 10px;
+        }
     }
     @media screen and (max-width: 1600px) {
         .login-panel{

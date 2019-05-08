@@ -112,7 +112,7 @@ const en = {
         help:'help',
         administrator:'Administrator',
         add:'Add',
-        massage:'Massage',
+        message:'Message',
         coach:'Instructor',
         school:'School',
         logout:'logout',
@@ -191,6 +191,7 @@ const en = {
         hasSent:'has sent',
         finish:'finish',
         studentDetail:'student detail',
+        toHome:'Home',
     },
     title:{
         super:'Super Administrator',

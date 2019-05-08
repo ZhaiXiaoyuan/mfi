@@ -254,7 +254,7 @@
                        code:'03',
                        icon: 'msg-icon',
                        index: '/msgList',
-                       title: this.$t("btn.massage"),
+                       title: this.$t("btn.message"),
                    },
                    {
                        code:'04',

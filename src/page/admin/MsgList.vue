@@ -30,7 +30,7 @@
                                 {{item.title}}
                             </td>
                             <td>
-                                <span v-if="item.fileUrl">{{item.fileUrl.split('massage/')[1]}}</span>
+                                <span v-if="item.fileUrl">{{item.fileUrl.split('message/')[1]}}</span>
                                 <span v-if="!item.fileUrl">-</span>
                             </td>
                             <td>

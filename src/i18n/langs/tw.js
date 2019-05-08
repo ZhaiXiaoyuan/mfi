@@ -112,7 +112,7 @@ const tw = {
         help:'幫助',
         administrator:'管理員',
         add:'添加',
-        massage:'站內消息',
+        message:'站內消息',
         coach:'教練',
         school:'學校',
         logout:'退出',
@@ -192,6 +192,7 @@ const tw = {
         hasSent:'已寄送',
         finish:'已完成',
         studentDetail:'學員詳情',
+        toHome:'首頁',
     },
     title:{
         super:'超級管理員',
