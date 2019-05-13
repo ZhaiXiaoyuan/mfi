@@ -74,7 +74,7 @@
                                 {{item.mfiLevel}}
                             </td>
                             <td>
-                                {{item.mfiLevel=='M0'?20:1}}
+                                1
                             </td>
                             <td>
                                 {{item.orderRecord?item.orderRecord.paymentGross:'-'}}
