@@ -53,9 +53,9 @@
                             <th>
                                 {{$t("label.status")}}
                             </th>
-                          <!--  <th>
-                                {{$t("label.auditDate")}}
-                            </th>-->
+                            <th>
+                                {{$t("label.gift20M0")}}
+                            </th>
                             <th>
                                 {{$t("label.handle")}}
                             </th>
@@ -78,9 +78,10 @@
                             <td>
                                 {{$t("btn."+item.instructorAccountStatus)}}
                             </td>
-                          <!--  <td>
-                                2018.02.22
-                            </td>-->
+                            <td>
+                                <span class="handle btn-style" v-if="item.giftCertificateState=='notPresented'" @click="sendM0(item)">{{$t('btn.send')}}</span>
+                                <span v-if="item.giftCertificateState=='presented'">{{$t('btn.sent')}}</span>
+                            </td>
                             <td>
                                 <span class="handle" @click="toDetail(index)" :class="{'cm-disabled':item.instructorAccountStatus=='nonActivated'}">{{$t('btn.detail')}}</span>
                                 <span class="handle" @click="reSentInstructorActivationEmail(item)" v-if="account.type=='admin'&&item.instructorAccountStatus=='nonActivated'">{{$t('btn.activationEmail')}}</span>
@@ -555,6 +556,22 @@
                         this.statusSettingDialogFlag=false;
                     }else{
                         fb.setOptions({type:'warn', text:this.$t("tips.settingF",{ msg: resp.respMsg})});
+                    }
+                });
+            },
+            sendM0:function (item) {
+                let params={
+                    ...Vue.sessionInfo(),
+                    adminId:this.account.id,
+                    instructorId:item.instructorId,
+                }
+                let fb=Vue.operationFeedback({text:this.$t("tips.handle")});
+                Vue.api.sendGiftCertificate(params).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        item.giftCertificateState='presented';
+                        fb.setOptions({type:'complete', text:this.$t("tips.handleS")});
+                    }else{
+                        fb.setOptions({type:'warn', text:this.$t("tips.handleF",{msg:resp.respMsg})});
                     }
                 });
             },

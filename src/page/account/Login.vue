@@ -328,6 +328,7 @@
                     Vue.api.studentLogin(params).then((resp)=>{
                         if(resp.respCode=='2000'){
                             let data=JSON.parse(resp.respMsg);
+                            console.log('data:',data);
                             this.$cookie.set('account',JSON.stringify({
                                 type:this.type,
                                 account:this.account,

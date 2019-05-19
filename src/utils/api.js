@@ -40,8 +40,8 @@ export default {
     }
 
     /**/
-    /*let basicUrl=false&&process.env.NODE_ENV=='development'?'/api':'http://39.108.11.197/mfi';*/
-      let basicUrl=false&&process.env.NODE_ENV=='development'?'/api':'http://www.mermaidfederation.com/mfi';
+    let basicUrl=false&&process.env.NODE_ENV=='development'?'/api':'http://api.linqi.tech:8621/mfi';
+     /* let basicUrl=false&&process.env.NODE_ENV=='development'?'/api':'http://www.mermaidfederation.com/mfi';*/
     Vue.api={
         //
      superLogin:function (params) {
@@ -440,6 +440,30 @@ export default {
             return Vue.http.ajax({
                 method: 'post',
                 url: basicUrl+'/certificate/setCertificateEntity',
+                params: params
+            });
+        },
+        //教练同意协议
+        agreeInstructorProtocol:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/protocol/agreeInstructorProtocol',
+                params: params
+            });
+        },
+        //学校同意协议
+        agreeSchoolProtocol:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/protocol/agreeSchoolProtocol',
+                params: params
+            });
+        },
+        //赠送20张m0证书(不可重复送)
+        sendGiftCertificate:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/instructor/sendGiftCertificate',
                 params: params
             });
         },

@@ -65,7 +65,8 @@ const en = {
         postcode:'postcode',
         quantity:'students count',
         schoolName:'school name',
-        paymentAccount:'payment account'
+        paymentAccount:'payment account',
+        gift20M0:'send 20 M0',
     },
     holder: {
         account:'please enter your account',
@@ -192,6 +193,9 @@ const en = {
         finish:'finish',
         studentDetail:'student detail',
         toHome:'Home',
+        agree:'agree',
+        send:'send',
+        sent:'sent',
     },
     title:{
         super:'Super Administrator',
@@ -238,6 +242,7 @@ const en = {
         certified:'activate',
         fail:'fail',
         disable:'disable',
+        serviceProtocol:'MFI User Service Protocol',
     },
     tips:{
         login:'logining...',

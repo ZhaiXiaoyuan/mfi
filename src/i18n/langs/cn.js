@@ -67,7 +67,8 @@ const cn = {
         postcode:'邮编',
         quantity:'人数',
         schoolName:'学校名',
-        paymentAccount:'支付賬號'
+        paymentAccount:'支付賬號',
+        gift20M0:'赠送20 M0',
     },
     holder: {
         account:'请输入账号',
@@ -199,6 +200,10 @@ const cn = {
         finish:'已完成',
         studentDetail:'学员详情',
         toHome:'首页',
+        agree:'同意',
+        send:'赠送',
+        sent:'已赠送',
+
     },
     title:{
         super:'超级管理员',
@@ -245,6 +250,7 @@ const cn = {
         certified:'账号已审核',
         fail:'账号审核失败',
         disable:'账号已禁用',
+        serviceProtocol:'MFI用户服务协议',
     },
     tips:{
         login:'登录中...',

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import bus from '../components/common/bus'
 
 Vue.use(Router);
 
@@ -174,6 +175,7 @@ router.beforeEach((to, from,next) => {
             Vue.api.getUserBaseInfo({  ...Vue.sessionInfo(), userId:account.id, role:account.type=='coach'?'instructor':'student'}).then((resp)=>{
                 if(resp.respCode=='2000'){
                     let data=JSON.parse(resp.respMsg);
+                    console.log('userInfo:',data);
                     account={
                         type:account.type,
                         account:account.account,
@@ -181,9 +183,14 @@ router.beforeEach((to, from,next) => {
                         ...data.instructorPayment
                     };
                     Vue.cookie.set('account',JSON.stringify(account),7);
-                    if(account.type=='coach'&&to.name!='coachDetail'){
-                        if(account.instructorAccountStatus=='pending'||account.instructorAccountStatus=='fail'||account.professionalMembersFee=='notPay'){
-                            router.push({name:'coachDetail'});
+                    if(account.type=='coach'){
+                        if(data.instructorProtocolState=='disable'){
+                            bus.$emit('service_modal_handle',data);
+                        }
+                        if(to.name!='coachDetail'){
+                            if(account.instructorAccountStatus=='pending'||account.instructorAccountStatus=='fail'||account.professionalMembersFee=='notPay'){
+                                router.push({name:'coachDetail'});
+                            }
                         }
                     }else if(account.type=='student'){
 
@@ -200,12 +207,20 @@ router.beforeEach((to, from,next) => {
             }).then((resp)=>{
                 if(resp.respCode=='2000'){
                     let data=JSON.parse(resp.respMsg);
+                    console.log('loginInfo:',data);
                     account={ type:account.type,account:account.account,...data.school,...data.schoolPayment};
                     Vue.cookie.set('account',JSON.stringify(account),7);
-                    if(account.schoolQualification=='notPay'&&to.name!='schoolDetail'){
-                        next({
-                            path: '/schoolDetail',
-                        })
+                    if(account.schoolQualification=='notPay'){
+                        if(data.schoolProtocolState=='disable'){
+                            bus.$emit('service_modal_handle',data);
+                        }
+                        if(to.name!='schoolDetail'){
+                            next({
+                                path: '/schoolDetail',
+                            })
+                        }else{
+                            next();
+                        }
                     }else{
                         next();
                     }

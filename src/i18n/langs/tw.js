@@ -65,7 +65,8 @@ const tw = {
         postcode:'郵編',
         quantity:'人數',
         schoolName:'學校名',
-        paymentAccount:'支付賬號'
+        paymentAccount:'支付賬號',
+        gift20M0:'贈送20 M0',
     },
     holder: {
         account:'請輸入賬號',
@@ -193,6 +194,9 @@ const tw = {
         finish:'已完成',
         studentDetail:'學員詳情',
         toHome:'首頁',
+        agree:'同意',
+        send:'贈送',
+        sent:'已贈送',
     },
     title:{
         super:'超級管理員',
@@ -239,6 +243,7 @@ const tw = {
         certified:'賬號已審核',
         fail:'賬號審核失敗',
         disable:'账号已禁用',
+        serviceProtocol:'MFI用戶服務協議',
     },
     tips:{
         login:'登錄中...',
