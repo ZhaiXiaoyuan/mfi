@@ -142,6 +142,11 @@ const router= new Router({
             name:'studentActivation',
             component: resolve => require(['../page/account/StudentActivation.vue'], resolve)
         },
+        {
+            path: '/protocol',
+            name:'protocol',
+            component: resolve => require(['../page/common/Protocol.vue'], resolve)
+        },
     ]
 });
 //注册全局导航守卫
@@ -187,7 +192,7 @@ router.beforeEach((to, from,next) => {
                         if(data.instructorProtocolState=='disable'){
                             bus.$emit('service_modal_handle',data);
                         }
-                        if(to.name!='coachDetail'){
+                        if(to.name!='coachDetail'&&to.name!='protocol'){
                             if(account.instructorAccountStatus=='pending'||account.instructorAccountStatus=='fail'||account.professionalMembersFee=='notPay'){
                                 router.push({name:'coachDetail'});
                             }
@@ -214,7 +219,7 @@ router.beforeEach((to, from,next) => {
                         if(data.schoolProtocolState=='disable'){
                             bus.$emit('service_modal_handle',data);
                         }
-                        if(to.name!='schoolDetail'){
+                        if(to.name!='schoolDetail'&&to.name!='protocol'){
                             next({
                                 path: '/schoolDetail',
                             })

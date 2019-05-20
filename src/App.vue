@@ -42,7 +42,7 @@
                 console.log('ddddd**********:',data);
                 this.alert({
                     title:'',
-                    html:'<div style="text-align: center;padding: 30px 0px;"><p style="font-size: 20px;color: #5360aa;cursor: pointer;">《'+this.$t("title.serviceProtocol")+'》</p></div>',
+                    html:'<div style="text-align: center;padding: 30px 0px;"><a href="/#/protocol" target="_blank" style="font-size: 20px;color: #5360aa;cursor: pointer;">《'+this.$t("title.serviceProtocol")+'》</a></div>',
                     yes:this.$t("btn.agree"),
                     lock:true,
                     ok:()=>{
