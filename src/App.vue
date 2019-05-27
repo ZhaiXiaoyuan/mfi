@@ -39,7 +39,6 @@
         mounted: function () {
             bus.$off('service_modal_handle');
             bus.$on('service_modal_handle', data => {
-                console.log('ddddd**********:',window.location);
                 let linkPrifix=window.location.href.split('#')[0];
                 this.alert({
                     title:'',
@@ -75,7 +74,7 @@
                             });
                         }
                     }
-                })
+                });
             });
         }
     };

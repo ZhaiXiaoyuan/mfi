@@ -203,7 +203,7 @@ const cn = {
         agree:'同意',
         send:'赠送',
         sent:'已赠送',
-
+        teachingMaterial:'教材',
     },
     title:{
         super:'超级管理员',
@@ -251,6 +251,7 @@ const cn = {
         fail:'账号审核失败',
         disable:'账号已禁用',
         serviceProtocol:'MFI用户服务协议',
+        teachingMaterial:'教材',
     },
     tips:{
         login:'登录中...',

@@ -197,6 +197,7 @@ const tw = {
         agree:'同意',
         send:'贈送',
         sent:'已贈送',
+        teachingMaterial:'教材',
     },
     title:{
         super:'超級管理員',
@@ -244,6 +245,7 @@ const tw = {
         fail:'賬號審核失敗',
         disable:'账号已禁用',
         serviceProtocol:'MFI用戶服務協議',
+        teachingMaterial:'教材',
     },
     tips:{
         login:'登錄中...',

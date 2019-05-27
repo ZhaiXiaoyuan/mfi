@@ -212,25 +212,25 @@
 
             this.accountAccess=null;
             if(this.account.type=='super'){
-                this.accountAccess=['01','02'];
+                this.accountAccess=['adminList','addAdmin'];
                 /* this.accountAccess='all';*/
             }else if(this.account.type=='admin'){
-                this.accountAccess=['03','04','05','06','07','08','09'];
+                this.accountAccess=['msgList','coachList','adminStudentList','material','auditList','certificateStatistics','schoolList','setting'];
             }
             else if(this.account.type=='coach'){
                 if(this.account.instructorAccountStatus=='certified'){
-                    this.accountAccess=['03','10','11','16','12','13',];
+                    this.accountAccess=['msgList','courseList','studentList','userAuditList','coachCertificateStatistics','coachDetail',];
                 }else{
-                    this.accountAccess=['13']
+                    this.accountAccess=['coachDetail']
                 }
             }else if(this.account.type=='student'){
-                this.accountAccess=['14','15'];
+                this.accountAccess=['studentCourseList','studentDetail'];
             }else if(this.account.type=='school'){
                 console.log('this.accountddd:',this.account);
                 if(this.account.schoolQualification=='notPay'){
-                    this.accountAccess=['17'];
+                    this.accountAccess=['schoolDetail'];
                 }else{
-                    this.accountAccess=['04','07','17'];
+                    this.accountAccess=['coachList','certificateStatistics','schoolDetail'];
                 }
             }
             this.initItems();
@@ -240,93 +240,99 @@
                /*菜单初始化配置*/
                this.itemsConfig=[
                    {
-                       code:'01',
+                       code:'adminList',
                        icon: 'admin-icon',
                        index: '/adminList',
                        title: this.$t("btn.administrator"),
                    },
                    {
-                       code:'02',
+                       code:'addAdmin',
                        icon: 'add-min-icon',
                        index: '/addAdmin',
                        title:this.$t("btn.add"),
                    },{
-                       code:'03',
+                       code:'msgList',
                        icon: 'msg-icon',
                        index: '/msgList',
                        title: this.$t("btn.message"),
                    },
                    {
-                       code:'04',
+                       code:'coachList',
                        icon: 'coach-icon',
                        index: '/coachList',
                        title: this.$t("btn.coach"),
                    },
                    {
-                       code:'05',
+                       code:'material',
+                       icon: 'student-icon',
+                       index: '/material/list',
+                       title: this.$t("btn.teachingMaterial"),
+                   },
+                   {
+                       code:'adminStudentList',
                        icon: 'student-icon',
                        index: '/adminStudentList',
                        title: this.$t("btn.studentModule"),
                    },
                    {
-                       code:'06',
+                       code:'auditList',
                        icon: 'audit-icon',
                        index: '/auditList',
                        title: this.$t("btn.auditModule"),
                    },
                    {
-                       code:'07',
+                       code:'certificateStatistics',
                        icon: 'certificate-icon',
                        index: '/certificateStatistics',
                        title: this.$t("btn.certificateModule"),
                    },
                    {
-                       code:'08',
+                       code:'schoolList',
                        icon: 'school-icon',
                        index: '/schoolList',
                        title: this.$t("btn.school"),
                    }, {
-                       code:'09',
+                       code:'setting',
                        icon: 'setting-icon',
                        index: '/setting',
                        title: this.$t("btn.settingModule"),
                    },{
-                       code:'10',
+                       code:'courseList',
                        icon: 'course-icon',
                        index: '/courseList',
                        title: this.$t("btn.myCourse"),
                    },{
-                       code:'11',
+                       code:'studentList',
                        icon: 'student-icon',
                        index: '/studentList',
                        title: this.$t("btn.myStudent"),
                    },{
-                       code:'12',
+                       code:'coachCertificateStatistics',
                        icon: 'certificate-icon',
                        index: '/coachCertificateStatistics',
                        title: this.$t("btn.certificateModule"),
                    },{
-                       code:'13',
+                       code:'coachDetail',
                        icon: 'my-icon',
                        index: '/coachDetail',
                        title: this.$t("btn.my"),
                    },{
-                       code:'14',
+                       code:'studentCourseList',
                        icon: 'course-icon',
                        index: '/studentCourseList',
                        title: this.$t("btn.myCourse"),
                    },{
-                       code:'15',
+                       code:'studentDetail',
                        icon: 'my-icon',
                        index: '/studentDetail',
                        title: this.$t("btn.my"),
                    }, {
-                       code:'16',
+                       code:'userAuditList',
                        icon: 'audit-icon',
                        index: '/userAuditList',
                        title: this.$t("btn.myAudit"),
                    },{
-                       code:'17',
+                       code:'schoolDetail',
                        icon: 'my-icon',
                        index: '/schoolDetail',
                        title: this.$t("btn.my"),

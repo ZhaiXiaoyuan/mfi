@@ -40,8 +40,8 @@ export default {
     }
 
     /**/
-    //let basicUrl=false&&process.env.NODE_ENV=='development'?'/api':'http://api.linqi.tech:8621/mfi';
-      let basicUrl=false&&process.env.NODE_ENV=='development'?'/api':'http://www.mermaidfederation.com:8081/mfi';
+    let basicUrl=false&&process.env.NODE_ENV=='development'?'/api':'http://api.linqi.tech:8621/mfi';
+      //let basicUrl=false&&process.env.NODE_ENV=='development'?'/api':'http://www.mermaidfederation.com:8081/mfi';
     Vue.api={
         //
      superLogin:function (params) {
@@ -464,6 +464,14 @@ export default {
             return Vue.http.ajax({
                 method: 'post',
                 url: basicUrl+'/instructor/sendGiftCertificate',
+                params: params
+            });
+        },
+        //根据等级获取教材
+        getTeachingMaterialList:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/teachingMaterial/getTeachingMaterialList',
                 params: params
             });
         },

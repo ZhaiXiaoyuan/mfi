@@ -125,6 +125,18 @@ const router= new Router({
                     name:'schoolDetail',
                     component: resolve => require(['../page/school/SchoolDetail.vue'], resolve)
                 },
+                {
+                    path: '/material',
+                    name:'material',
+                    component: resolve => require(['../page/course/Material.vue'], resolve),
+                    children:[
+                        {
+                            path: '/material/list',
+                            name:'materialList',
+                            component: resolve => require(['../page/course/MaterialList.vue'], resolve),
+                        },
+                    ]
+                },
             ]
         },
         {
