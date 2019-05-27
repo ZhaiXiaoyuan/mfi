@@ -189,8 +189,10 @@ router.beforeEach((to, from,next) => {
                     };
                     Vue.cookie.set('account',JSON.stringify(account),7);
                     if(account.type=='coach'){
-                        if(data.instructorProtocolState=='disable'){
-                            bus.$emit('service_modal_handle',data);
+                        if(to.name!='protocol'){
+                            if(data.instructorProtocolState=='disable'){
+                                bus.$emit('service_modal_handle',data);
+                            }
                         }
                         if(to.name!='coachDetail'&&to.name!='protocol'){
                             if(account.instructorAccountStatus=='pending'||account.instructorAccountStatus=='fail'||account.professionalMembersFee=='notPay'){
@@ -216,8 +218,10 @@ router.beforeEach((to, from,next) => {
                     account={ type:account.type,account:account.account,...data.school,...data.schoolPayment};
                     Vue.cookie.set('account',JSON.stringify(account),7);
                     if(account.schoolQualification=='notPay'){
-                        if(data.schoolProtocolState=='disable'){
-                            bus.$emit('service_modal_handle',data);
+                        if(to.name!='protocol'){
+                            if(data.schoolProtocolState=='disable'){
+                                bus.$emit('service_modal_handle',data);
+                            }
                         }
                         if(to.name!='schoolDetail'&&to.name!='protocol'){
                             next({

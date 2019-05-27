@@ -39,10 +39,11 @@
         mounted: function () {
             bus.$off('service_modal_handle');
             bus.$on('service_modal_handle', data => {
-                console.log('ddddd**********:',data);
+                console.log('ddddd**********:',window.location);
+                let linkPrifix=window.location.href.split('#')[0];
                 this.alert({
                     title:'',
-                    html:'<div style="text-align: center;padding: 30px 0px;"><a href="/#/protocol" target="_blank" style="font-size: 20px;color: #5360aa;cursor: pointer;">《'+this.$t("title.serviceProtocol")+'》</a></div>',
+                    html:'<div style="text-align: center;padding: 30px 0px;"><a href="'+linkPrifix+'#/protocol" target="_blank" style="font-size: 20px;color: #5360aa;cursor: pointer;">《'+this.$t("title.serviceProtocol")+'》</a></div>',
                     yes:this.$t("btn.agree"),
                     lock:true,
                     ok:()=>{
