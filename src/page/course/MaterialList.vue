@@ -1,13 +1,13 @@
 <template>
-    <div class="page-content coach-list">
+    <div class="page-content">
         <div class="cm-panel">
             <div class="panel-hd">
-                <div class="cm-btn cm-return-btn" @click="$router.back();"  v-if="account.type=='admin'">
+             <!--   <div class="cm-btn cm-return-btn" @click="$router.back();"  v-if="account.type=='admin'">
                     <div class="wrapper">
                         <i class="icon el-icon-arrow-left"></i>
                         {{$t('btn.back')}}
                     </div>
-                </div>
+                </div>-->
             </div>
             <div class="panel-bd">
                 <div class="cm-list-block" v-loading="pager.loading">
@@ -67,11 +67,11 @@
             </div>
         </div>
 
-        <div class="cm-btn cm-add-btn" :class="{'cm-disabled':account.instructorAccountStatus!='certified'||account.instructorQualification=='notPay'}" v-if="account.type=='coach'" @click="dialogFormVisible=true">
+        <div class="cm-btn cm-add-btn" v-if="account.type=='admin'" @click="dialogFormVisible=true">
             <div class="icon-wrap">
                 <i class="icon add-cross-icon"></i>
             </div>
-            <p>{{$t('btn.newCourse')}}</p>
+            <p>{{$t('btn.newMaterial')}}</p>
         </div>
         <el-dialog :title='$t("title.newCourse")' class="cm-dialog new-course-dialog" :visible.sync="dialogFormVisible" v-if="dialogFormVisible" width="40%">
             <div class="form">
@@ -189,48 +189,10 @@
                 localStorage.setItem('curCourse',JSON.stringify(course));
                 this.$router.push({name:'courseDetail',params:{id:course.courseId}});
             },
-            save:function () {
-                if(!this.newForm.courseName){
-                    Vue.operationFeedback({type:'warn',text:this.$t("holder.courseName")});
-                    return;
-                }
-                if(!this.newForm.level){
-                    Vue.operationFeedback({type:'warn',text:this.$t("holder.level")});
-                    return;
-                }
-                if(!this.newForm.address){
-                    Vue.operationFeedback({type:'warn',text:this.$t("holder.address")});
-                    return;
-                }
-                if(!this.newForm.startTime){
-                    Vue.operationFeedback({type:'warn',text:this.$t("holder.startTime")});
-                    return;
-                }
-                let params={
-                    ...Vue.sessionInfo(),
-                    instructorId:this.coach.id,
-                    mfiLevel:this.newForm.level,
-                    courseName:this.newForm.courseName,
-                    site:this.newForm.address,
-                    startTime:Vue.formatDate(this.newForm.startTime,'yyyy-MM-dd')
-                }
-                let fb=Vue.operationFeedback({text:this.$t("tips.save")});
-                Vue.api.addCourse(params).then((resp)=>{
-                    if(resp.respCode=='2000'){
-                        this.getList();
-                        this.dialogFormVisible=false;
-                        fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
-                    }else{
-                        fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
-                    }
-                });
-            },
         },
         mounted () {
             /**/
-            this.coach=JSON.parse(localStorage.getItem('curCoach'));
             this.account=Vue.getAccountInfo();
-            this.coach=this.account.type=='coach'?this.account:this.coach;
 
             /**/
             this.levelOptions=this.genLevelConfig({level:this.account.type=='coach'?this.account.mfiLevel:'all'});

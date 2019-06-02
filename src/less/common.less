@@ -498,6 +498,18 @@ body{
     border: none;
     border-radius: 10px;
     box-shadow: 0px 1px 10px rgba(85,96,170,0.3);
+    &::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+        color:    #c5c5c5;
+    }
+    &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color:    #c5c5c5;
+    }
+    &::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color:    #c5c5c5;
+    }
+    &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color:    #c5c5c5;
+    }
 }
 .cm-handle-btn{
     display: inline-block;
@@ -528,6 +540,25 @@ body{
         font-size: 16px;
         color: #fff;
         padding-top: 10px;
+    }
+}
+.cm-right-handle-list{
+    position: fixed;
+    right: 50px;
+    top:50%;
+    width: 38px;
+    background: rgba(85,96,170,0.8);
+    border-radius: 8px;
+    padding: 0px 0px;
+    .handle-btn{
+        padding: 15px 5px;
+        color: #fff;
+        font-size: 12px;
+        text-align: center;
+        color: #eaeaea;
+        &+.handle-btn{
+            border-top: 1px solid #eaeaea;
+        }
     }
 }
 .cm-dialog{

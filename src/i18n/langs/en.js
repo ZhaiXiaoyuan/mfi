@@ -197,6 +197,8 @@ const en = {
         send:'send',
         sent:'sent',
         teachingMaterial:'Teaching Material',
+        newMaterial:'New Teaching Material',
+        save:'save',
     },
     title:{
         super:'Super Administrator',
@@ -245,6 +247,9 @@ const en = {
         disable:'disable',
         serviceProtocol:'MFI User Service Protocol',
         teachingMaterial:'Teaching Material',
+        addMaterial:'New Teaching Material',
+        editMaterial:'Edit Teaching Material',
+        materialDetail:'Teaching Material Detail',
     },
     tips:{
         login:'logining...',

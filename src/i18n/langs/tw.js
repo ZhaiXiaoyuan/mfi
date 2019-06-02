@@ -198,6 +198,8 @@ const tw = {
         send:'贈送',
         sent:'已贈送',
         teachingMaterial:'教材',
+        newMaterial:'新的教材',
+        save:'保存',
     },
     title:{
         super:'超級管理員',
@@ -246,6 +248,9 @@ const tw = {
         disable:'账号已禁用',
         serviceProtocol:'MFI用戶服務協議',
         teachingMaterial:'教材',
+        addMaterial:'新增教材',
+        editMaterial:'編輯教材',
+        materialDetail:'教材詳情',
     },
     tips:{
         login:'登錄中...',

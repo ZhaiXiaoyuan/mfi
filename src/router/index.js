@@ -131,9 +131,14 @@ const router= new Router({
                     component: resolve => require(['../page/course/Material.vue'], resolve),
                     children:[
                         {
-                            path: '/material/list',
+                            path: '/materialList',
                             name:'materialList',
                             component: resolve => require(['../page/course/MaterialList.vue'], resolve),
+                        },
+                        {
+                            path: '/materialItem/:type?',
+                            name:'materialItem',
+                            component: resolve => require(['../page/course/MaterialItem.vue'], resolve),
                         },
                     ]
                 },

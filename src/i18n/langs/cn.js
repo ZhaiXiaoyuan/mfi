@@ -204,6 +204,8 @@ const cn = {
         send:'赠送',
         sent:'已赠送',
         teachingMaterial:'教材',
+        newMaterial:'新的教材',
+        save:'保存',
     },
     title:{
         super:'超级管理员',
@@ -252,6 +254,9 @@ const cn = {
         disable:'账号已禁用',
         serviceProtocol:'MFI用户服务协议',
         teachingMaterial:'教材',
+        addMaterial:'新增教材',
+        editMaterial:'编辑教材',
+        materialDetail:'教材详情',
     },
     tips:{
         login:'登录中...',
