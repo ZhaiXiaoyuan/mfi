@@ -161,6 +161,7 @@
                 listLevelOptions:[],
                 selectedLevel:null,
 
+                ownCourse:true,//是否是自己开设的课程
                 keyword:null,
                 pager:{
                     pageSize:20,
@@ -195,6 +196,7 @@
                     instructorId:this.coach.id,
                     mfiLevel:this.selectedLevel,
                     searchContent:this.keyword,
+                    ownCourse:this.ownCourse,
                 }
                 this.pager.loading=true;
                 Vue.api.getCourseList(params).then((resp)=>{
@@ -242,7 +244,8 @@
                     mfiLevel:this.newForm.level,
                     courseName:this.newForm.courseName,
                     site:this.newForm.address,
-                    startTime:Vue.formatDate(this.newForm.startTime,'yyyy-MM-dd')
+                    startTime:Vue.formatDate(this.newForm.startTime,'yyyy-MM-dd'),
+                    ownerId:this.account.id,
                 }
                 let fb=Vue.operationFeedback({text:this.$t("tips.save")});
                 Vue.api.addCourse(params).then((resp)=>{

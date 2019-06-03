@@ -40,7 +40,7 @@ export default {
     }
 
     /**/
-    let basicUrl=false&&process.env.NODE_ENV=='development'?'/api':'http://api.linqi.tech:8621/mfi';
+    let basicUrl=process.env.NODE_ENV=='development'?'/api'+'/mfi':'http://api.linqi.tech:8621/mfi';
       //let basicUrl=false&&process.env.NODE_ENV=='development'?'/api':'http://www.mermaidfederation.com:8081/mfi';
     Vue.api={
         //

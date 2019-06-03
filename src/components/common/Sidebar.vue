@@ -23,7 +23,7 @@
                     </el-submenu>
                 </template>
                 <template v-else>
-                    <el-menu-item :index="item.index" :class="{'active':pageName.indexOf(item.code)>-1}" :key="item.index">
+                    <el-menu-item :index="item.index" :class="{'active':pageName&&pageName.indexOf(item.code)>-1}" :key="item.index">
                         <span class="line"></span>
                         <span class="icon-wrap"> <i class="icon" :class="item.icon"></i></span>
                         <span class="title" slot="title">{{ item.title }}</span>

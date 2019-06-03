@@ -7,7 +7,7 @@
           </div>
           <div class="modal-body">
               <div class="dialog-body">
-                  <form action="https://www.paypal.com/cgi-bin/webscr" id="form" method="post" target="_blank">
+                  <form :action="paypalPrefix+'/cgi-bin/webscr'" id="form" method="post" target="_blank">
                       <input type="hidden" name="cmd" value="_s-xclick">
                       <input type="hidden" name="hosted_button_id" v-model="token">
                       <input type="hidden" name="invoice" v-model="temOrderId">
@@ -87,6 +87,7 @@
     },
     data: function () {
       return {
+          paypalPrefix:Vue.tools.basicConfig.paypalPrefix,
           tokenConfig:{
               'M0':'6P96Z9GWVXTE2',
               'M1':'XRFB5G85EYQ7W',
@@ -138,7 +139,7 @@
     mounted: function () {
         /**/
         //临时测试
-        this.token=false&&process.env.NODE_ENV=='development'?this.tokenConfig[this.options.level]:this.prodTokenConfig[this.options.level];
+        this.token=process.env.NODE_ENV=='development'?this.tokenConfig[this.options.level]:this.prodTokenConfig[this.options.level];
         this.temOrderId=this.options.userId+'-'+this.options.level+'-'+Vue.genTimestamp();
       /*  console.log('this.token:',this.token);
         console.log('this.temOderId:',this.temOrderId);*/

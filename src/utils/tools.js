@@ -49,6 +49,7 @@ export default {
               filePrefix:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://39.108.11.197',*/
               basicUrl:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://www.mermaidfederation.com',
               filePrefix:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://www.mermaidfederation.com',
+              paypalPrefix:process.env.NODE_ENV=='development'?'https://www.sandbox.paypal.com':'https://www.paypal.com',
               levelOptions:[
                   {
                       value:'M0',
