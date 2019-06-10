@@ -67,6 +67,7 @@ const en = {
         schoolName:'school name',
         paymentAccount:'payment account',
         gift20M0:'send 20 M0',
+        schoolNameLen:'school name',
     },
     holder: {
         account:'please enter your account',
@@ -163,6 +164,7 @@ const en = {
         auditPending:'pending',
         auditPass:'pass',
         auditFail:'fail',
+        auditPassLen:'pass',
         myCourse:'Course',
         newCourse:'new course',
         viewCertificate:'certificate',
@@ -199,6 +201,9 @@ const en = {
         teachingMaterial:'Teaching Material',
         newMaterial:'New Teaching Material',
         save:'save',
+        useDefaultPwd:'use default',
+        buyRecord:'buy record',
+        coachInfo:'coach'
     },
     title:{
         super:'Super Administrator',
@@ -282,6 +287,9 @@ const en = {
         professionalMembersFeeWaiver:'are you sure to waive the professional members fee?',
         instructorQualificationFeeWaiver:'are you sure to waive the instructor qualification fee?',
         schoolQualificationFeeWaiver:'are you sure to waive the school qualification fee',
+        upload:'uploading',
+        uploadS:'upload successfully',
+        uploadF:'upload failure',
     },
     el: {
         colorpicker: {

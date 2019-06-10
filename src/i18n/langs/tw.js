@@ -67,6 +67,7 @@ const tw = {
         schoolName:'學校名',
         paymentAccount:'支付賬號',
         gift20M0:'贈送20 M0',
+        schoolNameLen:'學校名稱',
     },
     holder: {
         account:'請輸入賬號',
@@ -164,6 +165,7 @@ const tw = {
         auditPending:'待審核',
         auditPass:'已通過',
         auditFail:'已駁回',
+        auditPassLen:'通過審核',
         myCourse:'我的課程',
         newCourse:'新的課程',
         viewCertificate:'查看證書',
@@ -200,6 +202,9 @@ const tw = {
         teachingMaterial:'教材',
         newMaterial:'新的教材',
         save:'保存',
+        useDefaultPwd:'設為系統默認',
+        buyRecord:'購買記錄',
+        coachInfo:'教練信息',
     },
     title:{
         super:'超級管理員',
@@ -282,6 +287,9 @@ const tw = {
         professionalMembersFeeWaiver:'確定免除該教練的專業會員年費？',
         instructorQualificationFeeWaiver:'確定免除該教練的資格註冊延續年費？',
         schoolQualificationFeeWaiver:'確定免除該學校的資格延續年費？',
+        upload:'上傳中',
+        uploadS:'上傳成功',
+        uploadF:'上傳失敗',
     },
     el: {
         colorpicker: {

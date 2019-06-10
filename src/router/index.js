@@ -121,7 +121,7 @@ const router= new Router({
                     component: resolve => require(['../page/common/UserAuditList.vue'], resolve)
                 },
                 {
-                    path: '/schoolDetail',
+                    path: '/schoolDetail/:code?',
                     name:'schoolDetail',
                     component: resolve => require(['../page/school/SchoolDetail.vue'], resolve)
                 },
@@ -136,7 +136,7 @@ const router= new Router({
                             component: resolve => require(['../page/course/MaterialList.vue'], resolve),
                         },
                         {
-                            path: '/materialItem/:type?',
+                            path: '/materialItem/:type?/:id?',
                             name:'materialItem',
                             component: resolve => require(['../page/course/MaterialItem.vue'], resolve),
                         },

@@ -52,6 +52,7 @@
                                 {{item.serialCode}}
                             </td>
                             <td>
+                                <span class="handle" @click="toDetail(index)">{{$t("btn.detail")}}</span>
                                 <span class="handle" @click="toEdit(index)">{{$t("btn.edit")}}</span>
                                 <span class="handle" @click="feeWaiver(item)" v-if="item.schoolQualification=='notPay'">{{$t("btn.schoolQualificationFeeWaiver")}}</span>
                             </td>
@@ -82,6 +83,15 @@
                 <div class="cm-input-row">
                     <span class="field">{{$t("label.schoolName")}}</span>
                     <input type="text" v-model="editForm.name" class="cm-input">
+                </div>
+                <div class="cm-input-row">
+                    <span class="field">{{$t("label.email")}}</span>
+                    <input type="text" v-model="editForm.email" class="cm-input">
+                </div>
+                <div class="cm-input-row cm-inner-btn-row">
+                    <span class="field">{{$t("label.pwd")}}</span>
+                    <input type="password" v-model="editForm.password" class="cm-input">
+                    <div class="cm-btn inner-btn">{{$t("btn.useDefaultPwd")}}</div>
                 </div>
                 <div class="cm-input-row">
                     <span class="field">{{$t("label.country")}}</span>
@@ -214,6 +224,14 @@
                     Vue.operationFeedback({type:'warn',text:this.$t("holder.schoolName")});
                     return;
                 }
+                if(!this.editForm.email){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.email")});
+                    return;
+                }
+                if(!this.editForm.password){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.pwd")});
+                    return;
+                }
                 if(!this.editForm.code&&!this.editForm.id){
                     Vue.operationFeedback({type:'warn',text:this.$t("holder.country")});
                     return;
@@ -304,6 +322,11 @@
                         fb.setOptions({type:'warn', text:this.$t("tips.handleF",{ msg: resp.respMsg})});
                     }
                 });
+            },
+            toDetail:function (index) {
+                let item=this.entryList[index];
+                this.$router.push({name:'schoolDetail',params:{code:item.serialCode}})
+                console.log('item233:',item);
             }
         },
         mounted () {

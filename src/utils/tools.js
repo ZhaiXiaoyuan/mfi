@@ -48,7 +48,7 @@ export default {
              /* basicUrl:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://39.108.11.197',
               filePrefix:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://39.108.11.197',*/
               basicUrl:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://www.mermaidfederation.com',
-              filePrefix:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://www.mermaidfederation.com',
+              filePrefix:process.env.NODE_ENV=='development'?'http://api.linqi.tech:8621':'http://www.mermaidfederation.com',
               paypalPrefix:process.env.NODE_ENV=='development'?'https://www.sandbox.paypal.com':'https://www.paypal.com',
               levelOptions:[
                   {
@@ -206,6 +206,7 @@ export default {
               });
               return levelList;
           },
+          allLevelList:["M0","M1","M2","BMI","M3","MI","MMI","MIT"],
           deviceType:function (options) {
               options={...{},...options}
               var isMobile=false;

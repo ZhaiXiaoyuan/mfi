@@ -475,6 +475,46 @@ export default {
                 params: params
             });
         },
+        //添加教材
+        addTeachingMaterial:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/teachingMaterial/addTeachingMaterial',
+                params: params
+            });
+        },
+        //修改教材
+        updataTeachingMaterial:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/teachingMaterial/updataTeachingMaterial',
+                params: params
+            });
+        },
+        //修改教材文件
+        updataTeachingMaterialFile:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/teachingMaterial/updataTeachingMaterialFile',
+                params: params
+            });
+        },
+        //获取教材详情（包括富文本）
+        getTeachingMaterial:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/teachingMaterial/getTeachMaterialInfo',
+                params: params
+            });
+        },
+        //上传富文本中的图片
+        addContentPicture:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/teachingMaterial/addContentPicture',
+                params: params
+            });
+        },
     }
   },
 

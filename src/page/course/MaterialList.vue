@@ -48,7 +48,8 @@
                                 {{item.createdAt|formatDate('yyyy-MM-dd hh:mm')}}
                             </td>
                             <td>
-                                <span class="handle" @click="toDetail(index)">{{$t('btn.detail')}}</span>
+                                <span class="handle" @click="toDetail(index,'view')">{{$t('btn.detail')}}</span>
+                                <span class="handle" @click="toDetail(index,'edit')" v-if="account.type=='admin'">{{$t('btn.edit')}}</span>
                             </td>
                         </tr>
                         </tbody>
@@ -67,51 +68,15 @@
             </div>
         </div>
 
-        <div class="cm-btn cm-add-btn" v-if="account.type=='admin'" @click="dialogFormVisible=true">
+        <router-link tag="div" :to="{name:'materialItem',params:{type:'add'}}" class="cm-btn cm-add-btn" v-if="account.type=='admin'" @click="dialogFormVisible=true">
             <div class="icon-wrap">
                 <i class="icon add-cross-icon"></i>
             </div>
             <p>{{$t('btn.newMaterial')}}</p>
-        </div>
-        <el-dialog :title='$t("title.newCourse")' class="cm-dialog new-course-dialog" :visible.sync="dialogFormVisible" v-if="dialogFormVisible" width="40%">
-            <div class="form">
-                <div class="cm-input-row">
-                    <span class="field">{{$t("label.courseName")}}</span>
-                    <input type="text" v-model="newForm.courseName" class="cm-input">
-                </div>
-                <div class="cm-input-row">
-                    <span class="field">{{$t("label.level")}}</span>
-                    <el-select v-model="newForm.level" class="handle cm-select">
-                        <el-option
-                            v-for="(item,index) in levelOptions"
-                            :key="index"
-                            :label="item.label"
-                            :value="item.value">
-                        </el-option>
-                    </el-select>
-                </div>
-                <div class="cm-input-row">
-                    <span class="field">{{$t("label.address")}}</span>
-                    <input type="text" v-model="newForm.address" class="cm-input">
-                </div>
-                <div class="cm-input-row">
-                    <span class="field">{{$t("label.startTime")}}</span>
-                    <el-date-picker
-                        class="cm-date-selector"
-                        v-model="newForm.startTime"
-                        type="date"
-                        :placeholder='$t("label.startTime")'>
-                    </el-date-picker>
-                </div>
-            </div>
-            <div class="handle-list">
-                <div class="cm-btn cm-handle-btn handle-btn" @click="dialogFormVisible=false">{{$t("btn.cancel")}}</div>
-                <div class="cm-btn cm-handle-btn handle-btn" @click="save">{{$t("btn.submit")}}</div>
-            </div>
-        </el-dialog>
+        </router-link>
     </div>
 </template>
-<style lang="less" rel="stylesheet/less">
+<style lang="less" rel="stylesheet/less" scoped>
     .cm-input-row .field{
         min-width: 110px;
     }
@@ -138,11 +103,6 @@
                     loading:false,
                 },
                 entryList:[],
-
-                dialogFormVisible:false,
-                newForm:{
-                    level:null,
-                }
             }
         },
         created(){
@@ -184,10 +144,10 @@
             levelChange:function (data) {
                 this.getList();
             },
-            toDetail:function (index) {
-                let course=this.entryList[index];
-                localStorage.setItem('curCourse',JSON.stringify(course));
-                this.$router.push({name:'courseDetail',params:{id:course.courseId}});
+            toDetail:function (index,type) {
+                type=type?type:'add';
+                let item=this.entryList[index];
+                this.$router.push({name:'materialItem',params:{id:item.id,type:type}});
             },
         },
         mounted () {

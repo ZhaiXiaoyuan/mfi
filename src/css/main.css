@@ -379,6 +379,7 @@ body {
           align-items: center;
 }
 .cm-panel .panel-hd .title {
+  padding: 0px 10px;
   font-size: 30px;
   color: #fff;
 }
@@ -533,9 +534,9 @@ body {
 .cm-input {
   padding: 0px 10px 0px 10px;
   width: 300px;
-  height: 50px;
+  height: 44px;
   background: #fff;
-  font-size: 20px;
+  font-size: 18px;
   border: none;
   border-radius: 10px;
   box-shadow: 0px 1px 10px rgba(85, 96, 170, 0.3);
@@ -558,14 +559,14 @@ body {
 }
 .cm-handle-btn {
   display: inline-block;
-  padding: 0px 50px;
-  height: 60px;
+  padding: 0px 40px;
+  height: 56px;
   border-radius: 5px;
   background: #5560aa;
-  font-size: 22px;
+  font-size: 20px;
   color: #fff;
   text-align: center;
-  line-height: 60px;
+  line-height: 56px;
 }
 .cm-add-btn {
   position: fixed;
@@ -601,13 +602,13 @@ body {
   z-index: 100;
   right: 50px;
   top: 50%;
-  width: 38px;
+  width: 45px;
   background: rgba(85, 96, 170, 0.8);
   border-radius: 8px;
   padding: 0px 0px;
 }
 .cm-right-handle-list .handle-btn {
-  padding: 15px 5px;
+  padding: 20px 2px;
   color: #fff;
   font-size: 12px;
   text-align: center;
@@ -625,7 +626,7 @@ body {
   padding: 30px 20px;
 }
 .cm-dialog .el-dialog__header .el-dialog__title {
-  font-size: 28px;
+  font-size: 24px;
   color: #5360aa;
 }
 .cm-dialog .el-dialog__body {
@@ -840,10 +841,10 @@ body {
 }
 .cm-input-row .field {
   display: inline-block;
-  min-width: 128px;
+  min-width: 120px;
   text-align: right;
   margin-right: 20px;
-  font-size: 20px;
+  font-size: 16px;
   color: #5560aa;
   word-break: break-all;
 }
@@ -895,6 +896,37 @@ body {
   padding: 20px;
   resize: none;
 }
+.cm-inner-btn-row {
+  position: relative;
+}
+.cm-inner-btn-row input {
+  width: 200px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+.cm-inner-btn-row .inner-btn {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100px;
+  height: 44px;
+  color: #fff;
+  background: #5560aa;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  font-size: 12px;
+  padding: 0px 5px;
+  box-shadow: 0px 1px 10px rgba(85, 96, 170, 0.3);
+}
 .cm-disabled {
   opacity: 0.6;
   pointer-events: none;
@@ -904,6 +936,18 @@ body {
 }
 .cm-link-btn {
   cursor: pointer;
+}
+.cm-handle-min-btn {
+  font-size: 12px;
+  height: 28px;
+  line-height: 28px;
+  padding: 0px 10px;
+}
+.cm-handle-md-btn {
+  font-size: 12px;
+  height: 44px;
+  line-height: 44px;
+  padding: 0px 20px;
 }
 .cm-tab-list {
   overflow: hidden;

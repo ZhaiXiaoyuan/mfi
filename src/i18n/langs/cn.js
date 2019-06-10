@@ -69,6 +69,7 @@ const cn = {
         schoolName:'学校名',
         paymentAccount:'支付賬號',
         gift20M0:'赠送20 M0',
+        schoolNameLen:'学校名称'
     },
     holder: {
         account:'请输入账号',
@@ -170,6 +171,7 @@ const cn = {
         auditPending:'待审核',
         auditPass:'已通过',
         auditFail:'已驳回',
+        auditPassLen:'通过审核',
         myCourse:'我的课程',
         newCourse:'新的课程',
         viewCertificate:'查看证书',
@@ -206,6 +208,9 @@ const cn = {
         teachingMaterial:'教材',
         newMaterial:'新的教材',
         save:'保存',
+        useDefaultPwd:'设为系统默认',
+        buyRecord:'购买记录',
+        coachInfo:'教练信息',
     },
     title:{
         super:'超级管理员',
@@ -289,6 +294,9 @@ const cn = {
         professionalMembersFeeWaiver:'确定免除该教练的专业会员年费？',
         instructorQualificationFeeWaiver:'确定免除该教练的资格註册延续年费？',
         schoolQualificationFeeWaiver:'确定免除该学校的资格延续年费？',
+        upload:'上传中',
+        uploadS:'上传成功',
+        uploadF:'上传失败',
 
     },
     el: {
