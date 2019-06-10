@@ -200,6 +200,9 @@ const tw = {
         teachingMaterial:'教材',
         newMaterial:'新的教材',
         save:'保存',
+        mall:'商城',
+        goods:'商品',
+        exchangeRecord:'兌換記錄',
     },
     title:{
         super:'超級管理員',
@@ -251,6 +254,7 @@ const tw = {
         addMaterial:'新增教材',
         editMaterial:'編輯教材',
         materialDetail:'教材詳情',
+        mall:'商城',
     },
     tips:{
         login:'登錄中...',

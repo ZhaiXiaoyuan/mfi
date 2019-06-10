@@ -126,6 +126,18 @@ const router= new Router({
                     component: resolve => require(['../page/school/SchoolDetail.vue'], resolve)
                 },
                 {
+                    path: '/mall',
+                    name:'mall',
+                    component: resolve => require(['../page/mall/Mall.vue'], resolve),
+                    children:[
+                        {
+                            path: '/mallHome',
+                            name:'mallHome',
+                            component: resolve => require(['../page/mall/MallHome.vue'], resolve),
+                        },
+                    ]
+                },
+                {
                     path: '/material',
                     name:'material',
                     component: resolve => require(['../page/course/Material.vue'], resolve),

@@ -199,6 +199,7 @@ const en = {
         teachingMaterial:'Teaching Material',
         newMaterial:'New Teaching Material',
         save:'save',
+        mall:'Mall',
     },
     title:{
         super:'Super Administrator',
@@ -250,6 +251,7 @@ const en = {
         addMaterial:'New Teaching Material',
         editMaterial:'Edit Teaching Material',
         materialDetail:'Teaching Material Detail',
+        mall:'Mall',
     },
     tips:{
         login:'logining...',

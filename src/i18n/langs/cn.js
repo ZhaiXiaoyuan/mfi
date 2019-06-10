@@ -206,6 +206,9 @@ const cn = {
         teachingMaterial:'教材',
         newMaterial:'新的教材',
         save:'保存',
+        mall:'商城',
+        goods:'商品',
+        exchangeRecord:'兑换记录',
     },
     title:{
         super:'超级管理员',
@@ -257,6 +260,7 @@ const cn = {
         addMaterial:'新增教材',
         editMaterial:'编辑教材',
         materialDetail:'教材详情',
+        mall:'商城',
     },
     tips:{
         login:'登录中...',
