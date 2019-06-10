@@ -203,7 +203,8 @@ const en = {
         save:'save',
         useDefaultPwd:'use default',
         buyRecord:'buy record',
-        coachInfo:'coach'
+        coachInfo:'coach',
+        mall:'Mall',
     },
     title:{
         super:'Super Administrator',
@@ -255,6 +256,7 @@ const en = {
         addMaterial:'New Teaching Material',
         editMaterial:'Edit Teaching Material',
         materialDetail:'Teaching Material Detail',
+        mall:'Mall',
     },
     tips:{
         login:'logining...',

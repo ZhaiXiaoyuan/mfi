@@ -215,7 +215,7 @@
                 this.accountAccess=['adminList','addAdmin'];
                 /* this.accountAccess='all';*/
             }else if(this.account.type=='admin'){
-                this.accountAccess=['msgList','coachList','adminStudentList','material','auditList','certificateStatistics','schoolList','setting'];
+                this.accountAccess=['msgList','coachList','adminStudentList','material','mall','auditList','certificateStatistics','schoolList','setting'];
             }
             else if(this.account.type=='coach'){
                 if(this.account.instructorAccountStatus=='certified'){
@@ -230,7 +230,7 @@
                 if(this.account.schoolQualification=='notPay'){
                     this.accountAccess=['schoolDetail'];
                 }else{
-                    this.accountAccess=['coachList','certificateStatistics','schoolDetail'];
+                    this.accountAccess=['coachList','certificateStatistics','schoolDetail','mall'];
                 }
             }
             this.initItems();
@@ -263,8 +263,14 @@
                        title: this.$t("btn.coach"),
                    },
                    {
+                       code:'mall',
+                       icon: 'mall-icon',
+                       index: '/mallHome',
+                       title: this.$t("btn.mall"),
+                   },
+                   {
                        code:'material',
-                       icon: 'student-icon',
+                       icon: 'material-icon',
                        index: '/materialList',
                        title: this.$t("btn.teachingMaterial"),
                    },

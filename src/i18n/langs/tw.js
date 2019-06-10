@@ -205,6 +205,9 @@ const tw = {
         useDefaultPwd:'設為系統默認',
         buyRecord:'購買記錄',
         coachInfo:'教練信息',
+        mall:'商城',
+        goods:'商品',
+        exchangeRecord:'兌換記錄',
     },
     title:{
         super:'超級管理員',
@@ -256,6 +259,7 @@ const tw = {
         addMaterial:'新增教材',
         editMaterial:'編輯教材',
         materialDetail:'教材詳情',
+        mall:'商城',
     },
     tips:{
         login:'登錄中...',
