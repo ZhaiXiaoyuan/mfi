@@ -355,6 +355,7 @@
 <script>
     import Vue from 'vue';
     import vueCropper from 'vue-cropper'
+    import md5 from 'js-md5'
 
     export default {
         components: {
@@ -768,6 +769,9 @@
                     imeStamp:Vue.genTimestamp(),
                     userId:this.id,
                     ...this.editForm
+                }
+                if(params.password){
+                    params.password=md5.hex(params.password);
                 }
                 let fb=Vue.operationFeedback({text:this.$t("tips.save")});
                 Vue.api.setUserBaseInfo(params).then((resp)=>{

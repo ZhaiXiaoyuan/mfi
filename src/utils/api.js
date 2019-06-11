@@ -515,6 +515,86 @@ export default {
                 params: params
             });
         },
+        //获取商品列表
+        getGoodsList:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/goods/getGoodsList',
+                params: params
+            });
+        },
+        //兑换商品
+        exchange:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/redeemCode/addRedeemRecord',
+                params: params
+            });
+        },
+        //兑换记录
+        getExchangeList:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/redeemCode/getRedeemRecordList',
+                params: params
+            });
+        },
+        //发送礼品兑换码（仅供测试、后面不开放）
+        addRedeemCode:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/redeemCode/addRedeemCode',
+                params: params
+            });
+        },
+        //获取购买记录
+        getGoodsRecordList:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/goods/getGoodsRecordList',
+                params: params
+            });
+        },
+        //增加礼品订单（不含支付）
+        addOrder:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/goods/addGoodsRecord',
+                params: params
+            });
+        },
+        //取消订单
+        cancelGoodsRecord:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/goods/cancelGoodsRecord',
+                params: params
+            });
+        },
+        //完成订单
+        fulfillGoodsRecord:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/goods/fulfillGoodsRecord',
+                params: params
+            });
+        },
+        //取消兑换
+        cancelRedeemRecord:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/redeemCode/cancelRedeemRecord',
+                params: params
+            });
+        },
+        //完成兑换
+        fulfillRedeemRecord:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/redeemCode/fulfillRedeemRecord',
+                params: params
+            });
+        },
     }
   },
 

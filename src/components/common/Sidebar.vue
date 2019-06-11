@@ -219,18 +219,18 @@
             }
             else if(this.account.type=='coach'){
                 if(this.account.instructorAccountStatus=='certified'){
-                    this.accountAccess=['msgList','courseList','studentList','userAuditList','coachCertificateStatistics','coachDetail',];
+                    this.accountAccess=['msgList','courseList','studentList','userAuditList','coachCertificateStatistics','mall','coachDetail',];
                 }else{
                     this.accountAccess=['coachDetail']
                 }
             }else if(this.account.type=='student'){
-                this.accountAccess=['studentCourseList','studentDetail'];
+                this.accountAccess=['studentCourseList','material','mall','studentDetail'];
             }else if(this.account.type=='school'){
                 console.log('this.accountddd:',this.account);
                 if(this.account.schoolQualification=='notPay'){
                     this.accountAccess=['schoolDetail'];
                 }else{
-                    this.accountAccess=['coachList','certificateStatistics','schoolDetail','mall'];
+                    this.accountAccess=['coachList','certificateStatistics','mall','schoolDetail'];
                 }
             }
             this.initItems();

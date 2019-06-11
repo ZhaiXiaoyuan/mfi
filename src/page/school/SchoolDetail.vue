@@ -25,8 +25,8 @@
                                             <span class="value">{{editForm.name}}</span>
                                         </el-col>
                                         <el-col :span="10" class="info-item">
-                                            <span class="label">{{$t('label.postcode')}}：</span>
-                                            <span class="value">{{editForm.postcode}}</span>
+                                            <span class="label">{{$t('label.email')}}：</span>
+                                            <span class="value">{{editForm.email}}</span>
                                         </el-col>
                                     </el-row>
                                     <el-row class="info-row">
@@ -35,8 +35,8 @@
                                             <span class="value">{{editForm.country}}</span>
                                         </el-col>
                                         <el-col :span="10" class="info-item">
-                                            <span class="label">{{$t('label.level')}}：</span>
-                                            <span class="value">{{editForm.level}}</span>
+                                            <span class="label">{{$t('label.code')}}：</span>
+                                            <span class="value">{{editForm.serialCode}}</span>
                                         </el-col>
                                     </el-row>
                                     <el-row class="info-row">
@@ -56,13 +56,23 @@
                                             <span class="value">{{editForm.city}}</span>
                                         </el-col>
                                         <el-col :span="10" class="info-item">
+                                            <span class="label">{{$t('label.level')}}：</span>
+                                            <span class="value">{{editForm.level}}</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="info-row">
+                                        <el-col :span="10" class="info-item">
                                             <span class="label">{{$t('label.address')}}：</span>
                                             <span class="value">{{editForm.address}}</span>
+                                        </el-col>
+                                        <el-col :span="10" class="info-item">
+                                            <span class="label">{{$t('label.postcode')}}：</span>
+                                            <span class="value">{{editForm.postcode}}</span>
                                         </el-col>
                                     </el-row>
                                 </el-col>
                                 <el-col :span="4">
-                                    <span style="margin-left: 10px;" class="cm-btn btn cm-handle-btn cm-handle-md-btn" @click="setStatus()" v-if="account.type=='admin'">{{$t("btn.edit")}}</span>
+                                    <span style="margin-left: 10px;" class="cm-btn btn cm-handle-btn cm-handle-md-btn" @click="toEdit()" v-if="account.type=='admin'">{{$t("btn.edit")}}</span>
                                 </el-col>
                             </el-row>
                         </div>
@@ -74,11 +84,16 @@
                             <div class="btn" @click="$router.push({name:'coachCertificateStatistics',params:{id:coach.id}})">{{$t("btn.buyRecord")}}</div>
                         </div>
                     </div>
+                    <div class="block-bd">
+                        <div class="btn-list">
+                            <div class="cm-btn btn" @click="toEdit()">{{$t("btn.editInfo")}}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <el-dialog :title='(account.type=="admin"?$t("title.editSchool"):$t("title.accountSetting"))' class="edit-dialog cm-dialog school-dialog" :visible.sync="editDialogFlag" v-if="editDialogFlag" width="40%">
+        <el-dialog :title='$t("title.accountSetting")' class="edit-dialog cm-dialog school-dialog" :visible.sync="editDialogFlag" v-if="editDialogFlag" width="40%">
             <div class="form">
                 <div class="cm-input-row">
                     <span class="field">{{$t("label.schoolName")}}</span>
@@ -88,10 +103,17 @@
                     <span class="field">{{$t("label.email")}}</span>
                     <input type="text" v-model="editForm.email" class="cm-input">
                 </div>
-                <div class="cm-input-row" :class="{'cm-inner-btn-row':account.type=='admin'}">
+                <div class="cm-input-row cm-inner-btn-row" v-if="account.type=='admin'">
                     <span class="field">{{$t("label.pwd")}}</span>
                     <input type="password" v-model="editForm.password" class="cm-input">
-                    <div class="cm-btn inner-btn">{{$t("btn.useDefaultPwd")}}</div>
+                    <div class="cm-btn inner-btn" @click="useDefaultPassword()">{{$t("btn.useDefaultPwd")}}</div>
+                </div>
+                <div class="cm-input-row input-row" v-if="account.type=='school'">
+                    <span class="field">{{$t("label.pwd")}}</span>
+                    <div class="input-item">
+                        <input :type="showPassword?'text':'password'" v-model="editForm.password" class="cm-input">
+                        <i class="icon" :class="{'eye-close-icon':showPassword,'eye-open-icon':!showPassword}" @click="showPassword=!showPassword"></i>
+                    </div>
                 </div>
                 <div class="cm-input-row">
                     <span class="field">{{$t("label.country")}}</span>
@@ -156,6 +178,7 @@
 </style>
 <script>
     import Vue from 'vue'
+    import md5 from 'js-md5'
 
     export default {
         components: {
@@ -235,6 +258,9 @@
                 let params={
                     ...this.editForm
                 }
+                if(params.password){
+                    params.password=md5.hex(params.password);
+                }
                 let fb=Vue.operationFeedback({text:this.$t("tips.save")});
                 Vue.api.updateSchool(params).then((resp)=>{
                     if(resp.respCode=='2000'){
@@ -264,10 +290,6 @@
 
                     }
                 });
-            },
-            reset:function () {
-                this.editForm=JSON.parse(JSON.stringify(this.account));
-                this.editForm.password=null;
             },
             toPay:function () {
                 console.log('this.unusedList:',this.unusedList);
@@ -309,7 +331,10 @@
                         clearInterval(interval);
                     }
                 });
-            }
+            },
+            toEdit:function (index) {
+                this.editDialogFlag=true;
+            },
         },
         mounted () {
             /**/
@@ -317,9 +342,12 @@
             console.log('this.code:',this.code);
             /**/
             this.account=Vue.getAccountInfo();
+            console.log('this.account:',this.account);
             /**/
             this.getSchoolDetail();
             this.getRegionConfig();
+            //
+           /* this.toEdit();*/
         },
     }
 </script>

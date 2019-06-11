@@ -36,10 +36,36 @@
                         </div>
                     </div>
                     <div class="cm-btn handle-btn" @click="login()">{{$t("btn.login")}}</div>
+                    <p class="help"><span class="cm-btn btn" @click="openForgetForm()">{{$t("btn.forget")}}</span><span class="cm-btn btn">{{$t("btn.help")}}</span></p>
                 </div>
             </div>
-            <p class="help">{{$t("btn.help")}}</p>
         </div>
+
+        <el-dialog title='' class="edit-dialog cm-dialog edit-dialog" :visible.sync="forgetModalFlag" v-if="forgetModalFlag" width="40%">
+            <div class="form-win">
+                <div class="form">
+                    <div class="cm-input-row">
+                        <span class="field">{{$t("label.email")}}</span>
+                        <input type="text" v-model="forgetForm.email" class="cm-input">
+                    </div>
+                    <div class="cm-input-row">
+                        <span class="field">{{$t("label.verificationCode")}}</span>
+                        <input type="text" v-model="forgetForm.verifyCode" class="cm-input">
+                        <gen-code :number="forgetForm.email" style="right: 50px;"></gen-code>
+                    </div>
+                    <div class="cm-input-row input-row">
+                        <span class="field">{{$t("label.pwd")}}</span>
+                        <div class="input-item">
+                            <input type="password" v-model="forgetForm.password" class="cm-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="handle-list">
+                <div class="cm-btn cm-handle-btn handle-btn" @click="forgetModalFlag=false">{{$t("btn.cancel")}}</div>
+                <div class="cm-btn cm-handle-btn handle-btn" @click="saveEdit()">{{$t("btn.submit")}}</div>
+            </div>
+        </el-dialog>
     </div>
 </template>
 
@@ -117,11 +143,15 @@
         }
     }
     .help{
-        position: absolute;
-        right: 50px;
-        bottom: 60px;
-        font-size: 20px;
+        display: flex;
+        margin-top: 30px;
+        font-size: 18px;
         color: #606aaf;
+        .btn{
+            &+.btn{
+                margin-left: auto;
+            }
+        }
     }
     .switch-panel{
         position: fixed;
@@ -200,10 +230,7 @@
             }
         }
         .help{
-            position: absolute;
-            right: 40px;
-            bottom: 50px;
-            font-size: 18px;
+            font-size: 16px;
             color: #606aaf;
         }
     }
@@ -223,6 +250,9 @@
                 account:null,
                 pwd:null,
                 showPassword:false,
+
+                forgetModalFlag:false,
+                forgetForm:{},
             }
         },
         methods: {
@@ -371,11 +401,17 @@
                         }
                     });
                 }
+            },
+            openForgetForm:function () {
+                this.forgetModalFlag=true;
+                this.forgetForm={};
             }
         },
         mounted () {
             /**/
             this.type=this.$route.params.type?this.$route.params.type:this.type;
+            //临时测试
+            this.openForgetForm();
         },
     }
 </script>

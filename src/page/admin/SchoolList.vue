@@ -78,6 +78,7 @@
             </div>
             <p>{{$t("btn.addSchool")}}</p>
         </div>
+
         <el-dialog :title='(editForm.id?$t("title.editSchool"):$t("title.addSchool"))' class="edit-dialog cm-dialog school-dialog" :visible.sync="dialogFormVisible" v-if="dialogFormVisible" width="40%">
             <div class="form">
                 <div class="cm-input-row">
@@ -91,7 +92,7 @@
                 <div class="cm-input-row cm-inner-btn-row">
                     <span class="field">{{$t("label.pwd")}}</span>
                     <input type="password" v-model="editForm.password" class="cm-input">
-                    <div class="cm-btn inner-btn">{{$t("btn.useDefaultPwd")}}</div>
+                    <div class="cm-btn inner-btn" @click="useDefaultPassword()">{{$t("btn.useDefaultPwd")}}</div>
                 </div>
                 <div class="cm-input-row">
                     <span class="field">{{$t("label.country")}}</span>
@@ -134,6 +135,7 @@
 </style>
 <script>
     import Vue from 'vue'
+    import md5 from 'js-md5'
 
     export default {
         components: {
@@ -260,6 +262,9 @@
                     ...this.editForm
                 }
                 let fb=Vue.operationFeedback({text:this.$t("tips.save")});
+                if(params.password){
+                    params.password=md5.hex(params.password);
+                }
                 if(!params.id){//新增
                     Vue.api.addSchool(params).then((resp)=>{
                         if(resp.respCode=='2000'){
@@ -284,8 +289,12 @@
             },
             toEdit:function (index) {
                 let item=this.entryList[index];
+                item.password='';
                 Object.assign(this.editForm,item);
                 this.dialogFormVisible=true;
+            },
+            userDefaultPassword:function () {
+                this.editForm.password='123456';
             },
             getRegionConfig:function () {
                 Vue.api.getRegionConfig({ ...Vue.sessionInfo()}).then((resp)=>{

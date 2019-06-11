@@ -536,6 +536,21 @@ body{
     color: #fff;
     text-align: center;
     line-height: 56px;
+    &+.cm-handle-btn{
+        margin-left: 20px;
+    }
+}
+.cm-handle-info-btn{
+    display: inline-block;
+    padding: 0px 40px;
+    height: 56px;
+    border-radius: 5px;
+    background: none;
+    font-size:20px;
+    color: #5560aa;
+    border: 1px solid #5560aa;
+    text-align: center;
+    line-height: 56px;
 }
 .cm-add-btn{
     position: fixed;
@@ -862,7 +877,7 @@ body{
     padding: 0px 10px;
 }
 .cm-handle-md-btn{
-    font-size: 12px;
+    font-size: 14px;
     height: 44px;
     line-height: 44px;
     padding: 0px 20px;
@@ -1151,6 +1166,26 @@ body{
     border-radius: 5px;
     padding: 20px;
 }
+.cm-goods-box{
+    .back-btn{
+        display: inline-block;
+        font-size: 14px;
+        color: #5360aa;
+        border-radius: 5px;
+        border: 1px solid #5360aa;
+        padding: 5px 15px;
+        cursor: pointer;
+    }
+    .box-bd{
+        margin-top: 20px;
+    }
+    .goods-content{
+        padding: 20px 50px;
+        img{
+            width: 100%;
+        }
+    }
+}
 
 /*小屏幕适配*/
 @media screen and (max-width: 1600px) {
@@ -1256,4 +1291,33 @@ body{
 .el-date-editor .el-input__prefix{
     left: auto;
     right: 5px;
+}
+
+.cm-goods-list{
+    >li{
+        display: inline-block;
+        width: 200px;
+        margin: 10px;
+        cursor: pointer;
+        .cover{
+            width: 200px;
+            height: 250px;
+        }
+        .name{
+            margin-top: 10px;
+            font-size: 16px;
+            text-align: center;
+            color: #5360aa;
+            word-break: break-all;
+        }
+        .handle{
+            margin-top: 10px;
+            text-align: center;
+            .handle-btn{
+                font-size: 12px;
+                height: 32px;
+                line-height: 32px;
+            }
+        }
+    }
 }
