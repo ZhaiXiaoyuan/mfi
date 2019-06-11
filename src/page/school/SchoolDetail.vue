@@ -47,7 +47,7 @@
                                         <el-col :span="10" class="info-item">
                                             <span class="label">{{$t('label.status')}}：</span>
                                             <span class="value">{{$t('btn.'+editForm.state)}}</span>
-                                            <span style="margin-left: 10px;" class="cm-btn btn cm-handle-btn cm-handle-min-btn" @click="setStatus()" v-if="account.type=='admin'&&(editForm.state=='pending'||editForm.state=='fail')">{{$t("btn.auditPassLen")}}</span>
+                                            <span style="margin-left: 10px;" class="cm-btn btn cm-handle-btn cm-handle-min-btn" @click="toAudit()" v-if="account.type=='admin'&&(editForm.state=='pending'||editForm.state=='fail')">{{$t("btn.auditPassLen")}}</span>
                                         </el-col>
                                     </el-row>
                                     <el-row class="info-row">
@@ -79,12 +79,12 @@
                     </div>
                     <div class="block-bd" v-if="account.type=='admin'">
                         <div class="btn-list">
-                            <div class="btn" @click="$router.push({name:'studentList',params:{id:coach.id}})">{{$t("btn.course")}}</div>
-                            <div class="btn" @click="toCourse()">{{$t("btn.coachInfo")}}</div>
-                            <div class="btn" @click="$router.push({name:'coachCertificateStatistics',params:{id:coach.id}})">{{$t("btn.buyRecord")}}</div>
+                            <div class="btn" @click="$router.push({name:'schoolCourseList',params:{school:editForm.id,schoolName:editForm.name}})">{{$t("btn.course")}}</div>
+                            <div class="btn" @click="$router.push({name:'coachList',params:{school:editForm.serialCode,schoolName:editForm.name}})">{{$t("btn.coachInfo")}}</div>
+                            <div class="btn" @click="$router.push({name:'certificateStatistics',params:{school:editForm.serialCode,schoolName:editForm.name}})">{{$t("btn.buyRecord")}}</div>
                         </div>
                     </div>
-                    <div class="block-bd">
+                    <div class="block-bd" v-if="account.type=='school'">
                         <div class="btn-list">
                             <div class="cm-btn btn" @click="toEdit()">{{$t("btn.editInfo")}}</div>
                         </div>
@@ -219,7 +219,7 @@
                         let data=JSON.parse(resp.respMsg);
                         console.log('data:',data);
                         if(this.account.type=='school'){
-                            this.account={...data.school,...data.schoolPayment};
+                            this.account={...this.account,...data.school,...data.schoolPayment};
                             this.editForm=JSON.parse(JSON.stringify(this.account));
                         }else{
                             this.editForm={...data.school,...data.schoolPayment};
@@ -334,6 +334,29 @@
             },
             toEdit:function (index) {
                 this.editDialogFlag=true;
+            },
+            toAudit:function () {
+                let params={
+                    ...Vue.sessionInfo(),
+                    adminId:this.account.id,
+                    userId:this.editForm.id,
+                    type:'schoolDueAudit',
+                    state:'pass',
+                    msg:'审核通过',
+                    forcePass:"true",
+                }
+                let fb=Vue.operationFeedback({text:this.$t("tips.setting")});
+                Vue.api.operateAudit(params).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        this.editForm.state='pass';
+                        fb.setOptions({type:'complete', text:this.$t("tips.settingS")});
+                    }else{
+                        fb.setOptions({type:'warn', text:this.$t("tips.settingF",{msg:resp.respMsg})});
+                    }
+                });
+            },
+            useDefaultPassword:function () {
+                this.editForm.password='123456';
             },
         },
         mounted () {

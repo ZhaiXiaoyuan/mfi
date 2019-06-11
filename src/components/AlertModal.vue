@@ -63,7 +63,7 @@
 
     },
     mounted: function () {
-      console.log(this.options);
+
     }
   };
 </script>

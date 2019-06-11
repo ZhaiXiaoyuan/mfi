@@ -2,9 +2,8 @@
     <div class="sidebar">
         <div class="user-info">
             <i class="icon logo-icon"></i>
-            <p class="name">MFI  EOS</p>
-            <p class="role" v-if="account.type=='super'">{{this.$t("title.super")}}</p>
-            <p class="role" v-if="account.type=='admin'">{{this.$t("title.admin")}}</p>
+            <p class="name">MFI&nbsp;EOS</p>
+            <p class="role">{{this.$t("title."+account.type)}}</p>
             <p class="account">{{$t('label.account')}}：{{account.account?account.account:account.email}}</p>
         </div>
         <el-menu class="sidebar-el-menu" :default-active="onRoutes" :collapse="collapse" background-color="#fff"
@@ -31,6 +30,7 @@
                 </template>
             </template>
         </el-menu>
+        <div class="cm-btn cm-handle-btn cm-handle-md-btn switch-btn" v-if="account.type=='student'||account.type=='coach'" @click="switchRole()">{{account.type=='student'?$t("btn.switchToInstructor"):$t("btn.switchToStudent")}}</div>
         <div class="cm-btn logout-btn" @click="logout()">{{$t("btn.logout")}}</div>
     </div>
 </template>
@@ -108,6 +108,14 @@
             }
         }
     }
+    .switch-btn{
+        position: absolute;
+        left: 0px;
+        right: 0px;
+        margin: auto;
+        bottom: 150px;
+        width: 220px;
+    }
     .logout-btn{
         position: absolute;
         left: 0px;
@@ -161,6 +169,10 @@
                 }
             }
         }
+        .switch-btn{
+            bottom: 120px;
+            width: 180px;
+        }
         .logout-btn{
             width: 180px;
             height: 70px;
@@ -209,34 +221,34 @@
 
             /**/
             this.account=this.getAccountInfo();
+            console.log('this.account:',this.account);
 
             this.accountAccess=null;
             if(this.account.type=='super'){
                 this.accountAccess=['adminList','addAdmin'];
                 /* this.accountAccess='all';*/
             }else if(this.account.type=='admin'){
-                this.accountAccess=['msgList','coachList','adminStudentList','material','mall','auditList','certificateStatistics','schoolList','setting'];
+                this.accountAccess=['msgList','coachList','adminStudentList','schoolList','material','mall','auditList','certificateStatistics','setting'];
             }
             else if(this.account.type=='coach'){
                 if(this.account.instructorAccountStatus=='certified'){
-                    this.accountAccess=['msgList','courseList','studentList','userAuditList','coachCertificateStatistics','mall','coachDetail',];
+                    this.accountAccess=['msgList','material','courseList','studentList','userAuditList','coachCertificateStatistics','mall','coachDetail',];
                 }else{
                     this.accountAccess=['coachDetail']
                 }
             }else if(this.account.type=='student'){
                 this.accountAccess=['studentCourseList','material','mall','studentDetail'];
             }else if(this.account.type=='school'){
-                console.log('this.accountddd:',this.account);
                 if(this.account.schoolQualification=='notPay'){
                     this.accountAccess=['schoolDetail'];
                 }else{
-                    this.accountAccess=['coachList','certificateStatistics','mall','schoolDetail'];
+                    this.accountAccess=['coachList','material','schoolStudentList','schoolCourseList','certificateStatistics','mall','schoolDetail'];
                 }
             }
             this.initItems();
         },
         methods: {
-           initItems:function () {
+            initItems:function () {
                /*菜单初始化配置*/
                this.itemsConfig=[
                    {
@@ -279,6 +291,18 @@
                        icon: 'student-icon',
                        index: '/adminStudentList',
                        title: this.$t("btn.studentModule"),
+                   },
+                   {
+                       code:'schoolStudentList',
+                       icon: 'student-icon',
+                       index: '/schoolStudentList',
+                       title: this.$t("btn.studentModule"),
+                   },
+                   {
+                       code:'schoolCourseList',
+                       icon: 'course-icon',
+                       index: '/schoolCourseList',
+                       title: this.$t("btn.courseLen"),
                    },
                    {
                        code:'auditList',
@@ -357,6 +381,20 @@
                    })
                }
            },
+            switchRole:function () {
+                this.account.oldType=this.account.type;
+                let targetUrl=window.location.href.split('#')[0];
+               if(this.account.type=='coach'){
+                   this.account.type='student';
+                   targetUrl+='#/studentDetail';
+               }else{
+                   this.account.type='coach';
+                   targetUrl+='#/coachDetail'
+               }
+               this.$cookie.set('account',JSON.stringify(this.account),7);
+                localStorage.setItem('switching','true');
+                window.location.reload();
+            },
             logout:function () {
                 Vue.cookie.set('account','');
                 this.$router.push({name:'login',params:{type:this.account.type}});

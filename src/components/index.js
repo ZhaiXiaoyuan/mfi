@@ -11,6 +11,7 @@ import Modal from './Modal';
 import AlertModal from './AlertModal';
 import CropModal from './CropModal';
 import GenCode from './GenCode.vue';
+import PayBtn from './PayBtn.vue';
 
 
 /*全局组件注册配置*/
@@ -26,6 +27,7 @@ export default {
     Vue.component('AlertModal',AlertModal);
     Vue.component('CropModal',CropModal);
     Vue.component('GenCode',GenCode);
+    Vue.component('PayBtn',PayBtn);
 
     /*方法调度方式*/
     let OperationFeedbackConstructor = Vue.extend(OperationFeedback);

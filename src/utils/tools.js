@@ -96,7 +96,11 @@ export default {
                   '#f9963b',
                   '#ffffff',
                   '#f47023'
-              ]
+              ],
+          },
+          hostedIdConfig:{
+              goods1:'NRTU8287ASMQU',
+              goods2:'ACPNWF64ET6TU',
           },
         /*生成请求时间戳*/
         genTimestamp:function () {
@@ -283,7 +287,13 @@ export default {
               // reader.readAsDataURL(file)
               // 转化为blob
               reader.readAsArrayBuffer(file);
-          }
+          },
+          genGoodsOrderInfo:function (userId,goodsId) {
+              return {
+                  token:this.basicConfig.goodsToken['goodsId'],
+                  orderId:userId+'-'+goodsId+'-'+this.genTimestamp()
+              };
+          },
       }
 
       Object.assign(Vue, Vue.tools);

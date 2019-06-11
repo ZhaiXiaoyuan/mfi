@@ -74,13 +74,13 @@
         </div>
     </div>
 </template>
-<style lang="less" rel="stylesheet/less" scoped>
-    .cm-input-row .field{
-        min-width: 110px;
-    }
+<style lang="less" rel="stylesheet/less">
     .material-item{
         width: 1000px;
         margin: 0px auto;
+        .cm-input-row .field{
+            min-width: 110px;
+        }
         .form{
             background: #fff;
             padding: 20px 40px;

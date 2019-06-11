@@ -22,7 +22,7 @@
   .modal{
     display: flex;
     position: fixed;
-    z-index: 2000;
+    z-index: 3000;
     width: 100%;
     height: 100%;
     top:0px;

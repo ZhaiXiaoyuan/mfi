@@ -1,6 +1,6 @@
 <template>
   <div class="gen-code" :class="{'cm-disabled':time<60||!number}" @click="genCode()">
-    {{time==60?'获取邮箱验证码':time+'S'}}
+    {{time==60?$t("btn.getCode"):time+'S'}}
   </div>
 </template>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -30,9 +30,6 @@
 
     },
     props:{
-      userName:{
-         type:String,
-      },
       number:{
          type:String,
       },
@@ -59,10 +56,6 @@
     methods: {
       genCode:function () {
         let that=this;
-        if(!this.userName){
-            this.operationFeedback({type:'warn',text:'请输入用户名'})
-            return;
-        }
         if(!regex.mail.test(this.number)){
             this.operationFeedback({type:'warn',text:regex.mailAlert})
             return;
@@ -72,17 +65,17 @@
         }
         this.isRequesting=true;
         let params={
-            timestamp:Vue.tools.sessionInfo().timestamp,
-            username:this.userName,
-            number:this.number,
+            timeStamp:Vue.tools.genTimestamp(),
+            email:this.number,
+            type:this.options.type=='school'?'school':'user'
         }
-        let fb=this.operationFeedback({text:'发送中...'});
-        Vue.api.sendResetPwdEmail(params).then(function (resp) {
+        let fb=Vue.operationFeedback({text:this.$t("tips.handle")});
+        Vue.api.sendForgetPasswordEmail(params).then(function (resp) {
           that.isRequesting=false;
-          if(resp.code=='430000'){
-            let data=resp.respMsg;
+          if(resp.respCode=='2000'){
+              let data=JSON.parse(resp.respMsg);
               that.options&&that.options.ok&&that.options.ok(data);
-            fb.setOptions({type:'complete','text':'发送成功'});
+              fb.setOptions({type:'complete', text:that.$t("tips.handleS")});
             var interval=setInterval(function () {
               if(that.time==0){
                 that.time=60;
@@ -92,7 +85,7 @@
               }
             },1000);
           }else{
-            fb.setOptions({type:'warn','text':resp.respMsg});
+              fb.setOptions({type:'warn', text:that.$t("tips.handleF",{ msg: resp.respMsg})});
           }
         });
       }

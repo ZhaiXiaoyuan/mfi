@@ -33,6 +33,12 @@
                                 <span class="value">{{course.startTime}}</span>
                             </el-col>
                         </el-row>
+                        <el-row style="margin-top: 10px;">
+                            <el-col :span="12" class="info-item">
+                                <span class="label">{{$t('label.instructor')}}：</span>
+                                <span class="value"></span>
+                            </el-col>
+                        </el-row>
                     </div>
                 </div>
             </div>
@@ -71,9 +77,9 @@
                             <th>
                                 {{$t("label.status")}}
                             </th>
-                          <!--  <th v-if="account.type=='admin'">
+                            <th v-if="account.type=='school'">
                                 {{$t("label.handle")}}
-                            </th>-->
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -102,10 +108,9 @@
                             <td>
                                 <span class="cm-text">{{grantStatus[item.certificate.length>20?'granted':item.certificate]}}</span>
                             </td>
-                         <!--   <td v-if="account.type=='admin'">
-                                <span class="handle" v-if="item.certificate=='pending'||item.certificate=='granted'">&mdash;</span>
-                                <span class="handle cm-btn" @click="adminGrant(item)"  v-if="item.certificate=='waiting'">{{$t('btn.grant')}}</span>
-                            </td>-->
+                            <td v-if="account.type=='school'">
+                                <el-button class="small handle-btn"  @click="reSentStudentActivationEmail(item)" v-if="account.type=='school'&&item.studentState=='nonActivated'">{{$t('btn.activationEmail')}}</el-button>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -157,7 +162,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="(item,index) in entryList" :class="{'cm-disabled':item.studentState=='nonActivated'}">
+                        <tr v-for="(item,index) in entryList">
                             <td>
                                 {{item.studentEmail}}
                             </td>
@@ -166,7 +171,7 @@
                             </td>
                             <td>
                                 <span class="cm-text" v-if="item.mfiLevelState.liabilityRelease=='-'">{{partStatus[item.mfiLevelState.liabilityRelease]}}</span>
-                                <el-select v-model="item.mfiLevelState.liabilityRelease" :disabled="item.mfiLevelState.liabilityRelease=='pass'" @change="saveStatus(item)" class="status-selector" :class="{'pass':item.mfiLevelState.liabilityRelease=='pass'}" v-if="item.mfiLevelState.liabilityRelease!='-'" placeholder="请选择">
+                                <el-select v-model="item.mfiLevelState.liabilityRelease" :disabled="item.mfiLevelState.liabilityRelease=='pass'" @change="saveStatus(item)" class="status-selector" :class="{'pass':item.mfiLevelState.liabilityRelease=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.liabilityRelease!='-'" placeholder="请选择">
                                     <el-option
                                         v-for="item in statusOptions"
                                         :key="item.value"
@@ -178,7 +183,7 @@
                             </td>
                             <td>
                                 <span class="cm-text" v-if="item.mfiLevelState.classroom=='-'">{{partStatus[item.mfiLevelState.classroom]}}</span>
-                                <el-select v-model="item.mfiLevelState.classroom" :disabled="item.mfiLevelState.classroom=='pass'"   @change="saveStatus(item)" class="status-selector" :class="{'pass':item.mfiLevelState.classroom=='pass'}" v-if="item.mfiLevelState.classroom!='-'" placeholder="请选择">
+                                <el-select v-model="item.mfiLevelState.classroom" :disabled="item.mfiLevelState.classroom=='pass'"   @change="saveStatus(item)" class="status-selector" :class="{'pass':item.mfiLevelState.classroom=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.classroom!='-'" placeholder="请选择">
                                     <el-option
                                         v-for="item in statusOptions"
                                         :key="item.value"
@@ -190,7 +195,7 @@
                             </td>
                             <td>
                                 <span class="cm-text" v-if="item.mfiLevelState.studio=='-'">{{partStatus[item.mfiLevelState.studio]}}</span>
-                                <el-select v-model="item.mfiLevelState.studio" :disabled="item.mfiLevelState.studio=='pass'" @change="saveStatus(item)" class="status-selector" :class="{'pass':item.mfiLevelState.studio=='pass'}" v-if="item.mfiLevelState.studio!='-'" placeholder="请选择">
+                                <el-select v-model="item.mfiLevelState.studio" :disabled="item.mfiLevelState.studio=='pass'" @change="saveStatus(item)" class="status-selector" :class="{'pass':item.mfiLevelState.studio=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.studio!='-'" placeholder="请选择">
                                     <el-option
                                         v-for="item in statusOptions"
                                         :key="item.value"
@@ -202,7 +207,7 @@
                             </td>
                             <td>
                                 <span class="cm-text" v-if="item.mfiLevelState.confinedWater=='-'">{{partStatus[item.mfiLevelState.confinedWater]}}</span>
-                                <el-select v-model="item.mfiLevelState.confinedWater" :disabled="item.mfiLevelState.confinedWater=='pass'" @change="saveStatus(item)" class="status-selector" :class="{'pass':item.mfiLevelState.confinedWater=='pass'}" v-if="item.mfiLevelState.confinedWater!='-'" placeholder="请选择">
+                                <el-select v-model="item.mfiLevelState.confinedWater" :disabled="item.mfiLevelState.confinedWater=='pass'" @change="saveStatus(item)" class="status-selector" :class="{'pass':item.mfiLevelState.confinedWater=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.confinedWater!='-'" placeholder="请选择">
                                     <el-option
                                         v-for="item in statusOptions"
                                         :key="item.value"
@@ -214,7 +219,7 @@
                             </td>
                             <td>
                                 <span class="cm-text" v-if="item.mfiLevelState.openWater=='-'">{{partStatus[item.mfiLevelState.openWater]}}</span>
-                                <el-select v-model="item.mfiLevelState.openWater" :disabled="item.mfiLevelState.openWater=='pass'" @change="saveStatus(item)" class="status-selector" :class="{'pass':item.mfiLevelState.openWater=='pass'}" v-if="item.mfiLevelState.openWater!='-'" placeholder="请选择">
+                                <el-select v-model="item.mfiLevelState.openWater" :disabled="item.mfiLevelState.openWater=='pass'" @change="saveStatus(item)" class="status-selector" :class="{'pass':item.mfiLevelState.openWater=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.openWater!='-'" placeholder="请选择">
                                     <el-option
                                         v-for="item in statusOptions"
                                         :key="item.value"
@@ -229,9 +234,10 @@
                             </td>
                             <td>
                                   <span class="handle" v-if="item.certificate=='pending'||item.certificate=='granted'">&mdash;</span>
-                                  <el-button class="small handle-btn" @click="toStudent(item)" v-if="item.certificate=='waiting'||item.certificate=='grant'||(item.certificate&&item.certificate.length>20)">{{$t('btn.detail')}}</el-button>
-                                  <el-button class="small handle-btn" @click="grant(item)"  v-if="item.certificate=='waiting'&&unusedList.length>0">{{$t('btn.grant')}}</el-button>
-                                  <el-button class="small handle-btn"   v-if="item.certificate=='waiting'&&unusedList.length==0" @click="toPay(item)">{{$t('btn.buyToGrant')}}</el-button>
+                                  <el-button class="small handle-btn" :class="{'cm-disabled':item.studentState=='nonActivated'}" @click="toStudent(item)" v-if="item.certificate=='waiting'||item.certificate=='grant'||(item.certificate&&item.certificate.length>20)">{{$t('btn.detail')}}</el-button>
+                                  <el-button class="small handle-btn" :class="{'cm-disabled':item.studentState=='nonActivated'}" @click="grant(item)"  v-if="item.certificate=='waiting'&&unusedList.length>0">{{$t('btn.grant')}}</el-button>
+                                  <el-button class="small handle-btn" :class="{'cm-disabled':item.studentState=='nonActivated'}"  v-if="item.certificate=='waiting'&&unusedList.length==0" @click="toPay(item)">{{$t('btn.buyToGrant')}}</el-button>
+                                  <el-button class="small handle-btn"  @click="reSentStudentActivationEmail(item)" v-if="account.type=='coach'&&item.studentState=='nonActivated'">{{$t('btn.activationEmail')}}</el-button>
 <!--
                                   <el-button class="small handle-btn" @click="toViewCertificate(item)" v-if="(item.certificate&&item.certificate.length>20)">{{$t('btn.viewCertificate')}}</el-button>
 -->
@@ -352,6 +358,7 @@
                 bgImg:require('../../images/common/card-bg.jpg'),
 
                 granting:false,
+                requesting:false,
             }
         },
         created(){
@@ -393,6 +400,7 @@
                 Vue.api.getCourseDetail(params).then((resp)=>{
                     if(resp.respCode=='2000'){
                         this.course=JSON.parse(resp.respMsg);
+                        console.log('this.course:',this.course);
                         this.getUnusedCertificate();
                     }
                 });
@@ -531,13 +539,32 @@
                                     });
                                 }
                             })
-                        },2000)
+                        },5000)
                     },
                     closeCallback:()=>{
                         clearInterval(interval);
                     }
                 });
-            }
+            },
+            reSentStudentActivationEmail:function (item) {
+                if(this.requesting){
+                    return;
+                }
+                let params={
+                    ...Vue.sessionInfo(),
+                    email:item.studentEmail,
+                }
+                let fb=Vue.operationFeedback({text:this.$t("tips.handle")});
+                this.requesting=true;
+                Vue.api.reSentStudentActivationEmail(params).then((resp)=>{
+                    this.requesting=false;
+                    if(resp.respCode=='2000'){
+                        fb.setOptions({type:'complete', text:this.$t("tips.handleS")});
+                    }else{
+                        fb.setOptions({type:'warn', text:this.$t("tips.handleF",{msg:resp.respMsg})});
+                    }
+                });
+            },
         },
         mounted () {
             /**/

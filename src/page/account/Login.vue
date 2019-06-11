@@ -36,7 +36,7 @@
                         </div>
                     </div>
                     <div class="cm-btn handle-btn" @click="login()">{{$t("btn.login")}}</div>
-                    <p class="help"><span class="cm-btn btn" @click="openForgetForm()">{{$t("btn.forget")}}</span><span class="cm-btn btn">{{$t("btn.help")}}</span></p>
+                    <p class="help"><span class="cm-btn btn" @click="openForgetForm()"  v-if="type!='admin'&&type!='super'">{{$t("btn.forget")}}</span><span class="cm-btn btn help-btn">{{$t("btn.help")}}</span></p>
                 </div>
             </div>
         </div>
@@ -51,7 +51,7 @@
                     <div class="cm-input-row">
                         <span class="field">{{$t("label.verificationCode")}}</span>
                         <input type="text" v-model="forgetForm.verifyCode" class="cm-input">
-                        <gen-code :number="forgetForm.email" style="right: 50px;"></gen-code>
+                        <gen-code :number="forgetForm.email" :options="genCodeOptions" style="right: 50px;"></gen-code>
                     </div>
                     <div class="cm-input-row input-row">
                         <span class="field">{{$t("label.pwd")}}</span>
@@ -148,9 +148,10 @@
         font-size: 18px;
         color: #606aaf;
         .btn{
-            &+.btn{
-                margin-left: auto;
-            }
+
+        }
+        .help-btn{
+            margin-left: auto;
         }
     }
     .switch-panel{
@@ -252,7 +253,16 @@
                 showPassword:false,
 
                 forgetModalFlag:false,
-                forgetForm:{},
+                forgetForm:{
+                    emailId:'',
+                },
+                genCodeOptions:{
+                    type:this.type,
+                    ok:(data)=>{
+                        this.forgetForm.emailId=data.emailId;
+                        console.log('fb:',data);
+                    }
+                },
             }
         },
         methods: {
@@ -405,13 +415,42 @@
             openForgetForm:function () {
                 this.forgetModalFlag=true;
                 this.forgetForm={};
-            }
+            },
+            saveEdit:function () {
+                if(!this.forgetForm.email){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.email")});
+                    return;
+                }
+                if(!this.forgetForm.verifyCode){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.verificationCode")});
+                    return;
+                }
+                if(!this.forgetForm.password){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.pwd")});
+                    return;
+                }
+                let params={
+                    timeStamp:Vue.tools.genTimestamp(),
+                    type:this.type=='school'?'school':'user',
+                    ...this.forgetForm
+                }
+                if(params.password){
+                    params.newPassword=md5.hex(params.password);
+                }
+                let fb=Vue.operationFeedback({text:this.$t("tips.save")});
+                Vue.api.updateUserPassword(params).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        fb.setOptions({type:'complete', text:this.$t("tips.saveS",{msg:resp.respMsg})});
+                        this.forgetModalFlag=false;
+                    }else{
+                        fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                    }
+                });
+            },
         },
         mounted () {
             /**/
             this.type=this.$route.params.type?this.$route.params.type:this.type;
-            //临时测试
-            this.openForgetForm();
         },
     }
 </script>

@@ -196,7 +196,7 @@
                     this.$router.push({name:'studentDetail',params:{id:item.user.id}});
                 }
             },
-            toAudit:function (state,item) {
+            toAudit:function (state,item,isForce) {
                 this.curItem=item;
                 if(state=='fail'){
                     this.dialogFormVisible=true;
@@ -208,6 +208,7 @@
                         type:this.curItem.audit.type,
                         state:'pass',
                         msg:this.reason,
+                        forcePass:isForce?'true':'false'
                     }
                     let fb=Vue.operationFeedback({text:this.$t("tips.setting")});
                     Vue.api.operateAudit(params).then((resp)=>{
@@ -217,7 +218,15 @@
                             //发证书
                             this.certificate(item);
                         }else{
-                            fb.setOptions({type:'warn', text:this.$t("tips.settingF",{msg:resp.respMsg})});
+                            this.$confirm(resp.respMsg+'. Are you sure to pass it forcibly?', this.$t("title.tips"), {
+                                confirmButtonText: this.$t("btn.sure"),
+                                cancelButtonText: this.$t("btn.cancel"),
+                            }).then(() => {
+                                this.toAudit('pass',this.curItem,true);
+                            }).catch(() => {
+
+                            });
+                            fb.setOptions({type:'warn', text:this.$t("tips.settingF",{msg:resp.respMsg}),delayForDelete:0});
                         }
                     });
                 }

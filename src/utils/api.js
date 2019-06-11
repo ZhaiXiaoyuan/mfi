@@ -595,6 +595,46 @@ export default {
                 params: params
             });
         },
+        //发送忘记密码邮件
+        sendForgetPasswordEmail:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/mail/sendForgetPasswordEmail',
+                params: params
+            });
+        },
+        //重置密码
+        updateUserPassword:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/mail/updatePassword',
+                params: params
+            });
+        },
+        //学校获取自己课程下的学生
+        getSchoolStudentList:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/school/getSchoolStudentList',
+                params: params
+            });
+        },
+        //学校获取自己开设的课程
+        getCourseListSchool:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/course/getCourseListSchool',
+                params: params
+            });
+        },
+        //根据拼接的invoice获取支付记录
+        getOrderRecordInvoice:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/order/getOrderRecordInvoice',
+                params: params
+            });
+        },
     }
   },
 

@@ -81,7 +81,8 @@ const cn = {
         reason:'原因',
         randomCode:'兑换码',
         verificationCode:'验证码',
-
+        instructor:'教练',
+        instructorAccount:'教练账号',
     },
     holder: {
         account:'请输入账号',
@@ -121,6 +122,8 @@ const cn = {
         redeemCode:'请输入兑换码',
         expressAddress:'请输入运输地址',
         trackingNumber:'请输入运输单号',
+        verificationCode:'请输入验证码',
+        instructor:'请选择教练',
     },
     value:{
         certified:'',
@@ -244,6 +247,13 @@ const cn = {
         finishExchange:'已兑换',
         cancelExchange:'已取消',
         forget:'忘记密码',
+        getCode:'获取邮箱验证码',
+        pass:'已审核',
+        courseLen:'课程',
+        someoneCourse:'{msg}的课程',
+        selfCourse:'我开设的课程',
+        switchToInstructor:'切换为教练',
+        switchToStudent:'切换为学员',
     },
     title:{
         super:'超级管理员',
@@ -298,6 +308,8 @@ const cn = {
         mall:'商城',
         exchange:'兑换',
         buy:'购买',
+        someoneCoach:'{msg}的教练',
+        someoneBuyRecord:'{msg}的购买记录',
     },
     tips:{
         login:'登录中...',

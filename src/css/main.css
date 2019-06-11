@@ -1400,3 +1400,12 @@ body {
   height: 32px;
   line-height: 32px;
 }
+.w-e-toolbar .w-e-menu {
+  z-index: 0!important;
+}
+.w-e-text-container {
+  z-index: 10 !important;
+}
+.buy-dialog .cm-input-row .field {
+  min-width: 0px;
+}

@@ -2,7 +2,14 @@
     <div class="page-content coach-list">
         <div class="cm-panel">
             <div class="panel-hd">
-                <span class="title">{{$t("title.certificateStatistics")}}</span>
+                <div class="cm-btn cm-return-btn" @click="$router.back();" v-if="school">
+                    <div class="wrapper">
+                        <i class="icon el-icon-arrow-left"></i>
+                        {{$t('btn.back')}}
+                    </div>
+                </div>
+                <span class="title" v-if="!school">{{$t("title.certificateStatistics")}}</span>
+                <span class="title" v-if="school">{{$t("title.someoneBuyRecord",{msg:this.school})}}</span>
             </div>
             <div class="panel-bd">
                 <div class="cm-list-block" v-loading="pager.loading">
@@ -186,6 +193,8 @@
         },
         data() {
             return {
+                school:null,
+                schoolName:null,
                 account:{},
                 coach:{},
 
@@ -262,7 +271,7 @@
                     mfiLevel:this.selectedLevel,
                     certificateState:null,
                     searchContent:this.keyword,
-                    schoolSerialCode:this.account.type=='school'?this.account.serialCode:'',
+                    schoolSerialCode:this.account.type=='school'?this.account.serialCode:(this.school?this.school:''),
                 }
                 this.pager.loading=true;
                 Vue.api.getInstructorBuyCertificate(params).then((resp)=>{
@@ -292,8 +301,11 @@
 
         },
         mounted () {
+            /**/
+            this.school=this.$route.params.school;
+            this.schoolName=this.$route.params.schoolName;
+            /**/
             this.account=Vue.getAccountInfo();
-            this.coach=this.account.type=='coach'?this.account:this.coach;
             /**/
             this.getList();
 

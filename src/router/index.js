@@ -31,7 +31,7 @@ const router= new Router({
                     component: resolve => require(['../page/admin/msgDetail.vue'], resolve)
                 },
                 {
-                    path: '/coachList/:id?',
+                    path: '/coachList/:school?/:schoolName?',
                     name:'coachList',
                     component: resolve => require(['../page/admin/CoachList.vue'], resolve)
                 },
@@ -76,7 +76,7 @@ const router= new Router({
                     component: resolve => require(['../page/admin/AuditList.vue'], resolve)
                 },
                 {
-                    path: '/certificateStatistics',
+                    path: '/certificateStatistics/:school?/:schoolName?',
                     name:'certificateStatistics',
                     component: resolve => require(['../page/admin/CertificateStatistics.vue'], resolve)
                 },
@@ -124,6 +124,16 @@ const router= new Router({
                     path: '/schoolDetail/:code?',
                     name:'schoolDetail',
                     component: resolve => require(['../page/school/SchoolDetail.vue'], resolve)
+                },
+                {
+                    path: '/schoolStudentList',
+                    name:'schoolStudentList',
+                    component: resolve => require(['../page/school/SchoolStudentList.vue'], resolve)
+                },
+                {
+                    path: '/schoolCourseList/:school?/:schoolName?',
+                    name:'schoolCourseList',
+                    component: resolve => require(['../page/school/SchoolCourseList.vue'], resolve)
                 },
                 {
                     path: '/mall',
@@ -206,36 +216,44 @@ router.beforeEach((to, from,next) => {
     if(to.name!='login'){
         let account=Vue.getAccountInfo();
         if(account.type=='coach'||account.type=='student'){
-            Vue.api.getUserBaseInfo({  ...Vue.sessionInfo(), userId:account.id, role:account.type=='coach'?'instructor':'student'}).then((resp)=>{
-                if(resp.respCode=='2000'){
-                    let data=JSON.parse(resp.respMsg);
-                    console.log('userInfo:',data);
-                    account={
-                        type:account.type,
-                        account:account.account,
-                        ...data.user,
-                        ...data.instructorPayment
-                    };
-                    Vue.cookie.set('account',JSON.stringify(account),7);
-                    if(account.type=='coach'){
-                        if(to.name!='protocol'){
-                            if(data.instructorProtocolState=='disable'){
-                                bus.$emit('service_modal_handle',data);
+            let switchingFlag=localStorage.getItem('switching');
+            if(switchingFlag=='true'){
+                localStorage.setItem('switching','false');
+                next({
+                    path: '/'+account.type+'Detail',
+                })
+            }else{
+                Vue.api.getUserBaseInfo({  ...Vue.sessionInfo(), userId:account.id, role:account.type=='coach'?'instructor':'student'}).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        let data=JSON.parse(resp.respMsg);
+                        console.log('userInfo:',data);
+                        account={
+                            type:account.type,
+                            account:account.account,
+                            ...data.user,
+                            ...data.instructorPayment
+                        };
+                        Vue.cookie.set('account',JSON.stringify(account),7);
+                        if(account.type=='coach'){
+                            if(to.name!='protocol'){
+                                if(data.instructorProtocolState=='disable'){
+                                    bus.$emit('service_modal_handle',data);
+                                }
                             }
-                        }
-                        if(to.name!='coachDetail'&&to.name!='protocol'){
-                            if(account.instructorAccountStatus=='pending'||account.instructorAccountStatus=='fail'||account.professionalMembersFee=='notPay'){
-                                router.push({name:'coachDetail'});
+                            if(to.name!='coachDetail'&&to.name!='protocol'){
+                                if(account.instructorAccountStatus=='pending'||account.instructorAccountStatus=='fail'||account.professionalMembersFee=='notPay'){
+                                    router.push({name:'coachDetail'});
+                                }
                             }
+                        }else if(account.type=='student'){
+
                         }
-                    }else if(account.type=='student'){
+                    }else{
 
                     }
-                }else{
-
-                }
-                next();
-            });
+                    next();
+                });
+            }
         }else if(account.type=='school'){
             Vue.api.getSchoolDetail({
                 ...Vue.sessionInfo(),

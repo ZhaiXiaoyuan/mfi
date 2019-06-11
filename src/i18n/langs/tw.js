@@ -79,6 +79,8 @@ const tw = {
         reason:'原因',
         randomCode:'兌換碼',
         verificationCode:'驗證碼',
+        instructor:'教練',
+        instructorAccount:'教練賬號',
     },
     holder: {
         account:'請輸入賬號',
@@ -118,6 +120,8 @@ const tw = {
         redeemCode:'請輸入兌換碼',
         expressAddress:'請輸入運輸地址',
         trackingNumber:'請輸入運輸單號',
+        verificationCode:'請輸入驗證碼',
+        instructor:'請選擇教練',
     },
     btn:{
         adminLogin:'管理員登錄',
@@ -237,6 +241,13 @@ const tw = {
         finishExchange:'已兌換',
         cancelExchange:'已取消',
         forget:'忘記密碼',
+        getCode:'獲取郵箱驗證碼',
+        pass:'已審核',
+        courseLen:'課程',
+        someoneCourse:'{msg}的課程',
+        selfCourse:'我开设的課程',
+        switchToInstructor:'切換為教練',
+        switchToStudent:'切換為學員',
     },
     title:{
         super:'超級管理員',
@@ -291,6 +302,8 @@ const tw = {
         mall:'商城',
         exchange:'兌換',
         buy:'購買',
+        someoneCoach:'{msg}的教練',
+        someoneBuyRecord:'{msg}的購買記錄',
     },
     tips:{
         login:'登錄中...',

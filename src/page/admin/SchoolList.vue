@@ -293,7 +293,7 @@
                 Object.assign(this.editForm,item);
                 this.dialogFormVisible=true;
             },
-            userDefaultPassword:function () {
+            useDefaultPassword:function () {
                 this.editForm.password='123456';
             },
             getRegionConfig:function () {

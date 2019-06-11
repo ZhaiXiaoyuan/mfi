@@ -2,7 +2,14 @@
     <div class="page-content coach-list">
         <div class="cm-panel">
             <div class="panel-hd">
-                <span class="title">{{$t("title.allCoach")}}</span>
+                <div class="cm-btn cm-return-btn" @click="$router.back();" v-if="school">
+                    <div class="wrapper">
+                        <i class="icon el-icon-arrow-left"></i>
+                        {{$t('btn.back')}}
+                    </div>
+                </div>
+                <span class="title" v-if="!school">{{$t("title.allCoach")}}</span>
+                <span class="title" v-if="school">{{$t("title.someoneCoach",{msg:schoolName})}}</span>
             </div>
             <div class="panel-bd">
                 <div class="cm-list-block" v-loading="pager.loading">
@@ -237,6 +244,8 @@
         },
         data() {
             return {
+                school:null,
+                schoolName:null,
                 levelOptions:[
                    /* {
                         value:null,
@@ -355,7 +364,7 @@
                     mfiLevel:this.selectedLevel,
                     instructorAccountStatus:this.selectedStatus,
                     searchContent:this.keyword,
-                    school:this.account.type=='school'?this.account.account:'',
+                    school:this.account.type=='school'?this.account.serialCode:(this.school?this.school:''),
                 }
                 this.pager.loading=true;
                 Vue.api.getCoachList(params).then((resp)=>{
@@ -577,6 +586,10 @@
             },
         },
         mounted () {
+            /**/
+            this.school=this.$route.params.school;
+            this.schoolName=this.$route.params.schoolName;
+
             /**/
             this.account=Vue.getAccountInfo();
             /**/

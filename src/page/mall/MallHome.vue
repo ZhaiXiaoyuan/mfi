@@ -24,10 +24,10 @@
                                 <li v-for="(item,index) in entryList" :key="item.id" @click="setCurGoods(item)">
                                     <div class="cover" :style="{background: 'url('+(basicConfig.filePrefix+'/mfi'+item.imageUrl)+') no-repeat center',backgroundSize: 'cover'}"></div>
                                     <p class="name">{{item.name}}</p>
-                                    <p class="name">${{item.price}}</p>
+                                    <p class="name" v-if="account.type=='student'">${{item.price}}</p>
                                     <div class="handle">
                                         <div class="cm-btn cm-handle-btn handle-btn" v-if="account.type=='student'" @click="openBuyModal(item,$event)">{{$t("btn.buy")}}</div>
-                                        <div class="cm-btn cm-handle-btn handle-btn" v-if="account.type=='school'||account.type=='coach'" @click="openExchangeModal(item)">{{$t("btn.exchange")}}</div>
+                                        <div class="cm-btn cm-handle-btn handle-btn" v-if="account.type=='school'||account.type=='coach'" @click="openExchangeModal(item,$event)">{{$t("btn.exchange")}}</div>
                                     </div>
                                 </li>
                             </ul>
@@ -100,10 +100,10 @@
                                     {{item.goodsRecord.goodsId}}
                                 </td>
                                 <td>
-                                    {{item.goodsName}}
+                                    {{item.goodsInfo.name}}
                                 </td>
                                 <td>
-                                    {{item.price}}
+                                    ${{item.goodsInfo.price}}
                                 </td>
                                 <td>
                                     {{item.goodsRecord.expressAddress}}
@@ -173,13 +173,13 @@
                                     {{item.goodsRecord.id}}
                                 </td>
                                 <td>
-                                    {{item.price}}
+                                    ${{item.goodsInfo.price}}
                                 </td>
                                 <td>
                                     {{item.goodsRecord.goodsId}}
                                 </td>
                                 <td>
-                                    {{item.goodsName}}
+                                    {{item.goodsInfo.name}}
                                 </td>
                                 <td>
                                     {{item.goodsRecord.expressAddress}}
@@ -306,7 +306,7 @@
                             <tbody>
                             <tr v-for="(item,index) in exchangeRecordEntryList">
                                 <td>
-                                    {{item.userEmail}}
+                                    {{item.userEmail?item.userEmail:'-'}}
                                 </td>
                                 <td>
                                     {{item.redeemRecord.redeemCodeId}}
@@ -348,7 +348,7 @@
             </div>
         </div>
 
-        <el-dialog :title='$t("title.buy")' class="edit-dialog cm-dialog" :visible.sync="buyModalFlag" v-if="buyModalFlag" width="40%">
+        <el-dialog :title='$t("title.buy")' class="edit-dialog cm-dialog buy-dialog" :visible.sync="buyModalFlag" v-if="buyModalFlag" width="40%">
             <div class="form" v-if="buyStep==1">
                 <div class="cm-input-row">
                     <span class="field">{{$t("label.expressAddress")}}</span>
@@ -356,7 +356,7 @@
                 </div>
                 <div class="handle-list">
                     <div class="cm-btn cm-handle-btn handle-btn" @click="buyModalFlag=false">{{$t("btn.cancel")}}</div>
-                    <div class="cm-btn cm-handle-btn handle-btn" @click="saveBuy">{{$t("btn.nextStep")}}</div>
+                    <div class="cm-btn cm-handle-btn handle-btn" @click="saveBuy()">{{$t("btn.nextStep")}}</div>
                 </div>
             </div>
             <div class="form" v-if="buyStep==2">
@@ -365,9 +365,7 @@
                     <span class="value" style="margin-left: -20px;">{{buyForm.expressAddress}}</span>
                 </div>
                 <div class="cm-input-row">
-                    <span class="cm-btn cm-handle-btn cm-handle-md-btn">
-                        {{$t("btn.toPay")}}
-                    </span>
+                    <pay-btn :options="{target:curEntry.id,callback:toPay}"></pay-btn>
                 </div>
                 <div class="handle-list">
                     <div class="cm-btn cm-handle-btn handle-btn" @click="buyModalFlag=false">{{$t("btn.cancel")}}</div>
@@ -393,7 +391,7 @@
             </div>
         </el-dialog>
 
-        <el-dialog title='' class="edit-dialog cm-dialog" :visible.sync="orderHandleModalFlag" v-if="orderHandleModalFlag" width="40%">
+        <el-dialog title='' class="edit-dialog cm-dialog" :visible.sync="orderHandleModalFlag" v-if="orderHandleModalFlag" width="40%" :modal-append-to-body="false">
             <div class="form" v-if="orderHandleStep==1">
                 <div class="cm-input-row" style="padding: 50px 0px;">
                    <span class="cm-btn cm-handle-btn" @click="setOrderHandleStep(2)">{{$t("btn.finishOrder")}}</span>
@@ -525,10 +523,6 @@
                     ...Vue.sessionInfo(),
                     pageIndex:this.pager.pageIndex,
                     pageSize:this.pager.pageSize,
-                    mfiLevel:this.selectedLevel,
-                    instructorAccountStatus:this.selectedStatus,
-                    searchContent:this.keyword,
-                    school:this.account.type=='school'?this.account.account:'',
                 }
                 this.pager.loading=true;
                 Vue.api.getGoodsList(params).then((resp)=>{
@@ -551,6 +545,7 @@
                 this.exchangeRecordPager.pageIndex=pageIndex?pageIndex:1;
                 let params={
                     ...Vue.sessionInfo(),
+                    userId:this.account.type=='admin'?'':this.account.id,
                     pageIndex:this.exchangeRecordPager.pageIndex,
                     pageSize:this.exchangeRecordPager.pageSize,
                 }
@@ -569,6 +564,7 @@
                 this.buyRecordPager.pageIndex=pageIndex?pageIndex:1;
                 let params={
                     ...Vue.sessionInfo(),
+                    userId:this.account.type=='admin'?'':this.account.id,
                     pageIndex:this.buyRecordPager.pageIndex,
                     pageSize:this.buyRecordPager.pageSize,
                 }
@@ -594,7 +590,9 @@
                 }
             },
             openExchangeModal:function (item,$event) {
-                Vue.tools.stopPropagation($event);
+                if($event){
+                    Vue.tools.stopPropagation($event);
+                }
                 this.curEntry=item;
                 this.exchangeModalFlag=true;
                 this.exchangeForm={};
@@ -627,6 +625,7 @@
                     redeemCode:this.exchangeForm.redeemCode,
                     expressAddress:this.exchangeForm.expressAddress,
                     userType:this.account.type=='school'?'school':'instructor',
+                    goodsId:this.curEntry.id,
                 }
                 let fb=Vue.operationFeedback({text:this.$t("tips.handle")});
                 Vue.api.exchange(params).then((resp)=>{
@@ -655,7 +654,8 @@
                     Vue.operationFeedback({type:'warn',text:this.$t("holder.expressAddress")});
                     return;
                 }
-                let params={
+                this.setBuyStep(2);
+             /*   let params={
                     ...Vue.sessionInfo(),
                     userId:this.account.id,
                     goodsId:this.curEntry.id,
@@ -669,7 +669,33 @@
                     }else{
                         fb.setOptions({type:'warn', text:this.$t("tips.handleF",{msg:resp.respMsg})});
                     }
+                });*/
+
+            },
+            toPay:function (data) {
+                let interval=null;
+                let alertInstance=this.alert({
+                    title:"",
+                    html:'<div style="text-align: center;"><div><i class="icon loading-icon"></i></div><div>'+this.$t('tips.payingTips')+'</div></div>',
+                    yes:this.$t('btn.cancel'),
+                    lock:true,
+                    ok:()=>{
+                        clearInterval(interval);
+                        clearInterval(interval);
+                    }
                 });
+                interval=setInterval(()=>{
+                    Vue.api.getOrderRecordInvoice({timeStamp:Vue.tools.genTimestamp(),invoice:data.invoice}).then((resp)=>{
+                        if(resp.respCode=='2000'){
+                            let data=JSON.parse(resp.respMsg);
+                            alertInstance.close();
+                            clearInterval(interval);
+                            console.log('orderInfo:',data);
+                        }else{
+
+                        }
+                    });
+                },5000)
             },
             openOrderHandleModal:function (item,step) {
                 this.curOrderEntry=item;
