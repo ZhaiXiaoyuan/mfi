@@ -261,7 +261,7 @@ router.beforeEach((to, from,next) => {
             }).then((resp)=>{
                 if(resp.respCode=='2000'){
                     let data=JSON.parse(resp.respMsg);
-                    console.log('loginInfo:',data);
+                   /* console.log('loginInfo:',data);*/
                     account={ type:account.type,account:account.account,...data.school,...data.schoolPayment};
                     Vue.cookie.set('account',JSON.stringify(account),7);
                     if(account.schoolQualification=='notPay'){

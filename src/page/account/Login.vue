@@ -2,12 +2,12 @@
     <div class="login-page">
         <div class="switch-panel">
             <a href="http://www.mermaidfederation.com/" class="cm-btn switch-btn">{{$t("btn.toHome")}}</a>
-            <div class="cm-btn switch-btn" v-if="type=='super'" @click="switchType('admin')">{{$t("btn.adminLogin")}}</div>
+            <div class="cm-btn switch-btn" v-if="showAllBtn||type=='super'" @click="switchType('admin')">{{$t("btn.adminLogin")}}</div>
 
-            <div class="cm-btn switch-btn" v-if="type=='admin'" @click="switchType('super')">{{$t("btn.superLogin")}}</div>
+            <div class="cm-btn switch-btn" v-if="showAllBtn||type=='admin'" @click="switchType('super')">{{$t("btn.superLogin")}}</div>
 
-            <div class="cm-btn switch-btn" v-if="type=='student'" @click="switchType('coach')">{{$t("btn.coachLogin")}}</div>
-            <div class="cm-btn switch-btn" v-if="type=='coach'" @click="switchType('student')">{{$t("btn.studentLogin")}}</div>
+            <div class="cm-btn switch-btn" v-if="showAllBtn||type=='student'" @click="switchType('coach')">{{$t("btn.coachLogin")}}</div>
+            <div class="cm-btn switch-btn" v-if="showAllBtn||type=='coach'" @click="switchType('student')">{{$t("btn.studentLogin")}}</div>
         </div>
         <language></language>
         <div class="login-panel">
@@ -36,7 +36,7 @@
                         </div>
                     </div>
                     <div class="cm-btn handle-btn" @click="login()">{{$t("btn.login")}}</div>
-                    <p class="help"><span class="cm-btn btn" @click="openForgetForm()"  v-if="type!='admin'&&type!='super'">{{$t("btn.forget")}}</span><span class="cm-btn btn help-btn">{{$t("btn.help")}}</span></p>
+                    <p class="help"><span class="cm-btn btn" @click="openForgetForm()"  v-if="type!='admin'&&type!='super'">{{$t("btn.forget")}}</span><span class="cm-btn btn help-btn" @click="helpModal()">{{$t("btn.help")}}</span></p>
                 </div>
             </div>
         </div>
@@ -246,7 +246,8 @@
         },
         data: function(){
             return {
-                type:'super',
+                showAllBtn:false,
+                type:'student',
                 preType:null,
                 account:null,
                 pwd:null,
@@ -447,10 +448,25 @@
                     }
                 });
             },
+            helpModal:function () {
+                this.alert({
+                    title:this.$t('btn.help'),
+                    html:'<div style="text-align: center;line-height: 36px;"><p>联系邮箱：xxx@xx.com</p><p>联系电话：xxxxxxxxxxx</p></div>',
+                    yes:this.$t('btn.close'),
+                    lock:false,
+                    ok:()=>{
+
+                    }
+                });
+            }
         },
         mounted () {
             /**/
             this.type=this.$route.params.type?this.$route.params.type:this.type;
+            console.log('this.type:',this.type);
+            /**/
+            //临时测试
+            this.showAllBtn=true||process.env.NODE_ENV=='development'?true:false;
         },
     }
 </script>

@@ -48,6 +48,7 @@
                 <span class="title">{{$t("title.studentInfo")}}</span>
                 <span class="right-info">{{$t("label.rest",{ msg:course.mfiLevel})}}{{unusedList.length}}</span>
             </div>
+
             <div class="panel-bd" v-if="account.type!='coach'">
                 <div class="cm-list-block" v-loading="pager.loading">
                     <table class="cm-entry-list">
@@ -109,6 +110,10 @@
                                 <span class="cm-text">{{grantStatus[item.certificate.length>20?'granted':item.certificate]}}</span>
                             </td>
                             <td v-if="account.type=='school'">
+                                <span class="handle" v-if="item.certificate=='pending'||item.certificate=='granted'">&mdash;</span>
+                                <el-button class="small handle-btn" :class="{'cm-disabled':item.studentState=='nonActivated'}" @click="toStudent(item)" v-if="item.certificate=='waiting'||item.certificate=='grant'||(item.certificate&&item.certificate.length>20)">{{$t('btn.detail')}}</el-button>
+                                <el-button class="small handle-btn" :class="{'cm-disabled':item.studentState=='nonActivated'}" @click="grant(item)"  v-if="item.certificate=='waiting'&&unusedList.length>0">{{$t('btn.grant')}}</el-button>
+                                <el-button class="small handle-btn" :class="{'cm-disabled':item.studentState=='nonActivated'}"  v-if="item.certificate=='waiting'" @click="toPay(item)">{{$t('btn.buyToGrant')}}</el-button>
                                 <el-button class="small handle-btn"  @click="reSentStudentActivationEmail(item)" v-if="account.type=='school'&&item.studentState=='nonActivated'">{{$t('btn.activationEmail')}}</el-button>
                             </td>
                         </tr>
@@ -156,7 +161,7 @@
                             <th>
                                 {{$t("label.status")}}
                             </th>
-                             <th>
+                             <th v-if="course.ownerId==account.id">
                                  {{$t("label.handle")}}
                              </th>
                         </tr>
@@ -232,11 +237,11 @@
                             <td>
                                 <span class="cm-text">{{grantStatus[item.certificate.length>20?'granted':item.certificate]}}</span>
                             </td>
-                            <td>
+                            <td v-if="course.ownerId==account.id">
                                   <span class="handle" v-if="item.certificate=='pending'||item.certificate=='granted'">&mdash;</span>
                                   <el-button class="small handle-btn" :class="{'cm-disabled':item.studentState=='nonActivated'}" @click="toStudent(item)" v-if="item.certificate=='waiting'||item.certificate=='grant'||(item.certificate&&item.certificate.length>20)">{{$t('btn.detail')}}</el-button>
                                   <el-button class="small handle-btn" :class="{'cm-disabled':item.studentState=='nonActivated'}" @click="grant(item)"  v-if="item.certificate=='waiting'&&unusedList.length>0">{{$t('btn.grant')}}</el-button>
-                                  <el-button class="small handle-btn" :class="{'cm-disabled':item.studentState=='nonActivated'}"  v-if="item.certificate=='waiting'&&unusedList.length==0" @click="toPay(item)">{{$t('btn.buyToGrant')}}</el-button>
+                                  <el-button class="small handle-btn" :class="{'cm-disabled':item.studentState=='nonActivated'}"  v-if="item.certificate=='waiting'" @click="toPay(item)">{{$t('btn.buyToGrant')}}</el-button>
                                   <el-button class="small handle-btn"  @click="reSentStudentActivationEmail(item)" v-if="account.type=='coach'&&item.studentState=='nonActivated'">{{$t('btn.activationEmail')}}</el-button>
 <!--
                                   <el-button class="small handle-btn" @click="toViewCertificate(item)" v-if="(item.certificate&&item.certificate.length>20)">{{$t('btn.viewCertificate')}}</el-button>
@@ -387,7 +392,7 @@
                         this.entryList.forEach((item,i)=>{
                             item.mfiLevelState=JSON.parse(item.mfiLevelState)
                         })
-                        console.log('this.entryList:',this.entryList);
+                     /*   console.log('this.entryList:',this.entryList);*/
                         this.pager.total=data.count;
                     }
                 });
@@ -400,7 +405,7 @@
                 Vue.api.getCourseDetail(params).then((resp)=>{
                     if(resp.respCode=='2000'){
                         this.course=JSON.parse(resp.respMsg);
-                        console.log('this.course:',this.course);
+                    /*    console.log('this.course:',this.course);*/
                         this.getUnusedCertificate();
                     }
                 });
@@ -408,13 +413,13 @@
             getUnusedCertificate:function (callback) {
                 let params={
                     ...Vue.sessionInfo(),
-                    possessorId:this.coach.id,
+                    possessorId:this.account.type=='coach'?this.coach.id:this.account.id,
                     mfiLevel:this.course.mfiLevel,
                     certificateState:'unuse',
                     pageSize:200,
                     pageIndex:1,
                     searchContent:'',
-                    schoolSerialCode:this.coach.school
+                    schoolSerialCode:this.account.type=='coach'?this.coach.school:this.account.serialCode
                 }
                 Vue.api.getInstructorBuyCertificate(params).then((resp)=>{
                     if(resp.respCode=='2000'){
@@ -471,7 +476,7 @@
                     ...Vue.sessionInfo(),
                     certificateId:certificate.id,
                     userId:item.mfiLevelState.userId,
-                    possessorId:this.coach.id,
+                    possessorId:this.account.id,
                 }
                 let fb=Vue.operationFeedback({text:this.$t("tips.setting")});
                 Vue.api.grant(params).then((resp)=>{
@@ -510,11 +515,11 @@
                 this.$router.push({name:'addStudent',params:{'id':this.id}});
             },
             toPay:function (item) {
-                console.log('this.unusedList:',this.unusedList);
                 let interval=null;
                 let payModalInstance=this.payModal({
                     userId:this.account.id,
                     level:this.course.mfiLevel,
+                    tips:this.$t('tips.buyM0Tips'),
                     callback:(data)=>{
                        // payModalInstance.close();
 
@@ -528,17 +533,25 @@
                             }
                         });
                         interval=setInterval(()=>{
-                            this.getUnusedCertificate((data)=>{
-                                if(data.length>0&&!this.granting){
+                            Vue.api.getOrderRecordInvoice({timeStamp:Vue.tools.genTimestamp(),invoice:data.invoice}).then((resp)=>{
+                                if(resp.respCode=='2000'){
+                                    let data=JSON.parse(resp.respMsg);
                                     alertInstance.close();
-                                    this.granting=true;
                                     clearInterval(interval);
-                                    this.grantSubmit(item,()=>{
-                                        Vue.operationFeedback({type:'complete',text:this.$t("tips.handleS")});
-                                        payModalInstance.close();
-                                    });
+                                    //
+                                    this.getUnusedCertificate((data)=>{
+                                        if(data.length>0&&!this.granting){
+                                            this.granting=true;
+                                            this.grantSubmit(item,()=>{
+                                                Vue.operationFeedback({type:'complete',text:this.$t("tips.handleS")});
+                                                payModalInstance.close();
+                                            });
+                                        }
+                                    })
+                                }else{
+
                                 }
-                            })
+                            });
                         },5000)
                     },
                     closeCallback:()=>{
@@ -571,7 +584,6 @@
             this.id=this.$route.params.id;
             this.account=Vue.getAccountInfo();
             this.coach=this.account.type=='coach'?this.account:this.coach;
-            console.log('this.coach:',this.coach);
             /**/
             this.getCourse();
             this.getList();

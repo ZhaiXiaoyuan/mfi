@@ -338,18 +338,31 @@ body{
 }
 .cm-panel{
     .panel-hd{
-        padding: 20px 20px 10px 20px;
+        padding: 15px 20px 15px 20px;
         display: flex;
         align-items: center;
         .title{
             padding: 0px 10px;
-            font-size: 30px;
+            font-size: 24px;
             color: #fff;
         }
         .right-info{
+            display: flex;
             margin-left: auto;
             color: #fff;
             font-size: 20px;
+            .handle-list{
+                padding-right: 100px;
+            }
+            .handle-btn{
+                background: #fff;
+                color: #333;
+                height: 32px;
+                line-height: 32px;
+                &+.handle-btn{
+                    margin-left: 30px;
+                }
+            }
         }
     }
     .panel-bd{
@@ -358,12 +371,12 @@ body{
 }
 .cm-list-block{
     .block-hd{
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         padding: 0px 30px;
         display: flex;
         align-items: center;
         width: 100%;
-        height: 70px;
+        height: 60px;
         color: #5560aa;
         text-align: center;
         background: #fff;
@@ -375,7 +388,7 @@ body{
         .con-item{
             display: flex;
             align-items: center;
-            font-size: 24px;
+            font-size: 18px;
             .label{
                 margin-right:10px;
             }
@@ -384,6 +397,19 @@ body{
             }
            &.con-item-search{
                 margin-left: auto;
+            }
+            &.count-data{
+                display: block;
+                text-align: left;
+                .gap-icon{
+                    font-size: 18px;
+                }
+                .data-item{
+                    font-size: 15px;
+                    color: #5560aa;
+                    display: inline-block;
+                    margin-right: 10px;
+                }
             }
         }
     }
@@ -399,8 +425,10 @@ body{
         tr{
             th{
                 position: relative;
-                padding: 20px;
-                font-size: 20px;
+                padding: 15px;
+                font-size: 16px;
+              /*  font-weight: bold;*/
+                word-break: break-all;
                 &+th:before{
                     position: absolute;
                     content: '';
@@ -418,14 +446,15 @@ body{
     tbody{
         tr{
             td{
-                padding: 20px 10px;
-                font-size: 16px;
+                padding: 15px 5px;
+                font-size: 14px;
+                word-break: break-all;
                 .status{
                     height: 28px;
                     line-height: 25px;
                     display: inline-block;
                     padding: 0px 15px;
-                    font-size: 16px;;
+                    font-size: 14px;;
                     color: #fff;
                     border-radius: 14px;
                     &.active{
@@ -759,12 +788,12 @@ body{
 }
 .cm-search{
     .el-input__inner{
-        height: 44px;
-        width: 380px;
+        height: 40px;
+        width: 350px;
         border: none;
         background: rgba(83,96,170,0.2);
         color: #5360aa;
-        font-size: 16px;
+        font-size: 14px;
     }
     .el-input-group__append{
         border-left: none;
@@ -887,9 +916,9 @@ body{
     li{
         float: left;
         display: flex;
-        height: 60px;
+        height: 50px;
         align-items: center;
-        font-size: 30px;
+        font-size: 28px;
         color: #fff;
         opacity: 0.6;
         cursor: pointer;
@@ -903,11 +932,11 @@ body{
     }
 }
 .cm-tab-menu{
+    border: none;
     >.el-menu-item{
         font-size: 18px;
         &.is-active {
-            border-bottom: 2px solid #409EFF;
-            border: none;
+            border-bottom: none !important;
             color: #5560aa;
             &:after{
                 display: block;
@@ -1217,7 +1246,7 @@ body{
     .cm-entry-list{
         border-radius: 5px;
         thead{
-            box-shadow: 0px 2px 10px rgba(85,96,170,0.3);
+            box-shadow: 0px 1px 5px rgba(85,96,170,0.3);
             tr{
                 th{
                     position: relative;
@@ -1229,7 +1258,7 @@ body{
         tbody{
             tr{
                 td{
-                    padding: 15px 10px;
+                    padding: 10px 5px;
                     font-size: 14px;
                     .handle{
                         font-size: 12px;

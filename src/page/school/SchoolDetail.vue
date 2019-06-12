@@ -57,7 +57,7 @@
                                         </el-col>
                                         <el-col :span="10" class="info-item">
                                             <span class="label">{{$t('label.level')}}：</span>
-                                            <span class="value">{{editForm.level}}</span>
+                                            <span class="value" v-if="editForm.level&&editForm.level!='null'">{{$t('value.'+editForm.level)}}</span>
                                         </el-col>
                                     </el-row>
                                     <el-row class="info-row">

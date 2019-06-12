@@ -83,6 +83,9 @@ const cn = {
         verificationCode:'验证码',
         instructor:'教练',
         instructorAccount:'教练账号',
+        remaining:'剩余',
+        from:'转发方',
+        to:'接收方',
     },
     holder: {
         account:'请输入账号',
@@ -127,7 +130,8 @@ const cn = {
     },
     value:{
         certified:'',
-
+        center:'发展中心',
+        advancedCenter:'五星发展中心',
     },
     btn:{
         adminLogin:'管理员登录',
@@ -254,6 +258,10 @@ const cn = {
         selfCourse:'我开设的课程',
         switchToInstructor:'切换为教练',
         switchToStudent:'切换为学员',
+        buyCertificate:'购买证书',
+        transpondCertificate:'证书转发',
+        toBuy:'立即购买',
+        transpondRecord:'证书转发记录',
     },
     title:{
         super:'超级管理员',
@@ -310,6 +318,8 @@ const cn = {
         buy:'购买',
         someoneCoach:'{msg}的教练',
         someoneBuyRecord:'{msg}的购买记录',
+        centerCoupons:'发展中心优惠券',
+        fiveStarCenterCoupons:'五星发展中心优惠券',
     },
     tips:{
         login:'登录中...',
@@ -345,7 +355,11 @@ const cn = {
         upload:'上传中',
         uploadS:'上传成功',
         uploadF:'上传失败',
-
+        pay:'支付中...',
+        payS:'支付成功',
+        payF:'支付失败',
+        pInt:'数量有误，请输入大于零的整数',
+        buyM0Tips:'购买二十张M0证书',
     },
     el: {
         colorpicker: {

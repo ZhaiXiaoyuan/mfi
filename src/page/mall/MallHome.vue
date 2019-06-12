@@ -169,7 +169,7 @@
                                 <td>
                                     {{item.userEmail}}
                                 </td>
-                                <td>
+                                <td width="200">
                                     {{item.goodsRecord.id}}
                                 </td>
                                 <td>
@@ -181,7 +181,7 @@
                                 <td>
                                     {{item.goodsInfo.name}}
                                 </td>
-                                <td>
+                                <td style="width: 20%;">
                                     {{item.goodsRecord.expressAddress}}
                                 </td>
                                 <td>
@@ -365,7 +365,7 @@
                     <span class="value" style="margin-left: -20px;">{{buyForm.expressAddress}}</span>
                 </div>
                 <div class="cm-input-row">
-                    <pay-btn :options="{target:curEntry.id,callback:toPay}"></pay-btn>
+                    <pay-btn :options="{target:curEntry.id,address:buyForm.expressAddress,callback:toPay}"></pay-btn>
                 </div>
                 <div class="handle-list">
                     <div class="cm-btn cm-handle-btn handle-btn" @click="buyModalFlag=false">{{$t("btn.cancel")}}</div>
@@ -690,7 +690,8 @@
                             let data=JSON.parse(resp.respMsg);
                             alertInstance.close();
                             clearInterval(interval);
-                            console.log('orderInfo:',data);
+                            Vue.operationFeedback({type:'complete',text:this.$t("tips.payS")});
+                            this.buyModalFlag=false;
                         }else{
 
                         }

@@ -45,7 +45,7 @@
         width: 280px;
         background: #fff8fe;
         .user-info{
-            padding: 40px 10px;
+            padding: 30px 10px;
             text-align: center;
             color: #5560aa;
             font-size: 20px;
@@ -59,12 +59,20 @@
                 font-size: 20px;
             }
             .role{
-                font-size: 30px;
+                font-size: 28px;
             }
             .account{
                 margin-top: 10px;
                 font-size: 16px;
             }
+        }
+        .switch-btn{
+            position: absolute;
+            left: 0px;
+            right: 0px;
+            margin: auto;
+            bottom: 150px;
+            width: 220px;
         }
     }
     .sidebar-el-menu:not(.el-menu--collapse){
@@ -82,7 +90,8 @@
         li{
             display: flex;
             align-items: center;
-            height: 70px;
+            height: 64px;
+            line-height: normal;
             .line{
                 display: none;
                 position: absolute;
@@ -94,7 +103,7 @@
             }
             .title{
                 padding-left: 10px;
-                font-size: 20px;
+                font-size: 18px;
                 color: #5560aa;
             }
             &:hover{
@@ -108,14 +117,6 @@
             }
         }
     }
-    .switch-btn{
-        position: absolute;
-        left: 0px;
-        right: 0px;
-        margin: auto;
-        bottom: 150px;
-        width: 220px;
-    }
     .logout-btn{
         position: absolute;
         left: 0px;
@@ -124,12 +125,12 @@
         margin: auto;
         background: url("../../images/common/logout-btn.png") no-repeat;
         width: 220px;
-        height: 90px;
+        height: 80px;
         background-size: 100% 100%;
-        font-size: 24px;
+        font-size: 20px;
         color: #fff;
         text-align: center;
-        line-height: 80px;
+        line-height: 75px;
     }
     @media screen and (max-width: 1600px) {
         .logo-icon{
@@ -150,6 +151,10 @@
 
                 }
             }
+            .switch-btn{
+                bottom: 120px;
+                width: 180px;
+            }
         }
         .sidebar >ul{
             .icon-wrap{
@@ -168,10 +173,6 @@
                     font-size: 16px;
                 }
             }
-        }
-        .switch-btn{
-            bottom: 120px;
-            width: 180px;
         }
         .logout-btn{
             width: 180px;
@@ -221,7 +222,6 @@
 
             /**/
             this.account=this.getAccountInfo();
-            console.log('this.account:',this.account);
 
             this.accountAccess=null;
             if(this.account.type=='super'){
@@ -382,18 +382,31 @@
                }
            },
             switchRole:function () {
-                this.account.oldType=this.account.type;
-                let targetUrl=window.location.href.split('#')[0];
-               if(this.account.type=='coach'){
-                   this.account.type='student';
-                   targetUrl+='#/studentDetail';
-               }else{
-                   this.account.type='coach';
-                   targetUrl+='#/coachDetail'
-               }
-               this.$cookie.set('account',JSON.stringify(this.account),7);
-                localStorage.setItem('switching','true');
-                window.location.reload();
+                let fb=Vue.operationFeedback({text:this.$t("tips.handle")});
+                let params={
+                    timeStamp:Vue.tools.genTimestamp(),
+                    userId:this.account.id,
+                    type:this.account.type=='student'?'1991687524@qq.com':'toStudent',
+                }
+                Vue.api.switchLogin(params).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        this.account.oldType=this.account.type;
+                        fb.setOptions({type:'complete', text:this.$t("tips.handleS")});
+                        let targetUrl=window.location.href.split('#')[0];
+                        if(this.account.type=='coach'){
+                            this.account.type='student';
+                            targetUrl+='#/studentDetail';
+                        }else{
+                            this.account.type='coach';
+                            targetUrl+='#/coachDetail'
+                        }
+                        this.$cookie.set('account',JSON.stringify(this.account),7);
+                        localStorage.setItem('switching','true');
+                        window.location.reload();
+                    }else{
+                        fb.setOptions({type:'warn', text:this.$t("tips.handleF",{msg:resp.respMsg})})
+                    }
+                });
             },
             logout:function () {
                 Vue.cookie.set('account','');

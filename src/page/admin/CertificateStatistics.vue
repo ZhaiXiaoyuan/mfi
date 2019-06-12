@@ -10,6 +10,12 @@
                 </div>
                 <span class="title" v-if="!school">{{$t("title.certificateStatistics")}}</span>
                 <span class="title" v-if="school">{{$t("title.someoneBuyRecord",{msg:this.school})}}</span>
+                <div class="right-info">
+                    <div class="handle-list" v-if="account.type=='school'">
+                        <div class="cm-btn cm-handle-btn cm-handle-md-btn handle-btn" @click="buyModalFlag=true">{{$t("btn.buyCertificate")}}</div>
+                        <div class="cm-btn cm-handle-btn cm-handle-md-btn handle-btn" @click="transpondModalFlag=true">{{$t("btn.transpondCertificate")}}</div>
+                    </div>
+                </div>
             </div>
             <div class="panel-bd">
                 <div class="cm-list-block" v-loading="pager.loading">
@@ -25,6 +31,10 @@
                                 </el-option>
                             </el-select>
                         </div>
+                        <div class="con-item count-data">
+                            <span class="label">{{$t("label.remaining")}}</span>
+                            <div class="data-item" v-for="(item,index) in certificateCountData" :key="index">{{item.label}}<span class="gap-icon">:</span>{{item.value}}</div>
+                        </div>
                         <div class="con-item con-item-search">
                             <el-input :placeholder="$t('holder.certificateStatisticsSearch')" v-model="keyword" class="cm-search">
                                 <el-button slot="append" icon="el-icon-search" @click="getList()"></el-button>
@@ -37,7 +47,7 @@
                             <th>
                                 {{$t("label.orderNo")}}
                             </th>
-                            <th>
+                            <th v-if="account.type!='school'">
                                 {{$t("label.buyer")}}
                             </th>
                             <th>
@@ -68,7 +78,7 @@
                             <td>
                                 {{item.orderRecordId}}
                             </td>
-                            <td>
+                            <td v-if="account.type!='school'">
                                 {{item.possessor?item.possessor.email:'-'}}
                             </td>
                             <td>
@@ -87,7 +97,7 @@
                                 {{item.orderRecord?item.orderRecord.paymentGross:'-'}}
                             </td>
                             <td>
-                                {{item.createdAt|formatDate('yyyy-MM-dd')}}
+                                {{item.createdAt|formatDate('yyyy-MM-dd hh:mm')}}
                             </td>
                             <td>
                                 {{item.serialCode}}
@@ -108,79 +118,122 @@
                 </div>
             </div>
         </div>
-        <el-dialog :title='$t("title.newCoach")' class="edit-dialog cm-dialog school-dialog" :visible.sync="dialogFormVisible" v-if="dialogFormVisible" width="40%">
+
+        <el-dialog :title='account.level=="center"?$t("title.centerCoupons"):$t("title.fiveStarCenterCoupons")' class="edit-dialog cm-dialog buy-modal" :visible.sync="buyModalFlag" v-if="buyModalFlag" width="40%">
+            <div class="modal-body">
+                <ul class="type-list">
+                    <li class="type-item" v-for="(item,index) in goodsList" :key="index">
+                        <div class="item-hd">
+                            {{item.level}}
+                        </div>
+                        <div class="item-bd">
+                            <div class="goods-item" v-for="(goods,goodsIndex) in item.list" :key="goodsIndex">
+                                <p>{{goods.count}}张 ${{goods.price}}</p>
+                                <p class="off">{{goods.off}}</p>
+                                <div class="cm-btn handle-btn">
+                                 <!--   {{$t("btn.toBuy")}}-->
+                                    <pay-btn :options="{target:goods.id,item:goods,callback:toPay}"></pay-btn>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="handle-list">
+                <div class="cm-btn cm-handle-btn handle-btn" @click="buyModalFlag=false">{{$t("btn.cancel")}}</div>
+            </div>
+        </el-dialog>
+
+        <el-dialog :title='$t("btn.transpondCertificate")' class="cm-dialog" :visible.sync="transpondModalFlag" v-if="transpondModalFlag" width="40%">
             <div class="form">
                 <div class="cm-input-row">
-                    <span class="field">{{$t("label.email")}}</span>
-                    <input type="text" v-model="newForm.email" class="cm-input">
-                </div>
-                <div class="cm-input-row">
                     <span class="field">{{$t("label.level")}}</span>
-                    <el-select v-model="newForm.level" class="handle cm-select">
+                    <el-select v-model="transpondForm.level" class="handle cm-select">
                         <el-option
-                            v-for="(item,index) in levelOptions"
+                            v-for="(item,index) in certificateCountData"
                             :key="index"
                             :label="item.label"
-                            :value="item.value">
+                            :value="item.label" v-if="item.value">
                         </el-option>
                     </el-select>
                 </div>
                 <div class="cm-input-row">
-                    <span class="field">{{$t("label.school")}}</span>
-                    <el-select v-model="newForm.school" class="handle cm-select">
-                        <el-option
-                            v-for="(item,index) in schoolOptions"
-                            :key="index"
-                            :label="item.label"
-                            :value="item.value">
-                        </el-option>
-                    </el-select>
+                    <span class="field">{{$t("label.count")}}</span>
+                    <input type="text" v-model="transpondForm.count" class="cm-input">
                 </div>
                 <div class="cm-input-row">
-                    <span class="field">{{$t("label.status")}}</span>
-                    <el-select v-model="newForm.status" class="handle cm-select" disabled>
+                    <span class="field">{{$t("label.instructor")}}</span>
+                    <el-select v-model="transpondForm.instructorId" class="handle cm-select">
                         <el-option
-                            v-for="(item,index) in options"
-                            :key="index"
-                            :label="item.label"
-                            :value="item.value">
+                            v-for="(item,index) in coachList"
+                            :key="item.id"
+                            :label="item.email"
+                            :value="item.id">
                         </el-option>
                     </el-select>
                 </div>
             </div>
             <div class="handle-list">
-                <div class="cm-btn cm-handle-btn handle-btn" @click="dialogFormVisible=false">{{$t("btn.cancel")}}</div>
-                <div class="cm-btn cm-handle-btn handle-btn" @click="save">{{$t("btn.submit")}}</div>
+                <div class="cm-btn cm-handle-btn handle-btn" @click="transpondModalFlag=false">{{$t("btn.cancel")}}</div>
+                <div class="cm-btn cm-handle-btn handle-btn" @click="saveTranspond">{{$t("btn.submit")}}</div>
             </div>
         </el-dialog>
     </div>
 </template>
 <style lang="less" rel="stylesheet/less">
-    .add-msg-dialog{
-        color: #5360aa;
-        .el-dialog{
-            width: 580px !important;
+    .buy-modal{
+        .modal-body{
+            height: 300px;
+            overflow-y: auto;
+            &::-webkit-scrollbar {/*滚动条整体样式*/
+                width: 5px;     /*高宽分别对应横竖滚动条的尺寸*/
+                height: 5px;
+            }
+            &::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+                border-radius: 2px;
+                -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+                background: rgba(0,0,0,0.2);
+            }
+            &::-webkit-scrollbar-track {/*滚动条里面轨道*/
+                display: none;
+                -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+                border-radius: 5px;
+                background: rgba(0,0,0,0.2);
+            }
         }
-       .el-dialog__header{
-           text-align: center;
-           padding: 30px 20px;
-           .el-dialog__title{
-               font-size: 28px;
-               color: #5360aa;
-           }
-       }
-        .el-dialog__body{
-            padding-top: 0px;
+        .type-list{
+            .type-item{
+                padding: 20px 5px 10px 5px;
+                .item-hd{
+                    font-size: 24px;
+                    color: #333;
+                }
+                .item-bd{
+                    padding: 5px 10px;
+                    .goods-item{
+                        display: inline-block;
+                        margin:5px 10px;
+                        font-size: 16px;
+                        color: #5560aa;
+                        text-align: center;
+                        .off{
+                            padding: 5px 0px;
+                            font-size: 24px;
+                            text-align: center;
+                        }
+                        .handle-btn{
+                            margin-top: 5px;
+                        }
+                    }
+                }
+                &+.type-item{
+                    border-top: 1px solid #ddd;
+                }
+            }
         }
-        textarea{
-            width: 100%;
-            height: 270px;
-            border: 1px solid #e5e5e5;
-            border-radius: 5px;
-            padding: 20px;
-            color: #5360aa;
-            font-size: 16px;
-            resize: none;
+        .handle-list{
+            align-items: center;
+            justify-content: center;
         }
     }
 </style>
@@ -240,8 +293,6 @@
                 selectedLevel:null,
 
 
-                dialogFormVisible:false,
-
                 keyword:null,
                 pager:{
                     pageSize:20,
@@ -250,6 +301,17 @@
                     loading:false,
                 },
                 entryList:[],
+
+                buyModalFlag:false,
+
+                goodsList:[],
+                curGoods:null,
+
+                certificateCountData:[],
+
+                coachList:[],
+                transpondModalFlag:false,
+                transpondForm:{},
             }
         },
         created(){
@@ -289,16 +351,118 @@
                                 item.orderRecord=orderInfo;
                             }
                             this.entryList.push(item);
-                        })
-                        console.log('this.entryList:', this.entryList);
+                        });
                         this.pager.total=data.count;
+                    }
+                });
+            },
+            getCertificateCount:function (pageIndex) {
+                let params={
+                    possessorId:this.account.id,
+                }
+                Vue.api.getEmptyCertificateCountList(params).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        let data=JSON.parse(resp.respMsg);
+                        this.certificateCountData=[];
+                        this.certificateCountData.push({label:'M0',value:data.M0});
+                        this.certificateCountData.push({label:'M1',value:data.M1});
+                        this.certificateCountData.push({label:'M2',value:data.M2});
+                        this.certificateCountData.push({label:'M3',value:data.M3});
+                        this.certificateCountData.push({label:'BMI',value:data.BMI});
+                        this.certificateCountData.push({label:'MI',value:data.MI});
+                        this.certificateCountData.push({label:'MMI',value:data.MMI});
                     }
                 });
             },
             levelChange:function (data) {
                 this.getList();
             },
+            toPay:function (data) {
+                let interval=null;
+                let alertInstance=this.alert({
+                    title:"",
+                    html:'<div style="text-align: center;"><div><i class="icon loading-icon"></i></div><div>'+this.$t('tips.payingTips')+'</div></div>',
+                    yes:this.$t('btn.cancel'),
+                    lock:true,
+                    ok:()=>{
+                        clearInterval(interval);
+                        clearInterval(interval);
+                    }
+                });
+                interval=setInterval(()=>{
+                    Vue.api.getOrderRecordInvoice({timeStamp:Vue.tools.genTimestamp(),invoice:data.invoice}).then((resp)=>{
+                        if(resp.respCode=='2000'){
+                            let data=JSON.parse(resp.respMsg);
+                            this.getList(1);
+                            this.getCertificateCount();
+                            alertInstance.close();
+                            clearInterval(interval);
+                            Vue.operationFeedback({type:'complete',text:this.$t("tips.payS")});
+                        }else{
 
+                        }
+                    });
+                },5000)
+            },
+            getCoachList:function () {
+                let params={
+                    ...Vue.sessionInfo(),
+                    pageIndex:1,
+                    pageSize:500,
+                    mfiLevel:null,
+                    instructorAccountStatus:null,
+                    searchContent:'',
+                    school:this.account.type=='school'?this.account.serialCode:(this.school?this.school:''),
+                }
+                this.pager.loading=true;
+                Vue.api.getCoachList(params).then((resp)=>{
+                    this.pager.loading=false;
+                    if(resp.respCode=='2000'){
+                        let data=JSON.parse(resp.respMsg);
+                        this.coachList=[];
+                        let list=data.instructorList;
+                        list.forEach((item,i)=>{
+                            this.coachList.push({
+                                ...item.instructorPayment,
+                                ...item.user
+                            })
+                        })
+                        this.pager.total=data.count;
+                    }
+                });
+            },
+            saveTranspond:function () {
+                if(!regex.pInt.test(this.transpondForm.count)){
+                    Vue.operationFeedback({type:'warn',text:this.$t("tips.pInt")});
+                    return;
+                }
+                if(!this.transpondForm.level){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.level")});
+                    return;
+                }
+                if(!this.transpondForm.instructorId){
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.instructor")});
+                    return;
+                }
+                let params={
+                    ...Vue.sessionInfo(),
+                    from:this.account.id,
+                    to:this.transpondForm.instructorId,
+                    mfiLevel:this.transpondForm.level,
+                    count:this.transpondForm.count
+                }
+                let fb=Vue.operationFeedback({text:this.$t("tips.handle")});
+                Vue.api.addCertificateTranspond(params).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        this.getCertificateCount();
+                        this.getList(1);
+                        this.transpondModalFlag=false;
+                        fb.setOptions({type:'complete', text:this.$t("tips.handleS")});
+                    }else{
+                        fb.setOptions({type:'warn', text:this.$t("tips.handleF",{msg:resp.respMsg})});
+                    }
+                });
+            },
         },
         mounted () {
             /**/
@@ -308,6 +472,13 @@
             this.account=Vue.getAccountInfo();
             /**/
             this.getList();
+            /**/
+            this.goodsList=this.account.level=='center'?Vue.tools.centerGoodsList:Vue.tools.fiveStarCenterGoodsList;
+            /**/
+            if(this.account.type=='school'){
+                this.getCertificateCount();
+                this.getCoachList();
+            }
 
         },
     }

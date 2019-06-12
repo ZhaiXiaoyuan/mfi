@@ -2,7 +2,7 @@
     <div class="page-content coach-list">
         <div class="cm-panel">
             <div class="panel-hd">
-                <div class="cm-btn cm-return-btn" @click="$router.back();"  v-if="account.type=='admin'">
+                <div class="cm-btn cm-return-btn" @click="$router.back();"  v-if="account.type!='coach'">
                     <div class="wrapper">
                         <i class="icon el-icon-arrow-left"></i>
                         {{$t('btn.back')}}

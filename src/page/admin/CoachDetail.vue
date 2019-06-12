@@ -147,11 +147,12 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="block-bd" v-if="account.type=='admin'">
+                    <div class="block-bd" v-if="account.type=='admin'||account.type=='school'">
                         <div class="btn-list">
                             <div class="btn" @click="$router.push({name:'studentList',params:{id:coach.id}})">{{$t("btn.student")}}</div>
                             <div class="btn" @click="toCourse()">{{$t("btn.course")}}</div>
-                            <div class="btn" @click="$router.push({name:'coachCertificateStatistics',params:{id:coach.id}})">{{$t("btn.AuthorizationRecord")}}</div>
+                            <div class="btn" @click="$router.push({name:'coachCertificateStatistics',params:{id:coach.id}})" v-if="account.type=='admin'">{{$t("btn.AuthorizationRecord")}}</div>
+                            <div class="btn" @click="openRecordModal()" v-if="account.type=='school'">{{$t("btn.transpondRecord")}}</div>
                         </div>
                     </div>
                     <div class="block-bd" v-if="account.type=='coach'">
@@ -306,6 +307,48 @@
                 <div class="cm-btn cm-handle-btn handle-btn" @click="saveEdit()">{{$t("btn.submit")}}</div>
             </div>
         </el-dialog>
+
+        <el-dialog :title='$t("btn.transpondRecord")' class="edit-dialog cm-dialog record-modal" :visible.sync="recordModalFlag" v-if="recordModalFlag" width="40%">
+            <div class="modal-body">
+                <table class="cm-entry-list">
+                    <thead>
+                    <tr>
+                        <th>
+                            {{$t("label.from")}}
+                        </th>
+                        <th>
+                            {{$t("label.to")}}
+                        </th>
+                        <th>
+                            {{$t("label.level")}}
+                        </th>
+                        <th>
+                            {{$t("label.certificateNo")}}
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(item,index) in entryList">
+                        <td>
+                            {{transpondData.from.email?transpondData.from.email:transpondData.from.serialCode}}
+                        </td>
+                        <td>
+                            {{transpondData.to.email}}
+                        </td>
+                        <td>
+                            {{item.mfiLevel}}
+                        </td>
+                        <td>
+                           <p v-for="(entry,entryIndex) in JSON.parse(item.certificateList)" >{{entry}}</p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="handle-list">
+                <div class="cm-btn cm-handle-btn handle-btn" @click="recordModalFlag=false">{{$t("btn.close")}}</div>
+            </div>
+        </el-dialog>
     </div>
 </template>
 <style lang="less" rel="stylesheet/less">
@@ -349,6 +392,26 @@
                     margin-top: 15px;
                 }
             }
+        }
+    }
+    .record-modal{
+        .el-dialog{
+            width: 70% !important;
+            max-width: 1200px;
+            .el-dialog__body{
+                /*background: #fafafa;*/
+                padding: 0px;
+            }
+        }
+        .modal-body{
+            height: 400px;
+            overflow-y: auto;
+            /*background: #fafafa;*/
+        }
+        .handle-list{
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 20px;
         }
     }
 </style>
@@ -461,6 +524,15 @@
                 editForm:{},
                 regionList:[],
 
+                recordModalFlag:false,
+                pager:{
+                    pageSize:20,
+                    pageIndex:1,
+                    total:0,
+                    loading:false,
+                },
+                transpondData:{},
+                entryList:[],
             }
         },
         created(){
@@ -702,10 +774,10 @@
                         that.drawText(ctx,'Certification Date:',548,235);
                         that.drawText(ctx,options.date,815,235);
 
-                        that.drawText(ctx,'Issusing Instructor:',533,280);
+                        that.drawText(ctx,'Issuing Instructor:',533,280);
                         that.drawText(ctx,options.instructor,815,280);
 
-                        that.drawText(ctx,'Issusing School:',568,325);
+                        that.drawText(ctx,'Issuing School:',568,325);
                         that.drawText(ctx,options.issuer,815,325);
 
                         //
@@ -974,7 +1046,32 @@
                         fb.setOptions({type:'warn', text:this.$t("tips.handleF",{ msg: resp.respMsg})});
                     }
                 });
-            }
+            },
+            openRecordModal:function () {
+                this.recordModalFlag=true;
+                this.getList(1);
+            },
+            getList:function (pageIndex) {
+                this.pager.pageIndex=pageIndex?pageIndex:1;
+                let params={
+                    ...Vue.sessionInfo(),
+                    pageIndex:this.pager.pageIndex,
+                    pageSize:this.pager.pageSize,
+                    from:this.account.id,
+                    to:this.coach.id,
+                }
+                this.pager.loading=true;
+                Vue.api.getCertificateTranspondList(params).then((resp)=>{
+                    this.pager.loading=false;
+                    if(resp.respCode=='2000'){
+                        let data=JSON.parse(resp.respMsg);
+                        this.transpondData=data;
+                        console.log('tRecord:',data);
+                        this.entryList=this.transpondData.list;
+                        this.pager.total=data.count;
+                    }
+                });
+            },
         },
         mounted () {
             /**/

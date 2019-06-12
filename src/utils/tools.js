@@ -44,12 +44,13 @@ export default {
         }
         //
       Vue.tools = {
+          //临时测试
           basicConfig:{
              /* basicUrl:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://39.108.11.197',
               filePrefix:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://39.108.11.197',*/
               basicUrl:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://www.mermaidfederation.com',
-              filePrefix:process.env.NODE_ENV=='development'?'http://api.linqi.tech:8621':'http://www.mermaidfederation.com',
-              paypalPrefix:process.env.NODE_ENV=='development'?'https://www.sandbox.paypal.com':'https://www.paypal.com',
+              filePrefix:true||process.env.NODE_ENV=='development'?'http://api.linqi.tech:8621':'http://www.mermaidfederation.com',
+              paypalPrefix:true||process.env.NODE_ENV=='development'?'https://www.sandbox.paypal.com':'https://www.paypal.com',
               levelOptions:[
                   {
                       value:'M0',
@@ -99,9 +100,45 @@ export default {
               ],
           },
           hostedIdConfig:{
-              goods1:'NRTU8287ASMQU',
-              goods2:'ACPNWF64ET6TU',
+              goods1:{
+                  id:'NRTU8287ASMQU',
+              },
+              goods2:{
+                  id:'ACPNWF64ET6TU',
+              },
+              starSchoolCerificateM020:{
+                  id:'LSEE8PCZ8HT7C',
+              },
+              fiveStarSchoolCerificateM020:{
+                  id:'L3U2UQF7XLJEA',
+              },
           },
+          centerGoodsList:[
+              {
+                  level:'M0',
+                  list:[
+                      {
+                          id:'starSchoolCerificateM020',
+                          count:20,
+                          price:'xxx',
+                          off:'5%',
+                      }
+                  ]
+              }
+          ],
+          fiveStarCenterGoodsList:[
+              {
+                  level:'M0',
+                  list:[
+                      {
+                          id:'fiveStarSchoolCerificateM020',
+                          count:20,
+                          price:'xxx',
+                          off:'10%',
+                      }
+                  ]
+              }
+          ],
         /*生成请求时间戳*/
         genTimestamp:function () {
           return Math.ceil(new Date().getTime()/1000)

@@ -635,6 +635,38 @@ export default {
                 params: params
             });
         },
+        //获取空白证书数量列表
+        getEmptyCertificateCountList:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/certificate/getEmptyCertificateCountList',
+                params: params
+            });
+        },
+        //转换登录
+        switchLogin:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/user/switchLogin',
+                params: params
+            });
+        },
+        //学校向教练转发空白证书
+        addCertificateTranspond:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/certificate/addCertificateTranspond',
+                params: params
+            });
+        },
+        //获取转发列表
+        getCertificateTranspondList:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/certificate/getCertificateTranspondList',
+                params: params
+            });
+        },
     }
   },
 

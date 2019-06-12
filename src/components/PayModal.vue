@@ -7,6 +7,7 @@
           </div>
           <div class="modal-body">
               <div class="dialog-body">
+                  <p class="tips">{{options.tips}}</p>
                   <form :action="paypalPrefix+'/cgi-bin/webscr'" id="form" method="post" target="_blank">
                       <input type="hidden" name="cmd" value="_s-xclick">
                       <input type="hidden" name="hosted_button_id" v-model="token">
@@ -83,6 +84,7 @@
           level:null,
           callback:null,
           closeCallback:null,
+          tips:null,
       }
     },
     data: function () {
@@ -125,7 +127,7 @@
             let form=document.getElementById('form');
             form.submit();
             //
-            this.options.callback&&this.options.callback();
+            this.options.callback&&this.options.callback({invoice:this.temOrderId});
         },
         close:function () {
             this.$el.remove();

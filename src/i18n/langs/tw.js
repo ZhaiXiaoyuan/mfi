@@ -81,6 +81,9 @@ const tw = {
         verificationCode:'驗證碼',
         instructor:'教練',
         instructorAccount:'教練賬號',
+        remaining:'剩余',
+        from:'轉發方',
+        to:'接收方',
     },
     holder: {
         account:'請輸入賬號',
@@ -122,6 +125,11 @@ const tw = {
         trackingNumber:'請輸入運輸單號',
         verificationCode:'請輸入驗證碼',
         instructor:'請選擇教練',
+    },
+    value:{
+        certified:'',
+        center:'發展中心',
+        advancedCenter:'五星發展中心',
     },
     btn:{
         adminLogin:'管理員登錄',
@@ -248,6 +256,10 @@ const tw = {
         selfCourse:'我开设的課程',
         switchToInstructor:'切換為教練',
         switchToStudent:'切換為學員',
+        buyCertificate:'購買證書',
+        transpondCertificate:'證書轉發',
+        toBuy:'立即購買',
+        transpondRecord:'證書轉發記錄',
     },
     title:{
         super:'超級管理員',
@@ -304,6 +316,8 @@ const tw = {
         buy:'購買',
         someoneCoach:'{msg}的教練',
         someoneBuyRecord:'{msg}的購買記錄',
+        centerCoupons:'發展中心優惠券',
+        fiveStarCenterCoupons:'五星發展中心優惠券',
     },
     tips:{
         login:'登錄中...',
@@ -338,6 +352,11 @@ const tw = {
         upload:'上傳中',
         uploadS:'上傳成功',
         uploadF:'上傳失敗',
+        pay:'支付中...',
+        payS:'支付成功',
+        payF:'支付失敗',
+        pInt:'數量有誤，請輸入大於零的整數',
+        buyM0Tips:'購買二十張M0證書',
     },
     el: {
         colorpicker: {

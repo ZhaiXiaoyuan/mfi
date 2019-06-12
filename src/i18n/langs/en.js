@@ -81,6 +81,9 @@ const en = {
         verificationCode:'verification code',
         instructor:'instructor',
         instructorAccount:'instructor',
+        remaining:'remaining',
+        from:'from',
+        to:'to',
     },
     holder: {
         account:'please enter your account',
@@ -122,6 +125,11 @@ const en = {
         trackingNumber:'please enter tracking number',
         verificationCode:'please enter your verification code',
         instructor:'please select the instructor',
+    },
+    value:{
+        certified:'',
+        center:'star school',
+        advancedCenter:'five star school',
     },
     btn:{
         adminLogin:'administrator login',
@@ -247,6 +255,10 @@ const en = {
         selfCourse:'my own course',
         switchToInstructor:'switch to instructor',
         switchToStudent:'switch to student',
+        buyCertificate:'buy certificate',
+        transpondCertificate:'transpond certificate',
+        toBuy:'buy now',
+        transpondRecord:'transpond record',
     },
     title:{
         super:'Super Administrator',
@@ -303,6 +315,9 @@ const en = {
         buy:'Buy',
         someoneCoach:'{msg}\'s instructor',
         someoneBuyRecord:'{msg}\'s buy record',
+        centerCoupons:'Star School Coupons',
+        fiveStarCenterCoupons:'Five Star School Coupons',
+        pInt:'The count is invalid，please enter the positive integer.'
     },
     tips:{
         login:'logining...',
@@ -338,6 +353,10 @@ const en = {
         upload:'uploading',
         uploadS:'upload successfully',
         uploadF:'upload failure',
+        pay:'paying',
+        payS:'pay successfully',
+        payF:'pay failure',
+        buyM0Tips:'To buy 20 M0 certificates'
     },
     el: {
         colorpicker: {

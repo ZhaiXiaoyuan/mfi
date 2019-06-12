@@ -235,8 +235,7 @@
                     }
                 });
             },
-            getCoachList:function (pageIndex) {
-                this.pager.pageIndex=pageIndex?pageIndex:1;
+            getCoachList:function () {
                 let params={
                     ...Vue.sessionInfo(),
                     pageIndex:1,
