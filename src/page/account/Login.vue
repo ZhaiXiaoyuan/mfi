@@ -1,14 +1,14 @@
 <template>
     <div class="login-page">
         <div class="switch-panel">
-            <a href="http://www.mermaidfederation.com/" class="cm-btn switch-btn">{{$t("btn.toHome")}}</a>
+            <a href="http://www.mermaidfederation.com/" v-if="!showAllBtn" class="cm-btn switch-btn">{{$t("btn.toHome")}}</a>
             <div class="cm-btn switch-btn" v-if="showAllBtn||type=='super'" @click="switchType('admin')">{{$t("btn.adminLogin")}}</div>
 
             <div class="cm-btn switch-btn" v-if="showAllBtn||type=='admin'" @click="switchType('super')">{{$t("btn.superLogin")}}</div>
 
             <div class="cm-btn switch-btn" v-if="showAllBtn||type=='student'" @click="switchType('coach')">{{$t("btn.coachLogin")}}</div>
             <div class="cm-btn switch-btn" v-if="showAllBtn||type=='coach'" @click="switchType('student')">{{$t("btn.studentLogin")}}</div>
-            <div class="cm-btn switch-btn" v-if="showAllBtn" @click="switchType('student')">{{$t("btn.schoolLogin")}}</div>
+            <div class="cm-btn switch-btn" v-if="showAllBtn" @click="switchType('school')">{{$t("btn.schoolLogin")}}</div>
         </div>
         <language></language>
         <div class="login-panel">
@@ -42,8 +42,8 @@
             </div>
         </div>
 
-        <el-dialog title='' class="edit-dialog cm-dialog edit-dialog" :visible.sync="forgetModalFlag" v-if="forgetModalFlag" width="40%">
-            <div class="form-win">
+        <el-dialog title='' class="cm-dialog" :visible.sync="forgetModalFlag" v-if="forgetModalFlag" width="40%">
+            <div class="">
                 <div class="form">
                     <div class="cm-input-row">
                         <span class="field">{{$t("label.email")}}</span>

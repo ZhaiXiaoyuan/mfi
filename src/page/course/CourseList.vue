@@ -148,7 +148,7 @@
         </el-dialog>
     </div>
 </template>
-<style lang="less" rel="stylesheet/less">
+<style lang="less" rel="stylesheet/less" scoped>
     .cm-input-row .field{
         min-width: 110px;
     }
