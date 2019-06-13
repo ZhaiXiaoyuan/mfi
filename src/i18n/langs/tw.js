@@ -136,6 +136,7 @@ const tw = {
         superLogin:'超級管理員登錄',
         coachLogin:'教練登錄',
         studentLogin:'學員登錄',
+        schoolLogin:'學校登錄',
         login:'登 錄',
         help:'幫助',
         administrator:'管理員',

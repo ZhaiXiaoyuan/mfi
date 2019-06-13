@@ -138,6 +138,7 @@ const cn = {
         superLogin:'超级管理员登录',
         coachLogin:'教练登录',
         studentLogin:'学员登录',
+        schoolLogin:'学校登录',
         login:'登 录',
         help:'帮助',
         administrator:'管理员',

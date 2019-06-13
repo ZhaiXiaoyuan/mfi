@@ -8,6 +8,7 @@
 
             <div class="cm-btn switch-btn" v-if="showAllBtn||type=='student'" @click="switchType('coach')">{{$t("btn.coachLogin")}}</div>
             <div class="cm-btn switch-btn" v-if="showAllBtn||type=='coach'" @click="switchType('student')">{{$t("btn.studentLogin")}}</div>
+            <div class="cm-btn switch-btn" v-if="showAllBtn" @click="switchType('student')">{{$t("btn.schoolLogin")}}</div>
         </div>
         <language></language>
         <div class="login-panel">

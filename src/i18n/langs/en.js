@@ -136,6 +136,7 @@ const en = {
         superLogin:'super administrator login',
         coachLogin:'instructor login',
         studentLogin:'student login',
+        schoolLogin:'school login',
         login:'login',
         help:'help',
         administrator:'Administrator',
