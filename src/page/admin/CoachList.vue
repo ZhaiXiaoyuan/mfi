@@ -60,7 +60,7 @@
                             <th>
                                 {{$t("label.status")}}
                             </th>
-                            <th>
+                            <th v-if="account.type=='admin'">
                                 {{$t("label.gift20M0")}}
                             </th>
                             <th>
@@ -85,7 +85,7 @@
                             <td>
                                 {{$t("btn."+item.instructorAccountStatus)}}
                             </td>
-                            <td>
+                            <td v-if="account.type=='admin'">
                                 <span class="handle btn-style" v-if="item.giftCertificateState=='notPresented'" @click="sendM0(item)">{{$t('btn.send')}}</span>
                                 <span v-if="item.giftCertificateState=='presented'">{{$t('btn.sent')}}</span>
                             </td>
@@ -95,8 +95,8 @@
                                 <span class="handle" @click="toSetSchool(item)" v-if="account.type=='admin'&&item.instructorAccountStatus!='nonActivated'">{{$t('btn.school')}}</span>
                                 <span class="handle" @click="toSetStatus(item)" v-if="account.type=='admin'&&item.instructorAccountStatus!='nonActivated'">{{$t('btn.status')}}</span>
                                 <div class="handle-row" v-if="account.type=='admin'&&item.instructorAccountStatus!='nonActivated'">
-                                    <span style="display: block" class="handle" @click="feeWaiver('professionalMembersFee',item)" v-if="item.professionalMembersFee=='notPay'">{{$t("btn.professionalMembersFeeWaiver")}}</span>
-                                    <span class="handle" @click="feeWaiver('instructorQualification',item)" v-if="item.instructorQualification=='notPay'">{{$t("btn.instructorQualificationFeeWaiver")}}</span>
+                                    <span style="display: block" class="handle" @click="feeWaiver('professionalMembersFee',item)" v-if="item.professionalMembersFee=='notPay'||item.professionalMembersFee=='expire'">{{$t("btn.professionalMembersFeeWaiver")}}</span>
+                                    <span class="handle" @click="feeWaiver('instructorQualification',item)" v-if="item.instructorQualification=='notPay'||item.instructorQualification=='expire'">{{$t("btn.instructorQualificationFeeWaiver")}}</span>
                                 </div>
                             </td>
                         </tr>
@@ -115,7 +115,7 @@
                 </div>
             </div>
         </div>
-        <div class="cm-btn cm-add-btn" @click="dialogFormVisible=true">
+        <div class="cm-btn cm-add-btn" v-if="account.type=='admin'" @click="dialogFormVisible=true">
             <div class="icon-wrap">
                 <i class="icon add-cross-icon"></i>
             </div>
@@ -194,7 +194,7 @@
                             v-for="(item,index) in options"
                             :key="index"
                             :label="item.label"
-                            :value="item.value">
+                            :value="item.value" :class="{'cm-hidden':item.value=='nonactivated'||item.value=='certified'}">
                         </el-option>
                     </el-select>
                 </div>
@@ -244,6 +244,7 @@
         },
         data() {
             return {
+                account:{},
                 school:null,
                 schoolName:null,
                 levelOptions:[

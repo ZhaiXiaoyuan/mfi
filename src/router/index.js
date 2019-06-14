@@ -241,7 +241,7 @@ router.beforeEach((to, from,next) => {
                                 }
                             }
                             if(to.name!='coachDetail'&&to.name!='protocol'){
-                                if(account.instructorAccountStatus=='pending'||account.instructorAccountStatus=='fail'||account.professionalMembersFee=='notPay'){
+                                if(account.instructorAccountStatus=='pending'||account.instructorAccountStatus=='fail'||account.professionalMembersFee=='notPay'||account.professionalMembersFee=='expire'||account.instructorQualification=='notPay'||account.instructorQualification=='expire'){
                                     router.push({name:'coachDetail'});
                                 }
                             }
@@ -264,7 +264,7 @@ router.beforeEach((to, from,next) => {
                    /* console.log('loginInfo:',data);*/
                     account={ type:account.type,account:account.account,...data.school,...data.schoolPayment};
                     Vue.cookie.set('account',JSON.stringify(account),7);
-                    if(account.schoolQualification=='notPay'){
+                    if(account.schoolQualification=='notPay'||account.schoolQualification=='expire'){
                         if(to.name!='protocol'){
                             if(data.schoolProtocolState=='disable'){
                                 bus.$emit('service_modal_handle',data);

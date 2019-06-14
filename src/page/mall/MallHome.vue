@@ -22,7 +22,7 @@
                         <div class="cm-content-box">
                             <ul class="cm-goods-list">
                                 <li v-for="(item,index) in entryList" :key="item.id" @click="setCurGoods(item)">
-                                    <div class="cover" :style="{background: 'url('+(basicConfig.filePrefix+'/mfi'+item.imageUrl)+') no-repeat center',backgroundSize: 'cover'}"></div>
+                                    <div class="cover" :style="{background: 'url('+(basicConfig.filePrefix+item.imageUrl)+') no-repeat center',backgroundSize: 'cover'}"></div>
                                     <p class="name">{{item.name}}</p>
                                     <p class="name" v-if="account.type=='student'">${{item.price}}</p>
                                     <div class="handle">
@@ -61,7 +61,7 @@
                                     </el-col>
                                 </el-row>
                                 <div class="goods-content">
-                                    <img :src="basicConfig.filePrefix+'/mfi'+curGoods.imageUrl" alt="">
+                                    <img :src="basicConfig.filePrefix+curGoods.imageUrl" alt="">
                                 </div>
                             </div>
                         </div>

@@ -12,70 +12,71 @@
             </div>
             <div class="panel-bd">
                 <div class="cm-detail-block detail-block show-status">
-                    <div class="payment-status" v-if="account.schoolQualification=='notPay'">
+                    <div class="payment-status" v-if="account.type=='school'&&(account.schoolQualification=='notPay'||account.schoolQualification=='expire')">
                         <div><span>{{$t("tips.schoolQualification")}}</span><span class="cm-btn btn" @click="toPay()">{{$t("btn.go")}}</span></div>
                     </div>
+                    <div class="payment-status" v-if="account.type=='admin'&&(editForm.schoolQualification=='notPay'||editForm.schoolQualification=='expire')">
+                        <div><span class="cm-btn btn" @click="feeWaiver()">{{$t("btn.schoolQualificationFeeWaiver")}}</span></div>
+                    </div>
                     <div class="block-bd">
-                        <div class="block-bd">
-                            <el-row>
-                                <el-col :span="20">
-                                    <el-row class="info-row">
-                                        <el-col :span="10" class="info-item">
-                                            <span class="label">{{$t('label.schoolNameLen')}}：</span>
-                                            <span class="value">{{editForm.name}}</span>
-                                        </el-col>
-                                        <el-col :span="10" class="info-item">
-                                            <span class="label">{{$t('label.email')}}：</span>
-                                            <span class="value">{{editForm.email}}</span>
-                                        </el-col>
-                                    </el-row>
-                                    <el-row class="info-row">
-                                        <el-col :span="10" class="info-item">
-                                            <span class="label">{{$t('label.country')}}：</span>
-                                            <span class="value">{{editForm.country}}</span>
-                                        </el-col>
-                                        <el-col :span="10" class="info-item">
-                                            <span class="label">{{$t('label.code')}}：</span>
-                                            <span class="value">{{editForm.serialCode}}</span>
-                                        </el-col>
-                                    </el-row>
-                                    <el-row class="info-row">
-                                        <el-col :span="10" class="info-item">
-                                            <span class="label">{{$t('label.province')}}：</span>
-                                            <span class="value">{{editForm.province}}</span>
-                                        </el-col>
-                                        <el-col :span="10" class="info-item">
-                                            <span class="label">{{$t('label.status')}}：</span>
-                                            <span class="value">{{$t('btn.'+editForm.state)}}</span>
-                                            <span style="margin-left: 10px;" class="cm-btn btn cm-handle-btn cm-handle-min-btn" @click="toAudit()" v-if="account.type=='admin'&&(editForm.state=='pending'||editForm.state=='fail')">{{$t("btn.auditPassLen")}}</span>
-                                        </el-col>
-                                    </el-row>
-                                    <el-row class="info-row">
-                                        <el-col :span="10" class="info-item">
-                                            <span class="label">{{$t('label.city')}}：</span>
-                                            <span class="value">{{editForm.city}}</span>
-                                        </el-col>
-                                        <el-col :span="10" class="info-item">
-                                            <span class="label">{{$t('label.level')}}：</span>
-                                            <span class="value" v-if="editForm.level&&editForm.level!='null'">{{$t('value.'+editForm.level)}}</span>
-                                        </el-col>
-                                    </el-row>
-                                    <el-row class="info-row">
-                                        <el-col :span="10" class="info-item">
-                                            <span class="label">{{$t('label.address')}}：</span>
-                                            <span class="value">{{editForm.address}}</span>
-                                        </el-col>
-                                        <el-col :span="10" class="info-item">
-                                            <span class="label">{{$t('label.postcode')}}：</span>
-                                            <span class="value">{{editForm.postcode}}</span>
-                                        </el-col>
-                                    </el-row>
-                                </el-col>
-                                <el-col :span="4">
-                                    <span style="margin-left: 10px;" class="cm-btn btn cm-handle-btn cm-handle-md-btn" @click="toEdit()" v-if="account.type=='admin'">{{$t("btn.edit")}}</span>
-                                </el-col>
-                            </el-row>
-                        </div>
+                        <el-row>
+                            <el-col :span="20">
+                                <el-row class="info-row">
+                                    <el-col :span="10" class="info-item">
+                                        <span class="label">{{$t('label.schoolNameLen')}}：</span>
+                                        <span class="value">{{editForm.name}}</span>
+                                    </el-col>
+                                    <el-col :span="10" class="info-item">
+                                        <span class="label">{{$t('label.email')}}：</span>
+                                        <span class="value">{{editForm.email}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="info-row">
+                                    <el-col :span="10" class="info-item">
+                                        <span class="label">{{$t('label.country')}}：</span>
+                                        <span class="value">{{editForm.country}}</span>
+                                    </el-col>
+                                    <el-col :span="10" class="info-item">
+                                        <span class="label">{{$t('label.code')}}：</span>
+                                        <span class="value">{{editForm.serialCode}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="info-row">
+                                    <el-col :span="10" class="info-item">
+                                        <span class="label">{{$t('label.province')}}：</span>
+                                        <span class="value">{{editForm.province}}</span>
+                                    </el-col>
+                                    <el-col :span="10" class="info-item">
+                                        <span class="label">{{$t('label.status')}}：</span>
+                                        <span class="value">{{$t('btn.'+editForm.state)}}</span>
+         <!--                               <span style="margin-left: 10px;" class="cm-btn btn cm-handle-btn cm-handle-min-btn" @click="toAudit()" v-if="account.type=='admin'&&(editForm.state=='pending'||editForm.state=='fail')">{{$t("btn.auditPassLen")}}</span>-->
+                                    </el-col>
+                                </el-row>
+                                <el-row class="info-row">
+                                    <el-col :span="10" class="info-item">
+                                        <span class="label">{{$t('label.city')}}：</span>
+                                        <span class="value">{{editForm.city}}</span>
+                                    </el-col>
+                                    <el-col :span="10" class="info-item">
+                                        <span class="label">{{$t('label.level')}}：</span>
+                                        <span class="value" v-if="editForm.level&&editForm.level!='null'">{{$t('value.'+editForm.level)}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="info-row">
+                                    <el-col :span="10" class="info-item">
+                                        <span class="label">{{$t('label.address')}}：</span>
+                                        <span class="value">{{editForm.address}}</span>
+                                    </el-col>
+                                    <el-col :span="10" class="info-item">
+                                        <span class="label">{{$t('label.postcode')}}：</span>
+                                        <span class="value">{{editForm.postcode}}</span>
+                                    </el-col>
+                                </el-row>
+                            </el-col>
+                            <el-col :span="4">
+                                <span style="margin-left: 10px;" class="cm-btn btn cm-handle-btn cm-handle-md-btn" @click="toEdit()" v-if="account.type=='admin'">{{$t("btn.edit")}}</span>
+                            </el-col>
+                        </el-row>
                     </div>
                     <div class="block-bd" v-if="account.type=='admin'">
                         <div class="btn-list">
@@ -292,11 +293,12 @@
                 });
             },
             toPay:function () {
-                console.log('this.unusedList:',this.unusedList);
                 let interval=null;
                 let payModalInstance=this.payModal({
                     userId:this.account.id,
                     level:'schoolQualification',
+                    title:this.$t('title.toPaypal'),
+                    tips:this.$t('label.schoolQualification'),
                     callback:(data)=>{
                         // payModalInstance.close();
 
@@ -357,6 +359,22 @@
             },
             useDefaultPassword:function () {
                 this.editForm.password='123456';
+            },
+            feeWaiver:function () {
+                let params={
+                    ...Vue.sessionInfo(),
+                    adminId:this.account.id,
+                    schoolSerialCode:this.editForm.serialCode,
+                }
+                let fb=Vue.operationFeedback({text:this.$t("tips.handle")});
+                Vue.api.schoolFeeWaiver(params).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        this.editForm.schoolQualification='pay';
+                        fb.setOptions({type:'complete', text:this.$t("tips.handleS")});
+                    }else{
+                        fb.setOptions({type:'warn', text:this.$t("tips.handleF",{ msg: resp.respMsg})});
+                    }
+                });
             },
         },
         mounted () {

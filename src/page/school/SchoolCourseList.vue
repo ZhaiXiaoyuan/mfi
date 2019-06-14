@@ -65,7 +65,7 @@
                                 {{item.courseId}}
                             </td>
                             <td>
-
+                                {{item.instructorEmail}}
                             </td>
                             <td>
                                 {{item.courseName}}
@@ -225,10 +225,11 @@
                     this.pager.loading=false;
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
+                        console.log('ddd:',data)
                         let list=data.courseList;
                         this.entryList=[];
                         list.forEach((item,i)=>{
-                            this.entryList.push({...item.course,count:item.count});
+                            this.entryList.push({...item.course,count:item.count,instructorEmail:item.instructorEmail,instructorName:item.instructorName});
                         });
                         this.pager.total=data.courseCount;
                         console.log('test:', this.entryList);

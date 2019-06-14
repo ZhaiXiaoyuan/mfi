@@ -467,11 +467,19 @@ export default {
                 params: params
             });
         },
-        //根据等级获取教材
-        getTeachingMaterialList:function (params) {
+        //根据等级获取所有教材
+        getAdminTeachingMaterialList:function (params) {
             return Vue.http.ajax({
                 method: 'post',
                 url: basicUrl+'/teachingMaterial/getTeachingMaterialList',
+                params: params
+            });
+        },
+        //根据等级获取用户教材
+        getUserTeachingMaterialList:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/teachingMaterial/userGetTeachingMaterialList',
                 params: params
             });
         },

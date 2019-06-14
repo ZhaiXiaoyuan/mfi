@@ -222,6 +222,7 @@
 
             /**/
             this.account=this.getAccountInfo();
+            console.log('this.account:',this.account);
 
             this.accountAccess=null;
             if(this.account.type=='super'){
@@ -231,18 +232,18 @@
                 this.accountAccess=['msgList','coachList','adminStudentList','schoolList','material','mall','auditList','certificateStatistics','setting'];
             }
             else if(this.account.type=='coach'){
-                if(this.account.instructorAccountStatus=='certified'){
-                    this.accountAccess=['msgList','material','courseList','studentList','userAuditList','coachCertificateStatistics','mall','coachDetail',];
-                }else{
+                if(this.account.instructorAccountStatus!='certified'||this.account.professionalMembersFee=='notPay'||this.account.professionalMembersFee=='expire'||this.account.instructorQualification=='notPay'||this.account.instructorQualification=='expire'){
                     this.accountAccess=['coachDetail']
+                }else{
+                    this.accountAccess=['msgList','material','courseList','studentList','userAuditList','coachCertificateStatistics','mall','coachDetail',];
                 }
             }else if(this.account.type=='student'){
                 this.accountAccess=['studentCourseList','material','mall','studentDetail'];
             }else if(this.account.type=='school'){
-                if(this.account.schoolQualification=='notPay'){
+                if(this.account.schoolQualification=='notPay'||this.account.schoolQualification=='expire'){
                     this.accountAccess=['schoolDetail'];
                 }else{
-                    this.accountAccess=['coachList','material','schoolStudentList','schoolCourseList','certificateStatistics','mall','schoolDetail'];
+                    this.accountAccess=['coachList','schoolStudentList','schoolCourseList','certificateStatistics','mall','schoolDetail'];
                 }
             }
             this.initItems();
@@ -386,7 +387,7 @@
                 let params={
                     timeStamp:Vue.tools.genTimestamp(),
                     userId:this.account.id,
-                    type:this.account.type=='student'?'1991687524@qq.com':'toStudent',
+                    type:this.account.type=='student'?'toInstructor':'toStudent',
                 }
                 Vue.api.switchLogin(params).then((resp)=>{
                     if(resp.respCode=='2000'){

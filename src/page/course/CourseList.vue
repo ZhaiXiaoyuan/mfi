@@ -27,7 +27,7 @@
                         <div class="con-item">
                             <div class="con-item" v-if="account.type=='coach'">
                                 <el-menu :default-active="activeType" class="cm-tab-menu" mode="horizontal" @select="setType">
-                                    <el-menu-item index="school">{{$t("btn.someoneCourse",{msg:account.school})}}</el-menu-item>
+                                    <el-menu-item index="school">{{$t("btn.schoolCourse")}}</el-menu-item>
                                     <el-menu-item index="self">{{$t("btn.selfCourse")}}</el-menu-item>
                                 </el-menu>
                             </div>

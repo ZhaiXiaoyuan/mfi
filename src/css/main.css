@@ -995,6 +995,9 @@ body {
 .cm-disabled * {
   pointer-events: none !important;
 }
+.cm-hidden {
+  display: none !important;
+}
 .cm-link-btn {
   cursor: pointer;
 }
@@ -1316,10 +1319,11 @@ body {
   margin-top: 20px;
 }
 .cm-goods-box .goods-content {
-  padding: 20px 50px;
+  padding: 40px 100px;
+  text-align: center;
 }
 .cm-goods-box .goods-content img {
-  width: 100%;
+  width: 80%;
 }
 /*小屏幕适配*/
 @media screen and (max-width: 1600px) {

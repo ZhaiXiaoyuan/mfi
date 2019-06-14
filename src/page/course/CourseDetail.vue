@@ -36,7 +36,7 @@
                         <el-row style="margin-top: 10px;">
                             <el-col :span="12" class="info-item">
                                 <span class="label">{{$t('label.instructor')}}：</span>
-                                <span class="value"></span>
+                                <span class="value">{{course.instructorEmail}}</span>
                             </el-col>
                         </el-row>
                     </div>
@@ -404,8 +404,9 @@
                 }
                 Vue.api.getCourseDetail(params).then((resp)=>{
                     if(resp.respCode=='2000'){
-                        this.course=JSON.parse(resp.respMsg);
-                    /*    console.log('this.course:',this.course);*/
+                        let data=JSON.parse(resp.respMsg);
+                        this.course={...data.course,instructorEmail:data.instructorEmail,instructorName:data.instructorName}
+                        console.log('this.course:',this.course);
                         this.getUnusedCertificate();
                     }
                 });
@@ -519,6 +520,7 @@
                 let payModalInstance=this.payModal({
                     userId:this.account.id,
                     level:this.course.mfiLevel,
+                    title:this.$t('title.toPaypal'),
                     tips:this.$t('tips.buyM0Tips'),
                     callback:(data)=>{
                        // payModalInstance.close();

@@ -86,6 +86,9 @@ const cn = {
         remaining:'剩余',
         from:'转发方',
         to:'接收方',
+        annualFeelForProfessionalMembers:'专业会员年费',
+        instructorQualification:'教练资格註册延续年费',
+        schoolQualification:'资格延续年费',
     },
     holder: {
         account:'请输入账号',
@@ -167,8 +170,8 @@ const cn = {
         all:'全部',
         newCoach:'新建教练账号',
         nonActivated:'未激活',
-      /*  certified:'已审核',*/
-        certified:'已註册（激活）',
+        certified:'已审核',
+      /*  certified:'已註册（激活）',*/
         pending:'待审核',
         fail:'审核不通过',
         disable:'禁用',
@@ -263,6 +266,7 @@ const cn = {
         transpondCertificate:'证书转发',
         toBuy:'立即购买',
         transpondRecord:'证书转发记录',
+        schoolCourse:'学校开设的课程',
     },
     title:{
         super:'超级管理员',
@@ -321,6 +325,8 @@ const cn = {
         someoneBuyRecord:'{msg}的购买记录',
         centerCoupons:'发展中心优惠券',
         fiveStarCenterCoupons:'五星发展中心优惠券',
+        schoolCourse:'学校课程',
+        toPaypal:'点击跳转到paypal进行购买',
     },
     tips:{
         login:'登录中...',

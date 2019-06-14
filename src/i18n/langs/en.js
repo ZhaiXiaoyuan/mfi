@@ -84,6 +84,9 @@ const en = {
         remaining:'remaining',
         from:'from',
         to:'to',
+        annualFeelForProfessionalMembers:'annual fee for professional members',
+        instructorQualification:'annual fee for instructor qualification',
+        schoolQualification:'annual fee for school qualification',
     },
     holder: {
         account:'please enter your account',
@@ -252,7 +255,7 @@ const en = {
         getCode:'get code',
         pass:'pass',
         courseLen:'course',
-        someoneCourse:'{msg}\' course',
+        someoneCourse:'{msg}\'s course',
         selfCourse:'my own course',
         switchToInstructor:'switch to instructor',
         switchToStudent:'switch to student',
@@ -260,6 +263,7 @@ const en = {
         transpondCertificate:'transpond certificate',
         toBuy:'buy now',
         transpondRecord:'transpond record',
+        schoolCourse:'school\'s course',
     },
     title:{
         super:'Super Administrator',
@@ -318,7 +322,9 @@ const en = {
         someoneBuyRecord:'{msg}\'s buy record',
         centerCoupons:'Star School Coupons',
         fiveStarCenterCoupons:'Five Star School Coupons',
-        pInt:'The count is invalid，please enter the positive integer.'
+        pInt:'The count is invalid，please enter the positive integer.',
+        schoolCourse:'school\' course',
+        toPaypal:'Click To Pay With Paypal',
     },
     tips:{
         login:'logining...',

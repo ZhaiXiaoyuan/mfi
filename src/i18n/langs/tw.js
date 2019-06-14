@@ -84,6 +84,9 @@ const tw = {
         remaining:'剩余',
         from:'轉發方',
         to:'接收方',
+        annualFeelForProfessionalMembers:'專業會員年費',
+        instructorQualification:'教練資格註冊延續年費',
+        schoolQualification:'資格延續年費',
     },
     holder: {
         account:'請輸入賬號',
@@ -165,8 +168,8 @@ const tw = {
         all:'全部',
         newCoach:'新建教練賬號',
         nonActivated:'未激活',
-      /*  certified:'已審核',*/
-        certified:'已註冊（激活）',
+        certified:'已審核',
+        /*certified:'已註冊（激活）',*/
         pending:'待審核',
         fail:'審核不通過',
         disable:'禁用',
@@ -261,6 +264,7 @@ const tw = {
         transpondCertificate:'證書轉發',
         toBuy:'立即購買',
         transpondRecord:'證書轉發記錄',
+        schoolCourse:'學校開設的課程',
     },
     title:{
         super:'超級管理員',
@@ -319,6 +323,8 @@ const tw = {
         someoneBuyRecord:'{msg}的購買記錄',
         centerCoupons:'發展中心優惠券',
         fiveStarCenterCoupons:'五星發展中心優惠券',
+        schoolCourse:'學校課程',
+        toPaypal:'點擊跳轉到paypal進行購買',
     },
     tips:{
         login:'登錄中...',

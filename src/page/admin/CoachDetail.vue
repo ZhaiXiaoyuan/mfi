@@ -12,16 +12,16 @@
             </div>
             <div class="panel-bd">
                 <div class="cm-detail-block detail-block show-status">
-                    <div class="status" v-if="account.type=='coach'&&account.professionalMembersFee!='notPay'">
+                    <div class="status" v-if="account.type=='coach'&&(account.professionalMembersFee!='notPay'&&account.professionalMembersFee!='expire'&&account.instructorQualification!='notPay'&&account.instructorQualification!='expire')">
                         <span>{{$t("title."+account.instructorAccountStatus)}}</span>
                     </div>
-                    <div class="payment-status" v-if="account.type=='coach'&&(account.professionalMembersFee=='notPay'||account.instructorQualification=='notPay')">
-                        <div v-if="account.professionalMembersFee=='notPay'"><span>{{$t("tips.annualFeelForProfessionalMembers")}}</span><span class="cm-btn btn" @click="toPay({type:'professionalMembersFee'})">{{$t("btn.go")}}</span></div>
-                        <div v-if="account.instructorQualification=='notPay'"><span>{{$t("tips.instructorQualification")}}</span><span class="cm-btn btn" @click="toPay({type:'instructorQualification'})">{{$t("btn.go")}}</span></div>
+                    <div class="payment-status" v-if="account.type=='coach'&&(account.professionalMembersFee=='notPay'||account.professionalMembersFee=='expire'||account.instructorQualification=='notPay'||account.instructorQualification=='expire')">
+                        <div v-if="account.professionalMembersFee=='notPay'||account.professionalMembersFee=='expire'"><span>{{$t("tips.annualFeelForProfessionalMembers")}}</span><span class="cm-btn btn" @click="toPay({type:'professionalMembersFee'})">{{$t("btn.go")}}</span></div>
+                        <div v-if="account.instructorQualification=='notPay'||account.instructorQualification=='expire'"><span>{{$t("tips.instructorQualification")}}</span><span class="cm-btn btn" @click="toPay({type:'instructorQualification'})">{{$t("btn.go")}}</span></div>
                     </div>
-                    <div class="payment-status" v-if="account.type=='admin'&&(coach.professionalMembersFee=='notPay'||coach.instructorQualification=='notPay')">
-                        <div v-if="coach.professionalMembersFee=='notPay'"><span class="cm-btn btn" @click="feeWaiver('professionalMembersFee')">{{$t("btn.professionalMembersFeeWaiver")}}</span></div>
-                        <div v-if="coach.instructorQualification=='notPay'"><span class="cm-btn btn" @click="feeWaiver('instructorQualification')">{{$t("btn.instructorQualificationFeeWaiver")}}</span></div>
+                    <div class="payment-status" v-if="account.type=='admin'&&(coach.professionalMembersFee=='notPay'||coach.professionalMembersFee=='expire'||coach.instructorQualification=='notPay'||coach.instructorQualification=='expire')">
+                        <div v-if="coach.professionalMembersFee=='notPay'||coach.professionalMembersFee=='expire'"><span class="cm-btn btn" @click="feeWaiver('professionalMembersFee')">{{$t("btn.professionalMembersFeeWaiver")}}</span></div>
+                        <div v-if="coach.instructorQualification=='notPay'||coach.instructorQualification=='expire'"><span class="cm-btn btn" @click="feeWaiver('instructorQualification')">{{$t("btn.instructorQualificationFeeWaiver")}}</span></div>
                     </div>
                     <div class="block-bd">
                         <el-row>
@@ -85,7 +85,7 @@
                                         <span class="label">{{$t('label.status')}}：</span>
                                         <span class="value">{{$t('btn.'+coach.instructorAccountStatus)}}</span>
                                         <i class="icon setting-min-icon" @click="statusSettingDialogFlag=true" v-if="account.type=='admin'"></i>
-                                        <span style="margin-left: 10px;" class="cm-btn btn" @click="addAudit()" v-if="account.type=='coach'&&(coach.instructorAccountStatus=='pending'||coach.instructorAccountStatus=='fail')">{{$t("btn.applyForAudit")}}</span>
+                                        <span style="margin-left: 10px;" class="cm-btn btn" @click="addAudit()" v-if="account.type=='coach'&&(coach.instructorAccountStatus=='pending'||coach.instructorAccountStatus=='fail')&&(coach.professionalMembersFee=='pay'&&coach.instructorQualification=='pay')">{{$t("btn.applyForAudit")}}</span>
                                     </el-col>
                                 </el-row>
                                 <el-row class="info-row">
@@ -194,7 +194,7 @@
                             v-for="(item,index) in options"
                             :key="index"
                             :label="item.label"
-                            :value="item.value">
+                            :value="item.value" :class="{'cm-hidden':item.value=='certified'}">
                         </el-option>
                     </el-select>
                 </div>
@@ -330,7 +330,7 @@
                     <tbody>
                     <tr v-for="(item,index) in entryList">
                         <td>
-                            {{transpondData.from.email?transpondData.from.email:transpondData.from.serialCode}}
+                            {{transpondData.from.name}}
                         </td>
                         <td>
                             {{transpondData.to.email}}
@@ -993,6 +993,8 @@
                 let payModalInstance=this.payModal({
                     userId:this.account.id,
                     level:options.type,
+                    title:this.$t('title.toPaypal'),
+                    tips:this.$t('label.'+(options.type=='professionalMembersFee'?'annualFeelForProfessionalMembers':'instructorQualification')),
                     callback:(data)=>{
                         // payModalInstance.close();
 

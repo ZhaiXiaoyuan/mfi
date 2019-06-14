@@ -49,7 +49,7 @@ export default {
              /* basicUrl:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://39.108.11.197',
               filePrefix:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://39.108.11.197',*/
               basicUrl:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://www.mermaidfederation.com',
-              filePrefix:true||process.env.NODE_ENV=='development'?'http://api.linqi.tech:8621':'http://www.mermaidfederation.com',
+              filePrefix:true||process.env.NODE_ENV=='development'?'http://api.linqi.tech:8621/mfi':'http://www.mermaidfederation.com',
               paypalPrefix:true||process.env.NODE_ENV=='development'?'https://www.sandbox.paypal.com':'https://www.paypal.com',
               levelOptions:[
                   {

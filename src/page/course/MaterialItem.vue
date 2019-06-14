@@ -55,7 +55,7 @@
                         <div class="view-box" v-if="type=='view'">
                             <p class="title">{{form.title}}</p>
                             <p class="level">{{$t("label.level")}}：{{allLevelList[form.levelList]}}</p>
-                            <p class="file"><a :href="basicConfig.filePrefix+'/mfi'+form.fileUrl" target="_blank">{{$t("label.file")}}：{{form.fileName}}</a></p>
+                            <p class="file"><a :href="basicConfig.filePrefix+form.fileUrl" target="_blank">{{$t("label.file")}}：{{form.fileName}}</a></p>
                             <div class="content-detail">
                                 <div v-html="form.content"></div>
                             </div>
@@ -196,7 +196,7 @@
                         Vue.api.addContentPicture(formData).then(function (data) {
                             if(data.status=='2000'){
                                 fb.setOptions({type:'complete',text:'上传成功',delayForDelete:1500});
-                                insert(Vue.basicConfig.filePrefix+'/mfi/mfiFile/teachingMaterial/'+data.respMsg);
+                                insert(Vue.basicConfig.filePrefix+'/mfiFile/teachingMaterial/'+data.respMsg);
                             }else{
                                 fb.setOptions({type:'warn',text:'图片上传失败'});
                             }

@@ -269,7 +269,8 @@
                 }
                 Vue.api.getCourseDetail(params).then((resp)=>{
                     if(resp.respCode=='2000'){
-                        this.course=JSON.parse(resp.respMsg);
+                        let data=JSON.parse(resp.respMsg);
+                        this.course={...data.course,instructorEmail:data.instructorEmail,instructorName:data.instructorName}
                      /*   console.log('this.course:',this.course);*/
                     }
                 });
@@ -321,6 +322,7 @@
                 });
             },
             addToCourse:function (emailList,callback) {
+                console.log('test:',this.course);
                 let params={
                     ...Vue.sessionInfo(),
                     courseId:this.course.courseId,

@@ -3,6 +3,7 @@
       <div class="modal-mask"  @click="close()"></div>
       <div class="modal-content">
           <div class="modal-header">
+              <span class="title">{{options.title}}</span>
               <span class="cm-btn close-btn" @click="close()"><i class="icon el-icon-circle-close-outline"></i></span>
           </div>
           <div class="modal-body">
@@ -42,15 +43,24 @@
        .modal-content{
            position: relative;
            z-index: 502;
-           width: 500px;
-           height: 300px;
+           width: 450px;
+           height: 250px;
            background: #fff;
            border-radius: 5px;
            overflow: hidden;
            .modal-header{
+               position: relative;
                padding: 20px;
+               text-align: center;
+               .title{
+                   font-size: 20px;
+                   color: #5560aa;
+               }
                .close-btn{
-                   float: right;
+                   position: absolute;
+                   display: inline-block;
+                   top:15px;
+                   right: 15px;
                    .icon{
                        font-size: 25px;
                        color: #666;
@@ -60,12 +70,14 @@
            .modal-body{
                position: relative;
                height: 100%;
+               .tips{
+                   font-size: 16px;
+                   color: #333;
+                   text-align: center;
+                   padding: 30px 20px 10px 20px;
+               }
                form{
-                   position: absolute;
-                   width: 100%;
-                   left: 0px;
-                   bottom: 100px;
-                   padding-top: 50px;
+                   margin-top: 20px;
                    text-align: center;
                }
            }
@@ -85,6 +97,7 @@
           callback:null,
           closeCallback:null,
           tips:null,
+          title:'',
       }
     },
     data: function () {

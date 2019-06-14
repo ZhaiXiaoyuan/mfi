@@ -54,7 +54,7 @@
                             <td>
                                 <span class="handle" @click="toDetail(index)">{{$t("btn.detail")}}</span>
                                 <span class="handle" @click="toEdit(index)">{{$t("btn.edit")}}</span>
-                                <span class="handle" @click="feeWaiver(item)" v-if="item.schoolQualification=='notPay'">{{$t("btn.schoolQualificationFeeWaiver")}}</span>
+                                <span class="handle" @click="feeWaiver(item)" v-if="item.schoolQualification=='notPay'||item.schoolQualification=='expire'">{{$t("btn.schoolQualificationFeeWaiver")}}</span>
                             </td>
                         </tr>
                         </tbody>

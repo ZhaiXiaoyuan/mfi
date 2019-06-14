@@ -119,27 +119,50 @@
             },
             getTeachingMaterialList:function (pageIndex) {
                 this.pager.pageIndex=pageIndex?pageIndex:1;
-                let params={
-                    ...Vue.sessionInfo(),
-                    pageIndex:this.pager.pageIndex,
-                    pageSize:this.pager.pageSize,
-                    mfiLevel:this.selectedLevel,
-                }
-                this.pager.loading=true;
-                Vue.api.getTeachingMaterialList(params).then((resp)=>{
-                    this.pager.loading=false;
-                    if(resp.respCode=='2000'){
-                        let data=JSON.parse(resp.respMsg);
-                        let list=data.teachingMaterialList;
-                        try {
-                            this.entryList=JSON.parse(data.teachingMaterialList);
-                        }catch (e) {
-                            this.entryList=[];
-                        }
-                        this.pager.total=data.count;
-                        console.log('entryList:', this.entryList);
+                if(this.account.type=='admin'){
+                    let params={
+                        ...Vue.sessionInfo(),
+                        pageIndex:this.pager.pageIndex,
+                        pageSize:this.pager.pageSize,
+                        mfiLevel:this.selectedLevel,
                     }
-                });
+                    this.pager.loading=true;
+                    Vue.api.getAdminTeachingMaterialList(params).then((resp)=>{
+                        this.pager.loading=false;
+                        if(resp.respCode=='2000'){
+                            let data=JSON.parse(resp.respMsg);
+                            let list=data.teachingMaterialList;
+                            try {
+                                this.entryList=JSON.parse(data.teachingMaterialList);
+                            }catch (e) {
+                                this.entryList=[];
+                            }
+                            this.pager.total=data.count;
+                        }
+                    });
+                }else{
+                    let params={
+                        ...Vue.sessionInfo(),
+                        userId:this.account.id,
+                        pageIndex:this.pager.pageIndex,
+                        pageSize:this.pager.pageSize,
+                        mfiLevel:this.selectedLevel,
+                    }
+                    this.pager.loading=true;
+                    Vue.api.getUserTeachingMaterialList(params).then((resp)=>{
+                        this.pager.loading=false;
+                        if(resp.respCode=='2000'){
+                            let data=JSON.parse(resp.respMsg);
+                            let list=data.teachingMaterialList;
+                            try {
+                                this.entryList=JSON.parse(data.teachingMaterialList);
+                            }catch (e) {
+                                this.entryList=[];
+                            }
+                            this.pager.total=data.count;
+                        }
+                    });
+                }
             },
             levelChange:function (data) {
                 this.getList();
