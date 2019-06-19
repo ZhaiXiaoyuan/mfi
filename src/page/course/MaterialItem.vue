@@ -2,7 +2,7 @@
     <div class="page-content material-item">
         <div class="cm-panel">
             <div class="panel-hd">
-                <div class="cm-btn cm-return-btn" @click="$router.back();"  v-if="account.type=='admin'">
+                <div class="cm-btn cm-return-btn" @click="$router.back();">
                     <div class="wrapper">
                         <i class="icon el-icon-arrow-left"></i>
                         {{$t('btn.back')}}
@@ -35,6 +35,9 @@
                                     </el-select>
                                 </div>
                                 <div class="cm-input-row">
+                                    <textarea v-model="form.content" cols="30" rows="20"  :placeholder="$t('holder.content')" ></textarea>
+                                </div>
+                                <div class="cm-input-row">
                                     <div class="cm-file-uploader" :class="{'uploading':uploadStatus=='uploading','uploaded':uploadStatus=='uploaded'}">
                                         <el-progress class="progress" :text-inside="true" :stroke-width="20" :percentage="80" color="#5560aa"></el-progress>
                                         <div class="btn-wrap">
@@ -47,18 +50,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="cm-input-row">
-                                    <div id="editor" class="editor"></div>
-                                </div>
                             </div>
                         </div>
                         <div class="view-box" v-if="type=='view'">
                             <p class="title">{{form.title}}</p>
                             <p class="level">{{$t("label.level")}}：{{allLevelList[form.levelList]}}</p>
-                            <p class="file"><a :href="basicConfig.filePrefix+form.fileUrl" target="_blank">{{$t("label.file")}}：{{form.fileName}}</a></p>
+                         <!--   <p class="file"><a :href="basicConfig.filePrefix+form.fileUrl" target="_blank">{{$t("label.file")}}：{{form.fileName}}</a></p>-->
                             <div class="content-detail">
                                 <div v-html="form.content"></div>
                             </div>
+                            <pdf v-for="i in numPages"
+                                 :key="i" :page="i" :src="task" style="display: inline-block;width: 100%"></pdf>
                         </div>
                     </div>
                 </div>
@@ -88,6 +90,10 @@
             .form-content{
                 .cm-input-row{
                     justify-content: flex-start;
+                    textarea{
+                        width: 600px;
+                        height: 400px;
+                    }
                 }
                 .cm-input{
                     width: 500px;
@@ -145,10 +151,11 @@
 </style>
 <script>
     import Vue from 'vue'
+    import pdf from 'vue-pdf'
 
     export default {
         components: {
-
+            pdf
         },
         data() {
             return {
@@ -170,6 +177,8 @@
                 uploadedCount:0,
                 files:[],
                 uploadStatus:null,
+                numPages:0,
+                task:null,
             }
         },
         created(){
@@ -223,7 +232,14 @@
                         if(this.form.fileName){
                             this.uploadStatus='uploaded';
                         }
-                        this.editor&&this.editor.txt.html(this.form.content);
+                       /* this.editor&&this.editor.txt.html(this.form.content);*/
+                    if(this.form.fileUrl){
+                        this.form.fileUrl=Vue.basicConfig.filePrefix+this.form.fileUrl;
+                        this.task=pdf.createLoadingTask(this.form.fileUrl);
+
+                        this.task.then(pdf => {
+                            this.numPages = pdf.numPages;});
+                        }
                     }
                 });
             },
@@ -250,7 +266,7 @@
                 }
             },
             save:function () {
-                this.form.content=this.editor.txt.html();
+             /*   this.form.content=this.editor.txt.html();*/
                 if(!this.form.title){
                     Vue.operationFeedback({type:'warn',text:this.$t("holder.title")});
                     return;
@@ -325,9 +341,8 @@
                 label:this.$t("btn.all"),
             }].concat(this.levelOptions);
             //
-            if(this.type!='view'){
-                this.initEditor();
-            }else{
+            if(this.type!='add'){
+                /*this.initEditor();*/
                 this.getEntry(this.id);
             }
             //

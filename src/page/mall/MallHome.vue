@@ -17,6 +17,7 @@
                                 <el-menu-item index="exchangeRecord" v-if="account.type=='admin'">{{$t("btn.exchangeAdmin")}}</el-menu-item>
                             </el-menu>
                         </div>
+                        <div class="con-item right" v-if="activeType=='exchangeRecord'"><p class="tips">{{$t("tips.track")}}</p></div>
                     </div>
                     <div class="block-bd" v-if="activeType=='goods'&&!curGoods">
                         <div class="cm-content-box">

@@ -110,7 +110,7 @@
                     <div class="cm-btn inner-btn" @click="useDefaultPassword()">{{$t("btn.useDefaultPwd")}}</div>
                 </div>
                 <div class="cm-input-row input-row" v-if="account.type=='school'">
-                    <span class="field">{{$t("label.pwd")}}</span>
+                    <span class="field">{{$t("label.setPwd")}}</span>
                     <div class="input-item">
                         <input :type="showPassword?'text':'password'" v-model="editForm.password" class="cm-input">
                         <i class="icon" :class="{'eye-close-icon':showPassword,'eye-open-icon':!showPassword}" @click="showPassword=!showPassword"></i>

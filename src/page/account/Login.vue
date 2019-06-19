@@ -236,6 +236,97 @@
             color: #606aaf;
         }
     }
+    @media screen and (max-width: 1000px) {
+        .login-panel{
+            position: relative;
+            z-index: 200;
+            background: #fff;
+            width: 90%;
+            height: auto;
+            min-height: 200px;
+            background-size: cover;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+            padding: 25px 20px;
+        }
+        .form-block{
+            float: none;
+            margin: 0px;
+            color: #5560aa;
+            width: auto;
+            .block-hd{
+                font-size: 20px;
+                p+p{
+                    padding-top: 5px;
+                    font-size: 24px;
+                }
+            }
+            .block-bd{
+                margin-top: 5px;
+            }
+            .input-row{
+                p{
+                    font-size: 16px;
+                }
+                .input-item{
+                    input{
+                        height: 44px;
+                        font-size: 16px;
+                        border: none;
+                        border-radius: 5px;
+                    }
+                    .icon{
+                        position: absolute;
+                        top:0px;
+                        right: 15px;
+                        bottom: 0px;
+                        margin: auto;
+                    }
+                    .account-icon{
+                        width: 18px;
+                        height: 20px;
+                    }
+                    .eye-open-icon{
+                        width: 19px;
+                        height: 19px;
+                    }
+                    .eye-close-icon{
+                        width: 19px;
+                        height: 19px;
+                    }
+                }
+                &+.input-row{
+                    margin-top: 15px;
+                }
+            }
+            .handle-btn{
+                margin-top: 20px;
+                width:100%;
+                height: 44px;
+                border-radius: 5px;
+                font-size:18px;
+                line-height: 44px;
+            }
+        }
+        .switch-panel{
+            top:45px;
+            left: 10px;
+        }
+        .switch-btn{
+            font-size: 14px;
+            color: #fff;
+            padding: 10px 15px;
+            margin: 4px 5px;
+            &+.switch-btn{
+                margin-left: 5px;
+            }
+        }
+        .help{
+            margin-top: 15px;
+            font-size: 14px;
+            color: #606aaf;
+        }
+    }
 </style>
 <script>
     import Vue from 'vue'

@@ -67,7 +67,7 @@ const cn = {
         postcode:'邮编',
         quantity:'人数',
         schoolName:'学校名',
-        paymentAccount:'支付賬號',
+        paymentAccount:'支付帳號',
         gift20M0:'赠送20 M0',
         schoolNameLen:'学校名称',
         redeemCode:'兑换码',
@@ -89,6 +89,7 @@ const cn = {
         annualFeelForProfessionalMembers:'专业会员年费',
         instructorQualification:'教练资格註册延续年费',
         schoolQualification:'资格延续年费',
+        setPwd:'设定新密码',
     },
     holder: {
         account:'请输入账号',
@@ -135,6 +136,7 @@ const cn = {
         certified:'',
         center:'发展中心',
         advancedCenter:'五星发展中心',
+        cCount:'{count}张',
     },
     btn:{
         adminLogin:'管理员登录',
@@ -251,8 +253,8 @@ const cn = {
         exchangeAdmin:'兑换管理',
         orderAdmin:'订单管理',
         handle:'操作',
-        waitExchange:'待兑换',
-        finishExchange:'已兑换',
+        waitExchange:'待发货',
+        finishExchange:'已发货',
         cancelExchange:'已取消',
         forget:'忘记密码',
         getCode:'获取邮箱验证码',
@@ -366,7 +368,8 @@ const cn = {
         payS:'支付成功',
         payF:'支付失败',
         pInt:'数量有误，请输入大于零的整数',
-        buyM0Tips:'购买二十张M0证书',
+        buyM0Tips:'购买{count}张{level}证书',
+        track:'可透过运输单号在运输公司网站上查询发货状态',
     },
     el: {
         colorpicker: {

@@ -1,5 +1,5 @@
 <template>
-    <div id="app" v-cloak>
+    <div id="app" :class="{'mobile-page':bVersion.mobile}" v-cloak>
         <router-view></router-view>
     </div>
 </template>
@@ -23,7 +23,7 @@
         },
         data: function () {
             return {
-
+                bVersion:Vue.tools.browserVersions(),
             }
         },
         computed: {},

@@ -140,7 +140,7 @@
         .sidebar{
             width: 250px;
             .user-info{
-                padding: 25px 5px;
+                padding: 20px 5px 15px 5px;
                 .name{
                     font-size: 16px;
                 }
@@ -152,7 +152,7 @@
                 }
             }
             .switch-btn{
-                bottom: 120px;
+                bottom: 70px;
                 width: 180px;
             }
         }
@@ -165,7 +165,7 @@
                 width: 25px;
             }
             li{
-                height: 60px;
+                height: 50px;
                 .line{
                     width: 5px;
                 }
@@ -176,10 +176,10 @@
         }
         .logout-btn{
             width: 180px;
-            height: 70px;
-            line-height: 66px;
-            font-size: 20px;
-            bottom: 20px;
+            height: 50px;
+            line-height: 50px;
+            font-size: 16px;
+            bottom: 5px;
         }
     }
 </style>

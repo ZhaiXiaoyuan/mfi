@@ -20,7 +20,17 @@
     margin: auto;
     cursor: pointer;
     border-radius: 10px;
-
+  }
+  @media screen and (max-width: 1000px){
+      .gen-code{
+          height: 36px;
+          border-radius: 5px;
+          margin: 0px;
+          top:auto;
+          left: auto;
+          right: 5px !important;
+          bottom: 4px;
+      }
   }
 </style>
 <script>

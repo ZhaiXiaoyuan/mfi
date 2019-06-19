@@ -87,6 +87,7 @@ const en = {
         annualFeelForProfessionalMembers:'annual fee for professional members',
         instructorQualification:'annual fee for instructor qualification',
         schoolQualification:'annual fee for school qualification',
+        setPwd:'set new password',
     },
     holder: {
         account:'please enter your account',
@@ -133,6 +134,7 @@ const en = {
         certified:'',
         center:'star school',
         advancedCenter:'five star school',
+        cCount:'{count}sheets',
     },
     btn:{
         adminLogin:'administrator login',
@@ -363,7 +365,8 @@ const en = {
         pay:'paying',
         payS:'pay successfully',
         payF:'pay failure',
-        buyM0Tips:'To buy 20 M0 certificates'
+        buyM0Tips:'To buy {count} {level} certificates',
+        track:'you can use the tracking number to check delivery status on express company website',
     },
     el: {
         colorpicker: {

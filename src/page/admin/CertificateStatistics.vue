@@ -121,6 +121,9 @@
 
         <el-dialog :title='account.level=="center"?$t("title.centerCoupons"):$t("title.fiveStarCenterCoupons")' class="edit-dialog cm-dialog buy-modal" :visible.sync="buyModalFlag" v-if="buyModalFlag" width="40%">
             <div class="modal-body">
+                <div class="icon-wrap">
+                    <i class="icon logo-icon"></i>
+                </div>
                 <ul class="type-list">
                     <li class="type-item" v-for="(item,index) in goodsList" :key="index">
                         <div class="item-hd">
@@ -128,7 +131,7 @@
                         </div>
                         <div class="item-bd">
                             <div class="goods-item" v-for="(goods,goodsIndex) in item.list" :key="goodsIndex">
-                                <p>{{goods.count}}张 ${{goods.price}}</p>
+                                <p>{{$t("value.cCount",{count:goods.count})}} ${{goods.price}}</p>
                                 <p class="off">{{goods.off}}</p>
                                 <div class="cm-btn handle-btn">
                                  <!--   {{$t("btn.toBuy")}}-->
@@ -201,9 +204,12 @@
                 background: rgba(0,0,0,0.2);
             }
         }
+        .icon-wrap{
+            text-align: center;
+        }
         .type-list{
             .type-item{
-                padding: 20px 5px 10px 5px;
+                padding: 5px 5px 20px 5px;
                 .item-hd{
                     font-size: 24px;
                     color: #333;

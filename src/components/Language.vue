@@ -64,6 +64,30 @@
             top:10px;
         }
     }
+    @media screen and (max-width: 1000px) {
+        .language{
+            height: 32px;
+            padding: 0px 8px;
+            border-top-left-radius: 16px;
+            border-bottom-left-radius: 16px;
+        }
+        ul{
+            li{
+                font-size: 12px;
+                height: 26px;
+                .gap-icon{
+                    font-size: 18px;
+                    padding: 0px 5px;
+                }
+                &.active{
+                    font-size: 16px;
+                    .text{
+                        top:-1px;
+                    }
+                }
+            }
+        }
+    }
 </style>
 <script>
     export default{
