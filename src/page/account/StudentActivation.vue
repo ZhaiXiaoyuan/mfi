@@ -461,7 +461,7 @@
         },
         mounted () {
             /**/
-            this.aesData=this.$route.query.data.replace(/\s+/g,"+");
+            this.aesData=this.$route.query.data.replace(/\s/g,"+");
             /**/
             this.getEmailByAesData();
             /**/
