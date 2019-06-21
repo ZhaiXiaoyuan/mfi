@@ -1,37 +1,41 @@
 <template>
-    <div class="sidebar">
-        <div class="user-info">
-            <i class="icon logo-icon"></i>
-            <p class="name">MFI&nbsp;EOS</p>
-            <p class="role">{{this.$t("title."+account.type)}}</p>
-            <p class="account">{{$t('label.account')}}：{{account.account?account.account:account.email}}</p>
-        </div>
-        <el-menu class="sidebar-el-menu" :default-active="onRoutes" :collapse="collapse" background-color="#fff"
-            text-color="#888" active-text-color="#48b4ff" unique-opened router>
-            <template v-for="(item,index) in items">
-                <template v-if="item.subs">
-                    <el-submenu :index="item.index" :key="item.index">
-                        <template slot="title">
+    <div class="sidebar" :class="{'active':show}">
+        <div class="cm-btn menu-icon menu-btn" @click="menuHandle()"></div>
+        <div class="sidebar-content">
+            <div class="user-info">
+                <i class="icon logo-icon"></i>
+                <p class="name">MFI&nbsp;EOS</p>
+                <p class="role">{{this.$t("title."+account.type)}}</p>
+                <p class="account">{{$t('label.account')}}：{{account.account?account.account:account.email}}</p>
+            </div>
+            <el-menu class="sidebar-el-menu" :default-active="onRoutes" :collapse="collapse" background-color="#fff"
+                     text-color="#888" active-text-color="#48b4ff" unique-opened router>
+                <template v-for="(item,index) in items">
+                    <template v-if="item.subs">
+                        <el-submenu :index="item.index" @click="menuHandle()" :key="item.index">
+                            <template slot="title">
+                                <span class="icon-wrap"> <i class="icon" :class="item.icon"></i></span>
+                                <span class="title" slot="title">{{ item.title }}</span>
+                            </template>
+                            <el-menu-item class="title"  v-for="(subItem,i) in item.subs" :key="i" :index="subItem.index">
+                                <span class="line"></span>
+                                {{ subItem.title }}
+                            </el-menu-item>
+                        </el-submenu>
+                    </template>
+                    <template v-else>
+                        <el-menu-item :index="item.index" @click="menuHandle()" :class="{'active':pageName&&pageName.indexOf(item.code)>-1}" :key="item.index">
+                            <span class="line"></span>
                             <span class="icon-wrap"> <i class="icon" :class="item.icon"></i></span>
                             <span class="title" slot="title">{{ item.title }}</span>
-                        </template>
-                        <el-menu-item class="title"  v-for="(subItem,i) in item.subs" :key="i" :index="subItem.index">
-                            <span class="line"></span>
-                            {{ subItem.title }}
                         </el-menu-item>
-                    </el-submenu>
+                    </template>
                 </template>
-                <template v-else>
-                    <el-menu-item :index="item.index" :class="{'active':pageName&&pageName.indexOf(item.code)>-1}" :key="item.index">
-                        <span class="line"></span>
-                        <span class="icon-wrap"> <i class="icon" :class="item.icon"></i></span>
-                        <span class="title" slot="title">{{ item.title }}</span>
-                    </el-menu-item>
-                </template>
-            </template>
-        </el-menu>
-        <div class="cm-btn cm-handle-btn cm-handle-md-btn switch-btn" v-if="account.type=='student'||account.type=='coach'" @click="switchRole()">{{account.type=='student'?$t("btn.switchToInstructor"):$t("btn.switchToStudent")}}</div>
-        <div class="cm-btn logout-btn" @click="logout()">{{$t("btn.logout")}}</div>
+            </el-menu>
+            <div class="cm-btn cm-handle-btn cm-handle-md-btn switch-btn" v-if="account.type=='student'||account.type=='coach'" @click="switchRole()">{{account.type=='student'?$t("btn.switchToInstructor"):$t("btn.switchToStudent")}}</div>
+            <div class="cm-btn logout-btn" @click="logout()">{{$t("btn.logout")}}</div>
+        </div>
+        <div class="sidebar-mask" @click="menuHandle()"></div>
     </div>
 </template>
 
@@ -44,11 +48,13 @@
         bottom:0;
         width: 280px;
         background: #fff8fe;
+        z-index: 200;
         .user-info{
             padding: 30px 10px;
             text-align: center;
             color: #5560aa;
             font-size: 20px;
+            background: #fff8fe;
             img{
                 width: 80px;
                 height: 80px;
@@ -71,14 +77,39 @@
             left: 0px;
             right: 0px;
             margin: auto;
-            bottom: 150px;
+            bottom: 120px;
             width: 220px;
+        }
+        .sidebar-content{
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+        }
+        .sidebar-mask{
+            display: none;
+            position: fixed;
+            z-index: 1;
+            top:0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+        }
+        .menu-btn{
+            display: none;
+            position: fixed;
+            z-index: 300;
+            top:10px;
+            left: 15px;
+            width: 28px;
+            height: 28px;
         }
     }
     .sidebar-el-menu:not(.el-menu--collapse){
         width:100%;
     }
-    .sidebar > ul {
+    .sidebar .sidebar-el-menu {
         height:100%;
         .icon-wrap{
             margin-left: 10px;
@@ -90,7 +121,7 @@
         li{
             display: flex;
             align-items: center;
-            height: 64px;
+            height: 60px;
             line-height: normal;
             .line{
                 display: none;
@@ -121,7 +152,7 @@
         position: absolute;
         left: 0px;
         right: 0px;
-        bottom: 40px;
+        bottom: 20px;
         margin: auto;
         background: url("../../images/common/logout-btn.png") no-repeat;
         width: 220px;
@@ -156,7 +187,7 @@
                 width: 180px;
             }
         }
-        .sidebar >ul{
+        .sidebar .sidebar-el-menu{
             .icon-wrap{
                 margin-left: 10px;
                 display: flex;
@@ -176,9 +207,66 @@
         }
         .logout-btn{
             width: 180px;
-            height: 50px;
-            line-height: 50px;
-            font-size: 16px;
+            height: 54px;
+            line-height: 52px;
+            font-size: 14px;
+            bottom: 5px;
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        .sidebar{
+            width: 200px;
+            left: -200px;
+            transition: left 0.3s;
+            .logo-icon{
+                width: 48px;
+                height: 46.4px;
+            }
+            .user-info{
+                padding: 15px 5px 15px 5px;
+                .name{
+                    margin-top: 5px;
+                    font-size: 14px;
+                }
+                .role{
+                    font-size: 20px;
+                }
+                .account{
+                    margin-top: 5px;
+                    font-size: 12px;
+                }
+            }
+            .switch-btn{
+                display: none;
+                bottom: 70px;
+                width: 180px;
+            }
+            .sidebar-el-menu{
+                li{
+                    height: 48px;
+                    .line{
+                        width: 5px;
+                    }
+                    .title{
+                        font-size: 14px;
+                    }
+                }
+            }
+            .menu-btn{
+                display: block;
+            }
+            &.active{
+                left: 0px;
+                .sidebar-mask{
+                    display: block;
+                }
+            }
+        }
+        .logout-btn{
+            width: 180px;
+            height: 54px;
+            line-height: 52px;
+            font-size: 14px;
             bottom: 5px;
         }
     }
@@ -196,6 +284,7 @@
                 pageName:null,
 
                 account:{},
+                show:false,
             }
         },
         watch: {
@@ -413,6 +502,9 @@
                 Vue.cookie.set('account','');
                 this.$router.push({name:'login',params:{type:this.account.type}});
             },
+            menuHandle:function () {
+                this.show=!this.show;
+            }
         },
     }
 </script>

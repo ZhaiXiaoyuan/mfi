@@ -20,6 +20,13 @@
             padding: 20px;
         }
     }
+    @media screen and (max-width: 1000px) {
+        .content{
+            left: 0px;
+            padding:30px 10px;
+            -webkit-overflow-scrolling : touch;
+        }
+    }
 </style>
 <script>
     import Vue from 'vue'

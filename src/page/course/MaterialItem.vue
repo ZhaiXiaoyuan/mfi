@@ -59,7 +59,7 @@
                             <div class="content-detail">
                                 <div v-html="form.content"></div>
                             </div>
-                            <pdf v-for="i in numPages"
+                            <pdf class="pdf-area" v-for="i in numPages"
                                  :key="i" :page="i" :src="task" style="display: inline-block;width: 100%"></pdf>
                         </div>
                     </div>
@@ -145,6 +145,33 @@
             .content-detail{
                 margin: 20px auto 0px auto;
                 width: 800px;
+            }
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        .material-item{
+            width: 100%;
+            .view-box{
+                padding: 15px 0px;
+                overflow: hidden;
+                .title{
+                    font-size: 20px;
+                    padding: 0px 15px;
+                }
+                .level{
+                    font-size: 14px;
+                    margin-top: 5px;
+                    padding: 0px 15px;
+                }
+                .content-detail{
+                    margin-top: 15px;
+                    font-size: 14px;
+                    width: 100%;
+                    padding: 0px 15px;
+                }
+                .pdf-area{
+                    /*transform: scale(1.3);*/
+                }
             }
         }
     }

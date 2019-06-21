@@ -70,6 +70,7 @@
             padding: 0px 8px;
             border-top-left-radius: 16px;
             border-bottom-left-radius: 16px;
+            top:5px;
         }
         ul{
             li{

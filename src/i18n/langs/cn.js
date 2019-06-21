@@ -269,6 +269,7 @@ const cn = {
         toBuy:'立即购买',
         transpondRecord:'证书转发记录',
         schoolCourse:'学校开设的课程',
+        certificate:'证书',
     },
     title:{
         super:'超级管理员',
@@ -370,6 +371,7 @@ const cn = {
         pInt:'数量有误，请输入大于零的整数',
         buyM0Tips:'购买{count}张{level}证书',
         track:'可透过运输单号在运输公司网站上查询发货状态',
+        deviceTips:'尊敬的EOS系统用户目前版本EOS系统仅支持使用电脑端打开',
     },
     el: {
         colorpicker: {

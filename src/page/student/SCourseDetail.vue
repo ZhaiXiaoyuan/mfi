@@ -90,6 +90,22 @@
                         </tbody>
                     </table>
                 </div>
+
+                <ul class="cm-entry-block-list">
+                    <li v-for="(item,index) in entryList" class="entry">
+                        <div class="entry-hd">
+                            <div class="info-item"> <span class="cm-text">{{grantStatus[typeof item.certificate=='object'?'granted':item.certificate]}}</span></div>
+                        </div>
+                        <div class="entry-bd">
+                            <div class="info-item">{{$t("label.health")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.liabilityRelease=='pass'}">{{partStatus[item.mfiLevelState.liabilityRelease]}}</span></div>
+                            <div class="info-item">{{$t("label.theory")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.classroom=='pass'}"> {{partStatus[item.mfiLevelState.classroom]}}</span></div>
+                            <div class="info-item">{{$t("label.studio")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.studio=='pass'}"> {{partStatus[item.mfiLevelState.studio]}}</span></div>
+                            <div class="info-item">{{$t("label.pool")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.confinedWater=='pass'}"> {{partStatus[item.mfiLevelState.confinedWater]}}</span></div>
+                            <div class="info-item">{{$t("label.openWater")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.openWater=='pass'}"> {{partStatus[item.mfiLevelState.openWater]}}</span></div>
+                        </div>
+                        <div class="entry-ft"></div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -136,6 +152,15 @@
         &.pass{
             height: 32px;
             background: #ec95bd;
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        .pass{
+            font-size: 12px;
+            height: 24px;
+            line-height: 24px;
+            border-radius: 12px;
+            padding: 0px 15px;
         }
     }
 </style>
@@ -200,9 +225,14 @@
                 }
                 Vue.api.getCourseDetail(params).then((resp)=>{
                     if(resp.respCode=='2000'){
-                        this.course=JSON.parse(resp.respMsg);
-                        this.course.courseNo=this.course.school+this.course.courseId.substring(this.course.courseId.length-5)
+                        let data=JSON.parse(resp.respMsg);
+                        this.course={
+                            ...data.course,
+                            instructorEmail:data.instructorEmail,
+                            instructorName:data.instructorName,
+                        }
                         console.log('this.course:',this.course);
+                        this.course.courseNo=this.course.school+this.course.courseId.substring(this.course.courseId.length-5)
                         this.getStudentMfiLevelState();
                     }
                 });

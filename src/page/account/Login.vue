@@ -6,7 +6,7 @@
 
             <div class="cm-btn switch-btn" v-if="showAllBtn||type=='admin'" @click="switchType('super')">{{$t("btn.superLogin")}}</div>
 
-            <div class="cm-btn switch-btn" v-if="showAllBtn||type=='student'" @click="switchType('coach')">{{$t("btn.coachLogin")}}</div>
+            <div class="cm-btn switch-btn" v-if="showAllBtn||(type=='student'&&!version.mobile)" @click="switchType('coach')">{{$t("btn.coachLogin")}}</div>
             <div class="cm-btn switch-btn" v-if="showAllBtn||type=='coach'" @click="switchType('student')">{{$t("btn.studentLogin")}}</div>
             <div class="cm-btn switch-btn" v-if="showAllBtn" @click="switchType('school')">{{$t("btn.schoolLogin")}}</div>
         </div>
@@ -272,8 +272,9 @@
                     input{
                         height: 44px;
                         font-size: 16px;
-                        border: none;
                         border-radius: 5px;
+                        box-shadow: none;
+                        border: 1px solid #eaeaea;
                     }
                     .icon{
                         position: absolute;
@@ -315,7 +316,7 @@
         .switch-btn{
             font-size: 14px;
             color: #fff;
-            padding: 10px 15px;
+            padding: 8px 12px;
             margin: 4px 5px;
             &+.switch-btn{
                 margin-left: 5px;
@@ -356,6 +357,7 @@
                         console.log('fb:',data);
                     }
                 },
+                version:Vue.tools.browserVersions(),
             }
         },
         methods: {
@@ -550,15 +552,29 @@
 
                     }
                 });
-            }
+            },
+            deviceTips:function () {
+                this.alert({
+                    title:this.$t('title.tips'),
+                    html:'<div style="text-align: center;line-height: 30px;">'+this.$t('tips.deviceTips')+'</div>',
+                    yes:this.$t('btn.sure'),
+                    lock:true,
+                    ok:()=>{
+                        window.location.href='http://www.mermaidfederation.com/';
+                    }});
+            },
         },
         mounted () {
             /**/
             this.type=this.$route.params.type?this.$route.params.type:this.type;
             console.log('this.type:',this.type);
+            if(this.version.mobile&&this.type!='student'){
+                this.deviceTips();
+            }
+            /**/
             /**/
             //临时测试
-            this.showAllBtn=true||process.env.NODE_ENV=='development'?true:false;
+            this.showAllBtn=!this.version.mobile&&true||process.env.NODE_ENV=='development'?true:false;
         },
     }
 </script>

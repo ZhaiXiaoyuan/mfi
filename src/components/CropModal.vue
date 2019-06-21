@@ -91,6 +91,16 @@
            }
        }
    }
+   @media screen and (max-width: 1000px) {
+       .crop-modal{
+           .modal-content{
+               width: 95%;
+               .modal-body{
+                   width: 95%;
+               }
+           }
+       }
+   }
 </style>
 <script>
   import Vue from 'vue'

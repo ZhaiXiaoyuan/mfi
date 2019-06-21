@@ -41,7 +41,7 @@
                             </el-input>
                         </div>
                     </div>
-                    <table class="cm-entry-list">
+                    <table class="cm-entry-list" v-if="account.type=='admin'">
                         <thead>
                         <tr>
                             <th>
@@ -105,6 +105,48 @@
                         </tr>
                         </tbody>
                     </table>
+                    <table class="cm-entry-list" v-if="account.type=='school'||school">
+                        <thead>
+                        <tr>
+                            <th>
+                                {{$t("label.time")}}
+                            </th>
+                            <th>
+                                {{$t("label.level")}}
+                            </th>
+                            <th>
+                                {{$t("label.certificateNo")}}
+                            </th>
+                            <th>
+                                {{$t("label.student")}}
+                            </th>
+                            <th>
+                                {{$t("label.handle")}}
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(item,index) in entryList">
+                            <td>
+                                {{item.createdAt|formatDate('yyyy-MM-dd hh:mm')}}
+                            </td>
+                            <td>
+                                {{item.mfiLevel}}
+                            </td>
+                            <td>
+                                {{item.serialCode}}
+                            </td>
+                            <td>
+                                {{item.userId?item.user.name+' '+item.user.familyName:'-'}}
+                            </td>
+                            <td>
+                                <span v-if="!item.userId">-</span>
+                                <el-button class="small handle-btn" v-if="item.userId" @click="()=>{$router.push({name:'studentDetail',params:{id:item.user.id}})}">{{$t("btn.studentDetail")}}</el-button>
+       <!--                         <el-button class="small handle-btn" v-if="item.userId">{{$t('btn.viewCertificate')}}</el-button>-->
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                     <el-pagination
                         class="cm-pager"
                         @current-change="getList"
@@ -121,26 +163,28 @@
 
         <el-dialog :title='account.level=="center"?$t("title.centerCoupons"):$t("title.fiveStarCenterCoupons")' class="edit-dialog cm-dialog buy-modal" :visible.sync="buyModalFlag" v-if="buyModalFlag" width="40%">
             <div class="modal-body">
-                <div class="icon-wrap">
-                    <i class="icon logo-icon"></i>
-                </div>
-                <ul class="type-list">
-                    <li class="type-item" v-for="(item,index) in goodsList" :key="index">
-                        <div class="item-hd">
-                            {{item.level}}
-                        </div>
-                        <div class="item-bd">
-                            <div class="goods-item" v-for="(goods,goodsIndex) in item.list" :key="goodsIndex">
-                                <p>{{$t("value.cCount",{count:goods.count})}} ${{goods.price}}</p>
-                                <p class="off">{{goods.off}}</p>
-                                <div class="cm-btn handle-btn">
-                                 <!--   {{$t("btn.toBuy")}}-->
-                                    <pay-btn :options="{target:goods.id,item:goods,callback:toPay}"></pay-btn>
+                <div class="cm-certificate-goods-panel">
+                    <div class="icon-wrap">
+                        <i class="icon logo-icon"></i>
+                    </div>
+                    <ul class="type-list">
+                        <li class="type-item" v-for="(item,index) in goodsList" :key="index">
+                            <div class="item-hd">
+                                {{item.level}}
+                            </div>
+                            <div class="item-bd">
+                                <div class="goods-item" v-for="(goods,goodsIndex) in item.list" :key="goodsIndex">
+                                    <p>{{$t("value.cCount",{count:goods.count})}} ${{goods.price}}</p>
+                                    <p class="off">{{goods.off}}</p>
+                                    <div class="cm-btn handle-btn">
+                                        <!--   {{$t("btn.toBuy")}}-->
+                                        <pay-btn :options="{target:goods.id,item:goods,callback:toPay}"></pay-btn>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
-                </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <div class="handle-list">
                 <div class="cm-btn cm-handle-btn handle-btn" @click="buyModalFlag=false">{{$t("btn.cancel")}}</div>
@@ -202,39 +246,6 @@
                 -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
                 border-radius: 5px;
                 background: rgba(0,0,0,0.2);
-            }
-        }
-        .icon-wrap{
-            text-align: center;
-        }
-        .type-list{
-            .type-item{
-                padding: 5px 5px 20px 5px;
-                .item-hd{
-                    font-size: 24px;
-                    color: #333;
-                }
-                .item-bd{
-                    padding: 5px 10px;
-                    .goods-item{
-                        display: inline-block;
-                        margin:5px 10px;
-                        font-size: 16px;
-                        color: #5560aa;
-                        text-align: center;
-                        .off{
-                            padding: 5px 0px;
-                            font-size: 24px;
-                            text-align: center;
-                        }
-                        .handle-btn{
-                            margin-top: 5px;
-                        }
-                    }
-                }
-                &+.type-item{
-                    border-top: 1px solid #ddd;
-                }
             }
         }
         .handle-list{
@@ -358,6 +369,7 @@
                             }
                             this.entryList.push(item);
                         });
+                       /* console.log('this.entryList:',this.entryList);*/
                         this.pager.total=data.count;
                     }
                 });

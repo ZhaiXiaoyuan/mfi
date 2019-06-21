@@ -420,7 +420,7 @@
                     pageSize:200,
                     pageIndex:1,
                     searchContent:'',
-                    schoolSerialCode:this.account.type=='coach'?this.coach.school:this.account.serialCode
+                    schoolSerialCode:this.account.type=='coach'?'':this.account.serialCode
                 }
                 Vue.api.getInstructorBuyCertificate(params).then((resp)=>{
                     if(resp.respCode=='2000'){

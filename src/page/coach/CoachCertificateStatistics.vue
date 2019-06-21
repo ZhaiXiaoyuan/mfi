@@ -276,6 +276,7 @@
                         })
                         this.entryList=list;
                         this.pager.total=data.count;
+                       /* console.log('this.entryList:',this.entryList);*/
                     }
                 });
             },

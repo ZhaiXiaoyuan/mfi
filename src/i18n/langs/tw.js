@@ -267,6 +267,7 @@ const tw = {
         toBuy:'立即購買',
         transpondRecord:'證書轉發記錄',
         schoolCourse:'學校開設的課程',
+        certificate:'證書',
     },
     title:{
         super:'超級管理員',
@@ -367,6 +368,8 @@ const tw = {
         pInt:'數量有誤，請輸入大於零的整數',
         buyM0Tips:'購買{count}張{level}證書',
         track:'可透過運輸單號在運輸公司網站上查詢發貨狀態',
+        deviceTips:'尊敬的EOS系統用戶目前版本EOS系統僅支持使用電腦端打開',
+        total:'共{msg}條記錄',
     },
     el: {
         colorpicker: {

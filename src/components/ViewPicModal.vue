@@ -59,6 +59,16 @@
         }
     }
   }
+  @media screen and (max-width: 1000px) {
+      .modal-body{
+          .view-win{
+             img{
+                 width: 95%;
+                 height: auto;
+             }
+          }
+      }
+  }
 </style>
 <script>
   import Vue from 'vue'

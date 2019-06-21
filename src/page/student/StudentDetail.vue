@@ -3,7 +3,7 @@
         <canvas width="1240" v-for="(item,index) in rawCertificateList" :id="'canvas'+index"  height="744" style="display:none;border:1px solid #d3d3d3;background:#ffffff;"></canvas>
         <div class="cm-panel">
             <div class="panel-hd">
-                <div class="cm-btn cm-return-btn" @click="$router.back();">
+                <div class="cm-btn cm-return-btn" v-if="account.type!='student'" @click="$router.back();">
                     <div class="wrapper">
                         <i class="icon el-icon-arrow-left"></i>
                         {{$t('btn.back')}}
@@ -16,13 +16,13 @@
                         {{$t("title."+account.studentAccountStatus)}}
                     </div>
                     <div class="block-bd">
-                        <el-row>
+                        <el-row class="pc-info">
                             <el-col :span="5" class="to-upload"  style="width: 160px;height: 160px;">
                                 <img class="avatar" :src="user.headPic?basicConfig.filePrefix+user.headPic:defaultAvatar" alt="">
                                 <div class="cm-btn upload-btn" v-if="account.type=='student'">
                                    <div class="wrapper">
                                        <i class="icon upload-icon"></i>
-                                       <input  type="file" id="file-input" accept="image/*" @change="selectFile()">
+                                       <input  type="file" accept="image/*" @change="selectFile($event)">
                                    </div>
                                 </div>
                             </el-col>
@@ -108,6 +108,81 @@
                                 </el-row>
                             </el-col>
                         </el-row>
+                        <div class="mobile-info">
+                            <div class="info-row">
+                                <div class="info-item">
+                                    <div class="to-upload">
+                                        <img class="avatar" :src="user.headPic?basicConfig.filePrefix+user.headPic:defaultAvatar" alt="">
+                                        <div class="cm-btn upload-btn" v-if="account.type=='student'">
+                                            <div class="wrapper">
+                                                <i class="icon upload-icon"></i>
+                                                <input  type="file" accept="image/*" @change="selectFile($event)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="info-item">
+                                    <p>
+                                        <span class="label">{{$t('label.fName')}}：</span>
+                                        <span class="value">{{user.familyName}}</span>
+                                    </p>
+                                    <p>
+                                        <span class="label">{{$t('label.lName')}}：</span>
+                                        <span class="value">{{user.name}}</span>
+                                    </p>
+                                    <p>
+                                        <span class="label">{{$t('label.gender')}}：</span>
+                                        <span class="value">{{user.gender}}</span>
+                                    </p>
+                                    <p>
+                                        <span class="label">{{$t('label.birth')}}：</span>
+                                        <span class="value">{{user.birth}}</span>
+                                    </p>
+                                    <p>
+                                        <span class="label">{{$t('label.status')}}：</span>
+                                        <span class="value">{{$t('btn.'+user.studentAccountStatus)}}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-item">
+                                    <span class="label">{{$t('label.country')}}：</span>
+                                    <span class="value">{{user.country}}</span>
+                                </div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-item">
+                                    <span class="label">{{$t('label.city')}}：</span>
+                                    <span class="value">{{user.city}}</span>
+                                </div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-item">
+                                    <span class="label">{{$t('label.address')}}：</span>
+                                    <span class="value">{{user.address}}</span>
+                                </div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-item">
+                                    <span class="label">{{$t('label.contact')}}：</span>
+                                    <span class="value">{{user.phone}}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="label">{{$t('label.email')}}：</span>
+                                    <span class="value">{{user.email}}</span>
+                                </div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-item">
+                                    <span class="label">{{$t('label.eContactName')}}: </span>
+                                    <span class="value">{{user.emergencyName}}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="label">{{$t('label.eContact')}}：</span>
+                                    <span class="value">{{user.emergencyPhone}}</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="block-bd">
                        <p class="title">{{$t('title.lCertificate')}}</p>
@@ -257,7 +332,7 @@
         </el-dialog>
 
 
-        <el-dialog :title='$t("title.accountSetting")' class="edit-dialog cm-dialog edit-dialog" :visible.sync="editDialogFlag" v-if="editDialogFlag" width="40%">
+        <el-dialog :title='$t("title.accountSetting")' class="edit-dialog cm-dialog edit-dialog" :visible.sync="editDialogFlag" v-if="editDialogFlag" width="40%" :modal-append-to-body="false">
             <div class="form-win">
                 <div class="form">
                     <div class="cm-input-row">
@@ -425,6 +500,36 @@
                 }
                 &.cm-input-row{
                     margin-top: 15px;
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 1000px) {
+        .edit-dialog{
+            overflow: hidden;
+            .el-dialog{
+                margin-top: 40px !important;
+                width: 95% !important;
+                .el-dialog__body{
+                    padding: 0px 20px 20px 20px;
+                }
+            }
+            .form-win{
+                width: 100%;
+                height: 350px;
+                padding: 0px 5px 20px 5px;
+                overflow-y: scroll;
+                .field{
+                    width: 180px;
+                }
+                .cm-input-row{
+                    margin: 0px;
+                    &+.cm-input-row{
+                        margin-top: 15px;
+                    }
+                }
+                .handle-list{
+                    margin-top: 5px !important;
                 }
             }
         }
@@ -870,8 +975,8 @@
                     }
                 });
             },
-            selectFile:function () {
-                let file=document.getElementById('file-input').files[0];
+            selectFile:function ($event) {
+                let file=Vue.tools.getCurEle($event).files[0];
                 Vue.tools.fileToBlob(file,(data)=>{
                     this.cropModal({
                         img:data,

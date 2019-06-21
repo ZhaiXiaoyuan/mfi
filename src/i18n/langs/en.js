@@ -266,6 +266,7 @@ const en = {
         toBuy:'buy now',
         transpondRecord:'transpond record',
         schoolCourse:'school\'s course',
+        certificate:'certificate',
     },
     title:{
         super:'Super Administrator',
@@ -367,6 +368,7 @@ const en = {
         payF:'pay failure',
         buyM0Tips:'To buy {count} {level} certificates',
         track:'you can use the tracking number to check delivery status on express company website',
+        deviceTips:'Dear users,the current EOS system doesn\'t support mobile device.Please access it with computer.',
     },
     el: {
         colorpicker: {

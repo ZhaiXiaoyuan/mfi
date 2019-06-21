@@ -11,6 +11,7 @@
                         <div class="con-item">
                             <el-menu :default-active="activeType" class="cm-tab-menu" mode="horizontal" @select="setType">
                                 <el-menu-item index="goods">{{$t("btn.goods")}}</el-menu-item>
+                                <el-menu-item index="certificate" v-if="account.type=='school'">{{$t("btn.certificate")}}</el-menu-item>
                                 <el-menu-item index="buyRecord" v-if="account.type=='student'">{{$t("btn.buyRecord")}}</el-menu-item>
                                 <el-menu-item index="buyRecord" v-if="account.type=='admin'">{{$t("btn.orderAdmin")}}</el-menu-item>
                                 <el-menu-item index="exchangeRecord" v-if="account.type=='school'||account.type=='coach'">{{$t("btn.exchangeRecord")}}</el-menu-item>
@@ -68,6 +69,33 @@
                         </div>
                     </div>
 
+                    <div class="block-bd" v-if="activeType=='certificate'">
+                        <div class="cm-content-box cm-goods-box">
+                            <div class="cm-certificate-goods-panel">
+                                <div class="icon-wrap">
+                                    <i class="icon logo-icon"></i>
+                                </div>
+                                <ul class="type-list">
+                                    <li class="type-item" v-for="(item,index) in certificateGoodsList" :key="index">
+                                        <div class="item-hd">
+                                            {{item.level}}
+                                        </div>
+                                        <div class="item-bd">
+                                            <div class="goods-item" v-for="(goods,goodsIndex) in item.list" :key="goodsIndex">
+                                                <p>{{$t("value.cCount",{count:goods.count})}} ${{goods.price}}</p>
+                                                <p class="off">{{goods.off}}</p>
+                                                <div class="cm-btn handle-btn">
+                                                    <!--   {{$t("btn.toBuy")}}-->
+                                                    <pay-btn :options="{target:goods.id,item:goods,callback:toPay}"></pay-btn>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="block-bd" v-if="activeType=='buyRecord'&&account.type=='student'" v-loading="buyRecordPager.loading">
                         <table class="cm-entry-list">
                             <thead>
@@ -121,6 +149,24 @@
                             </tr>
                             </tbody>
                         </table>
+                        <ul class="cm-entry-block-list">
+                            <li v-for="(item,index) in buyRecordEntryList" class="entry">
+                                <div class="entry-hd">
+                                    <div class="info-item">{{item.goodsRecord.expressNo?item.goodsRecord.expressNo:'-'}}</div>
+                                    <div class="info-item right">{{$t("btn."+item.goodsRecord.state+'Order')}}</div>
+                                </div>
+                                <div class="entry-bd">
+                                    <div class="info-item">{{$t("label.goodsCode")}}<span class="gap">:</span>{{item.goodsRecord.goodsId}}</div>
+                                    <div class="info-item">{{$t("label.goodsName")}}<span class="gap">:</span>{{item.goodsInfo.name}}</div>
+                                    <div class="info-item">{{$t("label.amount")}}<span class="gap">:</span> ${{item.goodsInfo.price}}</div>
+                                    <div class="info-item">{{$t("label.expressAddress")}}<span class="gap">:</span>{{item.goodsRecord.expressAddress}}</div>
+                                    <div class="info-item">{{$t("label.message")}}<span class="gap">:</span>{{item.goodsRecord.msg?item.goodsRecord.msg:'-'}}</div>
+                                </div>
+                                <div class="entry-ft">
+
+                                </div>
+                            </li>
+                        </ul>
                         <el-pagination
                             class="cm-pager"
                             @current-change="getBuyRecordList"
@@ -360,7 +406,7 @@
                     <div class="cm-btn cm-handle-btn handle-btn" @click="saveBuy()">{{$t("btn.nextStep")}}</div>
                 </div>
             </div>
-            <div class="form" v-if="buyStep==2">
+            <div class="form order-info" v-if="buyStep==2">
                 <div class="cm-input-row">
                     <span class="field">{{$t("label.expressAddress")}}：</span>
                     <span class="value" style="margin-left: -20px;">{{buyForm.expressAddress}}</span>
@@ -461,7 +507,7 @@
         data() {
             return {
                 account:{},
-                activeType:'goods',//goods、exchangeRecord、buyRecord
+                activeType:'goods',//goods、certificate、exchangeRecord、buyRecord
 
                 pager:{
                     pageSize:20,
@@ -507,6 +553,8 @@
                 exchangeHandleModalFlag:false,
                 exchangeHandleForm:{},
                 exchangeHandleStep:1,
+
+                certificateGoodsList:[],
             }
         },
         created(){
@@ -807,10 +855,37 @@
                     });
                 }
             },
+            toPay:function (data) {
+                let interval=null;
+                let alertInstance=this.alert({
+                    title:"",
+                    html:'<div style="text-align: center;"><div><i class="icon loading-icon"></i></div><div>'+this.$t('tips.payingTips')+'</div></div>',
+                    yes:this.$t('btn.cancel'),
+                    lock:true,
+                    ok:()=>{
+                        clearInterval(interval);
+                        clearInterval(interval);
+                    }
+                });
+                interval=setInterval(()=>{
+                    Vue.api.getOrderRecordInvoice({timeStamp:Vue.tools.genTimestamp(),invoice:data.invoice}).then((resp)=>{
+                        if(resp.respCode=='2000'){
+                            let data=JSON.parse(resp.respMsg);
+                            alertInstance.close();
+                            clearInterval(interval);
+                            Vue.operationFeedback({type:'complete',text:this.$t("tips.payS")});
+                        }else{
+
+                        }
+                    });
+                },5000)
+            },
         },
         mounted () {
             /**/
             this.account=Vue.getAccountInfo();
+            /**/
+            this.certificateGoodsList=this.account.level=='center'?Vue.tools.centerGoodsList:Vue.tools.fiveStarCenterGoodsList;
             /**/
             this.setType('goods');
         },

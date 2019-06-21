@@ -54,6 +54,19 @@
                         </tr>
                         </tbody>
                     </table>
+                    <ul class="cm-entry-block-list">
+                        <li v-for="(item,index) in entryList" class="entry">
+                            <div class="entry-hd">
+                                <div class="info-item"> {{$t("label.title")}}</div>
+                            </div>
+                            <div class="entry-bd">
+                                <div class="info-item">{{$t("label.time")}}<span class="gap">:</span>{{item.createdAt|formatDate('yyyy-MM-dd hh:mm')}}</div>
+                            </div>
+                            <div class="entry-ft">
+                                <span class="handle cm-handle-btn cm-handle-min-btn" @click="toDetail(index,'view')">{{$t('btn.detail')}}</span>
+                            </div>
+                        </li>
+                    </ul>
                     <el-pagination
                         class="cm-pager"
                         @current-change="getList"
