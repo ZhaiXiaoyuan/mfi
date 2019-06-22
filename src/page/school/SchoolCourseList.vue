@@ -126,6 +126,7 @@
                         </el-option>
                     </el-select>
                 </div>
+                <div class="cm-tips" style="padding-top: 20px;" v-if="coachList.length<3">{{$t("tips.coachCountTips")}}</div>
                 <div class="cm-input-row">
                     <span class="field">{{$t("label.instructor")}}</span>
                     <el-select v-model="newForm.instructorId" class="handle cm-select">

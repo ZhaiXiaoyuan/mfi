@@ -11,7 +11,7 @@
     height: 40px;
     line-height: 40px;
     background: rgb(66, 144, 251);
-    font-size: 0.12px;
+    font-size: 12px;
     color: #fff;
     text-align: center;
     top:0px;

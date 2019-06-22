@@ -135,6 +135,7 @@ const en = {
         center:'star school',
         advancedCenter:'five star school',
         cCount:'{count}sheets',
+        merleggings:'merleggings',
     },
     btn:{
         adminLogin:'administrator login',
@@ -369,6 +370,8 @@ const en = {
         buyM0Tips:'To buy {count} {level} certificates',
         track:'you can use the tracking number to check delivery status on express company website',
         deviceTips:'Dear users,the current EOS system doesn\'t support mobile device.Please access it with computer.',
+        coachCountTips:'You need three instructors at least to create a new course',
+        giftTips:'Purchase completed，here is {msg} a gift，redeem code will be sent to your account email.',
     },
     el: {
         colorpicker: {

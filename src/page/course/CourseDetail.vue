@@ -478,6 +478,7 @@
                     certificateId:certificate.id,
                     userId:item.mfiLevelState.userId,
                     possessorId:this.account.id,
+                    instructorId:this.course.instructorId,
                 }
                 let fb=Vue.operationFeedback({text:this.$t("tips.setting")});
                 Vue.api.grant(params).then((resp)=>{

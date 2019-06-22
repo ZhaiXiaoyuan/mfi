@@ -57,7 +57,7 @@
                                 {{item.serialCode}}
                             </td>
                             <td>
-                               {{item.createdAt|formatDate('yyyy-MM-dd')}}
+                               {{item.createdAt|formatDate('yyyy-MM-dd hh:mm')}}
                             </td>
                             <td>
                                 {{item.schoolSerialCode}}
@@ -276,7 +276,7 @@
                         })
                         this.entryList=list;
                         this.pager.total=data.count;
-                       /* console.log('this.entryList:',this.entryList);*/
+                        console.log('this.entryList:',this.entryList);
                     }
                 });
             },

@@ -50,7 +50,7 @@
         background: #fff8fe;
         z-index: 200;
         .user-info{
-            padding: 30px 10px;
+            padding: 20px 10px;
             text-align: center;
             color: #5560aa;
             font-size: 20px;
@@ -61,7 +61,7 @@
                 border-radius: 50%;
             }
             .name{
-                margin-top: 10px;
+                margin-top: 5px;
                 font-size: 20px;
             }
             .role{
@@ -77,7 +77,7 @@
             left: 0px;
             right: 0px;
             margin: auto;
-            bottom: 120px;
+            bottom: 100px;
             width: 220px;
         }
         .sidebar-content{
@@ -117,11 +117,12 @@
             align-items: center;
             justify-content: center;
             width: 34px;
+            transform: scale(0.9);
         }
         li{
             display: flex;
             align-items: center;
-            height: 60px;
+            height: 54px;
             line-height: normal;
             .line{
                 display: none;
@@ -134,7 +135,7 @@
             }
             .title{
                 padding-left: 10px;
-                font-size: 18px;
+                font-size: 16px;
                 color: #5560aa;
             }
             &:hover{
@@ -152,16 +153,16 @@
         position: absolute;
         left: 0px;
         right: 0px;
-        bottom: 20px;
+        bottom: 10px;
         margin: auto;
         background: url("../../images/common/logout-btn.png") no-repeat;
         width: 220px;
-        height: 80px;
+        height: 70px;
         background-size: 100% 100%;
-        font-size: 20px;
+        font-size: 18px;
         color: #fff;
         text-align: center;
-        line-height: 75px;
+        line-height: 65px;
     }
     @media screen and (max-width: 1600px) {
         .logo-icon{
@@ -171,7 +172,7 @@
         .sidebar{
             width: 250px;
             .user-info{
-                padding: 20px 5px 15px 5px;
+                padding: 15px 5px 15px 5px;
                 .name{
                     font-size: 16px;
                 }

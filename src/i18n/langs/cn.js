@@ -137,6 +137,7 @@ const cn = {
         center:'发展中心',
         advancedCenter:'五星发展中心',
         cCount:'{count}张',
+        merleggings:'鱼鳞裤',
     },
     btn:{
         adminLogin:'管理员登录',
@@ -261,7 +262,7 @@ const cn = {
         pass:'已审核',
         courseLen:'课程',
         someoneCourse:'{msg}的课程',
-        selfCourse:'我开设的课程',
+        selfCourse:'我開設的課程',
         switchToInstructor:'切换为教练',
         switchToStudent:'切换为学员',
         buyCertificate:'购买证书',
@@ -372,6 +373,8 @@ const cn = {
         buyM0Tips:'购买{count}张{level}证书',
         track:'可透过运输单号在运输公司网站上查询发货状态',
         deviceTips:'尊敬的EOS系统用户目前版本EOS系统仅支持使用电脑端打开',
+        coachCountTips:'未满三位教练无法开课',
+        giftTips:'已完成购买，赠送您一条{msg}，兑换序号将寄到您的注册邮件地址',
     },
     el: {
         colorpicker: {

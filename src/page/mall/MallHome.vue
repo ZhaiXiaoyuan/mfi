@@ -11,7 +11,7 @@
                         <div class="con-item">
                             <el-menu :default-active="activeType" class="cm-tab-menu" mode="horizontal" @select="setType">
                                 <el-menu-item index="goods">{{$t("btn.goods")}}</el-menu-item>
-                                <el-menu-item index="certificate" v-if="account.type=='school'">{{$t("btn.certificate")}}</el-menu-item>
+                                <el-menu-item index="certificate" v-if="account.type=='school'||account.type=='coach'">{{$t("btn.certificate")}}</el-menu-item>
                                 <el-menu-item index="buyRecord" v-if="account.type=='student'">{{$t("btn.buyRecord")}}</el-menu-item>
                                 <el-menu-item index="buyRecord" v-if="account.type=='admin'">{{$t("btn.orderAdmin")}}</el-menu-item>
                                 <el-menu-item index="exchangeRecord" v-if="account.type=='school'||account.type=='coach'">{{$t("btn.exchangeRecord")}}</el-menu-item>
@@ -69,7 +69,7 @@
                         </div>
                     </div>
 
-                    <div class="block-bd" v-if="activeType=='certificate'">
+                    <div class="block-bd" v-if="activeType=='certificate'&&account.type=='school'">
                         <div class="cm-content-box cm-goods-box">
                             <div class="cm-certificate-goods-panel">
                                 <div class="icon-wrap">
@@ -84,6 +84,31 @@
                                             <div class="goods-item" v-for="(goods,goodsIndex) in item.list" :key="goodsIndex">
                                                 <p>{{$t("value.cCount",{count:goods.count})}} ${{goods.price}}</p>
                                                 <p class="off">{{goods.off}}</p>
+                                                <div class="cm-btn handle-btn">
+                                                    <!--   {{$t("btn.toBuy")}}-->
+                                                    <pay-btn :options="{target:goods.id,item:goods,callback:toPay}"></pay-btn>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-bd" v-if="activeType=='certificate'&&account.type=='coach'">
+                        <div class="cm-content-box cm-goods-box">
+                            <div class="cm-certificate-goods-panel">
+                                <div class="icon-wrap">
+                                    <i class="icon logo-icon"></i>
+                                </div>
+                                <ul class="type-list">
+                                    <li class="type-item">
+                                        <div class="item-hd">
+
+                                        </div>
+                                        <div class="item-bd" style="padding: 40px 0px;">
+                                            <div class="goods-item"  v-for="(goods,index) in certificateGoodsList" :key="index">
+                                                <p>{{goods.name}}&nbsp;{{$t("value.cCount",{count:goods.count})}}</p>
                                                 <div class="cm-btn handle-btn">
                                                     <!--   {{$t("btn.toBuy")}}-->
                                                     <pay-btn :options="{target:goods.id,item:goods,callback:toPay}"></pay-btn>
@@ -583,7 +608,6 @@
                         //临时测试
                       /*  this.curGoods=this.entryList[0];*/
                     /*  this.openBuyModal(this.entryList[0]);*/
-                        console.log('this.entryList:',this.entryList);
                     }
                 });
             },
@@ -721,32 +745,6 @@
                 });*/
 
             },
-            toPay:function (data) {
-                let interval=null;
-                let alertInstance=this.alert({
-                    title:"",
-                    html:'<div style="text-align: center;"><div><i class="icon loading-icon"></i></div><div>'+this.$t('tips.payingTips')+'</div></div>',
-                    yes:this.$t('btn.cancel'),
-                    lock:true,
-                    ok:()=>{
-                        clearInterval(interval);
-                        clearInterval(interval);
-                    }
-                });
-                interval=setInterval(()=>{
-                    Vue.api.getOrderRecordInvoice({timeStamp:Vue.tools.genTimestamp(),invoice:data.invoice}).then((resp)=>{
-                        if(resp.respCode=='2000'){
-                            let data=JSON.parse(resp.respMsg);
-                            alertInstance.close();
-                            clearInterval(interval);
-                            Vue.operationFeedback({type:'complete',text:this.$t("tips.payS")});
-                            this.buyModalFlag=false;
-                        }else{
-
-                        }
-                    });
-                },5000)
-            },
             openOrderHandleModal:function (item,step) {
                 this.curOrderEntry=item;
                 this.orderHandleModalFlag=true;
@@ -857,6 +855,7 @@
             },
             toPay:function (data) {
                 let interval=null;
+                let item=data.item;
                 let alertInstance=this.alert({
                     title:"",
                     html:'<div style="text-align: center;"><div><i class="icon loading-icon"></i></div><div>'+this.$t('tips.payingTips')+'</div></div>',
@@ -874,6 +873,13 @@
                             alertInstance.close();
                             clearInterval(interval);
                             Vue.operationFeedback({type:'complete',text:this.$t("tips.payS")});
+                            if(item&&item.gift){
+                                this.alert({
+                                    title:this.$t("title.tips"),
+                                    html:'<div style="text-align: center;"><p style="font-size: 16px;">'+this.$t("tips.giftTips",{msg:this.$t("value."+item.gift)})+'</p></div>',
+                                    yes:this.$t("btn.sure"),
+                                })
+                            }
                         }else{
 
                         }
@@ -885,7 +891,21 @@
             /**/
             this.account=Vue.getAccountInfo();
             /**/
-            this.certificateGoodsList=this.account.level=='center'?Vue.tools.centerGoodsList:Vue.tools.fiveStarCenterGoodsList;
+            if(this.account.type=='school'){
+                this.certificateGoodsList=this.account.level=='center'?Vue.tools.centerGoodsList:Vue.tools.fiveStarCenterGoodsList;
+            }else if(this.account.type=='coach'){
+                let levelOptions=this.genLevelConfig({level:this.account.type=='coach'?this.account.mfiLevel:'all'});
+                for(let i=0;i<levelOptions.length;i++){
+                    let levelItem=levelOptions[i];
+                    for(let j=0;j<Vue.tools.instructorCertificateGoodsList.length;j++){
+                        let goods=Vue.tools.instructorCertificateGoodsList[j];
+                        if(levelItem.value==goods.level){
+                            this.certificateGoodsList.push(goods);
+                            break;
+                        }
+                    }
+                }
+            }
             /**/
             this.setType('goods');
         },

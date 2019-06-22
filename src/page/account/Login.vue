@@ -54,7 +54,7 @@
                         <input type="text" v-model="forgetForm.verifyCode" class="cm-input">
                         <gen-code :number="forgetForm.email" :options="genCodeOptions" style="right: 50px;"></gen-code>
                     </div>
-                    <div class="cm-input-row input-row">
+                    <div class="cm-input-row">
                         <span class="field">{{$t("label.pwd")}}</span>
                         <div class="input-item">
                             <input type="password" v-model="forgetForm.password" class="cm-input">

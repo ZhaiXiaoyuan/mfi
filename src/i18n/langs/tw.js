@@ -135,6 +135,7 @@ const tw = {
         center:'發展中心',
         advancedCenter:'五星發展中心',
         cCount:'{count}張',
+        merleggings:'魚鱗褲',
     },
     btn:{
         adminLogin:'管理員登錄',
@@ -370,6 +371,8 @@ const tw = {
         track:'可透過運輸單號在運輸公司網站上查詢發貨狀態',
         deviceTips:'尊敬的EOS系統用戶目前版本EOS系統僅支持使用電腦端打開',
         total:'共{msg}條記錄',
+        coachCountTips:'未滿三位教練無法開課',
+        giftTips:'已完成購買，贈送您一條{msg}，兌換序號將寄到您的註冊郵件地址',
     },
     el: {
         colorpicker: {

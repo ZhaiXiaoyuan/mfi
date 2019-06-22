@@ -173,9 +173,6 @@
                 height: 50px;
                 background: #fff;
                 font-size: 16px;
-                border: none;
-                border-radius: 10px;
-                box-shadow: 0px 1px 10px rgba(85,96,170,0.3);
             }
             .cm-calender{
                 width: 100%!important;

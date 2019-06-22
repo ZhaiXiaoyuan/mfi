@@ -112,6 +112,27 @@ export default {
               fiveStarSchoolCerificateM020:{
                   id:'L3U2UQF7XLJEA',
               },
+              M0:{
+                  id:'6P96Z9GWVXTE2',
+              },
+              M1:{
+                  id:'XRFB5G85EYQ7W',
+              },
+              M2:{
+                  id:'A4KLLA7RQ5N42',
+              },
+              M3:{
+                  id:'VHGBX5Y9D7H2L',
+              },
+              BMI:{
+                  id:'ATKL87265PHFG',
+              },
+              MI:{
+                  id:'UDHUFVYBLX994',
+              },
+              MMI:{
+                  id:'7ETBBSTY4RASS',
+              }
           },
           centerGoodsList:[
               {
@@ -122,6 +143,7 @@ export default {
                           count:20,
                           price:'xxx',
                           off:'5%',
+                          gift:'merleggings',
                       }
                   ]
               }
@@ -135,8 +157,61 @@ export default {
                           count:20,
                           price:'xxx',
                           off:'10%',
+                          gift:'merleggings',
                       }
                   ]
+              }
+          ],
+          instructorCertificateGoodsList:[
+              {
+                  level:'M0',
+                  name:'M0',
+                  count:20,
+                  price:'',
+                  id:'M0',
+                  gift:'merleggings',
+              },
+              {
+                  level:'M1',
+                  name:'M1',
+                  count:1,
+                  price:'',
+                  id:'M1',
+              },
+              {
+                  level:'M2',
+                  name:'M2',
+                  count:1,
+                  price:'',
+                  id:'M2',
+              },
+              {
+                  level:'M3',
+                  name:'M3',
+                  count:1,
+                  price:'',
+                  id:'M3',
+              },
+              {
+                  level:'BMI:',
+                  name:'BMI:',
+                  count:1,
+                  price:'',
+                  id:'BMI:',
+              },
+              {
+                  level:'MI',
+                  name:'MI',
+                  count:1,
+                  price:'',
+                  id:'MI',
+              },
+              {
+                  level:'MMI',
+                  name:'MMI',
+                  count:1,
+                  price:'MMI',
+                  id:'MMI',
               }
           ],
         /*生成请求时间戳*/

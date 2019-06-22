@@ -109,16 +109,22 @@
                         <thead>
                         <tr>
                             <th>
-                                {{$t("label.time")}}
+                                {{$t("label.certificateNo")}}
+                            </th>
+                            <th>
+                                {{$t("label.buyDate")}}
                             </th>
                             <th>
                                 {{$t("label.level")}}
                             </th>
                             <th>
-                                {{$t("label.certificateNo")}}
+                                {{$t("label.student")}}
                             </th>
                             <th>
-                                {{$t("label.student")}}
+                                {{$t("label.instructor")}}
+                            </th>
+                            <th>
+                                {{$t("label.status")}}
                             </th>
                             <th>
                                 {{$t("label.handle")}}
@@ -128,21 +134,27 @@
                         <tbody>
                         <tr v-for="(item,index) in entryList">
                             <td>
+                                {{item.serialCode}}
+                            </td>
+                            <td>
                                 {{item.createdAt|formatDate('yyyy-MM-dd hh:mm')}}
                             </td>
                             <td>
                                 {{item.mfiLevel}}
                             </td>
                             <td>
-                                {{item.serialCode}}
+                                {{item.userId?item.user.name+' '+item.user.familyName:'-'}}
                             </td>
                             <td>
-                                {{item.userId?item.user.name+' '+item.user.familyName:'-'}}
+                                {{item.instructorId?item.instructor.name+' '+item.instructor.familyName:'-'}}
+                            </td>
+                            <td>
+                                {{item.userId?$t('btn.used'):$t('btn.unused')}}
                             </td>
                             <td>
                                 <span v-if="!item.userId">-</span>
                                 <el-button class="small handle-btn" v-if="item.userId" @click="()=>{$router.push({name:'studentDetail',params:{id:item.user.id}})}">{{$t("btn.studentDetail")}}</el-button>
-       <!--                         <el-button class="small handle-btn" v-if="item.userId">{{$t('btn.viewCertificate')}}</el-button>-->
+                                <el-button class="small handle-btn" v-if="item.userId" @click="toViewCertificate(item)">{{$t('btn.viewCertificate')}}</el-button>
                             </td>
                         </tr>
                         </tbody>
@@ -160,6 +172,7 @@
                 </div>
             </div>
         </div>
+        <canvas width="1240" id="canvas"  height="744" style="display:none;border:1px solid #d3d3d3;background:#ffffff;"></canvas>
 
         <el-dialog :title='account.level=="center"?$t("title.centerCoupons"):$t("title.fiveStarCenterCoupons")' class="edit-dialog cm-dialog buy-modal" :visible.sync="buyModalFlag" v-if="buyModalFlag" width="40%">
             <div class="modal-body">
@@ -329,6 +342,8 @@
                 coachList:[],
                 transpondModalFlag:false,
                 transpondForm:{},
+
+                bgImg:require('../../images/common/card-bg.jpg'),
             }
         },
         created(){
@@ -362,6 +377,7 @@
                         list.forEach((item,i)=>{
                             item.possessor=item.possessor?JSON.parse(item.possessor):null;
                             item.user=item.user?JSON.parse(item.user):null;
+                            item.instructor=item.instructor?JSON.parse(item.instructor):null;
                             if(item.orderRecord){
                                 let orderInfo=JSON.parse(item.orderRecord);
                                /* orderInfo.tpMsg=JSON.parse(orderInfo.tpMsg);*/
@@ -369,7 +385,7 @@
                             }
                             this.entryList.push(item);
                         });
-                       /* console.log('this.entryList:',this.entryList);*/
+                      /*  console.log('this.entryList:',this.entryList)*/
                         this.pager.total=data.count;
                     }
                 });
@@ -480,6 +496,89 @@
                         fb.setOptions({type:'warn', text:this.$t("tips.handleF",{msg:resp.respMsg})});
                     }
                 });
+            },
+
+            toViewCertificate:function (item) {
+                console.log('item:',item);
+                this.draw({
+                    id:'canvas',
+                    avatar:Vue.basicConfig.filePrefix+item.user.headPic,
+                    name:item.user.name+' '+item.user.familyName,
+                    level:item.mfiLevel=='BMI'?'BASIC MERMAID INSTRUCTOR':item.mfiLevel,
+                    certificateNo:item.serialCode,
+                    date:Vue.formatDate(item.updatedAt,'yyyy-MM-dd'),
+                    issuer:item.schoolSerialCode,
+                    instructor:item.possessor.name+(item.possessor.familyName?item.possessor.familyName:''),
+                    callback:(data)=>{
+                        Vue.viewPicModal({
+                            imgUrl:data,
+                        });
+                    }
+                });
+            },
+            circleImg:function(ctx, img, x, y, r) {
+                ctx.save();
+                var d =2 * r;
+                var cx = x + r;
+                var cy = y + r;
+                ctx.arc(cx, cy, r, 0, 2 * Math.PI);
+                ctx.clip();
+                ctx.drawImage(img, x, y, d, d);
+                ctx.restore();
+            },
+            drawText:function (ctx,text,x,y,fontSize) {
+                fontSize=fontSize?fontSize:32;
+                ctx.save();
+                ctx.font = fontSize+"px ' Helvetica Neue', Helvetica, Arial, 'Microsoft Yahei', 'Hiragino Sans GB', 'Heiti SC', 'WenQuanYi Micro Hei'";
+                ctx.fillStyle = "#333";
+                ctx.fillText(text,x,y,300);
+                ctx.restore();
+            },
+            draw:function (options) {
+                let that=this;
+                var canvas=document.getElementById(options.id);
+                var ctx=canvas.getContext("2d");
+
+                ctx.save();
+                let bgImg=new Image();
+                bgImg.crossOrigin="anonymous";
+                bgImg.src=this.bgImg;
+                bgImg.onload=function(){
+                    ctx.drawImage(bgImg,0,0);
+                    ctx.restore();
+
+
+                    ctx.save();
+                    var img = new Image();
+                    img.crossOrigin="anonymous";
+                    img.src = options.avatar;
+                    img.onload=function () {
+                        that.circleImg(ctx, img, 95, 80, 150);
+                        ctx.restore();
+                        //
+                        that.drawText(ctx,'Name:',710,100);
+                        that.drawText(ctx,options.name,815,100,'40');
+
+                        that.drawText(ctx,'Level:',718,145);
+                        that.drawText(ctx,options.level,815,145);
+
+                        that.drawText(ctx,'Certification Number:',503,190);
+                        that.drawText(ctx,options.certificateNo,815,190);
+
+                        that.drawText(ctx,'Certification Date:',548,235);
+                        that.drawText(ctx,options.date,815,235);
+
+                        that.drawText(ctx,'Issuing Instructor:',533,280);
+                        that.drawText(ctx,options.instructor,815,280);
+
+                        that.drawText(ctx,'Issuing School:',568,325);
+                        that.drawText(ctx,options.issuer,815,325);
+
+                        //
+                        let dataUrl = canvas.toDataURL('image/jpeg');
+                        options.callback&&options.callback(dataUrl);
+                    }
+                }
             },
         },
         mounted () {

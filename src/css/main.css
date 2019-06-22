@@ -746,7 +746,7 @@ body {
 }
 .cm-dialog .el-dialog__header {
   text-align: center;
-  padding: 30px 20px;
+  padding: 30px 20px 20px 20px;
 }
 .cm-dialog .el-dialog__header .el-dialog__title {
   font-size: 24px;
@@ -1365,6 +1365,10 @@ body {
   height: 100%;
   opacity: 0;
 }
+.cm-tips {
+  text-align: center;
+  padding: 5px 0px;
+}
 .cm-content-box {
   min-height: 200px;
   background: #fff;
@@ -1640,6 +1644,8 @@ body {
   }
   .cm-input-row .input-item input {
     padding: 0px 50px 0px 10px;
+    box-shadow: none !important;
+    border: 1px solid #eaeaea !important;
   }
   .cm-input-row .input-item .icon {
     position: absolute;

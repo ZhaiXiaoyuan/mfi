@@ -61,7 +61,7 @@
                                 {{item.user.mfiLevel}}
                             </td>
                             <td>
-                                {{item.type|itemFind('value',options).label}}
+                                {{item.audit.type|itemFind('value',options).label}}
                             </td>
                             <td>
                                 {{item.audit.state}}

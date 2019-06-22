@@ -1,6 +1,6 @@
 <template>
   <div class="pay-btn">
-      <form :action="basicConfig.paypalPrefix+'/cgi-bin/webscr?locale.x=zh_CN'" id="form" method="post" target="_blank">
+      <form :action="basicConfig.paypalPrefix+'/cgi-bin/webscr?locale.x=zh_CN'" :id="hostedId" method="post" target="_blank">
           <input type="hidden" name="cmd" value="_s-xclick">
           <input type="hidden" name="hosted_button_id" v-model="hostedId">
           <input type="hidden" name="invoice" v-model="invoice">
@@ -45,7 +45,7 @@
     },
     methods: {
         toPay:function () {
-            let form=document.getElementById('form');
+            let form=document.getElementById(this.hostedId);
             this.options.callback&&this.options.callback({invoice:this.invoice,item:this.options.item});
             form.submit();
         },
