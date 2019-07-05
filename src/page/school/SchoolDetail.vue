@@ -10,7 +10,7 @@
                 </div>
                 <span class="title">{{$t("title.school")}}：{{editForm.name}}</span>
             </div>
-            <div class="panel-bd">
+            <div class="panel-bd cm-watermark">
                 <div class="cm-detail-block detail-block show-status">
                     <div class="payment-status" v-if="account.type=='school'&&(account.schoolQualification=='notPay'||account.schoolQualification=='expire')">
                         <div><span>{{$t("tips.schoolQualification")}}</span><span class="cm-btn btn" @click="toPay()">{{$t("btn.go")}}</span></div>

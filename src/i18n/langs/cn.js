@@ -271,6 +271,7 @@ const cn = {
         transpondRecord:'证书转发记录',
         schoolCourse:'学校开设的课程',
         certificate:'证书',
+        editorDoc:'文本编辑器说明',
     },
     title:{
         super:'超级管理员',
@@ -350,6 +351,7 @@ const cn = {
         handleF:'操作失败，{msg}',
         delAdmin:'确定删除管理员账号：{msg}？',
         delMsg:'确定删除消息：{msg}？',
+        del:'确定删除：{msg}？',
         total:'共{msg}条记录',
         developing:'功能开发中',
         grant:'确定授予：{msg}{level}证书？',
@@ -375,6 +377,41 @@ const cn = {
         deviceTips:'尊敬的EOS系统用户目前版本EOS系统仅支持使用电脑端打开',
         coachCountTips:'未满三位教练无法开课',
         giftTips:'已完成购买，赠送您一条{msg}，兑换序号将寄到您的注册邮件地址',
+    },
+    editor:{
+        title: '设置标题',
+        p: '正文',
+        linkText: '链接文字',
+        link: '链接',
+        uploadImage: '上传图片',
+        editImage:'编辑图片',
+        maxWidth:'最大宽度',
+        deleteImage:'删除图片',
+        onlineImage:'网络图片',
+        imageLink:'图片链接',
+        insert:'插入',
+        upload: '上传',
+        fontSize:'字号',
+        fontFamily:'字体',
+        SongTypeface:'宋体',
+        MicrosoftAccorblack:'微软雅黑',
+        fontColor:'文字颜色',
+        backgroundColor:'背景颜色',
+        list:'设置列表',
+        orderedList:'有序列表',
+        unorderedList:'无序列表',
+        alignment:'对齐方式',
+        left:'靠左',
+        center:'居中',
+        right:'靠右',
+        insertTable:'插入表格',
+        init: '创建',
+        row:'行',
+        col:'列的表格',
+        insertVideo:'插入视频',
+        format:"格式如：",
+        default:'默认',
+        sina:'新浪',
     },
     el: {
         colorpicker: {
@@ -481,7 +518,7 @@ const cn = {
             filterPlaceholder: '请输入搜索内容',
             noCheckedFormat: '共 {total} 项',
             hasCheckedFormat: '已选 {checked}/{total} 项'
-        }
+        },
     }
 }
 

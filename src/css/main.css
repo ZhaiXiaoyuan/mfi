@@ -325,6 +325,13 @@ body {
   height: 32px;
   background-size: 100% 100%;
 }
+.shell-icon {
+  display: inline-block;
+  background: url("../images/common/shell-icon.png") no-repeat;
+  width: 83px;
+  height: 75px;
+  background-size: 100% 100%;
+}
 /**/
 .ripple {
   position: relative;
@@ -381,6 +388,14 @@ body {
 .cm-btn:active {
   opacity: 1;
 }
+.cm-link-btn {
+  font-size: 14px;
+  color: #5560aa;
+  text-decoration: underline;
+}
+.cm-link-btn:hover {
+  text-decoration: underline;
+}
 .cm-vertical {
   display: -webkit-box;
   display: -webkit-flex;
@@ -392,7 +407,7 @@ body {
           align-items: center;
 }
 .cm-panel .panel-hd {
-  padding: 15px 20px 15px 20px;
+  padding: 15px 0px 15px 0px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1106,6 +1121,7 @@ body {
 }
 .cm-tab-menu > .el-menu-item {
   font-size: 18px;
+  height: 58px !important;
 }
 .cm-tab-menu > .el-menu-item.is-active {
   border-bottom: none !important;
@@ -1508,14 +1524,40 @@ body {
   height: 32px;
   line-height: 32px;
 }
-.w-e-toolbar .w-e-menu {
-  z-index: 0!important;
-}
-.w-e-text-container {
-  z-index: 10 !important;
+.el-select-dropdown__list {
+  background: #fff;
 }
 .buy-dialog .cm-input-row .field {
   min-width: 0px;
+}
+.cm-watermark {
+  position: relative;
+  border-radius: 10px;
+  background: #fff;
+}
+.cm-watermark > * {
+  position: relative;
+  z-index: 1;
+  border-radius: 10px;
+  background: none;
+}
+.cm-watermark:before {
+  position: absolute;
+  z-index: 0;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  margin: auto;
+  content: '';
+  width: 90%;
+  height: 90%;
+  background: url("../images/common/watermark-icon.png") no-repeat;
+  background-size: contain;
+  background-position: center center;
+}
+.cm-certificate-goods-panel {
+  padding-top: 20px;
 }
 .cm-certificate-goods-panel .icon-wrap {
   text-align: center;
@@ -1533,9 +1575,23 @@ body {
 .cm-certificate-goods-panel .type-list .type-item .item-bd .goods-item {
   display: inline-block;
   margin: 5px 10px;
+  padding: 15px 5px;
+  width: 160px;
+  min-height: 150px;
   font-size: 16px;
   color: #5560aa;
+  border-radius: 5px;
+  border: 1px solid rgba(108, 99, 164, 0.1);
+  box-shadow: 0px 6px 8px rgba(111, 99, 164, 0.1);
   text-align: center;
+  background: rgba(255, 255, 255, 0.6);
+}
+.cm-certificate-goods-panel .type-list .type-item .item-bd .goods-item .shell-icon {
+  width: 41px;
+  height: 37px;
+}
+.cm-certificate-goods-panel .type-list .type-item .item-bd .goods-item .icon-wrap {
+  margin-bottom: 4px;
 }
 .cm-certificate-goods-panel .type-list .type-item .item-bd .goods-item .off {
   padding: 5px 0px;
@@ -1706,7 +1762,7 @@ body {
     margin-left: auto;
   }
   .cm-panel .panel-hd {
-    padding: 20px 5px 8px 5px;
+    padding: 20px 0px 8px 0px;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;

@@ -50,6 +50,7 @@
                             <td>
                                 <span class="handle" @click="toDetail(index,'view')">{{$t('btn.detail')}}</span>
                                 <span class="handle" @click="toDetail(index,'edit')" v-if="account.type=='admin'">{{$t('btn.edit')}}</span>
+                                <span class="handle" @click="del(index)" v-if="account.type=='admin'">{{$t('btn.del')}}</span>
                             </td>
                         </tr>
                         </tbody>
@@ -184,6 +185,31 @@
                 type=type?type:'add';
                 let item=this.entryList[index];
                 this.$router.push({name:'materialItem',params:{id:item.id,type:type}});
+            },
+            del:function (index) {
+                let item=this.entryList[index];
+                this.$confirm(this.$t("tips.del",{msg:item.title}), this.$t("title.tips"), {
+                    confirmButtonText: this.$t("btn.sure"),
+                    cancelButtonText: this.$t("btn.cancel"),
+                    type: 'warning'
+                }).then(() => {
+                    let params={
+                        ...Vue.sessionInfo(),
+                        id:item.id,
+                        state:'del'
+                    }
+                    let fb=Vue.operationFeedback({text:this.$t("tips.delete")});
+                    Vue.api.setTeachingMaterialState(params).then((resp)=>{
+                        if(resp.respCode=='2000'){
+                            this.entryList.splice(index,1);
+                            fb.setOptions({type:'complete', text:this.$t("tips.deleteS")});
+                        }else{
+                            fb.setOptions({type:'warn', text:this.$t("tips.deleteF",{msg:resp.respMsg})});
+                        }
+                    });
+                }).catch(() => {
+
+                });
             },
         },
         mounted () {

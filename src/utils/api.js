@@ -675,6 +675,14 @@ export default {
                 params: params
             });
         },
+        //设置教材状态
+        setTeachingMaterialState:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/teachingMaterial/setTeachingMaterialState',
+                params: params
+            });
+        },
     }
   },
 

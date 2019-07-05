@@ -175,11 +175,11 @@
         <canvas width="1240" id="canvas"  height="744" style="display:none;border:1px solid #d3d3d3;background:#ffffff;"></canvas>
 
         <el-dialog :title='account.level=="center"?$t("title.centerCoupons"):$t("title.fiveStarCenterCoupons")' class="edit-dialog cm-dialog buy-modal" :visible.sync="buyModalFlag" v-if="buyModalFlag" width="40%">
-            <div class="modal-body">
+            <div class="modal-body cm-watermark">
                 <div class="cm-certificate-goods-panel">
-                    <div class="icon-wrap">
+                 <!--   <div class="icon-wrap">
                         <i class="icon logo-icon"></i>
-                    </div>
+                    </div>-->
                     <ul class="type-list">
                         <li class="type-item" v-for="(item,index) in goodsList" :key="index">
                             <div class="item-hd">
@@ -187,8 +187,11 @@
                             </div>
                             <div class="item-bd">
                                 <div class="goods-item" v-for="(goods,goodsIndex) in item.list" :key="goodsIndex">
+                                    <p class="icon-wrap">
+                                        <i class="icon shell-icon"></i>
+                                    </p>
                                     <p>{{$t("value.cCount",{count:goods.count})}} ${{goods.price}}</p>
-                                    <p class="off">{{goods.off}}</p>
+                                    <p class="off">{{goods.off}}off</p>
                                     <div class="cm-btn handle-btn">
                                         <!--   {{$t("btn.toBuy")}}-->
                                         <pay-btn :options="{target:goods.id,item:goods,callback:toPay}"></pay-btn>

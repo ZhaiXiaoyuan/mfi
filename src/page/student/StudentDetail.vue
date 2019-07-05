@@ -10,7 +10,7 @@
                     </div>
                 </div>
             </div>
-            <div class="panel-bd">
+            <div class="panel-bd cm-watermark">
                 <div class="cm-detail-block detail-block" :class="{'show-status':account.type=='student'}">
                     <div class="status" v-if="account.type=='student'">
                         {{$t("title."+account.studentAccountStatus)}}

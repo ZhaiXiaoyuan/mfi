@@ -269,6 +269,7 @@ const tw = {
         transpondRecord:'證書轉發記錄',
         schoolCourse:'學校開設的課程',
         certificate:'證書',
+        editorDoc:'文本編輯器說明',
     },
     title:{
         super:'超級管理員',
@@ -348,6 +349,7 @@ const tw = {
         handleF:'操作失敗，{msg}',
         delAdmin:'確定刪除管理員帳號：{msg}？',
         delMsg:'確定刪除消息：{msg}？',
+        del:'確定刪除：{msg}？',
         developing:'功能開發中',
         grant:'確定授予：{msg}{level}证书？',
         forbidden:"您的帳號已禁用！",
@@ -373,6 +375,41 @@ const tw = {
         total:'共{msg}條記錄',
         coachCountTips:'未滿三位教練無法開課',
         giftTips:'已完成購買，贈送您一條{msg}，兌換序號將寄到您的註冊郵件地址',
+    },
+    editor:{
+        title: '設置標題',
+        p: '正文',
+        linkText: '鏈接文字',
+        link: '鏈接',
+        uploadImage: '上傳圖片',
+        editImage:'編輯圖片',
+        maxWidth:'最大寬度',
+        deleteImage:'刪除圖片',
+        onlineImage:'網絡圖片',
+        imageLink:'圖片鏈接',
+        insert:'插入',
+        upload: '上傳',
+        fontSize:'字號',
+        fontFamily:'字體',
+        SongTypeface:'宋體',
+        MicrosoftAccorblack:'微軟雅黑',
+        fontColor:'文字顏色',
+        backgroundColor:'背景顏色',
+        list:'設置列表',
+        orderedList:'有序列表',
+        unorderedList:'無序列表',
+        alignment:'對齊方式',
+        left:'靠左',
+        center:'居中',
+        right:'靠右',
+        insertTable:'插入表格',
+        init: '創建',
+        row:'行',
+        col:'列的表格',
+        insertVideo:'插入視頻',
+        format:"格式如：",
+        default:'默認',
+        sina:'新浪',
     },
     el: {
         colorpicker: {
@@ -479,7 +516,8 @@ const tw = {
             filterPlaceholder: 'Enter keyword', // to be translated
             noCheckedFormat: '{total} items', // to be translated
             hasCheckedFormat: '{checked}/{total} checked' // to be translated
-        }
+        },
+
     }
 }
 

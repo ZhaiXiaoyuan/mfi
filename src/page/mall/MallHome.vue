@@ -21,7 +21,7 @@
                         <div class="con-item right" v-if="activeType=='exchangeRecord'"><p class="tips">{{$t("tips.track")}}</p></div>
                     </div>
                     <div class="block-bd" v-if="activeType=='goods'&&!curGoods">
-                        <div class="cm-content-box">
+                        <div class="cm-content-box cm-watermark">
                             <ul class="cm-goods-list">
                                 <li v-for="(item,index) in entryList" :key="item.id" @click="setCurGoods(item)">
                                     <div class="cover" :style="{background: 'url('+(basicConfig.filePrefix+item.imageUrl)+') no-repeat center',backgroundSize: 'cover'}"></div>
@@ -62,7 +62,7 @@
                                         <span class="cm-btn cm-handle-btn cm-handle-md-btn" v-if="account.type=='school'||account.tpe=='teacher'" @click="openExchangeModal(curGoods,$event)">{{$t('btn.exchange')}}</span>
                                     </el-col>
                                 </el-row>
-                                <div class="goods-content">
+                                <div class="goods-content cm-watermark">
                                     <img :src="basicConfig.filePrefix+curGoods.imageUrl" alt="">
                                 </div>
                             </div>
@@ -71,10 +71,10 @@
 
                     <div class="block-bd" v-if="activeType=='certificate'&&account.type=='school'">
                         <div class="cm-content-box cm-goods-box">
-                            <div class="cm-certificate-goods-panel">
-                                <div class="icon-wrap">
+                            <div class="cm-certificate-goods-panel cm-watermark">
+                               <!-- <div class="icon-wrap">
                                     <i class="icon logo-icon"></i>
-                                </div>
+                                </div>-->
                                 <ul class="type-list">
                                     <li class="type-item" v-for="(item,index) in certificateGoodsList" :key="index">
                                         <div class="item-hd">
@@ -82,8 +82,11 @@
                                         </div>
                                         <div class="item-bd">
                                             <div class="goods-item" v-for="(goods,goodsIndex) in item.list" :key="goodsIndex">
+                                                <p class="icon-wrap">
+                                                    <i class="icon shell-icon"></i>
+                                                </p>
                                                 <p>{{$t("value.cCount",{count:goods.count})}} ${{goods.price}}</p>
-                                                <p class="off">{{goods.off}}</p>
+                                                <p class="off">{{goods.off}}off</p>
                                                 <div class="cm-btn handle-btn">
                                                     <!--   {{$t("btn.toBuy")}}-->
                                                     <pay-btn :options="{target:goods.id,item:goods,callback:toPay}"></pay-btn>
@@ -97,10 +100,10 @@
                     </div>
                     <div class="block-bd" v-if="activeType=='certificate'&&account.type=='coach'">
                         <div class="cm-content-box cm-goods-box">
-                            <div class="cm-certificate-goods-panel">
-                                <div class="icon-wrap">
+                            <div class="cm-certificate-goods-panel cm-watermark">
+                             <!--   <div class="icon-wrap">
                                     <i class="icon logo-icon"></i>
-                                </div>
+                                </div>-->
                                 <ul class="type-list">
                                     <li class="type-item">
                                         <div class="item-hd">
@@ -108,6 +111,9 @@
                                         </div>
                                         <div class="item-bd" style="padding: 40px 0px;">
                                             <div class="goods-item"  v-for="(goods,index) in certificateGoodsList" :key="index">
+                                                <p class="icon-wrap">
+                                                    <i class="icon shell-icon"></i>
+                                                </p>
                                                 <p>{{goods.name}}&nbsp;{{$t("value.cCount",{count:goods.count})}}</p>
                                                 <div class="cm-btn handle-btn">
                                                     <!--   {{$t("btn.toBuy")}}-->
@@ -654,6 +660,7 @@
             },
             setType:function (value) {
                 this.activeType=value;
+                this.curGoods=null;
                 if(value=='goods'){
                     this.getList(1);
                 }else if(value=='exchangeRecord'){

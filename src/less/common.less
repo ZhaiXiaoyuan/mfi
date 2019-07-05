@@ -292,6 +292,13 @@ body{
     height: 32px;
     background-size: 100% 100%;
 }
+.shell-icon{
+    display: inline-block;
+    background: url("../images/common/shell-icon.png") no-repeat;
+    width: 83px;
+    height: 75px;
+    background-size: 100% 100%;
+}
 /**/
 
 .ripple {
@@ -341,13 +348,21 @@ body{
         opacity: 1;
     }
 }
+.cm-link-btn{
+    font-size: 14px;
+    color: #5560aa;
+    text-decoration: underline;
+    &:hover{
+        text-decoration: underline;
+    }
+}
 .cm-vertical{
     display: flex;
     align-items: center;
 }
 .cm-panel{
     .panel-hd{
-        padding: 15px 20px 15px 20px;
+        padding: 15px 0px 15px 0px;
         display: flex;
         align-items: center;
         .title{
@@ -1422,11 +1437,15 @@ body{
     }
 }
 
+.el-select-dropdown__list{
+    background: #fff;
+}
+
 .w-e-toolbar .w-e-menu{
-    z-index: 0!important;
+
 }
 .w-e-text-container{
-    z-index: 10 !important;
+
 }
 
 .buy-dialog{
@@ -1440,7 +1459,35 @@ body{
     }
 }
 
+.cm-watermark{
+    position: relative;
+    border-radius: 10px;
+    background: #fff;
+    >*{
+        position: relative;
+        z-index: 1;
+        border-radius: 10px;
+        background: none;
+    }
+    &:before{
+        position: absolute;
+        z-index: 0;
+        top:0px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        margin: auto;
+        content: '';
+        width: 90%;
+        height: 90%;
+        background: url("../images/common/watermark-icon.png") no-repeat;
+        background-size: contain;
+        background-position: center center;
+    }
+}
+
 .cm-certificate-goods-panel{
+    padding-top: 20px;
     .icon-wrap{
         text-align: center;
     }
@@ -1456,9 +1503,9 @@ body{
                 .goods-item{
                     display: inline-block;
                     margin:5px 10px;
-                    padding-top: 16px;
-                    width: 150px;
-                    height: 150px;
+                    padding: 15px 5px;
+                    width: 160px;
+                    min-height: 150px;
                     font-size: 16px;
                     color: #5560aa;
                     text-align: center;
@@ -1466,6 +1513,14 @@ body{
                     border: 1px solid rgba(108,99,164,0.1);
                     box-shadow: 0px 6px 8px rgba(111,99,164,0.1);
                     text-align: center;
+                    background: rgba(255,255,255,0.6);
+                    .shell-icon{
+                        width: 41px;
+                        height: 37px;
+                    }
+                    .icon-wrap{
+                        margin-bottom: 4px;
+                    }
                     .off{
                         padding: 5px 0px;
                         font-size: 24px;
@@ -1629,7 +1684,7 @@ body{
     }
     .cm-panel{
         .panel-hd{
-            padding: 20px 5px 8px 5px;
+            padding: 20px 0px 8px 0px;
             display: flex;
             align-items: center;
             .cm-return-btn{

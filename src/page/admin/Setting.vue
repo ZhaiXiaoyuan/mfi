@@ -1,6 +1,6 @@
 <template>
     <div class="page-content edit-admin">
-        <div class="cm-panel edit-panel">
+        <div class="cm-panel edit-panel cm-watermark">
             <div class="panel-hd">修改密码</div>
             <div class="cm-input-row">
                 <div class="row-wrap">

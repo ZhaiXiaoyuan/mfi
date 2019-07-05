@@ -10,7 +10,7 @@
                     </div>
                 </div>
             </div>
-            <div class="panel-bd">
+            <div class="panel-bd cm-watermark">
                 <div class="cm-detail-block detail-block show-status">
                     <div class="status" v-if="account.type=='coach'&&(account.professionalMembersFee!='notPay'&&account.professionalMembersFee!='expire'&&account.instructorQualification!='notPay'&&account.instructorQualification!='expire')">
                         <span>{{$t("title."+account.instructorAccountStatus)}}</span>

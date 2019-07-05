@@ -35,9 +35,6 @@
                                     </el-select>
                                 </div>
                                 <div class="cm-input-row">
-                                    <textarea v-model="form.content" cols="30" rows="20"  :placeholder="$t('holder.content')" ></textarea>
-                                </div>
-                                <div class="cm-input-row">
                                     <div class="cm-file-uploader" :class="{'uploading':uploadStatus=='uploading','uploaded':uploadStatus=='uploaded'}">
                                         <el-progress class="progress" :text-inside="true" :stroke-width="20" :percentage="80" color="#5560aa"></el-progress>
                                         <div class="btn-wrap">
@@ -50,17 +47,26 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="tips" style="text-align: right;padding: 0px 100px 5px 0px;">
+                                    <a class="cm-link-btn" href="https://shimo.im/docs/V8QzGV89gnYqugnk" target="_blank">
+                                        {{$t("btn.editorDoc")}}
+                                    </a>
+                                </div>
+                                <div class="cm-input-row">
+                                    <div class="editor" id="editor"></div>
+                                 <!--   <textarea v-model="form.content" cols="30" rows="20"  :placeholder="$t('holder.content')" ></textarea>-->
+                                </div>
                             </div>
                         </div>
-                        <div class="view-box" v-if="type=='view'">
+                        <div class="view-box cm-watermark" v-if="type=='view'">
                             <p class="title">{{form.title}}</p>
                             <p class="level">{{$t("label.level")}}：{{allLevelList[form.levelList]}}</p>
-                         <!--   <p class="file"><a :href="basicConfig.filePrefix+form.fileUrl" target="_blank">{{$t("label.file")}}：{{form.fileName}}</a></p>-->
+                            <p class="file"><a :href="basicConfig.filePrefix+form.fileUrl" target="_blank">{{$t("label.file")}}：{{form.fileName}}</a></p>
                             <div class="content-detail">
                                 <div v-html="form.content"></div>
                             </div>
-                            <pdf class="pdf-area" v-for="i in numPages"
-                                 :key="i" :page="i" :src="task" style="display: inline-block;width: 100%"></pdf>
+                          <!--  <pdf class="pdf-area" v-for="i in numPages"
+                                 :key="i" :page="i" :src="task" style="display: inline-block;width: 100%"></pdf>-->
                         </div>
                     </div>
                 </div>
@@ -99,6 +105,8 @@
                     width: 500px;
                 }
                 .cm-select{
+                    position: relative;
+                    z-index: 1;
                     width: 500px;
                     input{
                         width: 100%;
@@ -110,12 +118,14 @@
                     width: 500px;
                 }
                 .editor{
-                    width: 100%;
+                    position: relative;
+                    z-index: 0;
+                    width: 90%;
                     .w-e-toolbar .w-e-menu{
-                        z-index: 10 !important;
+                       /* z-index: 10 !important;*/
                     }
                     .w-e-text-container{
-                        height: 1000px !important;
+                        height: 800px !important;
                         z-index: 10!important;
                     }
                 }
@@ -238,6 +248,41 @@
                             }
                         });
                     }
+                    this.editor.customConfig.lang = {
+                        '设置标题': this.$t("editor.title"),
+                        '正文': this.$t("editor.p"),
+                        '链接文字': this.$t("editor.linkText"),
+                        '链接': this.$t("editor.link"),
+                        '上传图片': this.$t("editor.uploadImage"),
+                        '编辑图片': this.$t("editor.editImage"),
+                        '最大宽度': this.$t("editor.maxWidth"),
+                        '删除图片': this.$t("editor.deleteImage"),
+                        '网络图片': this.$t("editor.onlineImage"),
+                        '图片链接': this.$t("editor.imageLink"),
+                        '插入视频': this.$t("editor.insertVideo"),
+                        '插入表格': this.$t("editor.insertTable"),
+                        '插入': this.$t("editor.insert"),
+                        '上传': this.$t("editor.upload"),
+                        '字号': this.$t("editor.fontSize"),
+                        '字体': this.$t("editor.fontFamily"),
+                        '文字颜色': this.$t("editor.fontColor"),
+                        '背景色': this.$t("editor.backgroundColor"),
+                        '微软雅黑': this.$t("editor.MicrosoftAccorblack"),
+                        '宋体': this.$t("editor.SongTypeface"),
+                        '设置列表': this.$t("editor.list"),
+                        '有序列表': this.$t("editor.orderedList"),
+                        '无序列表': this.$t("editor.unorderedList"),
+                        '对齐方式': this.$t("editor.alignment"),
+                        '靠左': this.$t("editor.left"),
+                        '居中': this.$t("editor.center"),
+                        '靠右': this.$t("editor.right"),
+                        '创建': this.$t("editor.init"),
+                        '行': this.$t("editor.row"),
+                        '列的表格': this.$t("editor.col"),
+                        '格式如：': this.$t("editor.format"),
+                        '默认': this.$t("editor.default"),
+                        '新浪': this.$t("editor.sina"),
+                    }
                     this.editor.create();
                     this.editor.txt.clear();
                     if(this.id){
@@ -259,13 +304,13 @@
                         if(this.form.fileName){
                             this.uploadStatus='uploaded';
                         }
-                       /* this.editor&&this.editor.txt.html(this.form.content);*/
+                        this.editor&&this.editor.txt.html(this.form.content);
                     if(this.form.fileUrl){
                         this.form.fileUrl=Vue.basicConfig.filePrefix+this.form.fileUrl;
-                        this.task=pdf.createLoadingTask(this.form.fileUrl);
+                      /*  this.task=pdf.createLoadingTask(this.form.fileUrl);
 
                         this.task.then(pdf => {
-                            this.numPages = pdf.numPages;});
+                            this.numPages = pdf.numPages;});*/
                         }
                     }
                 });
@@ -293,7 +338,7 @@
                 }
             },
             save:function () {
-             /*   this.form.content=this.editor.txt.html();*/
+                this.form.content=this.editor.txt.html();
                 if(!this.form.title){
                     Vue.operationFeedback({type:'warn',text:this.$t("holder.title")});
                     return;
@@ -369,8 +414,10 @@
             }].concat(this.levelOptions);
             //
             if(this.type!='add'){
-                /*this.initEditor();*/
                 this.getEntry(this.id);
+            }
+            if(this.type!='view'){
+                this.initEditor();
             }
             //
         },
