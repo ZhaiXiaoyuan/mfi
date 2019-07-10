@@ -781,10 +781,10 @@
                         that.drawText(ctx,'Certification Date:',548,235);
                         that.drawText(ctx,options.date,815,235);
 
-                        that.drawText(ctx,'Issusing Instructor:',533,280);
+                        that.drawText(ctx,'Issuing Instructor:',533,280);
                         that.drawText(ctx,options.instructor,815,280);
 
-                        that.drawText(ctx,'Issusing School:',568,325);
+                        that.drawText(ctx,'Issuing School:',568,325);
                         that.drawText(ctx,options.issuer,815,325);
 
                         //
