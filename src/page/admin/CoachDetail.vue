@@ -765,7 +765,7 @@
                     return;
                 }
                 let params={
-                    imeStamp:Vue.genTimestamp(),
+                    timeStamp:Vue.genTimestamp(),
                     userId:this.id,
                     ...this.editForm
                 }
@@ -794,7 +794,7 @@
                         ok:(data)=>{
                             let formData = new FormData();
                             let sessionInfo=Vue.sessionInfo();
-                            formData.append('timestamp',sessionInfo.timestamp);
+                            formData.append('timeStamp',sessionInfo.timeStamp);
                             formData.append('userId',this.account.id);
                             formData.append('headPic',data);
                             this.uploading=true;
@@ -848,7 +848,7 @@
                     quality:0.8,
                     callback:(data)=>{
                         let formData = new FormData();
-                        formData.append('timestamp',Vue.genTimestamp());
+                        formData.append('timeStamp',Vue.genTimestamp());
                         formData.append('userId',this.account.id);
                         formData.append('firstAidPic',data);
                         this.uploading=true;
@@ -874,7 +874,7 @@
                     quality:0.8,
                     callback:(data)=>{
                         let formData = new FormData();
-                        formData.append('timestamp',Vue.genTimestamp());
+                        formData.append('timeStamp',Vue.genTimestamp());
                         formData.append('userId',this.account.id);
                         formData.append('insurancePic',data);
                         this.uploading=true;
