@@ -43,14 +43,16 @@ export default {
           shortCodeAlert:'域名格式有误，请输入7到20位字母或数字，不可为纯数字！'
         }
         //
+        //临时测试
+      const isDev=false&&process.env.NODE_ENV=='development'?true:false;
       Vue.tools = {
           //临时测试
           basicConfig:{
              /* basicUrl:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://39.108.11.197',
               filePrefix:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://39.108.11.197',*/
-              basicUrl:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://www.mermaidfederation.com',
-              filePrefix:true||process.env.NODE_ENV=='development'?'http://api.linqi.tech:8621/mfi':'http://www.mermaidfederation.com',
-              paypalPrefix:true||process.env.NODE_ENV=='development'?'https://www.sandbox.paypal.com':'https://www.paypal.com',
+              basicUrl:isDev?'http://www.mermaidfederation.com':'http://www.mermaidfederation.com',
+              filePrefix:true||isDev?'http://api.linqi.tech:8621/mfi':'http://www.mermaidfederation.com',
+              paypalPrefix:true||isDev?'https://www.sandbox.paypal.com':'https://www.paypal.com',
               levelOptions:[
                   {
                       value:'M0',
@@ -99,7 +101,7 @@ export default {
                   '#f47023'
               ],
           },
-          hostedIdConfig:{
+          hostedIdConfig:isDev?{
               goods1:{
                   id:'NRTU8287ASMQU',
               },
@@ -133,8 +135,153 @@ export default {
               MMI:{
                   id:'7ETBBSTY4RASS',
               }
+          }:{
+              'mfi-goods-schools-leggings':{
+                  id:'NRTU8287ASMQU',
+                  code:'leggings',
+                  name:'鱼鳞裤',
+                  count:1,
+                  price:0,
+                  type:'school',
+                  sale:false,
+                  exchange:true,
+              },
+              'mfi-goods-schools-stickers':{
+                  id:'NRTU8287ASMQU',
+                  code:'stickers',
+                  name:'贴纸',
+                  count:20,
+                  price:5,
+                  type:'school',
+                  sale:true,
+                  exchange:false,
+              },
+              'mfi-goods-schools-pins':{
+                  id:'NRTU8287ASMQU',
+                  code:'pins',
+                  name:'别针',
+                  count:10,
+                  price:17,
+                  type:'school',
+                  sale:true,
+                  exchange:false,
+              },
+
+              'mfi-goods-instructor-leggings':{
+                  id:'NRTU8287ASMQU',
+                  code:'leggings',
+                  name:'鱼鳞裤',
+                  count:1,
+                  price:0,
+                  type:'coach',
+                  sale:false,
+                  exchange:true,
+              },
+              'mfi-goods-instructor-stickers':{
+                  id:'NRTU8287ASMQU',
+                  code:'stickers',
+                  name:'贴纸',
+                  count:20,
+                  price:6,
+                  type:'coach',
+                  sale:true,
+                  exchange:false,
+              },
+              'mfi-goods-instructor-pins':{
+                  id:'NRTU8287ASMQU',
+                  code:'pins',
+                  name:'别针',
+                  count:10,
+                  price:20,
+                  type:'coach',
+                  sale:true,
+                  exchange:false,
+              },
+
+              'mfi-goods-student-leggings':{
+                  id:'NRTU8287ASMQU',
+                  code:'leggings',
+                  name:'鱼鳞裤',
+                  count:1,
+                  price:32,
+                  type:'student',
+                  sale:true,
+                  exchange:false,
+              },
+              'mfi-goods-student-stickers':{
+                  id:'NRTU8287ASMQU',
+                  code:'stickers',
+                  name:'贴纸',
+                  count:20,
+                  price:6,
+                  type:'student',
+                  sale:true,
+                  exchange:false,
+              },
+              'mfi-goods-student-pins':{
+                  id:'NRTU8287ASMQU',
+                  code:'pins',
+                  name:'别针',
+                  count:10,
+                  price:20,
+                  type:'student',
+                  sale:true,
+                  exchange:false,
+              },
+
+              'MFI-M0-Certificate-20-school':{
+                  id:'83P5H8UWR3PDE',
+              },
+              'MFI-M0-Certificate-180-school':{
+                  id:'ZPJL995TW48A8',
+              },
+              'MFI-M1-Certificate-5-school':{
+                  id:'72PVZNWFG5GJL',
+              },
+              'MFI-M1-Certificate-60-school':{
+                  id:'6GRA7329HC8PL',
+              },
+              'MFI-M0-Certificate-20-fiveStartSchool':{
+                  id:'HU55YTEQBQRXA',
+              },
+              'MFI-M0-Certificate-480-fiveStartSchool':{
+                  id:'G9JLYKPA7G72U',
+              },
+              'MFI-M1-Certificate-10-fiveStartSchool':{
+                  id:'UDVWN2LE8Y9KA',
+              },
+              'MFI-M1-Certificate-120-fiveStartSchool':{
+                  id:'E6BF9525LY8VW',
+              },
+              'MFI-M2-Certificate-2-fiveStartSchool':{
+                  id:'JGPVA9MDELZL2',
+              },
+              'MFI-M2-Certificate-24-fiveStartSchool':{
+                  id:'B5X5K3J74LDRY',
+              },
+              M0:{
+                  id:'M59NSGGZGYLA2',
+              },
+              M1:{
+                  id:'SEAVR5JK4T36N',
+              },
+              M2:{
+                  id:'TXHZYBLWD8YPG',
+              },
+              M3:{
+                  id:'DP8FMHGC8UQ6Y',
+              },
+              BMI:{
+                  id:'8LXENYQ5QJGNJ',
+              },
+              MI:{
+                  id:'CE5GA58V6Y6J2',
+              },
+              MMI:{
+                  id:'PCJYUVT7ZMXUW',
+              }
           },
-          centerGoodsList:[
+          centerGoodsList:isDev?[
               {
                   level:'M0',
                   list:[
@@ -147,8 +294,48 @@ export default {
                       }
                   ]
               }
+          ] :
+              [//生产环境
+              {
+                  level:'M0',
+                  list:[
+                      {
+                          id:'MFI-M0-Certificate-20-school',
+                          count:20,
+                          price:'285',
+                          off:'5%',
+                          gift:'merleggings',
+                      },
+                      {
+                          id:'MFI-M0-Certificate-180-school',
+                          count:180,
+                          price:'2295',
+                          off:'15%',
+                          gift:'merleggings',
+                      }
+                  ]
+              },
+              {
+                  level:'M1',
+                  list:[
+                      {
+                          id:'MFI-M1-Certificate-5-school',
+                          count:5,
+                          price:'233',
+                          off:'5%',
+                          gift:'merleggings',
+                      },
+                      {
+                          id:'MFI-M1-Certificate-60-school',
+                          count:60,
+                          price:'2499',
+                          off:'15%',
+                          gift:'merleggings',
+                      }
+                  ]
+              }
           ],
-          fiveStarCenterGoodsList:[
+          fiveStarCenterGoodsList:isDev?[
               {
                   level:'M0',
                   list:[
@@ -161,7 +348,66 @@ export default {
                       }
                   ]
               }
-          ],
+          ]:
+              [//生产环境
+                  {
+                      level:'M0',
+                      list:[
+                          {
+                              id:'MFI-M0-Certificate-20-fiveStartSchool',
+                              count:20,
+                              price:'270',
+                              off:'10%',
+                              gift:'merleggings',
+                          },
+                          {
+                              id:'MFI-M0-Certificate-480-fiveStartSchool',
+                              count:480,
+                              price:'5040',
+                              off:'30%',
+                              gift:'merleggings',
+                          }
+                      ]
+                  },
+                  {
+                      level:'M1',
+                      list:[
+                          {
+                              id:'MFI-M1-Certificate-10-fiveStartSchool',
+                              count:10,
+                              price:'441',
+                              off:'10%',
+                              gift:'merleggings',
+                          },
+                          {
+                              id:'MFI-M1-Certificate-120-fiveStartSchool',
+                              count:120,
+                              price:'4416',
+                              off:'30%',
+                              gift:'merleggings',
+                          }
+                      ]
+                  },
+                  {
+                      level:'M2',
+                      list:[
+                          {
+                              id:'MFI-M2-Certificate-2-fiveStartSchool',
+                              count:2,
+                              price:'92',
+                              off:'5%',
+                              gift:'merleggings',
+                          },
+                          {
+                              id:'MFI-M2-Certificate-24-fiveStartSchool',
+                              count:24,
+                              price:'941',
+                              off:'20%',
+                              gift:'merleggings',
+                          }
+                      ]
+                  }
+              ],
           instructorCertificateGoodsList:[
               {
                   level:'M0',
@@ -212,6 +458,7 @@ export default {
                   count:1,
                   price:'MMI',
                   id:'MMI',
+                  disabled:true,
               }
           ],
         /*生成请求时间戳*/

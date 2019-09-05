@@ -25,11 +25,11 @@
                             <ul class="cm-goods-list">
                                 <li v-for="(item,index) in entryList" :key="item.id" @click="setCurGoods(item)">
                                     <div class="cover" :style="{background: 'url('+(basicConfig.filePrefix+item.imageUrl)+') no-repeat center',backgroundSize: 'cover'}"></div>
-                                    <p class="name">{{item.name}}</p>
-                                    <p class="name" v-if="account.type=='student'">${{item.price}}</p>
+                                    <p class="name">{{item.name}}&times;{{item.count}}</p>
+                                    <p class="name" v-if="item.price">${{item.price}}</p>
                                     <div class="handle">
-                                        <div class="cm-btn cm-handle-btn handle-btn" v-if="account.type=='student'" @click="openBuyModal(item,$event)">{{$t("btn.buy")}}</div>
-                                        <div class="cm-btn cm-handle-btn handle-btn" v-if="account.type=='school'||account.type=='coach'" @click="openExchangeModal(item,$event)">{{$t("btn.exchange")}}</div>
+                                        <div class="cm-btn cm-handle-btn handle-btn" v-if="item.sale" @click="openBuyModal(item,$event)">{{$t("btn.buy")}}</div>
+                                        <div class="cm-btn cm-handle-btn handle-btn" v-if="item.exchange" @click="openExchangeModal(item,$event)">{{$t("btn.exchange")}}</div>
                                     </div>
                                 </li>
                             </ul>
@@ -44,22 +44,25 @@
                                 <el-row class="info-row">
                                     <el-col :span="7" class="info-item">
                                         <span class="label">{{$t('label.goodsType')}}：</span>
-                                        <span class="value">{{curGoods.type}}</span>
+                                        <span class="value">
+                                            <span v-if="curGoods.sale">商品</span>
+                                            <span v-if="curGoods.exchange">礼品</span>
+                                        </span>
                                     </el-col>
                                     <el-col :span="7" class="info-item">
                                         <span class="label">{{$t('label.goodsName')}}：</span>
-                                        <span class="value">{{curGoods.name}}</span>
+                                        <span class="value">{{curGoods.name}}&times;{{curGoods.count}}</span>
                                     </el-col>
                                     <el-col :span="7" class="info-item">
-                                        <div v-if="account.type=='school'||account.tpe=='teacher'">&nbsp;</div>
-                                        <div v-if="account.type=='student'">
+                                        <div v-if="!curGoods.price">&nbsp;</div>
+                                        <div v-if="curGoods.price">
                                             <span class="label">{{$t('label.price')}}：</span>
                                             <span class="value">${{curGoods.price}}</span>
                                         </div>
                                     </el-col>
                                     <el-col :span="3" class="info-item">
-                                        <span class="cm-btn cm-handle-btn cm-handle-md-btn" v-if="account.type=='student'" @click="openBuyModal(curGoods,$event)">{{$t('btn.buy')}}</span>
-                                        <span class="cm-btn cm-handle-btn cm-handle-md-btn" v-if="account.type=='school'||account.tpe=='teacher'" @click="openExchangeModal(curGoods,$event)">{{$t('btn.exchange')}}</span>
+                                        <span class="cm-btn cm-handle-btn cm-handle-md-btn" v-if="curGoods.sale" @click="openBuyModal(curGoods,$event)">{{$t('btn.buy')}}</span>
+                                        <span class="cm-btn cm-handle-btn cm-handle-md-btn" v-if="curGoods.exchange" @click="openExchangeModal(curGoods,$event)">{{$t('btn.exchange')}}</span>
                                     </el-col>
                                 </el-row>
                                 <div class="goods-content cm-watermark">
@@ -110,7 +113,7 @@
 
                                         </div>
                                         <div class="item-bd" style="padding: 40px 0px;">
-                                            <div class="goods-item"  v-for="(goods,index) in certificateGoodsList" :key="index">
+                                            <div class="goods-item"  v-for="(goods,index) in certificateGoodsList" :key="index" v-if="!goods.disabled">
                                                 <p class="icon-wrap">
                                                     <i class="icon shell-icon"></i>
                                                 </p>
@@ -586,6 +589,8 @@
                 exchangeHandleStep:1,
 
                 certificateGoodsList:[],
+
+                goodsHostConfig:{},
             }
         },
         created(){
@@ -609,7 +614,12 @@
                     this.pager.loading=false;
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
-                        this.entryList=data.goodsList;
+                        let list=data.goodsList;
+                        list.forEach((item,i)=>{
+                            let configObj=this.goodsHostConfig[item.id];
+                            Object.assign(item,configObj);
+                        })
+                        this.entryList=list;
                         this.pager.total=data.count;
                         //临时测试
                       /*  this.curGoods=this.entryList[0];*/
@@ -897,6 +907,17 @@
         mounted () {
             /**/
             this.account=Vue.getAccountInfo();
+            /**/
+            for(let key in Vue.tools.hostedIdConfig){
+                let valObj=Vue.tools.hostedIdConfig[key];
+                if(valObj.type==this.account.type){
+                    this.goodsHostConfig[valObj.code]={...valObj,id:key};
+                }
+            }
+            console.log('this.goodsHostConfig:',this.goodsHostConfig);
+          /*  Vue.tools.hostedIdConfig.forEach((item,i)=>{
+                console.log('item:',item);
+            })*/
             /**/
             if(this.account.type=='school'){
                 this.certificateGoodsList=this.account.level=='center'?Vue.tools.centerGoodsList:Vue.tools.fiveStarCenterGoodsList;
