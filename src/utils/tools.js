@@ -490,9 +490,9 @@ export default {
           return fmt;
         },
         sessionInfo:function () {
-          let timestamp=this.genTimestamp();
+          let timeStamp=this.genTimestamp();
           return{
-              timeStamp:timestamp,
+              timeStamp:timeStamp,
           }
         },
         /*获取事件当前元素*/

@@ -363,7 +363,7 @@
                     return;
                 }
                 let params={
-                    imeStamp:Vue.genTimestamp(),
+                    timeStamp:Vue.genTimestamp(),
                     userId:this.user.id,
                     email:this.newForm.email,
                     password:md5.hex(this.newForm.pwd),
@@ -382,7 +382,7 @@
                 let fb=Vue.operationFeedback({text:this.$t("tips.save")});
                 Vue.api.setUserBaseInfo(params).then((resp)=>{
                     if(resp.respCode=='2000'){
-                        Vue.api.activate({imeStamp:Vue.genTimestamp(),aesData:this.aesData,role:'instructor'}).then((resp)=>{
+                        Vue.api.activate({timeStamp:Vue.genTimestamp(),aesData:this.aesData,role:'instructor'}).then((resp)=>{
                             if(resp.respCode=='2000'){
                                 if(Vue.tools.deviceType()){
                                     fb.setOptions({
@@ -445,7 +445,7 @@
                         ok:(data)=>{
                             let formData = new FormData();
                             let sessionInfo=Vue.sessionInfo();
-                            formData.append('timestamp',sessionInfo.timestamp);
+                            formData.append('timeStamp',sessionInfo.timeStamp);
                             formData.append('userId',this.user.id);
                             formData.append('headPic',data);
                             this.uploading=true;
@@ -479,7 +479,7 @@
                     quality:0.8,
                     callback:(data)=>{
                         let formData = new FormData();
-                        formData.append('timestamp',Vue.genTimestamp());
+                        formData.append('timeStamp',Vue.genTimestamp());
                         formData.append('userId',this.user.id);
                         formData.append('firstAidPic',data);
                         this.uploading=true;
@@ -514,7 +514,7 @@
                     quality:0.8,
                     callback:(data)=>{
                         let formData = new FormData();
-                        formData.append('timestamp',Vue.genTimestamp());
+                        formData.append('timeStamp',Vue.genTimestamp());
                         formData.append('userId',this.user.id);
                         formData.append('insurancePic',data);
                         this.uploading=true;
