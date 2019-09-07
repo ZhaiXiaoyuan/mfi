@@ -136,8 +136,8 @@ export default {
                   id:'7ETBBSTY4RASS',
               }
           }:{
-              'mfi-goods-schools-leggings':{
-                  id:'NRTU8287ASMQU',
+              'mfiGoodsSchoolsLeggings':{
+                  id:'3NKCR7ECVT2BY',
                   code:'leggings',
                   name:'鱼鳞裤',
                   count:1,
@@ -146,8 +146,8 @@ export default {
                   sale:false,
                   exchange:true,
               },
-              'mfi-goods-schools-stickers':{
-                  id:'NRTU8287ASMQU',
+              'mfiGoodsSchoolsStickers':{
+                  id:'RWMHQ6Y996BCW',
                   code:'stickers',
                   name:'贴纸',
                   count:20,
@@ -156,8 +156,8 @@ export default {
                   sale:true,
                   exchange:false,
               },
-              'mfi-goods-schools-pins':{
-                  id:'NRTU8287ASMQU',
+              'mfiGoodsSchoolsPins':{
+                  id:'7FWLB9VJ2Q3QQ',
                   code:'pins',
                   name:'别针',
                   count:10,
@@ -167,8 +167,8 @@ export default {
                   exchange:false,
               },
 
-              'mfi-goods-instructor-leggings':{
-                  id:'NRTU8287ASMQU',
+              'mfiGoodsInstructorLeggings':{
+                  id:'ZU69VJQLCQ646',
                   code:'leggings',
                   name:'鱼鳞裤',
                   count:1,
@@ -177,8 +177,8 @@ export default {
                   sale:false,
                   exchange:true,
               },
-              'mfi-goods-instructor-stickers':{
-                  id:'NRTU8287ASMQU',
+              'mfiGoodsInstructorStickers':{
+                  id:'DNUJH8AEYSMDU',
                   code:'stickers',
                   name:'贴纸',
                   count:20,
@@ -187,8 +187,8 @@ export default {
                   sale:true,
                   exchange:false,
               },
-              'mfi-goods-instructor-pins':{
-                  id:'NRTU8287ASMQU',
+              'mfiGoodsInstructorPins':{
+                  id:'6DTDG65NMRVXQ',
                   code:'pins',
                   name:'别针',
                   count:10,
@@ -198,8 +198,8 @@ export default {
                   exchange:false,
               },
 
-              'mfi-goods-student-leggings':{
-                  id:'NRTU8287ASMQU',
+              'mfiGoodsStudentLeggings':{
+                  id:'W23FD8VD76PG2',
                   code:'leggings',
                   name:'鱼鳞裤',
                   count:1,
@@ -208,8 +208,8 @@ export default {
                   sale:true,
                   exchange:false,
               },
-              'mfi-goods-student-stickers':{
-                  id:'NRTU8287ASMQU',
+              'mfiGoodsStudentStickers':{
+                  id:'QEK4WUMZAV4J4',
                   code:'stickers',
                   name:'贴纸',
                   count:20,
@@ -218,8 +218,8 @@ export default {
                   sale:true,
                   exchange:false,
               },
-              'mfi-goods-student-pins':{
-                  id:'NRTU8287ASMQU',
+              'mfiGoodsStudentPins':{
+                  id:'67CUV42PP7N3E',
                   code:'pins',
                   name:'别针',
                   count:10,
@@ -229,34 +229,34 @@ export default {
                   exchange:false,
               },
 
-              'MFI-M0-Certificate-20-school':{
+              'mfiM0Certificate20School':{
                   id:'83P5H8UWR3PDE',
               },
-              'MFI-M0-Certificate-180-school':{
+              'mfiM0Certificate180School':{
                   id:'ZPJL995TW48A8',
               },
-              'MFI-M1-Certificate-5-school':{
+              'mfiM1Certificate5School':{
                   id:'72PVZNWFG5GJL',
               },
-              'MFI-M1-Certificate-60-school':{
+              'mfiM1Certificate60School':{
                   id:'6GRA7329HC8PL',
               },
-              'MFI-M0-Certificate-20-fiveStartSchool':{
+              'mfiM0Certificate20FiveStartSchool':{
                   id:'HU55YTEQBQRXA',
               },
-              'MFI-M0-Certificate-480-fiveStartSchool':{
+              'mfiM0Certificate480FiveStartSchool':{
                   id:'G9JLYKPA7G72U',
               },
-              'MFI-M1-Certificate-10-fiveStartSchool':{
+              'mfiM1Certificate10FiveStartSchool':{
                   id:'UDVWN2LE8Y9KA',
               },
-              'MFI-M1-Certificate-120-fiveStartSchool':{
+              'mfiM1Certificate120FiveStartSchool':{
                   id:'E6BF9525LY8VW',
               },
-              'MFI-M2-Certificate-2-fiveStartSchool':{
+              'mfiM2Certificate2FiveStartSchool':{
                   id:'JGPVA9MDELZL2',
               },
-              'MFI-M2-Certificate-24-fiveStartSchool':{
+              'mfiM2Certificate24FiveStartSchool':{
                   id:'B5X5K3J74LDRY',
               },
               M0:{
@@ -300,14 +300,14 @@ export default {
                   level:'M0',
                   list:[
                       {
-                          id:'MFI-M0-Certificate-20-school',
+                          id:'mfiM0Certificate20School',
                           count:20,
                           price:'285',
                           off:'5%',
                           gift:'merleggings',
                       },
                       {
-                          id:'MFI-M0-Certificate-180-school',
+                          id:'mfiM0Certificate180School',
                           count:180,
                           price:'2295',
                           off:'15%',
@@ -319,14 +319,14 @@ export default {
                   level:'M1',
                   list:[
                       {
-                          id:'MFI-M1-Certificate-5-school',
+                          id:'mfiM1Certificate5School',
                           count:5,
                           price:'233',
                           off:'5%',
                           gift:'merleggings',
                       },
                       {
-                          id:'MFI-M1-Certificate-60-school',
+                          id:'mfiM1Certificate60School',
                           count:60,
                           price:'2499',
                           off:'15%',
@@ -354,14 +354,14 @@ export default {
                       level:'M0',
                       list:[
                           {
-                              id:'MFI-M0-Certificate-20-fiveStartSchool',
+                              id:'mfiM0Certificate20FiveStartSchool',
                               count:20,
                               price:'270',
                               off:'10%',
                               gift:'merleggings',
                           },
                           {
-                              id:'MFI-M0-Certificate-480-fiveStartSchool',
+                              id:'mfiM0Certificate480FiveStartSchool',
                               count:480,
                               price:'5040',
                               off:'30%',
@@ -373,14 +373,14 @@ export default {
                       level:'M1',
                       list:[
                           {
-                              id:'MFI-M1-Certificate-10-fiveStartSchool',
+                              id:'mfiM1Certificate10FiveStartSchool',
                               count:10,
                               price:'441',
                               off:'10%',
                               gift:'merleggings',
                           },
                           {
-                              id:'MFI-M1-Certificate-120-fiveStartSchool',
+                              id:'mfiM1Certificate120FiveStartSchool',
                               count:120,
                               price:'4416',
                               off:'30%',
@@ -392,14 +392,14 @@ export default {
                       level:'M2',
                       list:[
                           {
-                              id:'MFI-M2-Certificate-2-fiveStartSchool',
+                              id:'mfiM2Certificate2FiveStartSchool',
                               count:2,
                               price:'92',
                               off:'5%',
                               gift:'merleggings',
                           },
                           {
-                              id:'MFI-M2-Certificate-24-fiveStartSchool',
+                              id:'mfiM2Certificate24FiveStartSchool',
                               count:24,
                               price:'941',
                               off:'20%',

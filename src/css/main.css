@@ -1501,12 +1501,13 @@ body {
 .cm-goods-list > li {
   display: inline-block;
   width: 200px;
-  margin: 10px;
+  margin: 15px;
   cursor: pointer;
 }
 .cm-goods-list > li .cover {
   width: 200px;
   height: 250px;
+  border-radius: 5px;
 }
 .cm-goods-list > li .name {
   margin-top: 10px;
