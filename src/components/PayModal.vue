@@ -153,8 +153,7 @@
     },
     mounted: function () {
         /**/
-        //临时测试
-        this.token=true||process.env.NODE_ENV=='development'?this.tokenConfig[this.options.level]:this.prodTokenConfig[this.options.level];
+        this.token=process.env.NODE_ENV=='development'?this.tokenConfig[this.options.level]:this.prodTokenConfig[this.options.level];
         this.temOrderId=this.options.userId+'-'+this.options.level+'-'+Vue.genTimestamp();
       /*  console.log('this.token:',this.token);
         console.log('this.temOderId:',this.temOrderId);*/

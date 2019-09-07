@@ -61,7 +61,7 @@
                         <div class="view-box cm-watermark" v-if="type=='view'">
                             <p class="title">{{form.title}}</p>
                             <p class="level">{{$t("label.level")}}：{{allLevelList[form.levelList]}}</p>
-                            <p class="file"><a :href="basicConfig.filePrefix+form.fileUrl" target="_blank">{{$t("label.file")}}：{{form.fileName}}</a></p>
+                            <p class="file"><a :href="form.fileUrl" target="_blank">{{$t("label.file")}}：{{form.fileName}}</a></p>
                             <div class="content-detail">
                                 <div v-html="form.content"></div>
                             </div>

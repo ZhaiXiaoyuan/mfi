@@ -25,8 +25,8 @@
                             <ul class="cm-goods-list">
                                 <li v-for="(item,index) in entryList" :key="item.id" @click="setCurGoods(item)">
                                     <div class="cover" :style="{background: 'url('+(basicConfig.filePrefix+item.imageUrl)+') no-repeat center',backgroundSize: 'cover'}"></div>
-                                    <p class="name">{{item.name}}&times;{{item.count}}</p>
-                                    <p class="name" v-if="item.price">${{item.price}}</p>
+                                    <p class="name">{{item.name}}<span v-if="item.count">&times;{{item.count}}</span></p>
+                                    <p class="name">{{item.price?'$'+item.price:'&nbsp;'}}</p>
                                     <div class="handle">
                                         <div class="cm-btn cm-handle-btn handle-btn" v-if="item.sale" @click="openBuyModal(item,$event)">{{$t("btn.buy")}}</div>
                                         <div class="cm-btn cm-handle-btn handle-btn" v-if="item.exchange" @click="openExchangeModal(item,$event)">{{$t("btn.exchange")}}</div>
@@ -51,7 +51,7 @@
                                     </el-col>
                                     <el-col :span="7" class="info-item">
                                         <span class="label">{{$t('label.goodsName')}}：</span>
-                                        <span class="value">{{curGoods.name}}&times;{{curGoods.count}}</span>
+                                        <span class="value">{{curGoods.name}}<span v-if="curGoods.count">&times;{{curGoods.count}}</span></span>
                                     </el-col>
                                     <el-col :span="7" class="info-item">
                                         <div v-if="!curGoods.price">&nbsp;</div>

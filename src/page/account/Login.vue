@@ -573,8 +573,7 @@
             }
             /**/
             /**/
-            //临时测试
-            this.showAllBtn=!this.version.mobile&&true||process.env.NODE_ENV=='development'?true:false;
+            this.showAllBtn=!this.version.mobile&&process.env.NODE_ENV=='development'?true:false;
         },
     }
 </script>
