@@ -335,7 +335,6 @@
             toDetail:function (index) {
                 let item=this.entryList[index];
                 this.$router.push({name:'schoolDetail',params:{code:item.serialCode}})
-                console.log('item233:',item);
             }
         },
         mounted () {

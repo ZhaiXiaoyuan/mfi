@@ -260,6 +260,7 @@ const en = {
         courseLen:'course',
         someoneCourse:'{msg}\'s course',
         selfCourse:'my own course',
+        selfCreate:'His/Her course',
         switchToInstructor:'switch to instructor',
         switchToStudent:'switch to student',
         buyCertificate:'buy certificate',

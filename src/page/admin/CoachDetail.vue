@@ -149,9 +149,9 @@
                     </div>
                     <div class="block-bd" v-if="account.type=='admin'||account.type=='school'">
                         <div class="btn-list">
-                            <div class="btn" @click="$router.push({name:'studentList',params:{id:coach.id}})">{{$t("btn.student")}}</div>
+                            <div class="btn" @click="toStudent()">{{$t("btn.student")}}</div>
                             <div class="btn" @click="toCourse()">{{$t("btn.course")}}</div>
-                            <div class="btn" @click="$router.push({name:'coachCertificateStatistics',params:{id:coach.id}})" v-if="account.type=='admin'">{{$t("btn.AuthorizationRecord")}}</div>
+                            <div class="btn" @click="toIssuingRecord()">{{$t("btn.AuthorizationRecord")}}</div>
                             <div class="btn" @click="openRecordModal()" v-if="account.type=='school'">{{$t("btn.transpondRecord")}}</div>
                         </div>
                     </div>
@@ -641,10 +641,18 @@
                     }
                 });
             },
+            toStudent:function () {
+                localStorage.setItem('curCoach',JSON.stringify(this.coach));
+                this.$router.push({name:'studentList',params:{id:this.coach.id}});
+            },
             toCourse:function () {
                 localStorage.setItem('curCoach',JSON.stringify(this.coach));
 
-                this.$router.push({name:'courseList',params:{id:this.coach.id}})
+                this.$router.push({name:'courseList',params:{id:this.coach.id}});
+            },
+            toIssuingRecord:function () {
+                localStorage.setItem('curCoach',JSON.stringify(this.coach));
+                this.$router.push({name:'coachCertificateStatistics',params:{id:this.coach.id}});
             },
             getUserCertificate:function () {
                 let params={

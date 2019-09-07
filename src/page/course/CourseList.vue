@@ -25,10 +25,10 @@
                             </el-select>
                         </div>
                         <div class="con-item">
-                            <div class="con-item" v-if="account.type=='coach'">
+                            <div class="con-item">
                                 <el-menu :default-active="activeType" class="cm-tab-menu" mode="horizontal" @select="setType">
                                     <el-menu-item index="school">{{$t("btn.schoolCourse")}}</el-menu-item>
-                                    <el-menu-item index="self">{{$t("btn.selfCourse")}}</el-menu-item>
+                                    <el-menu-item index="self">{{account.type=='coach'?$t("btn.selfCourse"):$t("btn.selfCreate")}}</el-menu-item>
                                 </el-menu>
                             </div>
                         </div>

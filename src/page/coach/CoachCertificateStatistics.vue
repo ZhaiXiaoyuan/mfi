@@ -77,7 +77,7 @@
                             <td>
                                 <el-button class="small handle-btn" v-if="item.userId" @click="()=>{$router.push({name:'studentDetail',params:{id:item.user.id}})}">{{$t("btn.studentDetail")}}</el-button>
                                 <el-button class="small handle-btn" v-if="item.userId" @click="toViewCertificate(item)">{{$t('btn.viewCertificate')}}</el-button>
-                                <span v-if="!item.userId">-</span>
+                              <!--  <span v-if="!item.userId">-</span>-->
                                 <el-select v-model="item.entity" v-if="account.type=='admin'" @change="statusChange(index)" class="handle-btn cm-select cm-select-min">
                                     <el-option
                                         v-for="(entry,subIndex) in printStatusOptions"

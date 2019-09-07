@@ -261,6 +261,7 @@ const tw = {
         courseLen:'課程',
         someoneCourse:'{msg}的課程',
         selfCourse:'我開設的課程',
+        selfCreate:'他/她開設的課程',
         switchToInstructor:'切換為教練',
         switchToStudent:'切換為學員',
         buyCertificate:'購買證書',
