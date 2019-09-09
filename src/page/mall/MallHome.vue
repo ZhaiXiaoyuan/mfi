@@ -616,10 +616,12 @@
                         let data=JSON.parse(resp.respMsg);
                         let list=data.goodsList;
                         list.forEach((item,i)=>{
-                            let configObj=this.goodsHostConfig[item.id];
-                            Object.assign(item,configObj);
+                            let id=item.id;
+                            let configObj=this.goodsHostConfig[id];
+                            Object.assign(item,configObj,{name:this.$t("value."+id)});
                         })
                         this.entryList=list;
+                        console.log('this.entryList:', this.entryList);
                         this.pager.total=data.count;
                         //临时测试
                       /*  this.curGoods=this.entryList[0];*/
@@ -893,7 +895,7 @@
                             if(item&&item.gift){
                                 this.alert({
                                     title:this.$t("title.tips"),
-                                    html:'<div style="text-align: center;"><p style="font-size: 16px;">'+this.$t("tips.giftTips",{msg:this.$t("value."+item.gift)})+'</p></div>',
+                                    html:'<div style="text-align: center;"><p style="font-size: 16px;">'+this.$t("tips.giftTips",{count:item.count,msg:this.$t("value."+item.gift)})+'</p></div>',
                                     yes:this.$t("btn.sure"),
                                 })
                             }

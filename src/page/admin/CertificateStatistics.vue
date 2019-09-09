@@ -416,6 +416,7 @@
             },
             toPay:function (data) {
                 let interval=null;
+                let item=data.item;
                 let alertInstance=this.alert({
                     title:"",
                     html:'<div style="text-align: center;"><div><i class="icon loading-icon"></i></div><div>'+this.$t('tips.payingTips')+'</div></div>',
@@ -435,6 +436,13 @@
                             alertInstance.close();
                             clearInterval(interval);
                             Vue.operationFeedback({type:'complete',text:this.$t("tips.payS")});
+                            if(item&&item.gift){
+                                this.alert({
+                                    title:this.$t("title.tips"),
+                                    html:'<div style="text-align: center;"><p style="font-size: 16px;">'+this.$t("tips.giftTips",{count:item.count,msg:this.$t("value."+item.gift)})+'</p></div>',
+                                    yes:this.$t("btn.sure"),
+                                })
+                            }
                         }else{
 
                         }

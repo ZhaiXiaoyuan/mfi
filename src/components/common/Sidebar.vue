@@ -328,7 +328,7 @@
                     this.accountAccess=['msgList','material','courseList','studentList','userAuditList','coachCertificateStatistics','mall','coachDetail',];
                 }
             }else if(this.account.type=='student'){
-                this.accountAccess=['studentCourseList','material','mall','studentDetail'];
+                this.accountAccess=['studentCourseList','material','studentDetail'];
             }else if(this.account.type=='school'){
                 if(this.account.schoolQualification=='notPay'||this.account.schoolQualification=='expire'){
                     this.accountAccess=['schoolDetail'];

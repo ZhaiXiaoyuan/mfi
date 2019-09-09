@@ -323,14 +323,12 @@ export default {
                           count:5,
                           price:'233',
                           off:'5%',
-                          gift:'merleggings',
                       },
                       {
                           id:'mfiM1Certificate60School',
                           count:60,
                           price:'2499',
                           off:'15%',
-                          gift:'merleggings',
                       }
                   ]
               }
@@ -377,14 +375,12 @@ export default {
                               count:10,
                               price:'441',
                               off:'10%',
-                              gift:'merleggings',
                           },
                           {
                               id:'mfiM1Certificate120FiveStartSchool',
                               count:120,
                               price:'4416',
                               off:'30%',
-                              gift:'merleggings',
                           }
                       ]
                   },
@@ -396,14 +392,12 @@ export default {
                               count:2,
                               price:'92',
                               off:'5%',
-                              gift:'merleggings',
                           },
                           {
                               id:'mfiM2Certificate24FiveStartSchool',
                               count:24,
                               price:'941',
                               off:'20%',
-                              gift:'merleggings',
                           }
                       ]
                   }

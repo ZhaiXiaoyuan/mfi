@@ -138,6 +138,9 @@ const cn = {
         advancedCenter:'五星发展中心',
         cCount:'{count}张',
         merleggings:'鱼鳞裤',
+        leggings:'鱼鳞裤',
+        stickers:'贴纸',
+        pins:'别针',
     },
     btn:{
         adminLogin:'管理员登录',
@@ -377,7 +380,7 @@ const cn = {
         track:'可透过运输单号在运输公司网站上查询发货状态',
         deviceTips:'尊敬的EOS系统用户目前版本EOS系统仅支持使用电脑端打开',
         coachCountTips:'未满三位教练无法开课',
-        giftTips:'已完成购买，赠送您一条{msg}，兑换序号将寄到您的注册邮件地址',
+        giftTips:'已完成购买，赠送您{count}条{msg}，兑换序号将寄到您的注册邮件地址',
     },
     editor:{
         title: '设置标题',

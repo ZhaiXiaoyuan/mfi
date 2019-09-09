@@ -136,6 +136,9 @@ const en = {
         advancedCenter:'five star school',
         cCount:'{count}sheets',
         merleggings:'merleggings',
+        leggings:'merleggings',
+        stickers:'sticker',
+        pins:'pin',
     },
     btn:{
         adminLogin:'administrator login',
@@ -241,7 +244,7 @@ const en = {
         goods:'Goods',
         exchangeRecord:'Redeem Record',
         exchange:'Redeem',
-        buy:'buy',
+        buy:'Buy',
         lastStep:'pre step',
         nextStep:'next step',
         toPay:'to pay',
@@ -374,7 +377,7 @@ const en = {
         track:'you can use the tracking number to check delivery status on express company website',
         deviceTips:'Dear users,the current EOS system doesn\'t support mobile device.Please access it with computer.',
         coachCountTips:'You need three instructors at least to create a new course',
-        giftTips:'Purchase completed，here is {msg} a gift，redeem code will be sent to your account email.',
+        giftTips:'Purchase completed，here are {count} pairs of {msg} as gift，redeem code will be sent to your account email.',
     },
     editor:{
         title: 'Title',
