@@ -10,7 +10,7 @@
                 <span class="gap-icon">/</span>
             </li>
             <li :class="{'active':locale=='tw'}" @click="setLanguage('tw',true)">
-                <span class="text">繁体</span>
+                <span class="text">繁體</span>
             </li>
         </ul>
     </div>

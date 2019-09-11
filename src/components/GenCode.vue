@@ -77,7 +77,8 @@
         let params={
             timeStamp:Vue.tools.genTimestamp(),
             email:this.number,
-            type:this.options.type=='school'?'school':'user'
+            type:this.options.type=='school'?'school':'user',
+            targetLanguage:this.$options.filters.language(this.$i18n.locale),//targetLanguage 目标语言"@EN"英文, "@TC"繁体中文, "@CN"简体中文
         }
         let fb=Vue.operationFeedback({text:this.$t("tips.handle")});
         Vue.api.sendForgetPasswordEmail(params).then(function (resp) {

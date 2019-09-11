@@ -6,7 +6,10 @@
                 <i class="icon logo-icon"></i>
                 <p class="name">MFI&nbsp;EOS</p>
                 <p class="role">{{this.$t("title."+account.type)}}</p>
-                <p class="account">{{$t('label.account')}}：{{account.account?account.account:account.email}}</p>
+                <p class="account">
+                    <!--{{$t('label.account')}}：-->
+                    {{account.account?account.account:account.email}}
+                </p>
             </div>
             <el-menu class="sidebar-el-menu" :default-active="onRoutes" :collapse="collapse" background-color="#fff"
                      text-color="#888" active-text-color="#48b4ff" unique-opened router>
@@ -495,7 +498,7 @@
                         localStorage.setItem('switching','true');
                         window.location.reload();
                     }else{
-                        fb.setOptions({type:'warn', text:this.$t("tips.handleF",{msg:resp.respMsg})})
+                        fb.setOptions({type:'warn', text:this.$t("tips.switchFail")})
                     }
                 });
             },

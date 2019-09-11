@@ -12,7 +12,7 @@
                             <el-menu :default-active="activeType" class="cm-tab-menu" mode="horizontal" @select="setType">
                                 <el-menu-item index="goods">{{$t("btn.goods")}}</el-menu-item>
                                 <el-menu-item index="certificate" v-if="account.type=='school'||account.type=='coach'">{{$t("btn.certificate")}}</el-menu-item>
-                                <el-menu-item index="buyRecord" v-if="account.type=='student'">{{$t("btn.buyRecord")}}</el-menu-item>
+                                <el-menu-item index="buyRecord" v-if="account.type!='admin'">{{$t("btn.buyRecord")}}</el-menu-item>
                                 <el-menu-item index="buyRecord" v-if="account.type=='admin'">{{$t("btn.orderAdmin")}}</el-menu-item>
                                 <el-menu-item index="exchangeRecord" v-if="account.type=='school'||account.type=='coach'">{{$t("btn.exchangeRecord")}}</el-menu-item>
                                 <el-menu-item index="exchangeRecord" v-if="account.type=='admin'">{{$t("btn.exchangeAdmin")}}</el-menu-item>
@@ -53,14 +53,14 @@
                                         <span class="label">{{$t('label.goodsName')}}：</span>
                                         <span class="value">{{curGoods.name}}<span v-if="curGoods.count">&times;{{curGoods.count}}</span></span>
                                     </el-col>
-                                    <el-col :span="7" class="info-item">
+                                    <el-col :span="6" class="info-item">
                                         <div v-if="!curGoods.price">&nbsp;</div>
                                         <div v-if="curGoods.price">
                                             <span class="label">{{$t('label.price')}}：</span>
                                             <span class="value">${{curGoods.price}}</span>
                                         </div>
                                     </el-col>
-                                    <el-col :span="3" class="info-item">
+                                    <el-col :span="4" class="info-item">
                                         <span class="cm-btn cm-handle-btn cm-handle-md-btn" v-if="curGoods.sale" @click="openBuyModal(curGoods,$event)">{{$t('btn.buy')}}</span>
                                         <span class="cm-btn cm-handle-btn cm-handle-md-btn" v-if="curGoods.exchange" @click="openExchangeModal(curGoods,$event)">{{$t('btn.exchange')}}</span>
                                     </el-col>
@@ -130,7 +130,7 @@
                         </div>
                     </div>
 
-                    <div class="block-bd" v-if="activeType=='buyRecord'&&account.type=='student'" v-loading="buyRecordPager.loading">
+                    <div class="block-bd" v-if="activeType=='buyRecord'&&account.type!='admin'" v-loading="buyRecordPager.loading">
                         <table class="cm-entry-list">
                             <thead>
                             <tr>

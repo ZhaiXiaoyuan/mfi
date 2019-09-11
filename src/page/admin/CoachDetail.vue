@@ -24,101 +24,77 @@
                         <div v-if="coach.instructorQualification=='notPay'||coach.instructorQualification=='expire'"><span class="cm-btn btn" @click="feeWaiver('instructorQualification')">{{$t("btn.instructorQualificationFeeWaiver")}}</span></div>
                     </div>
                     <div class="block-bd">
-                        <el-row>
-                            <el-col :span="5">
-                                <div class="to-upload" style="width: 160px;height: 160px;">
-                                    <img class="avatar" :src="coach.headPic?basicConfig.filePrefix+coach.headPic+'?r='+Math.random():defaultAvatar" alt="">
-                                    <div class="upload-btn"  v-if="account.type=='coach'">
-                                        <div class="wrapper">
-                                            <i class="icon upload-icon"></i>
-                                            <input  type="file" id="file-input" accept="image/*" @change="selectFile()">
-                                        </div>
-                                    </div>
+                        <div class="to-upload" style="width: 160px;height: 160px;">
+                            <img class="avatar" :src="coach.headPic?basicConfig.filePrefix+coach.headPic+'?r='+Math.random():defaultAvatar" alt="">
+                            <div class="upload-btn"  v-if="account.type=='coach'">
+                                <div class="wrapper">
+                                    <i class="icon upload-icon"></i>
+                                    <input  type="file" id="file-input" accept="image/*" @change="selectFile()">
                                 </div>
-                            </el-col>
-                            <el-col :span="19">
-                                <el-row class="info-row">
-                                    <el-col :span="5" class="info-item">
-                                        <span class="label">{{$t('label.fName')}}：</span>
-                                        <span class="value">{{coach.familyName}}</span>
-
-                                    </el-col>
-                                    <el-col :span="7" :offset="1" class="info-item">
-                                        <span class="label">{{$t('label.lName')}}：</span>
-                                        <span class="value">{{coach.name}}</span>
-
-                                    </el-col>
-                                    <el-col :span="9" :offset="1" class="info-item">
-                                        <span class="label">{{$t('label.level')}}：</span>
-                                        <span class="value">{{coach.mfiLevel}}</span>
-                                        <i class="icon setting-min-icon" @click="levelSettingDialogFlag=true" v-if="account.type=='admin'"></i>
-                                    </el-col>
-                                </el-row>
-                                <el-row class="info-row">
-                                    <el-col :span="5" class="info-item">
-                                        <span class="label">{{$t('label.gender')}}：</span>
-                                        <span class="value">{{coach.gender}}</span>
-
-                                    </el-col>
-                                    <el-col :span="7" :offset="1" class="info-item">
-                                        <span class="label">{{$t('label.birth')}}：</span>
-                                        <span class="value">{{coach.birth}}</span>
-
-                                    </el-col>
-                                    <el-col :span="9" :offset="1" class="info-item">
-                                        <span class="label">{{$t('label.school')}}：</span>
-                                        <span class="value">{{coach.school}}</span>
-                                        <i class="icon setting-min-icon" @click="schoolSettingDialogFlag=true" v-if="account.type=='admin'||(account.type=='coach'&&account.school=='configurable')"></i>
-                                    </el-col>
-                                </el-row>
-                                <el-row class="info-row">
-                                    <el-col :span="5" class="info-item">
-                                        <span class="label">{{$t('label.country')}}：</span>
-                                        <span class="value">{{coach.country}}</span>
-
-                                    </el-col>
-                                    <el-col :span="7" :offset="1" class="info-item">
-                                        <span class="label">{{$t('label.city')}}：</span>
-                                        <span class="value">{{coach.city}}</span>
-                                    </el-col>
-                                    <el-col :span="9" :offset="1" class="info-item">
-                                        <span class="label">{{$t('label.status')}}：</span>
-                                        <span class="value">{{$t('btn.'+coach.instructorAccountStatus)}}</span>
-                                        <i class="icon setting-min-icon" @click="statusSettingDialogFlag=true" v-if="account.type=='admin'"></i>
-                                        <span style="margin-left: 10px;" class="cm-btn btn" @click="addAudit()" v-if="account.type=='coach'&&(coach.instructorAccountStatus=='pending'||coach.instructorAccountStatus=='fail')&&(coach.professionalMembersFee=='pay'&&coach.instructorQualification=='pay')">{{$t("btn.applyForAudit")}}</span>
-                                    </el-col>
-                                </el-row>
-                                <el-row class="info-row">
-                                    <el-col :span="5" class="info-item">
-                                        <span class="label">{{$t('label.address')}}：</span>
-                                        <span class="value">{{coach.address}}</span>
-                                    </el-col>
-                                    <el-col :span="7" :offset="1" class="info-item">
-                                        <span class="label">{{$t('label.contact')}}：</span>
-                                        <span class="value">{{coach.phone}}</span>
-                                    </el-col>
-                                    <!--功能临时注释-->
-                                 <!--   <el-col :span="9" :offset="1" class="info-item">
-                                        <span class="label">{{$t('label.auditDate')}}：</span>
-                                        <span class="value"></span>
-                                    </el-col>-->
-                                </el-row>
-                                <el-row  class="info-row">
-                                    <el-col :span="5" class="info-item">
-                                        <span class="label">{{$t('label.eContactName')}}: </span>
-                                        <span class="value">{{coach.emergencyName}}</span>
-                                    </el-col>
-                                    <el-col :span="7"  :offset="1" class="info-item">
-                                        <span class="label">{{$t('label.eContact')}}：</span>
-                                        <span class="value">{{coach.emergencyPhone}}</span>
-                                    </el-col>
-                                    <el-col :span="9"  :offset="1" class="info-item">
-                                        <span class="label">{{$t('label.email')}}：</span>
-                                        <span class="value">{{coach.email}}</span>
-                                    </el-col>
-                                </el-row>
-                            </el-col>
-                        </el-row>
+                            </div>
+                        </div>
+                        <ul class="info-list">
+                            <li>
+                                <span class="label">{{$t('label.fName')}}：</span>
+                                <span class="value">{{coach.familyName}}</span>
+                            </li>
+                            <li>
+                                <span class="label">{{$t('label.lName')}}：</span>
+                                <span class="value">{{coach.name}}</span>
+                            </li>
+                            <li>
+                                <span class="label">{{$t('label.level')}}：</span>
+                                <span class="value">{{coach.mfiLevel}}</span>
+                                <i class="icon setting-min-icon" @click="levelSettingDialogFlag=true" v-if="account.type=='admin'"></i>
+                            </li>
+                            <li>
+                                <span class="label">{{$t('label.school')}}：</span>
+                                <span class="value">{{coach.school}}</span>
+                                <i class="icon setting-min-icon" @click="schoolSettingDialogFlag=true" v-if="account.type=='admin'||(account.type=='coach'&&account.school=='configurable')"></i>
+                            </li>
+                            <li>
+                                <span class="label">{{$t('label.email')}}：</span>
+                                <span class="value">{{coach.email}}</span>
+                            </li>
+                            <li>
+                                <span class="label">{{$t('label.status')}}：</span>
+                                <span class="value">{{$t('btn.'+coach.instructorAccountStatus)}}</span>
+                                <i class="icon setting-min-icon" @click="statusSettingDialogFlag=true" v-if="account.type=='admin'"></i>
+                                <span style="margin-left: 10px;" class="cm-btn btn" @click="addAudit()" v-if="account.type=='coach'&&(coach.instructorAccountStatus=='pending'||coach.instructorAccountStatus=='fail')&&(coach.professionalMembersFee=='pay'&&coach.instructorQualification=='pay')">{{$t("btn.applyForAudit")}}</span>
+                            </li>
+                            <li>
+                                <span class="label">{{$t('label.gender')}}：</span>
+                                <span class="value">{{coach.gender}}</span>
+                            </li>
+                            <li>
+                                <span class="label">{{$t('label.birth')}}：</span>
+                                <span class="value">{{coach.birth}}</span>
+                            </li>
+                            <li>
+                                <span class="label">{{$t('label.country')}}：</span>
+                                <span class="value">{{coach.country}}</span>
+                            </li>
+                            <li>
+                                <span class="label">{{$t('label.city')}}：</span>
+                                <span class="value">{{coach.city}}</span>
+                            </li>
+                            <li>
+                                <span class="label">{{$t('label.address')}}：</span>
+                                <span class="value">{{coach.address}}</span>
+                            </li>
+                            <li>
+                                <span class="label">{{$t('label.contact')}}：</span>
+                                <span class="value">{{coach.phone}}</span>
+                            </li>
+                            <li>
+                                <span class="label">{{$t('label.eContactName')}}: </span>
+                                <span class="value">{{coach.emergencyName}}</span>
+                            </li>
+                            <li>
+                                <span class="label">{{$t('label.eContact')}}：</span>
+                                <span class="value">{{coach.emergencyPhone}}</span>
+                            </li>
+                        </ul>
                     </div>
                     <div class="block-bd">
                        <p class="title">{{$t('title.lCertificate')}}</p>

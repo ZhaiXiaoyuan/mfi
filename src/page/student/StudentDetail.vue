@@ -16,8 +16,8 @@
                         {{$t("title."+account.studentAccountStatus)}}
                     </div>
                     <div class="block-bd">
-                        <el-row class="pc-info">
-                            <el-col :span="5" class="to-upload"  style="width: 160px;height: 160px;">
+                        <div class="pc-info">
+                            <div class="to-upload"  style="width: 160px;height: 160px;">
                                 <img class="avatar" :src="user.headPic?basicConfig.filePrefix+user.headPic:defaultAvatar" alt="">
                                 <div class="cm-btn upload-btn" v-if="account.type=='student'">
                                    <div class="wrapper">
@@ -25,89 +25,58 @@
                                        <input  type="file" accept="image/*" @change="selectFile($event)">
                                    </div>
                                 </div>
-                            </el-col>
-                            <el-col :span="19">
-                                <el-row class="info-row">
-                                    <el-col :span="5" class="info-item">
-                                        <span class="label">{{$t('label.fName')}}：</span>
-                                        <span class="value">{{user.familyName}}</span>
-
-                                    </el-col>
-                                    <el-col :span="7" :offset="1" class="info-item">
-                                        <span class="label">{{$t('label.lName')}}：</span>
-                                        <span class="value">{{user.name}}</span>
-
-                                    </el-col>
-                                 <!--   <el-col :span="9" :offset="1" class="info-item">
-                                        <span class="label">{{$t('label.level')}}：</span>
-                                        <span class="value">{{user.mfiLevel}}</span>
-                                        <i class="icon setting-min-icon" @click="levelSettingDialogFlag=true"  v-if="account.type=='admin'"></i>
-                                    </el-col>-->
-                                    <el-col :span="9" :offset="1" class="info-item">
-                                        <span class="label">{{$t('label.status')}}：</span>
-                                        <span class="value">{{$t('btn.'+user.studentAccountStatus)}}</span>
-                                       <!-- <i class="icon setting-min-icon" @click="statusSettingDialogFlag=true"  v-if="account.type=='admin'"></i>-->
-                                    </el-col>
-                                </el-row>
-                                <el-row class="info-row">
-                                    <el-col :span="5" class="info-item">
-                                        <span class="label">{{$t('label.gender')}}：</span>
-                                        <span class="value">{{user.gender}}</span>
-
-                                    </el-col>
-                                    <el-col :span="7" :offset="1" class="info-item">
-                                        <span class="label">{{$t('label.birth')}}：</span>
-                                        <span class="value">{{user.birth}}</span>
-
-                                    </el-col>
-                                  <!--  <el-col :span="9" :offset="1" class="info-item">
-                                        <span class="label">{{$t('label.school')}}：</span>
-                                        <span class="value">{{user.school}}</span>
-                                        <i class="icon setting-min-icon" @click="schoolSettingDialogFlag=true" v-if="account.type=='admin'"></i>
-                                    </el-col>-->
-                                </el-row>
-                                <el-row class="info-row">
-                                    <el-col :span="5" class="info-item">
-                                        <span class="label">{{$t('label.country')}}：</span>
-                                        <span class="value">{{user.country}}</span>
-
-                                    </el-col>
-                                    <el-col :span="7" :offset="1" class="info-item">
-                                        <span class="label">{{$t('label.city')}}：</span>
-                                        <span class="value">{{user.city}}</span>
-                                    </el-col>
-                                </el-row>
-                                <el-row class="info-row">
-                                    <el-col :span="5" class="info-item">
-                                        <span class="label">{{$t('label.address')}}：</span>
-                                        <span class="value">{{user.address}}</span>
-                                    </el-col>
-                                    <el-col :span="7" :offset="1" class="info-item">
-                                        <span class="label">{{$t('label.contact')}}：</span>
-                                        <span class="value">{{user.phone}}</span>
-                                    </el-col>
-                                    <!--功能临时注释-->
-                                   <!-- <el-col :span="9" :offset="1" class="info-item">
-                                        <span class="label">{{$t('label.auditDate')}}：</span>
-                                        <span class="value"></span>
-                                    </el-col>-->
-                                </el-row>
-                                <el-row  class="info-row">
-                                    <el-col :span="5" class="info-item">
-                                        <span class="label">{{$t('label.eContactName')}}: </span>
-                                        <span class="value">{{user.emergencyName}}</span>
-                                    </el-col>
-                                    <el-col :span="7"  :offset="1" class="info-item">
-                                        <span class="label">{{$t('label.eContact')}}：</span>
-                                        <span class="value">{{user.emergencyPhone}}</span>
-                                    </el-col>
-                                    <el-col :span="9"  :offset="1" class="info-item">
-                                        <span class="label">{{$t('label.email')}}：</span>
-                                        <span class="value">{{user.email}}</span>
-                                    </el-col>
-                                </el-row>
-                            </el-col>
-                        </el-row>
+                            </div>
+                            <ul class="info-list">
+                                <li>
+                                    <span class="label">{{$t('label.fName')}}：</span>
+                                    <span class="value">{{user.familyName}}</span>
+                                </li>
+                                <li>
+                                    <span class="label">{{$t('label.lName')}}：</span>
+                                    <span class="value">{{user.name}}</span>
+                                </li>
+                                <li>
+                                    <span class="label">{{$t('label.email')}}：</span>
+                                    <span class="value">{{user.email}}</span>
+                                </li>
+                                <li>
+                                    <span class="label">{{$t('label.status')}}：</span>
+                                    <span class="value">{{$t('btn.'+user.studentAccountStatus)}}</span>
+                                </li>
+                                <li>
+                                    <span class="label">{{$t('label.gender')}}：</span>
+                                    <span class="value">{{user.gender}}</span>
+                                </li>
+                                <li>
+                                    <span class="label">{{$t('label.birth')}}：</span>
+                                    <span class="value">{{user.birth}}</span>
+                                </li>
+                                <li>
+                                    <span class="label">{{$t('label.country')}}：</span>
+                                    <span class="value">{{user.country}}</span>
+                                </li>
+                                <li>
+                                    <span class="label">{{$t('label.city')}}：</span>
+                                    <span class="value">{{user.city}}</span>
+                                </li>
+                                <li>
+                                    <span class="label">{{$t('label.address')}}：</span>
+                                    <span class="value">{{user.address}}</span>
+                                </li>
+                                <li>
+                                    <span class="label">{{$t('label.contact')}}：</span>
+                                    <span class="value">{{user.phone}}</span>
+                                </li>
+                                <li>
+                                    <span class="label">{{$t('label.eContactName')}}：</span>
+                                    <span class="value">{{user.emergencyName}}</span>
+                                </li>
+                                <li>
+                                    <span class="label">{{$t('label.eContact')}}：</span>
+                                    <span class="value">{{user.emergencyPhone}}</span>
+                                </li>
+                            </ul>
+                        </div>
                         <div class="mobile-info">
                             <div class="info-row">
                                 <div class="info-item">

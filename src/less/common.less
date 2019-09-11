@@ -1132,6 +1132,7 @@ body{
 
 .detail-block{
     padding: 40px 20px;
+    .block-bd{}
     .status{
         position: relative;
         display: none;
@@ -1170,6 +1171,8 @@ body{
         }
     }
     .info-item{
+        /*display: flex;
+        align-items: center;*/
         position: relative;
         font-size: 16px;
         padding: 0px 5px;
@@ -1187,6 +1190,40 @@ body{
             right: 0px;
             margin: auto;
             cursor: pointer;
+        }
+    }
+    .to-upload{
+        float: left;
+        margin-right: 20px;
+    }
+    .info-list{
+        overflow: hidden;
+        /*padding-top: 10px;*/
+       /* padding-left: 20px;*/
+        >li{
+            float: left;
+            width: 48%;
+           /* min-width: 300px;*/
+            position: relative;
+            font-size: 16px;
+            margin: 5px;
+            line-height: normal;
+            .label{
+
+            }
+            .value{
+                color: #999;
+                word-break: break-all;
+                line-height: 21px;
+            }
+            .icon{
+                position: absolute;
+                top:0px;
+                bottom:0px;
+                right: 0px;
+                margin: auto;
+                cursor: pointer;
+            }
         }
     }
     .block-bd{
@@ -1364,7 +1401,7 @@ body{
     .cm-search{
         .el-input__inner{
             height: 40px;
-            width: 240px;
+            width: 220px;
             font-size: 14px;
         }
         .el-input-group__append{
@@ -1391,6 +1428,12 @@ body{
         height: 40px;
         font-size: 18px;
         color: #5560aa;
+    }
+    .cm-tab-menu{
+        >.el-menu-item{
+            font-size: 16px;
+            padding: 0px 15px;
+        }
     }
 
 }

@@ -23,7 +23,7 @@
                 </div>
                 <div class="block-bd">
                     <div class="input-row">
-                        <p>{{$t("label.account")}}</p>
+                        <p>{{type=='super'||type=='admin'?$t("label.account"):$t("label.loginEmail")}}</p>
                         <div class="input-item">
                             <input type="text" v-model="account">
                             <i class="icon account-icon"></i>
@@ -42,20 +42,20 @@
             </div>
         </div>
 
-        <el-dialog title='' class="cm-dialog" :visible.sync="forgetModalFlag" v-if="forgetModalFlag" width="40%">
+        <el-dialog title='' class="cm-dialog forget-modal" :visible.sync="forgetModalFlag" v-if="forgetModalFlag" width="40%" :modal-append-to-body="false">
             <div class="">
                 <div class="form">
                     <div class="cm-input-row">
-                        <span class="field">{{$t("label.email")}}</span>
+                        <span class="field">{{$t("label.loginEmail")}}</span>
                         <input type="text" v-model="forgetForm.email" class="cm-input">
                     </div>
                     <div class="cm-input-row">
                         <span class="field">{{$t("label.verificationCode")}}</span>
                         <input type="text" v-model="forgetForm.verifyCode" class="cm-input">
-                        <gen-code :number="forgetForm.email" :options="genCodeOptions" style="right: 50px;"></gen-code>
+                        <gen-code :number="forgetForm.email" :options="genCodeOptions" style="right:35px;"></gen-code>
                     </div>
                     <div class="cm-input-row">
-                        <span class="field">{{$t("label.pwd")}}</span>
+                        <span class="field">{{$t("label.resetPwd")}}</span>
                         <div class="input-item">
                             <input type="password" v-model="forgetForm.password" class="cm-input">
                         </div>
@@ -174,6 +174,11 @@
         border: 1px solid #fff;
         &+.switch-btn{
             margin-left: 10px;
+        }
+    }
+    .forget-modal{
+        .cm-input-row .field{
+            min-width: 155px;
         }
     }
     @media screen and (max-width: 1600px) {
@@ -369,7 +374,7 @@
             },
             login:function () {
                 if(!this.account){
-                    Vue.operationFeedback({type:'warn',text:this.$t("holder.account")});
+                    Vue.operationFeedback({type:'warn',text:this.type=='super'||this.type=='admin'?this.$t("holder.account"):this.$t("holder.loginEmail")});
                     return;
                 }
                 if(!this.pwd){
@@ -513,7 +518,7 @@
             },
             saveEdit:function () {
                 if(!this.forgetForm.email){
-                    Vue.operationFeedback({type:'warn',text:this.$t("holder.email")});
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.loginEmail")});
                     return;
                 }
                 if(!this.forgetForm.verifyCode){
@@ -521,7 +526,7 @@
                     return;
                 }
                 if(!this.forgetForm.password){
-                    Vue.operationFeedback({type:'warn',text:this.$t("holder.pwd")});
+                    Vue.operationFeedback({type:'warn',text:this.$t("holder.newPwd")});
                     return;
                 }
                 let params={
@@ -545,7 +550,7 @@
             helpModal:function () {
                 this.alert({
                     title:this.$t('btn.help'),
-                    html:'<div style="text-align: center;line-height: 36px;"><p>联系邮箱：xxx@xx.com</p><p>联系电话：xxxxxxxxxxx</p></div>',
+                    html:'<div style="text-align: center;line-height: 36px;"><p>'+this.$t("label.email")+'：info@mfimermaid.com</p><p style="display: none;">'+this.$t("label.phone")+'：xxxxxxxxxxx</p></div>',
                     yes:this.$t('btn.close'),
                     lock:false,
                     ok:()=>{

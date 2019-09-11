@@ -36,3 +36,20 @@ Vue.filter('itemFind',function(keyValue,keyName,arr){
     return targetItem;
 });
 
+/*属性映射*/
+Vue.filter('language',function(str){
+    let result='';
+    switch (str){
+        case 'en':
+            result='@EN';
+            break;
+        case 'cn':
+            result='@CN';
+            break;
+        case 'tw':
+            result='@TC';
+            break;
+    }
+    return result;
+});
+
