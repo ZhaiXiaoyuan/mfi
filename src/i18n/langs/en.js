@@ -274,7 +274,7 @@ const en = {
         transpondCertificate:'Transpond Certificate',
         toBuy:'Purchase Now',
         transpondRecord:'Transpond Record',
-        schoolCourse:'school\'s Course',
+        schoolCourse:'School\'s Course',
         certificate:'Certificate',
         editorDoc:'Editor Documentation',
     },
