@@ -344,7 +344,8 @@ const cn = {
     tips:{
         login:'登录中...',
         loginS:'登录成功',
-        loginF:'登录失败',
+        loginF:'登录失败，账号或密码有误！',
+        accountDisable:'该账号已禁用！',
         setting:'设置中...',
         settingS:'设置成功',
         settingF:'设置失败，{msg}',

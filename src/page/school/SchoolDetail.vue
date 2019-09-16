@@ -49,7 +49,7 @@
                                     <el-col :span="10" class="info-item">
                                         <span class="label">{{$t('label.status')}}：</span>
                                         <span class="value">{{$t('btn.'+editForm.state)}}</span>
-         <!--                               <span style="margin-left: 10px;" class="cm-btn btn cm-handle-btn cm-handle-min-btn" @click="toAudit()" v-if="account.type=='admin'&&(editForm.state=='pending'||editForm.state=='fail')">{{$t("btn.auditPassLen")}}</span>-->
+                                        <i class="icon setting-min-icon" @click="statusSettingDialogFlag=true" v-if="account.type=='admin'"></i>
                                     </el-col>
                                 </el-row>
                                 <el-row class="info-row">
@@ -94,6 +94,25 @@
             </div>
         </div>
 
+        <el-dialog :title='$t("title.statusSetting")' class="edit-dialog cm-dialog school-dialog" :visible.sync="statusSettingDialogFlag" v-if="statusSettingDialogFlag" width="40%">
+            <div class="form">
+                <div class="cm-input-row">
+                    <span class="field">{{$t("label.level")}}</span>
+                    <el-select v-model="statusForm.status" class="handle cm-select">
+                        <el-option
+                            v-for="(item,index) in options"
+                            :key="index"
+                            :label="item.label"
+                            :value="item.value" :class="{'cm-hidden':item.value=='certified'}">
+                        </el-option>
+                    </el-select>
+                </div>
+            </div>
+            <div class="handle-list">
+                <div class="cm-btn cm-handle-btn handle-btn" @click="statusSettingDialogFlag=false">{{$t("btn.cancel")}}</div>
+                <div class="cm-btn cm-handle-btn handle-btn" @click="saveStatus">{{$t("btn.submit")}}</div>
+            </div>
+        </el-dialog>
         <el-dialog :title='$t("title.accountSetting")' class="edit-dialog cm-dialog school-dialog" :visible.sync="editDialogFlag" v-if="editDialogFlag" width="40%">
             <div class="form">
                 <div class="cm-input-row">
@@ -199,6 +218,21 @@
                 regionList:[],
                 showPassword:false,
 
+                options:[
+                    {
+                        label:this.$t("btn.pass"),
+                        value:'pass'
+                    },
+                    {
+                        label:this.$t("btn.disable"),
+                        value:'disable'
+                    }
+                ],
+                isSetting:false,
+                statusSettingDialogFlag:false,
+                statusForm:{
+                    status:null,
+                },
             }
         },
         created(){
@@ -218,13 +252,14 @@
                 Vue.api.getSchoolDetail(params).then((resp)=>{
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
-                        console.log('data:',data);
+                      /*  console.log('data:',data);*/
                         if(this.account.type=='school'){
                             this.account={...this.account,...data.school,...data.schoolPayment};
                             this.editForm=JSON.parse(JSON.stringify(this.account));
                         }else{
                             this.editForm={...data.school,...data.schoolPayment};
                         }
+                        this.statusForm.status=this.editForm.state;
                         this.editForm.password=null;
                     }else{
 
@@ -373,6 +408,28 @@
                         fb.setOptions({type:'complete', text:this.$t("tips.handleS")});
                     }else{
                         fb.setOptions({type:'warn', text:this.$t("tips.handleF",{ msg: resp.respMsg})});
+                    }
+                });
+            },
+            saveStatus:function () {
+                if(this.isSetting){
+                    return;
+                }
+                let params={
+                    ...Vue.sessionInfo(),
+                    id:this.editForm.id,
+                    state:this.statusForm.status,
+                }
+                let fb=Vue.operationFeedback({text:this.$t("tips.setting")});
+                this.isSetting=true;
+                Vue.api.updateSchoolState(params).then((resp)=>{
+                    this.isSetting=false;
+                    if(resp.respCode=='2000'){
+                        fb.setOptions({type:'complete', text:this.$t("tips.settingS")});
+                        this.editForm.state=this.statusForm.status;
+                        this.statusSettingDialogFlag=false;
+                    }else{
+                        fb.setOptions({type:'warn', text:this.$t("tips.settingF",{ msg: resp.respMsg})});
                     }
                 });
             },

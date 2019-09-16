@@ -482,7 +482,7 @@
                         }else{
                             fb.setOptions({
                                 type:'warn',
-                                text:this.$t("tips.loginF")
+                                text:resp.respMsg.indexOf('disable')>-1?this.$t("tips.accountDisable"):this.$t("tips.loginF")
                             });
                         }
                     });
@@ -506,7 +506,7 @@
                         }else{
                             fb.setOptions({
                                 type:'warn',
-                                text:this.$t("tips.loginF")
+                                text:resp.respMsg.indexOf('disable')>-1?this.$t("tips.accountDisable"):this.$t("tips.loginF")
                             });
                         }
                     });

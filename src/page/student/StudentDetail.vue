@@ -42,6 +42,7 @@
                                 <li>
                                     <span class="label">{{$t('label.status')}}：</span>
                                     <span class="value">{{$t('btn.'+user.studentAccountStatus)}}</span>
+                                    <i class="icon setting-min-icon" @click="statusSettingDialogFlag=true" v-if="account.type=='admin'"></i>
                                 </li>
                                 <li>
                                     <span class="label">{{$t('label.gender')}}：</span>
@@ -260,7 +261,7 @@
             </div>
         </el-dialog>
 
-        <el-dialog :title='$t("title.auditingSetting")' class="edit-dialog cm-dialog school-dialog" :visible.sync="statusSettingDialogFlag" v-if="statusSettingDialogFlag" width="40%">
+        <el-dialog :title='$t("title.statusSetting")' class="edit-dialog cm-dialog school-dialog" :visible.sync="statusSettingDialogFlag" v-if="statusSettingDialogFlag" width="40%">
             <div class="form">
                 <div class="cm-input-row">
                     <span class="field">{{$t("label.level")}}</span>
@@ -562,20 +563,9 @@
                     },
                 ],
                 options:[
-                  /*  {
-                        label:this.$t("btn.nonActivated"),
-                        value:'nonactivated'
-                    },*/
                     {
                         label:this.$t("btn.certified"),
                         value:'certified'
-                    },
-                    {
-                        label:this.$t("btn.pending"),
-                        value:'pending'
-                    },{
-                        label:this.$t("btn.fail"),
-                        value:'fail'
                     },
                     {
                         label:this.$t("btn.disable"),
@@ -660,17 +650,16 @@
                 }
                 let params={
                     ...Vue.sessionInfo(),
-                    adminId:this.account.id,
                     userId:this.user.id,
-                    instructorAccountStatus:this.statusForm.status,
+                    state:this.statusForm.status,
                 }
                 let fb=Vue.operationFeedback({text:this.$t("tips.setting")});
                 this.isSetting=true;
-                Vue.api.setInstructorAccountStatus(params).then((resp)=>{
+                Vue.api.updateUserStudentAccountStatus(params).then((resp)=>{
                     this.isSetting=false;
                     if(resp.respCode=='2000'){
                         fb.setOptions({type:'complete', text:this.$t("tips.settingS")});
-                        this.user.instructorAccountStatus=this.statusForm.status;
+                        this.user.studentAccountStatus=this.statusForm.status;
                         this.statusSettingDialogFlag=false;
                         localStorage.setItem('curCoach',JSON.stringify(this.coach));
                     }else{
@@ -774,7 +763,8 @@
                         }
                         this.editForm=JSON.parse(JSON.stringify(this.user));
                         this.editForm.password=null;
-                        console.log('this.editForm:',this.editForm);
+                        this.statusForm.status=this.user.studentAccountStatus;
+                        console.log('this.user:',this.user);
                     }else{
 
                     }

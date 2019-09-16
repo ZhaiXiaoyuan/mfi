@@ -342,7 +342,8 @@ const tw = {
     tips:{
         login:'登錄中...',
         loginS:'登錄成功',
-        loginF:'登錄失敗',
+        loginF:'登錄失敗，賬號或密碼有誤！',
+        accountDisable:'該賬號已禁用！',
         setting:'設置中...',
         settingS:'設置成功',
         settingF:'設置失敗，{msg}',

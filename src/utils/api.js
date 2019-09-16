@@ -40,7 +40,7 @@ export default {
     }
     /**/
    /* let basicUrl=false&&process.env.NODE_ENV=='development'?'/api'+'/mfi':'http://api.linqi.tech:8621/mfi';*/
-   let basicUrl=false&&process.env.NODE_ENV=='development'?'http://api.linqi.tech:8081/mfi':'http://www.mermaidfederation.com:8081/mfi';
+   let basicUrl=true||process.env.NODE_ENV=='development'?'http://api.linqi.tech:8081/mfi':'http://www.mermaidfederation.com:8081/mfi';
     Vue.api={
         //
      superLogin:function (params) {
@@ -679,6 +679,22 @@ export default {
             return Vue.http.ajax({
                 method: 'post',
                 url: basicUrl+'/teachingMaterial/setTeachingMaterialState',
+                params: params
+            });
+        },
+        //修改学校审核状态
+        updateSchoolState:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/school/updateSchoolState',
+                params: params
+            });
+        },
+        //修改学生账号状态
+        updateUserStudentAccountStatus:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/student/updateUserStudentAccountStatus',
                 params: params
             });
         },

@@ -206,7 +206,6 @@
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
                         this.entryList=JSON.parse(data.studentList);
-                        console.log('this.entryList233:',this.entryList);
                         this.pager.total=data.count;
                     }
                 });

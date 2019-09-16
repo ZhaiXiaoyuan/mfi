@@ -343,6 +343,7 @@ const en = {
         login:'Logining...',
         loginS:'Login successfully',
         loginF:'Login failure,invalid account or wrong password',
+        accountDisable:'This account is disabled!',
         setting:'Setting...',
         settingS:'Setting successfully',
         settingF:'Setting failure,{msg}',

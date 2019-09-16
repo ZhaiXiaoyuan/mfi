@@ -37,6 +37,7 @@
 
         },
         mounted: function () {
+            //
             bus.$off('service_modal_handle');
             bus.$on('service_modal_handle', data => {
                 let linkPrifix=window.location.href.split('#')[0];
@@ -73,6 +74,19 @@
                                 }
                             });
                         }
+                    }
+                });
+            });
+            //
+            bus.$off('account_disable_handle');
+            bus.$on('account_disable_handle', data => {
+                this.alert({
+                    title:'',
+                    html:'<div style="text-align: center;padding: 30px 0px;">'+this.$t("tips.accountDisable")+'</div>',
+                    yes:this.$t("btn.sure"),
+                    lock:true,
+                    ok:()=>{
+
                     }
                 });
             });

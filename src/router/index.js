@@ -246,7 +246,12 @@ router.beforeEach((to, from,next) => {
                                 }
                             }
                         }else if(account.type=='student'){
-
+                            if(account.studentAccountStatus=='disable'){
+                                bus.$emit('account_disable_handle');
+                                next({
+                                    path: '/login',
+                                })
+                            }
                         }
                     }else{
 
@@ -264,21 +269,28 @@ router.beforeEach((to, from,next) => {
                    /* console.log('loginInfo:',data);*/
                     account={ type:account.type,account:account.account,...data.school,...data.schoolPayment};
                     Vue.cookie.set('account',JSON.stringify(account),7);
-                    if(account.schoolQualification=='notPay'||account.schoolQualification=='expire'){
-                        if(to.name!='protocol'){
-                            if(data.schoolProtocolState=='disable'){
-                                bus.$emit('service_modal_handle',data);
+                    if(account.state=='disable'){
+                        bus.$emit('account_disable_handle');
+                        next({
+                            path: '/login',
+                        })
+                    }else{
+                        if(account.schoolQualification=='notPay'||account.schoolQualification=='expire'){
+                            if(to.name!='protocol'){
+                                if(data.schoolProtocolState=='disable'){
+                                    bus.$emit('service_modal_handle',data);
+                                }
                             }
-                        }
-                        if(to.name!='schoolDetail'&&to.name!='protocol'){
-                            next({
-                                path: '/schoolDetail',
-                            })
+                            if(to.name!='schoolDetail'&&to.name!='protocol'){
+                                next({
+                                    path: '/schoolDetail',
+                                })
+                            }else{
+                                next();
+                            }
                         }else{
                             next();
                         }
-                    }else{
-                        next();
                     }
                 }else{
                     next();

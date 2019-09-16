@@ -31,6 +31,9 @@
                             <th>
                                 {{$t("label.code")}}
                             </th>
+                            <th>
+                                {{$t("label.status")}}
+                            </th>
                             <th>{{$t("label.handle")}}</th>
                         </tr>
                         </thead>
@@ -50,6 +53,9 @@
                             </td>
                             <td>
                                 {{item.serialCode}}
+                            </td>
+                            <td>
+                                {{$t("btn."+item.state)}}
                             </td>
                             <td>
                                 <span class="handle" @click="toDetail(index)">{{$t("btn.detail")}}</span>
