@@ -1,7 +1,7 @@
 <template>
     <div class="login-page">
         <div class="switch-panel">
-            <a href="http://www.mermaidfederation.com/" v-if="!showAllBtn" class="cm-btn switch-btn">{{$t("btn.toHome")}}</a>
+            <a href="http://www.mfimermaid.com/" v-if="!showAllBtn" class="cm-btn switch-btn">{{$t("btn.toHome")}}</a>
             <div class="cm-btn switch-btn" v-if="showAllBtn||type=='super'" @click="switchType('admin')">{{$t("btn.adminLogin")}}</div>
 
             <div class="cm-btn switch-btn" v-if="showAllBtn||type=='admin'" @click="switchType('super')">{{$t("btn.superLogin")}}</div>
@@ -565,7 +565,7 @@
                     yes:this.$t('btn.sure'),
                     lock:true,
                     ok:()=>{
-                        window.location.href='http://www.mermaidfederation.com/';
+                        window.location.href='http://www.mfimermaid.com/';
                     }});
             },
         },

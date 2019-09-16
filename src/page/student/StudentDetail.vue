@@ -405,11 +405,11 @@
                 color: #999;
             }
             .icon{
-                position: absolute;
+              /*  position: absolute;
                 top:0px;
                 bottom:0px;
                 right: 0px;
-                margin: auto;
+                margin: auto;*/
                 cursor: pointer;
             }
         }

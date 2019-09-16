@@ -50,8 +50,8 @@ export default {
           basicConfig:{
              /* basicUrl:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://39.108.11.197',
               filePrefix:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://39.108.11.197',*/
-              basicUrl:isDev?'http://www.mermaidfederation.com':'http://www.mermaidfederation.com',
-              filePrefix:isDev?'http://api.linqi.tech:8621/mfi':'http://www.mermaidfederation.com',
+              basicUrl:isDev?'http://www.mfimermaid.com':'http://www.mfimermaid.com',
+              filePrefix:isDev?'http://api.linqi.tech:8621/mfi':'http://www.mfimermaid.com',
               paypalPrefix:isDev?'https://www.sandbox.paypal.com':'https://www.paypal.com',
               levelOptions:[
                   {

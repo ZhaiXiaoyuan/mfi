@@ -1290,11 +1290,12 @@ body {
   word-break: break-all;
 }
 .detail-block .info-item .icon {
-  position: absolute;
-  top: 0px;
-  bottom: 0px;
-  right: 0px;
-  margin: auto;
+  margin-left: 10px;
+  /* position: absolute;
+            top:0px;
+            bottom:0px;
+            right: 0px;
+            margin: auto;*/
   cursor: pointer;
 }
 .detail-block .to-upload {
@@ -1321,11 +1322,14 @@ body {
   line-height: 21px;
 }
 .detail-block .info-list > li .icon {
-  position: absolute;
-  top: 0px;
-  bottom: 0px;
-  right: 0px;
-  margin: auto;
+  position: relative;
+  top: 1px;
+  margin-left: 10px;
+  /*   position: absolute;
+                top:0px;
+                bottom:0px;
+                right: 0px;
+                margin: auto;*/
   cursor: pointer;
 }
 .detail-block .block-bd .title {
@@ -1964,11 +1968,11 @@ body {
     word-break: break-all;
   }
   .detail-block .info-item .icon {
-    position: absolute;
-    top: 0px;
-    bottom: 0px;
-    right: 0px;
-    margin: auto;
+    /*  position: absolute;
+                top:0px;
+                bottom:0px;
+                right: 0px;
+                margin: auto;*/
     cursor: pointer;
   }
   .detail-block .block-bd {
