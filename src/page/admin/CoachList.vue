@@ -305,10 +305,10 @@
                         label:this.$t("btn.fail"),
                         value:'fail'
                     },
-                    {
+                  /*  {
                         label:this.$t("btn.disable"),
                         value:'disable'
-                    }
+                    }*/
                 ],
                 schoolOptions:[],
 

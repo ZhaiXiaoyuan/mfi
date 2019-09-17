@@ -155,13 +155,14 @@
                         label:this.$t("btn.certified"),
                         value:'certified'
                     },
-                    {
+                   /* {
                         label:this.$t("btn.pending"),
                         value:'pending'
-                    },{
+                    },
+                    {
                         label:this.$t("btn.fail"),
                         value:'fail'
-                    },
+                    },*/
                     {
                         label:this.$t("btn.disable"),
                         value:'disable'

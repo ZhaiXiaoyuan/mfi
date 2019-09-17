@@ -464,10 +464,10 @@
                         label:this.$t("btn.fail"),
 
                     },
-                    {
+                /*    {
                         label:this.$t("btn.disable"),
                         value:'disable'
-                    }
+                    }*/
                 ],
                 schoolOptions:[
                   /*  {
