@@ -388,8 +388,13 @@
         },
         mounted () {
             this.account=Vue.getAccountInfo();
-            this.coach=JSON.parse(localStorage.getItem('curCoach'));
-            this.coach=this.account.type=='coach'?this.account:this.coach;
+            if(this.account.type=='coach'){
+                this.coach=this.account;
+            }else{
+                this.coach=JSON.parse(localStorage.getItem('curCoach'));
+            }
+
+            //
             this.id=this.account.type=='coach'?this.account.id:this.$route.params.id;
             //
             this.levelOptions=this.genLevelConfig({level:this.coach.mfiLevel});

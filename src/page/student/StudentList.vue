@@ -152,10 +152,12 @@
         },
         mounted () {
             /**/
-            this.coach=JSON.parse(localStorage.getItem('curCoach'));
             this.account=Vue.getAccountInfo();
-            this.coach=this.account.type=='coach'?this.account:this.coach;
-            console.log('this.coach:',this.coach);
+            if(this.account.type=='coach'){
+                this.coach=this.account;
+            }else{
+                this.coach=JSON.parse(localStorage.getItem('curCoach'));
+            }
 
             /**/
             this.getList();

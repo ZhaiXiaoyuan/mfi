@@ -274,10 +274,12 @@
         },
         mounted () {
             /**/
-            this.coach=JSON.parse(localStorage.getItem('curCoach'));
             this.account=Vue.getAccountInfo();
-            this.coach=this.account.type=='coach'?this.account:this.coach;
-            console.log('this.account:',this.account);
+            if(this.account.type=='coach'){
+                this.coach=this.account;
+            }else{
+                this.coach=JSON.parse(localStorage.getItem('curCoach'));
+            }
 
             /**/
             this.levelOptions=this.genLevelConfig({level:this.account.type=='coach'?this.account.mfiLevel:'all'});

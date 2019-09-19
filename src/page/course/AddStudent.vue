@@ -21,8 +21,8 @@
                         </el-row>
                         <el-row style="padding: 50px 0px;text-align: center;">
                             <div class="cm-btn add-btn" @click="emailDialogFlag=true">{{$t('btn.email')}}</div>
-                            <div class="cm-btn add-btn" @click="selectStudentDialogFlag=true">{{$t('btn.fromMyStudent')}}</div>
-                            <div class="cm-btn add-btn" v-if="course.mfiLevel!='M0'&&course.mfiLevel!='M1'" @click="newStudentDialogFlag=true">{{$t('btn.newStudent')}}</div>
+                            <div class="cm-btn add-btn" v-if="account.type=='coach'" @click="selectStudentDialogFlag=true">{{$t('btn.fromMyStudent')}}</div>
+                            <div class="cm-btn add-btn" @click="newStudentDialogFlag=true">{{$t('btn.newStudent')}}</div>
                         </el-row>
                     </div>
                 </div>
@@ -328,13 +328,13 @@
                     courseId:this.course.courseId,
                     emailArray:JSON.stringify(emailList),
                 }
-                let fb=Vue.operationFeedback({text:this.$t("tips.setting")});
+                let fb=Vue.operationFeedback({text:this.$t("tips.handle")});
                 Vue.api.addStudentToCourse(params).then((resp)=>{
                     if(resp.respCode=='2000'){
                         callback&&callback();
-                        fb.setOptions({type:'complete', text:this.$t("tips.settingS")});
+                        fb.setOptions({type:'complete', text:this.$t("tips.handleS")});
                     }else{
-                        fb.setOptions({type:'warn', text:this.$t("tips.settingF",{ msg: resp.respMsg})});
+                        fb.setOptions({type:'warn', text:this.$t("tips.handleF",{ msg: resp.respMsg})});
                     }
                 });
             },
@@ -368,10 +368,12 @@
             this.id=this.$route.params.id;
             /*   this.course=JSON.parse(localStorage.getItem('curCourse'));*/
             this.account=Vue.getAccountInfo();
-            this.coach=this.account.type=='coach'?this.account:this.coach;
+            if(this.account.type=='coach'){
+                this.coach=this.account;
+                this.getStudentList();
+            }
             /**/
             this.getCourse();
-            this.getStudentList();
         },
     }
 </script>
