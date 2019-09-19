@@ -477,6 +477,7 @@ body {
   top: -1px;
   font-size: 16px;
   color: #999;
+  max-width: 350px;
 }
 .cm-list-block .block-hd .con-item .label {
   margin-right: 10px;

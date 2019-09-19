@@ -263,7 +263,8 @@
                 </div>
             </div>
         </div>
-        <div class="cm-btn cm-add-btn" :class="{'cm-disabled':account.instructorAccountStatus!='certified'||account.instructorQualification=='notPay'}" v-if="account.type=='coach'" @click="toAdd()">
+
+        <div class="cm-btn cm-add-btn" :class="{'cm-disabled':account.type=='coach'&&(account.instructorAccountStatus!='certified'||account.instructorQualification=='notPay')||(account.type=='school'&&(account.state!='pass'||account.schoolQualification=='notPay'))}" v-if="(account.type=='coach'||account.type=='school')&&course.ownerId==account.id" @click="toAdd()">
             <div class="icon-wrap">
                 <i class="icon add-cross-icon"></i>
             </div>
