@@ -10,13 +10,13 @@
                     <div class="cm-detail-block">
                         <div class="block-bd form">
                             <div class="cm-input-row">
-                                <span class="field"></span>
                                 <div class="cm-avatar-uploader">
                                     <div class="wrapper">
                                         <img :src="newForm.avatar?basicConfig.filePrefix+newForm.avatar:defaultAvatar">
                                         <input  type="file" id="file-input" accept="image/*" @change="selectFile()">
                                     </div>
                                 </div>
+                                <p style="text-align: center;">{{$t("label.avatar")}}</p>
                             </div>
                             <div class="cm-input-row">
                                 <span class="field">{{$t("label.email")}}</span>
@@ -359,7 +359,7 @@
                                         title:"",
                                         html:'<div style="text-align: center">'+this.$t("tips.mobileTips")+'</div>',
                                         lock:true,
-                                        yes:this.$t("btn.sure")
+                                        yes:this.$t("btn.close")
                                     });
                                 }else{
                                     //
