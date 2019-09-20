@@ -10,11 +10,11 @@
                     <div class="cm-detail-block">
                         <div class="block-bd form">
                             <div class="cm-input-row">
-                                <span class="field"></span>
                                 <div class="cm-avatar-uploader">
                                     <div class="wrapper">
                                         <img :src="newForm.avatar?basicConfig.filePrefix+newForm.avatar:defaultAvatar">
                                         <input  type="file" id="file-input" accept="image/*" @change="selectFile()">
+                                        <p style="text-align: center;">{{$t("label.avatar")}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -213,9 +213,10 @@
                 }
             }
             .cm-avatar-uploader{
-                width: 80px;
-                height: 80px;
                 margin: 0px auto;
+                .wrapper{
+                    display: inline-block;
+                }
             }
             &+.cm-input-row{
                 margin-top: 15px;
@@ -280,7 +281,7 @@
                           /*  this.$router.push({name:'login',params:{type:'coach'}});*/
                         }
                         this.newForm.email=this.user.email;
-                        this.newForm.avatar=this.user.headPic;
+                        this.newForm.avatar=this.user.headPic+'?random='+Math.random();
                         if(this.user.insurancePic){
                             this.newForm.insurancePic=this.user.insurancePic+'?random='+Math.random();
                         }
@@ -394,7 +395,7 @@
                                         title:"",
                                         html:'<div style="text-align: center">'+this.$t("tips.mobileTips")+'</div>',
                                         lock:true,
-                                        yes:this.$t("btn.sure")
+                                        yes:this.$t("btn.close")
                                     });
                                 }else{
                                     //

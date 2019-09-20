@@ -164,7 +164,7 @@
         <el-dialog :title='$t("title.statusSetting")' class="edit-dialog cm-dialog school-dialog" :visible.sync="statusSettingDialogFlag" v-if="statusSettingDialogFlag" width="40%">
             <div class="form">
                 <div class="cm-input-row">
-                    <span class="field">{{$t("label.level")}}</span>
+                    <span class="field">{{$t("label.status")}}</span>
                     <el-select v-model="statusForm.status" class="handle cm-select">
                         <el-option
                             v-for="(item,index) in options"
@@ -184,7 +184,7 @@
         <el-dialog :title='$t("title.schoolSetting")' class="edit-dialog cm-dialog school-dialog" :visible.sync="schoolSettingDialogFlag" v-if="schoolSettingDialogFlag" width="40%">
             <div class="form">
                 <div class="cm-input-row">
-                    <span class="field">{{$t("label.level")}}</span>
+                    <span class="field">{{$t("label.school")}}</span>
                     <el-select filterable v-model="schoolForm.school" filterable class="handle cm-select">
                         <el-option
                             v-for="(item,index) in schoolOptions"
@@ -358,7 +358,7 @@
             height: 400px;
             overflow-y: scroll;
             .field{
-                width: 180px;
+                width: 192px;
             }
             .cm-input-row{
                 .cm-input{

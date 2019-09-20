@@ -10,11 +10,11 @@
                     <div class="block-hd">
                         <div class="con-item">
                             <el-menu :default-active="activeType" class="cm-tab-menu" mode="horizontal" @select="setType">
-                                <el-menu-item index="goods">{{$t("btn.goods")}}</el-menu-item>
+                                <el-menu-item index="goods" v-if="account.type=='admin'">{{$t("btn.goods")}}</el-menu-item>
                                 <el-menu-item index="certificate" v-if="account.type=='school'||account.type=='coach'">{{$t("btn.certificate")}}</el-menu-item>
-                                <el-menu-item index="buyRecord" v-if="account.type!='admin'">{{$t("btn.buyRecord")}}</el-menu-item>
+                              <!--  <el-menu-item index="buyRecord" v-if="account.type!='admin'">{{$t("btn.buyRecord")}}</el-menu-item>-->
                                 <el-menu-item index="buyRecord" v-if="account.type=='admin'">{{$t("btn.orderAdmin")}}</el-menu-item>
-                                <el-menu-item index="exchangeRecord" v-if="account.type=='school'||account.type=='coach'">{{$t("btn.exchangeRecord")}}</el-menu-item>
+                              <!--  <el-menu-item index="exchangeRecord" v-if="account.type=='school'||account.type=='coach'">{{$t("btn.exchangeRecord")}}</el-menu-item>-->
                                 <el-menu-item index="exchangeRecord" v-if="account.type=='admin'">{{$t("btn.exchangeAdmin")}}</el-menu-item>
                             </el-menu>
                         </div>
@@ -541,7 +541,7 @@
         data() {
             return {
                 account:{},
-                activeType:'goods',//goods、certificate、exchangeRecord、buyRecord
+                activeType:'',//goods、certificate、exchangeRecord、buyRecord
 
                 pager:{
                     pageSize:20,
@@ -937,7 +937,7 @@
                 }
             }
             /**/
-            this.setType('goods');
+            this.setType(this.account.type=='admin'?'goods':'certificate');
         },
     }
 </script>

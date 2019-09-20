@@ -14,9 +14,9 @@
                                     <div class="wrapper">
                                         <img :src="newForm.avatar?basicConfig.filePrefix+newForm.avatar:defaultAvatar">
                                         <input  type="file" id="file-input" accept="image/*" @change="selectFile()">
+                                        <p style="text-align: center;">{{$t("label.avatar")}}</p>
                                     </div>
                                 </div>
-                                <p style="text-align: center;">{{$t("label.avatar")}}</p>
                             </div>
                             <div class="cm-input-row">
                                 <span class="field">{{$t("label.email")}}</span>
@@ -200,8 +200,8 @@
                 }
             }
             .cm-avatar-uploader{
-                width: 80px;
-                height: 80px;
+             /*   width: 80px;
+                height: 80px;*/
                 margin: 0px auto;
             }
             &+.cm-input-row{
