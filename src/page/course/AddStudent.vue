@@ -50,7 +50,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="(item,index) in studentList">
+                        <tr v-for="(item,index) in studentList" :key="item.id">
                             <td>
                                 <el-checkbox class="cm-checkbox" :label="item.email" @change="studentCheck(item)"></el-checkbox>
                                 {{item.email}}
@@ -296,7 +296,9 @@
             selectToAdd:function () {
                 let emailList=[];
                 this.studentList.forEach((item,i)=>{
-                    emailList.push({email:item.email});
+                    if(item.checked){
+                        emailList.push({email:item.email});
+                    }
                 })
                 if(emailList.length==0){
                     Vue.operationFeedback({type:'warn',text:this.$t("holder.selectedStudent")});
@@ -322,7 +324,6 @@
                 });
             },
             addToCourse:function (emailList,callback) {
-                console.log('test:',this.course);
                 let params={
                     ...Vue.sessionInfo(),
                     courseId:this.course.courseId,
@@ -340,7 +341,6 @@
             },
             studentCheck:function (item) {
               item.checked=!item.checked;
-                console.log('student:',this.studentList);
             },
             saveNew:function () {
                 if(!this.newForm.email){
