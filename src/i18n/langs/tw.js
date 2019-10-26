@@ -115,7 +115,7 @@ const tw = {
         certificateStatisticsSearch:'帳號/姓名 模糊檢索',
         startTime:'請選擇開課時間',
         selectedStudent:'請選擇學員',
-        emailStr:"請輸入電郵，多個電郵以','分隔",
+        emailStr:"請輸入電郵，多個電郵以','分隔，請註意不要留有空格。",
         fName:'請輸入姓',
         lName:'請輸入名',
         gender:'請輸入性別',

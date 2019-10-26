@@ -406,7 +406,7 @@
                 Vue.api.getCourseDetail(params).then((resp)=>{
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
-                        this.course={...data.course,instructorEmail:data.instructorEmail,instructorName:data.instructorName}
+                        this.course={...data.course,instructorEmail:data.instructorEmail,instructorName:data.instructorName};
                         console.log('this.course:',this.course);
                         this.getUnusedCertificate();
                     }
@@ -415,13 +415,13 @@
             getUnusedCertificate:function (callback) {
                 let params={
                     ...Vue.sessionInfo(),
-                    possessorId:this.account.type=='coach'?this.coach.id:this.account.id,
+                    possessorId:this.course.ownerId,
                     mfiLevel:this.course.mfiLevel,
                     certificateState:'unuse',
                     pageSize:200,
                     pageIndex:1,
                     searchContent:'',
-                    schoolSerialCode:this.account.type=='coach'?'':this.account.serialCode
+                    schoolSerialCode:this.account.type=='school'?this.course.school:''
                 }
                 Vue.api.getInstructorBuyCertificate(params).then((resp)=>{
                     if(resp.respCode=='2000'){
@@ -588,6 +588,7 @@
             this.id=this.$route.params.id;
             this.account=Vue.getAccountInfo();
             this.coach=this.account.type=='coach'?this.account:this.coach;
+
             /**/
             this.getCourse();
             this.getList();

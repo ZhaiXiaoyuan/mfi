@@ -39,7 +39,7 @@ export default {
       }
     }
     /**/
-  /* let basicUrl=false&&process.env.NODE_ENV=='development'?'/api'+'/mfi':'http://39.108.252.213:8081/mfi';*/
+ /*  let basicUrl=false&&process.env.NODE_ENV=='development'?'/api'+'/mfi':'http://39.108.252.213:8081/mfi';*/
 
    let basicUrl=false&&process.env.NODE_ENV=='development'?'http://api.linqi.tech:8081/mfi':'http://www.mfimermaid.com:8081/mfi';
     Vue.api={

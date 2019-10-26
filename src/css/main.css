@@ -1503,7 +1503,7 @@ body {
   }
   .cm-search .el-input__inner {
     height: 40px;
-    width: 220px;
+    width: 210px;
     font-size: 14px;
   }
   .cm-search .el-input-group__append .el-icon-search {

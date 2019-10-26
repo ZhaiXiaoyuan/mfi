@@ -115,7 +115,7 @@ const en = {
         certificateStatisticsSearch:'Account/Name',
         startTime:'Please select the start time',
         selectedStudent:'Please select the student',
-        emailStr:"Please entry the email,multiple separate width ','",
+        emailStr:"Please entry the email, multiple separate width ',', no space is needed between emails.",
         fName:'Please select the family name',
         lName:'Please select the last name',
         gender:'Please select the gender',

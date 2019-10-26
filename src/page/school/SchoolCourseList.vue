@@ -256,10 +256,12 @@
                         this.coachList=[];
                         let list=data.instructorList;
                         list.forEach((item,i)=>{
-                            this.coachList.push({
-                                ...item.instructorPayment,
-                                ...item.user
-                            })
+                            if(item.user.instructorAccountStatus=='certified'){
+                                this.coachList.push({
+                                    ...item.instructorPayment,
+                                    ...item.user
+                                })
+                            }
                         })
                         this.pager.total=data.count;
                         console.log('this.coachList:',this.coachList);

@@ -117,7 +117,7 @@ const cn = {
         certificateStatisticsSearch:'账号/姓名 模糊检索',
         startTime:'请选择开课时间',
         selectedStudent:'请选择学员',
-        emailStr:"请输入邮箱，多个邮箱以','分隔",
+        emailStr:"请输入邮箱，多个邮箱以','分隔，请注意不要留有空格。",
         fName:'请输入姓',
         lName:'请输入名',
         gender:'请输入性别',
