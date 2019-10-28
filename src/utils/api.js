@@ -44,7 +44,7 @@ export default {
    let basicUrl=false&&process.env.NODE_ENV=='development'?'http://api.linqi.tech:8081/mfi':'http://www.mfimermaid.com:8081/mfi';
     Vue.api={
         //
-     superLogin:function (params) {
+        superLogin:function (params) {
         return Vue.http.ajax({
           method: 'post',
           url: basicUrl+'/admin/superManagerLogin',

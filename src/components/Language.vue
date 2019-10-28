@@ -107,7 +107,7 @@
                 this.$i18n.locale=this.locale;
                 localStorage.setItem('lang',this.locale);
                 if(click){
-                /* window.location.reload();*/
+                    window.location.reload();
                 }
             }
         },
