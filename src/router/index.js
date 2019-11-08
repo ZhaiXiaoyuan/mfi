@@ -191,117 +191,102 @@ const router= new Router({
 //注册全局导航守卫
 router.beforeEach((to, from,next) => {
 
-    /* let userInfo=sessionStorage.getItem('userInfo')?JSON.parse(sessionStorage.getItem('userInfo')):null;
-     if(!userInfo){
-     Vue.api.getUserInfo({...Vue.sessionInfo()}).then((resp)=>{
-     if(resp.status=='success'){
-     let userInfo=JSON.parse(resp.message);
-     sessionStorage.setItem('userInfo',JSON.stringify(userInfo));
-     if(userInfo.status==20){
-     next();
-     }else{
-     router.push({name:'forbidden'});
-     }
-     }
-     })
-     }else {
-     if(userInfo.status==20){
-     next();
-     }else{
-     router.push({name:'forbidden'});
-     }
-     }*/
+    //旧域名跳转
+    if(window.location.origin=='http://www.mermaidfederation.com'){
+        let redirectAddress=window.location.href.replace(window.location.origin,'http://www.mfimermaid.com');
+        console.log('redirectAddress:',redirectAddress);
+        window.location.replace(redirectAddress)
+    }else{
+        //进入非登录页前刷新并判断用户状态
+        if(to.name!='login'){
+            let account=Vue.getAccountInfo();
+            if(account.type=='coach'||account.type=='student'){
+                let switchingFlag=localStorage.getItem('switching');
+                if(switchingFlag=='true'){
+                    localStorage.setItem('switching','false');
+                    next({
+                        path: '/'+account.type+'Detail',
+                    })
+                }else{
+                    Vue.api.getUserBaseInfo({  ...Vue.sessionInfo(), userId:account.id, role:account.type=='coach'?'instructor':'student'}).then((resp)=>{
+                        if(resp.respCode=='2000'){
+                            let data=JSON.parse(resp.respMsg);
+                            console.log('userInfo:',data);
+                            account={
+                                type:account.type,
+                                account:account.account,
+                                ...data.user,
+                                ...data.instructorPayment
+                            };
+                            Vue.cookie.set('account',JSON.stringify(account),7);
+                            if(account.type=='coach'){
+                                if(to.name!='protocol'){
+                                    if(data.instructorProtocolState=='disable'){
+                                        bus.$emit('service_modal_handle',data);
+                                    }
+                                }
+                                if(to.name!='coachDetail'&&to.name!='protocol'){
+                                    if(account.instructorAccountStatus=='pending'||account.instructorAccountStatus=='fail'||account.professionalMembersFee=='notPay'||account.professionalMembersFee=='expire'||account.instructorQualification=='notPay'||account.instructorQualification=='expire'){
+                                        router.push({name:'coachDetail'});
+                                    }
+                                }
+                            }else if(account.type=='student'){
+                                if(account.studentAccountStatus=='disable'){
+                                    bus.$emit('account_disable_handle');
+                                    next({
+                                        path: '/login',
+                                    })
+                                }
+                            }
+                        }else{
 
-    //进入非登录页前刷新并判断用户状态
-    if(to.name!='login'){
-        let account=Vue.getAccountInfo();
-        if(account.type=='coach'||account.type=='student'){
-            let switchingFlag=localStorage.getItem('switching');
-            if(switchingFlag=='true'){
-                localStorage.setItem('switching','false');
-                next({
-                    path: '/'+account.type+'Detail',
-                })
-            }else{
-                Vue.api.getUserBaseInfo({  ...Vue.sessionInfo(), userId:account.id, role:account.type=='coach'?'instructor':'student'}).then((resp)=>{
+                        }
+                        next();
+                    });
+                }
+            }else if(account.type=='school'){
+                Vue.api.getSchoolDetail({
+                    ...Vue.sessionInfo(),
+                    serialCode:account.serialCode,
+                }).then((resp)=>{
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
-                        console.log('userInfo:',data);
-                        account={
-                            type:account.type,
-                            account:account.account,
-                            ...data.user,
-                            ...data.instructorPayment
-                        };
+                        /* console.log('loginInfo:',data);*/
+                        account={ type:account.type,account:account.account,...data.school,...data.schoolPayment};
                         Vue.cookie.set('account',JSON.stringify(account),7);
-                        if(account.type=='coach'){
-                            if(to.name!='protocol'){
-                                if(data.instructorProtocolState=='disable'){
-                                    bus.$emit('service_modal_handle',data);
+                        if(account.state=='disable'){
+                            bus.$emit('account_disable_handle');
+                            next({
+                                path: '/login',
+                            })
+                        }else{
+                            if(account.schoolQualification=='notPay'||account.schoolQualification=='expire'){
+                                if(to.name!='protocol'){
+                                    if(data.schoolProtocolState=='disable'){
+                                        bus.$emit('service_modal_handle',data);
+                                    }
                                 }
-                            }
-                            if(to.name!='coachDetail'&&to.name!='protocol'){
-                                if(account.instructorAccountStatus=='pending'||account.instructorAccountStatus=='fail'||account.professionalMembersFee=='notPay'||account.professionalMembersFee=='expire'||account.instructorQualification=='notPay'||account.instructorQualification=='expire'){
-                                    router.push({name:'coachDetail'});
+                                if(to.name!='schoolDetail'&&to.name!='protocol'){
+                                    next({
+                                        path: '/schoolDetail',
+                                    })
+                                }else{
+                                    next();
                                 }
-                            }
-                        }else if(account.type=='student'){
-                            if(account.studentAccountStatus=='disable'){
-                                bus.$emit('account_disable_handle');
-                                next({
-                                    path: '/login',
-                                })
-                            }
-                        }
-                    }else{
-
-                    }
-                    next();
-                });
-            }
-        }else if(account.type=='school'){
-            Vue.api.getSchoolDetail({
-                ...Vue.sessionInfo(),
-                serialCode:account.serialCode,
-            }).then((resp)=>{
-                if(resp.respCode=='2000'){
-                    let data=JSON.parse(resp.respMsg);
-                   /* console.log('loginInfo:',data);*/
-                    account={ type:account.type,account:account.account,...data.school,...data.schoolPayment};
-                    Vue.cookie.set('account',JSON.stringify(account),7);
-                    if(account.state=='disable'){
-                        bus.$emit('account_disable_handle');
-                        next({
-                            path: '/login',
-                        })
-                    }else{
-                        if(account.schoolQualification=='notPay'||account.schoolQualification=='expire'){
-                            if(to.name!='protocol'){
-                                if(data.schoolProtocolState=='disable'){
-                                    bus.$emit('service_modal_handle',data);
-                                }
-                            }
-                            if(to.name!='schoolDetail'&&to.name!='protocol'){
-                                next({
-                                    path: '/schoolDetail',
-                                })
                             }else{
                                 next();
                             }
-                        }else{
-                            next();
                         }
+                    }else{
+                        next();
                     }
-                }else{
-                    next();
-                }
-            });
+                });
+            }else{
+                next();
+            }
         }else{
             next();
         }
-    }else{
-        next();
     }
-
 })
 export default router;
