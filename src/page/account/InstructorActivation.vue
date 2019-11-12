@@ -439,7 +439,8 @@
                 });
             },
             selectFile:function () {
-                let file=document.getElementById('file-input').files[0];
+                let ele=document.getElementById('file-input');
+                let file=ele.files[0];
                 Vue.tools.fileToBlob(file,(data)=>{
                     this.cropModal({
                         img:data,
@@ -452,6 +453,7 @@
                             this.uploading=true;
                             let fb=Vue.operationFeedback({text:this.$t("tips.save")});
                             Vue.api.setHeadPic(formData).then((resp)=>{
+                                ele.value='';
                                 this.uploading=false;
                                 if(resp.respCode=='2000'){
                                     this.getEmailByAesData();
@@ -468,6 +470,9 @@
                                     fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
                                 }
                             });
+                        },
+                        cancel:function () {
+                            ele.value='';
                         }
                     });
                 });
@@ -502,13 +507,12 @@
                                 fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
                             }
                         });
-                    }
+                    },
                 });
 
             },
             selectInsuranceFileFile:function () {
                 let file=document.getElementById('insuranceFileInput').files[0];
-
                 Vue.tools.imgCompress({
                     file:file,
                     width:'800',

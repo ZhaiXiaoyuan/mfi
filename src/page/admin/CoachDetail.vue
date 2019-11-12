@@ -29,7 +29,7 @@
                             <div class="upload-btn"  v-if="account.type=='coach'">
                                 <div class="wrapper">
                                     <i class="icon upload-icon"></i>
-                                    <input  type="file" id="file-input" accept="image/*" @change="selectFile()">
+                                    <input  type="file" id="file-input" accept="image/*" @change="selectFile($event)">
                                 </div>
                             </div>
                         </div>
@@ -647,7 +647,7 @@
                                 item.user=JSON.parse(item.user);
                                 this.draw({
                                     id:'canvas'+i,
-                                    avatar:Vue.basicConfig.filePrefix+item.user.headPic,
+                                    avatar:Vue.basicConfig.filePrefix+item.user.headPic+"?r="+Math.random(),
                                     name:item.user.name+' '+item.user.familyName,
                                     level:item.certificate.mfiLevel=='BMI'?'BASIC MERMAID INSTRUCTOR':item.certificate.mfiLevel,
                                     certificateNo:item.certificate.serialCode,
@@ -846,8 +846,9 @@
                     }
                 });
             },
-            selectFile:function () {
-                let file=document.getElementById('file-input').files[0];
+            selectFile:function ($event) {
+                let ele=Vue.tools.getCurEle($event);
+                let file=ele.files[0];
                 Vue.tools.fileToBlob(file,(data)=>{
                     this.cropModal({
                         img:data,
@@ -860,6 +861,7 @@
                             this.uploading=true;
                             let fb=Vue.operationFeedback({text:this.$t("tips.save")});
                             Vue.api.setHeadPic(formData).then((resp)=>{
+                                ele.value='';
                                 this.uploading=false;
                                 if(resp.respCode=='2000'){
                                     this.getUserBaseInfo();
@@ -868,6 +870,9 @@
                                     fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
                                 }
                             });
+                        },
+                        cancel:function () {
+                            ele.value='';
                         }
                     });
                 });

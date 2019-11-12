@@ -1,9 +1,9 @@
 <template>
   <div class="crop-modal">
-      <div class="modal-mask"  @click="close()"></div>
+      <div class="modal-mask"  @click="cancel()"></div>
       <div class="modal-content">
           <div class="modal-header">
-              <span class="cm-btn close-btn" @click="close()"><i class="icon el-icon-circle-close-outline"></i></span>
+              <span class="cm-btn close-btn" @click="cancel()"><i class="icon el-icon-circle-close-outline"></i></span>
           </div>
           <div class="modal-body">
               <vue-cropper
@@ -125,6 +125,7 @@
           fixedNumber:[1,1],
           fixed:true,
           ok:null,
+          cancel:null,
       }
     },
     data: function () {
@@ -147,7 +148,11 @@
             this.$el.remove();
             this.$destroy();
             this.options.closeCallback&&this.options.closeCallback();
-        }
+        },
+        cancel:function () {
+            this.options.cancel&&this.options.cancel();
+            this.close();
+        },
     },
     created: function () {
 
