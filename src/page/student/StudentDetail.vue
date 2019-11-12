@@ -936,6 +936,7 @@
             },
             selectFile:function ($event) {
                 let file=Vue.tools.getCurEle($event).files[0];
+                console.log('file:',file);
                 Vue.tools.fileToBlob(file,(data)=>{
                     this.cropModal({
                         img:data,
