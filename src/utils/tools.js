@@ -46,11 +46,8 @@ export default {
       const isDev=false&&process.env.NODE_ENV=='development'?true:false;
       Vue.tools = {
           basicConfig:{
-             /* basicUrl:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://39.108.11.197',
-              filePrefix:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://39.108.11.197',*/
-              basicUrl:isDev?'http://www.mfimermaid.com':'http://www.mfimermaid.com',
-              filePrefix:isDev?'http://api.linqi.tech:8621/mfi':'http://www.mfimermaid.com',
-              paypalPrefix:isDev?'https://www.sandbox.paypal.com':'https://www.paypal.com',
+              filePrefix:Vue.appConfig.fileDomain,
+              paypalPrefix:Vue.appConfig.paypalDomain,
               levelOptions:[
                   {
                       value:'M0',

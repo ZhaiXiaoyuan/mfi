@@ -91,6 +91,8 @@
     }
 </style>
 <script>
+    import Vue from 'vue';
+
     export default{
         name: 'identify',
         props: {
@@ -117,6 +119,8 @@
         mounted () {
             if(localStorage.getItem('locale')){
                 this.setLanguage(localStorage.getItem('locale'));
+            }else if(Vue.appConfig.language){
+                this.setLanguage(Vue.appConfig.language);
             }
         }
     }

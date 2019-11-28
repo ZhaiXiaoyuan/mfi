@@ -8,6 +8,7 @@ import 'element-ui/lib/theme-chalk/index.css';    // 默认主题
 // import '../static/css/theme-green/index.css';       // 浅绿色主题
 import "babel-polyfill";
 
+import config from './utils/config'
 import api from './utils/api'
 import tools from './utils/tools'
 import './utils/filters'
@@ -23,18 +24,11 @@ Vue.use(vueCookie);
 /*Vue.use(VueI18n);*/
 
 /*---安装自定义插件---*/
+Vue.use(config);
 Vue.use(api);
 Vue.use(tools);
 Vue.use(components);
 
-/**/
-/*const i18n = new VueI18n({
-    locale: 'en',  // 语言标识
-    messages: {
-        'zh-CN': require('./assets/lang/zh'),
-        'en-US': require('./assets/lang/en')
-    }
-})*/
 
 //使用钩子函数对路由进行权限跳转
 router.beforeEach((to, from, next) => {
