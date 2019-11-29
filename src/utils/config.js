@@ -5,16 +5,16 @@ export default {
         China:{
             languageSwitch:false,
             language:'cn',
-            domain:'http://120.24.223.104:8081',
+            domain:'http://www.mfi.group:8081',
             serviceSuffix:'/china',
-            fileDomain:'http://120.24.223.104',
+            fileDomain:'http://www.mfi.group',
             dev:{
-                domain:'http://120.24.223.104:8081',
-                fileDomain:'http://120.24.223.104',
+                domain:'http://www.mfi.group:8081',
+                fileDomain:'http://www.mfi.group',
             }
         },
         Abroad:{
-            languageSwitch:false,
+            languageSwitch:true,
             language:'',
             domain:'http://www.mfimermaid.com:8081',
             serviceSuffix:'',

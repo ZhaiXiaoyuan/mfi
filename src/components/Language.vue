@@ -1,5 +1,5 @@
 <template>
-    <div class="language">
+    <div class="language" v-if="languageSwitch">
         <ul>
             <li :class="{'active':locale=='en'}" @click="setLanguage('en',true)">
                 <span class="text">EN</span>
@@ -100,7 +100,8 @@
         },
         data() {
             return {
-                locale:null
+                locale:null,
+                languageSwitch:Vue.appConfig.languageSwitch
             }
         },
         methods: {
