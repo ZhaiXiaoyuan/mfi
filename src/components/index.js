@@ -12,6 +12,7 @@ import AlertModal from './AlertModal';
 import CropModal from './CropModal';
 import GenCode from './GenCode.vue';
 import PayBtn from './PayBtn.vue';
+import PayOrderModal from './PayOrderModal';
 
 
 /*全局组件注册配置*/
@@ -28,6 +29,7 @@ export default {
     Vue.component('CropModal',CropModal);
     Vue.component('GenCode',GenCode);
     Vue.component('PayBtn',PayBtn);
+    Vue.component('PayOrderModal',PayOrderModal);
 
     /*方法调度方式*/
     let OperationFeedbackConstructor = Vue.extend(OperationFeedback);
@@ -35,6 +37,7 @@ export default {
     let PayModalConstructor = Vue.extend(PayModal);
     let AlertModalConstructor=Vue.extend(AlertModal);
     let CropModalConstructor=Vue.extend(CropModal);
+    let PayOrderModalConstructor=Vue.extend(PayOrderModal);
     const functionObject={
         /**
          * 操作提示
@@ -86,7 +89,7 @@ export default {
             parentEle.appendChild(instance.$el);
         },
         /**
-         * 查看照片弹窗
+         * 支付弹窗
          * @param options
          */
         payModal:function (options) {
@@ -151,6 +154,23 @@ export default {
             let parentEle=document.getElementById('app');
             //
             let instance=new CropModalConstructor({});
+            instance.options=options;
+            instance.$mount();
+            parentEle.appendChild(instance.$el);
+            return {
+                close:instance.close
+            }
+        },
+        /**
+         * 订单支付弹窗
+         * @param options
+         */
+        payOrderModal:function (options) {
+            options={...{},...options};
+            //
+            let parentEle=document.getElementById('app');
+            //
+            let instance=new PayOrderModalConstructor({});
             instance.options=options;
             instance.$mount();
             parentEle.appendChild(instance.$el);

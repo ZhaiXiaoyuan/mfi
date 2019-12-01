@@ -2,7 +2,7 @@
     <div class="page-content coach-list">
         <div class="cm-panel">
             <div class="panel-hd">
-                <div class="cm-btn cm-return-btn" @click="$router.back();" v-if="school">
+                <div class="cm-btn cm-return-btn" @click="$router.back()" v-if="school">
                     <div class="wrapper">
                         <i class="icon el-icon-arrow-left"></i>
                         {{$t('btn.back')}}
@@ -31,7 +31,7 @@
                                 </el-option>
                             </el-select>
                         </div>
-                        <div class="con-item count-data">
+                        <div class="con-item count-data" v-if="account.type==='school'">
                             <span class="label">{{$t("label.remaining")}}</span>
                             <div class="data-item" v-for="(item,index) in certificateCountData" :key="index">{{item.label}}<span class="gap-icon">:</span>{{item.value}}</div>
                         </div>
@@ -75,7 +75,7 @@
                         </thead>
                         <tbody>
                         <tr v-for="(item,index) in entryList">
-                            <td>
+                            <td style="max-width: 200px;">
                                 {{item.orderRecordId}}
                             </td>
                             <td v-if="account.type!='school'">
@@ -181,20 +181,19 @@
                         <i class="icon logo-icon"></i>
                     </div>-->
                     <ul class="type-list">
-                        <li class="type-item" v-for="(item,index) in goodsList" :key="index">
+                        <li class="type-item">
                             <div class="item-hd">
-                                {{item.level}}
+
                             </div>
                             <div class="item-bd">
-                                <div class="goods-item" v-for="(goods,goodsIndex) in item.list" :key="goodsIndex">
+                                <div class="goods-item md-item" v-for="(goods,goodsIndex) in goodsList" :key="goodsIndex">
                                     <p class="icon-wrap">
                                         <i class="icon shell-icon"></i>
                                     </p>
-                                    <p>{{$t("value.cCount",{count:goods.count})}} ${{goods.price}}</p>
-                                    <p class="off">{{goods.off}}off</p>
-                                    <div class="cm-btn handle-btn">
-                                        <!--   {{$t("btn.toBuy")}}-->
-                                        <pay-btn :options="{target:goods.id,item:goods,callback:toPay}"></pay-btn>
+                                    <p>{{goods.name}}</p>
+                                   <!-- <p class="off">{{goods.off}}off</p>-->
+                                    <div class="cm-btn cm-handle-btn cm-handle-min-btn handle-btn" @click="toBuyModal(goods)">
+                                        {{$t("btn.toBuy")}}
                                     </div>
                                 </div>
                             </div>
@@ -245,8 +244,11 @@
 </template>
 <style lang="less" rel="stylesheet/less">
     .buy-modal{
+        .el-dialog{
+            width: 680px !important;
+        }
         .modal-body{
-            height: 300px;
+            height: 320px;
             overflow-y: auto;
             &::-webkit-scrollbar {/*滚动条整体样式*/
                 width: 5px;     /*高宽分别对应横竖滚动条的尺寸*/
@@ -424,7 +426,6 @@
                     lock:true,
                     ok:()=>{
                         clearInterval(interval);
-                        clearInterval(interval);
                     }
                 });
                 interval=setInterval(()=>{
@@ -591,6 +592,39 @@
                     }
                 }
             },
+
+            getGoodsList:function () {
+                let type=this.account.level==='center'?'certificateInBatch':'certificateInBatchFiveStartSchool';
+                let params={
+                    ...Vue.sessionInfo(),
+                    type:type,//certificate、instructorQualification、goods、certificateInBatch、professionalMembersFee、schoolQualification、certificateInBatchFiveStartSchool
+                    pageIndex:1,
+                    pageSize:20,
+                }
+                Vue.api.getGoodsList(params).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        let data=JSON.parse(resp.respMsg);
+                        let list=data.goodsList;
+                        list.reverse();
+                        this.goodsList=list;
+                        console.log('this.goodsList:',this.goodsList);
+                    }
+                });
+            },
+            toBuyModal:function (goods) {
+                this.payOrderModal({
+                    id:goods.id,
+                    title:'订单支付',
+                    tips:'<p>商品：'+goods.name+'</p><p>价格：￥'+goods.price+'</p>',
+                    callback:(data)=>{
+                        this.getList(1);
+                        this.getCertificateCount();
+                    },
+                    cancelCallback:()=>{
+
+                    }
+                });
+            }
         },
         mounted () {
             /**/
@@ -601,11 +635,12 @@
             /**/
             this.getList();
             /**/
-            this.goodsList=this.account.level=='center'?Vue.tools.centerGoodsList:Vue.tools.fiveStarCenterGoodsList;
+/*            this.goodsList=this.account.level=='center'?Vue.tools.centerGoodsList:Vue.tools.fiveStarCenterGoodsList;*/
             /**/
             if(this.account.type=='school'){
                 this.getCertificateCount();
                 this.getCoachList();
+                this.getGoodsList();
             }
 
         },

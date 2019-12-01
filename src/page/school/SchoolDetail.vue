@@ -13,7 +13,7 @@
             <div class="panel-bd cm-watermark">
                 <div class="cm-detail-block detail-block show-status">
                     <div class="payment-status" v-if="account.type=='school'&&(account.schoolQualification=='notPay'||account.schoolQualification=='expire')">
-                        <div><span>{{$t("tips.schoolQualification")}}</span><span class="cm-btn btn" @click="toPay()">{{$t("btn.go")}}</span></div>
+                        <div><span>{{$t("tips.schoolQualification")}}</span><span class="cm-btn btn" @click="toBuyModal(schoolQualificationGoods)">{{$t("btn.go")}}</span></div>
                     </div>
                     <div class="payment-status" v-if="account.type=='admin'&&(editForm.schoolQualification=='notPay'||editForm.schoolQualification=='expire')">
                         <div><span class="cm-btn btn" @click="feeWaiver()">{{$t("btn.schoolQualificationFeeWaiver")}}</span></div>
@@ -233,6 +233,8 @@
                 statusForm:{
                     status:null,
                 },
+
+                schoolQualificationGoods:null,
             }
         },
         created(){
@@ -433,6 +435,34 @@
                     }
                 });
             },
+            getGoods:function (type) {
+                let params={
+                    ...Vue.sessionInfo(),
+                    type:type,//certificate、instructorQualification、goods、certificateInBatch、professionalMembersFee、schoolQualification
+                    pageIndex:1,
+                    pageSize:20,
+                }
+                Vue.api.getGoodsList(params).then((resp)=>{
+                    if(resp.respCode==='2000'){
+                        let data=JSON.parse(resp.respMsg);
+                        let list=data.goodsList;
+                        this.schoolQualificationGoods=list[0];
+                    }
+                });
+            },
+            toBuyModal:function (goods) {
+                this.payOrderModal({
+                    id:goods.id,
+                    title:'订单支付',
+                    tips:'<p>支付项：'+goods.name+'</p><p>金额：￥'+goods.price+'</p>',
+                    callback:(data)=>{
+                        window.location.reload();
+                    },
+                    cancelCallback:()=>{
+
+                    }
+                });
+            }
         },
         mounted () {
             /**/
@@ -444,6 +474,9 @@
             /**/
             this.getSchoolDetail();
             this.getRegionConfig();
+            if(this.account.type==='school'){
+                this.getGoods('schoolQualification');
+            }
             //
            /* this.toEdit();*/
         },

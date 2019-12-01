@@ -697,6 +697,14 @@ export default {
                 params: params
             });
         },
+        //统一下单接口：返回订单
+        createOrder:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/order/addOrder',
+                params: params
+            });
+        },
     }
   },
 

@@ -16,8 +16,8 @@
                         <span>{{$t("title."+account.instructorAccountStatus)}}</span>
                     </div>
                     <div class="payment-status" v-if="account.type=='coach'&&(account.professionalMembersFee=='notPay'||account.professionalMembersFee=='expire'||account.instructorQualification=='notPay'||account.instructorQualification=='expire')">
-                        <div v-if="account.professionalMembersFee=='notPay'||account.professionalMembersFee=='expire'"><span>{{$t("tips.annualFeelForProfessionalMembers")}}</span><span class="cm-btn btn" @click="toPay({type:'professionalMembersFee'})">{{$t("btn.go")}}</span></div>
-                        <div v-if="account.instructorQualification=='notPay'||account.instructorQualification=='expire'"><span>{{$t("tips.instructorQualification")}}</span><span class="cm-btn btn" @click="toPay({type:'instructorQualification'})">{{$t("btn.go")}}</span></div>
+                        <div v-if="account.professionalMembersFee=='notPay'||account.professionalMembersFee=='expire'"><span>{{$t("tips.annualFeelForProfessionalMembers")}}</span><span class="cm-btn btn" @click="toBuyModal(professionalMembersFeeGoods)">{{$t("btn.go")}}</span></div>
+                        <div v-if="account.instructorQualification=='notPay'||account.instructorQualification=='expire'"><span>{{$t("tips.instructorQualification")}}</span><span class="cm-btn btn" @click="toBuyModal(instructorQualificationGoods)">{{$t("btn.go")}}</span></div>
                     </div>
                     <div class="payment-status" v-if="account.type=='admin'&&(coach.professionalMembersFee=='notPay'||coach.professionalMembersFee=='expire'||coach.instructorQualification=='notPay'||coach.instructorQualification=='expire')">
                         <div v-if="coach.professionalMembersFee=='notPay'||coach.professionalMembersFee=='expire'"><span class="cm-btn btn" @click="feeWaiver('professionalMembersFee')">{{$t("btn.professionalMembersFeeWaiver")}}</span></div>
@@ -509,6 +509,9 @@
                 },
                 transpondData:{},
                 entryList:[],
+
+                instructorQualificationGoods:null,
+                professionalMembersFeeGoods:null,
             }
         },
         created(){
@@ -1063,6 +1066,39 @@
                     }
                 });
             },
+
+            getGoods:function (type) {
+                let params={
+                    ...Vue.sessionInfo(),
+                    type:type,//certificate、instructorQualification、goods、certificateInBatch、professionalMembersFee、schoolQualification
+                    pageIndex:1,
+                    pageSize:20,
+                }
+                Vue.api.getGoodsList(params).then((resp)=>{
+                    if(resp.respCode==='2000'){
+                        let data=JSON.parse(resp.respMsg);
+                        let list=data.goodsList;
+                        if(type==='instructorQualification'){
+                            this.instructorQualificationGoods=list[0];
+                        }else if(type==='professionalMembersFee'){
+                            this.professionalMembersFeeGoods=list[0];
+                        }
+                    }
+                });
+            },
+            toBuyModal:function (goods) {
+                this.payOrderModal({
+                    id:goods.id,
+                    title:'订单支付',
+                    tips:'<p>支付项：'+goods.name+'</p><p>金额：￥'+goods.price+'</p>',
+                    callback:(data)=>{
+                        window.location.reload();
+                    },
+                    cancelCallback:()=>{
+
+                    }
+                });
+            }
         },
         mounted () {
             /**/
@@ -1080,6 +1116,11 @@
             /**/
             //
             this.getRegionConfig();
+            /**/
+            if(this.account.type==='coach'){
+                this.getGoods('instructorQualification');
+                this.getGoods('professionalMembersFee');
+            }
         },
     }
 </script>

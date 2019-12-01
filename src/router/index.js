@@ -186,17 +186,26 @@ const router= new Router({
             name:'protocol',
             component: resolve => require(['../page/common/Protocol.vue'], resolve)
         },
+        {
+            path: '/paymentFb',
+            name:'paymentFb',
+            component: resolve => require(['../page/common/PaymentFb.vue'], resolve)
+        },
     ]
 });
 //注册全局导航守卫
 router.beforeEach((to, from,next) => {
-
     //旧域名跳转
     if(window.location.origin=='http://www.mermaidfederation.com'){
         let redirectAddress=window.location.href.replace(window.location.origin,'http://www.mfimermaid.com');
         console.log('redirectAddress:',redirectAddress);
         window.location.replace(redirectAddress)
     }else{
+        //支付回调地址解析
+        if(window.location.href.indexOf('/paymentFb')>-1&&window.location.href.indexOf('#/paymentFb')==-1){
+            let redirectAddress=window.location.href.replace('/paymentFb','#/paymentFb');
+            window.location.replace(redirectAddress)
+        }
         //进入非登录页前刷新并判断用户状态
         if(to.name!='login'){
             let account=Vue.getAccountInfo();

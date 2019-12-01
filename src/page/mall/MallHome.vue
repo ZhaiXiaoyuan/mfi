@@ -26,8 +26,8 @@
                                 <li v-for="(item,index) in entryList" :key="item.id" @click="setCurGoods(item)">
                                     <div class="cover" :style="{background: 'url('+(basicConfig.filePrefix+item.imageUrl)+') no-repeat center',backgroundSize: 'cover'}"></div>
                                     <p class="name">{{item.name}}<span v-if="item.count">&times;{{item.count}}</span></p>
-                                    <p class="name">{{item.price?'$'+item.price:'&nbsp;'}}</p>
-                                    <div class="handle">
+                                    <p class="name">{{item.price?'￥'+item.price:'&nbsp;'}}</p>
+                                    <div class="handle" v-if="account.type!=='admin'">
                                         <div class="cm-btn cm-handle-btn handle-btn" v-if="item.sale" @click="openBuyModal(item,$event)">{{$t("btn.buy")}}</div>
                                         <div class="cm-btn cm-handle-btn handle-btn" v-if="item.exchange" @click="openExchangeModal(item,$event)">{{$t("btn.exchange")}}</div>
                                     </div>
@@ -57,10 +57,10 @@
                                         <div v-if="!curGoods.price">&nbsp;</div>
                                         <div v-if="curGoods.price">
                                             <span class="label">{{$t('label.price')}}：</span>
-                                            <span class="value">${{curGoods.price}}</span>
+                                            <span class="value">￥{{curGoods.price}}</span>
                                         </div>
                                     </el-col>
-                                    <el-col :span="4" class="info-item">
+                                    <el-col :span="4" class="info-item" v-if="account.type!=='admin'">
                                         <span class="cm-btn cm-handle-btn cm-handle-md-btn" v-if="curGoods.sale" @click="openBuyModal(curGoods,$event)">{{$t('btn.buy')}}</span>
                                         <span class="cm-btn cm-handle-btn cm-handle-md-btn" v-if="curGoods.exchange" @click="openExchangeModal(curGoods,$event)">{{$t('btn.exchange')}}</span>
                                     </el-col>
@@ -79,20 +79,19 @@
                                     <i class="icon logo-icon"></i>
                                 </div>-->
                                 <ul class="type-list">
-                                    <li class="type-item" v-for="(item,index) in certificateGoodsList" :key="index">
+                                    <li class="type-item">
                                         <div class="item-hd">
-                                            {{item.level}}
+
                                         </div>
                                         <div class="item-bd">
-                                            <div class="goods-item" v-for="(goods,goodsIndex) in item.list" :key="goodsIndex">
+                                            <div class="goods-item md-item" v-for="(goods,goodsIndex) in certificateGoodsList" :key="goodsIndex">
                                                 <p class="icon-wrap">
                                                     <i class="icon shell-icon"></i>
                                                 </p>
-                                                <p>{{$t("value.cCount",{count:goods.count})}} ${{goods.price}}</p>
-                                                <p class="off">{{goods.off}}off</p>
-                                                <div class="cm-btn handle-btn">
-                                                    <!--   {{$t("btn.toBuy")}}-->
-                                                    <pay-btn :options="{target:goods.id,item:goods,callback:toPay}"></pay-btn>
+                                                <p>{{goods.name}}</p>
+                                                <!--<p class="off">{{goods.off}}off</p>-->
+                                                <div class="cm-btn cm-handle-btn cm-handle-min-btn handle-btn" @click="toBuyModal(goods)">
+                                                    {{$t("btn.toBuy")}}
                                                 </div>
                                             </div>
                                         </div>
@@ -117,10 +116,9 @@
                                                 <p class="icon-wrap">
                                                     <i class="icon shell-icon"></i>
                                                 </p>
-                                                <p>{{goods.name}}&nbsp;{{$t("value.cCount",{count:goods.count})}}</p>
-                                                <div class="cm-btn handle-btn">
-                                                    <!--   {{$t("btn.toBuy")}}-->
-                                                    <pay-btn :options="{target:goods.id,item:goods,callback:toPay}"></pay-btn>
+                                                <p>{{goods.name}}</p>
+                                                <div class="cm-btn cm-handle-btn cm-handle-min-btn handle-btn" @click="toBuyModal(goods)">
+                                                       {{$t("btn.toBuy")}}
                                                 </div>
                                             </div>
                                         </div>
@@ -591,6 +589,8 @@
                 certificateGoodsList:[],
 
                 goodsHostConfig:{},
+
+                levelOptions:[],
             }
         },
         created(){
@@ -673,11 +673,13 @@
             setType:function (value) {
                 this.activeType=value;
                 this.curGoods=null;
-                if(value=='goods'){
-                    this.getList(1);
-                }else if(value=='exchangeRecord'){
+                if(value==='certificate'){
+                    this.getGoodsList(1);
+                }else if(value==='goods'){
+                    this.getGoodsList(1);
+                }else if(value==='exchangeRecord'){
                     this.getExchangeRecordList(1);
-                }else if(value=='buyRecord'){
+                }else if(value==='buyRecord'){
                     this.getBuyRecordList(1);
                 }
             },
@@ -905,6 +907,73 @@
                     });
                 },5000)
             },
+
+            getGoodsList:function (pageIndex) {
+                this.pager.pageIndex=pageIndex?pageIndex:1;
+                let type='';
+                if(this.activeType==='certificate'){
+                    if(this.account.type==='coach'){
+                        type='certificate';
+                    }else if(this.account.type==='school'){
+                        type=this.account.level==='center'?'certificateInBatch':'certificateInBatchFiveStartSchool';
+                    }
+                }else if(this.activeType==='goods'){
+                    type='goods';
+                }
+                let params={
+                    ...Vue.sessionInfo(),
+                    type:type,//certificate、instructorQualification、goods、certificateInBatch、professionalMembersFee、schoolQualification、certificateInBatchFiveStartSchool
+                    pageIndex:this.pager.pageIndex,
+                    pageSize:this.pager.pageSize,
+                }
+                this.pager.loading=true;
+                Vue.api.getGoodsList(params).then((resp)=>{
+                    this.pager.loading=false;
+                    if(resp.respCode=='2000'){
+                        let data=JSON.parse(resp.respMsg);
+                        let list=data.goodsList;
+                        list.map((item,i)=>{
+                            item.sale=true;
+                        });
+                        if(this.activeType==='certificate'){
+                            this.certificateGoodsList=[];
+                            list.reverse();
+                            if(this.account.type==='coach'){
+                                for(let i=0;i<this.levelOptions.length;i++){
+                                    let levelItem=this.levelOptions[i];
+                                    for(let j=0;j<list.length;j++){
+                                        let goods=list[j];
+                                        if(levelItem.value===goods.id){
+                                            this.certificateGoodsList.push(goods);
+                                            break;
+                                        }
+                                    }
+                                }
+                            }else{
+                                this.certificateGoodsList=list;
+                            }
+                            console.log('this.certificateGoodsList:',this.certificateGoodsList);
+                        }else{
+                            this.entryList=list;
+                        }
+                        this.pager.total=data.count;
+                    }
+                });
+            },
+
+            toBuyModal:function (goods) {
+                this.payOrderModal({
+                    id:goods.id,
+                    title:'订单支付',
+                    tips:'<p>商品：'+goods.name+'</p><p>价格：￥'+goods.price+'</p>',
+                    callback:(data)=>{
+
+                    },
+                    cancelCallback:()=>{
+
+                    }
+                });
+            }
         },
         mounted () {
             /**/
@@ -916,17 +985,17 @@
                     this.goodsHostConfig[valObj.code]={...valObj,id:key};
                 }
             }
-            console.log('this.goodsHostConfig:',this.goodsHostConfig);
+            /*console.log('this.goodsHostConfig:',this.goodsHostConfig);*/
           /*  Vue.tools.hostedIdConfig.forEach((item,i)=>{
                 console.log('item:',item);
             })*/
             /**/
-            if(this.account.type=='school'){
-                this.certificateGoodsList=this.account.level=='center'?Vue.tools.centerGoodsList:Vue.tools.fiveStarCenterGoodsList;
-            }else if(this.account.type=='coach'){
-                let levelOptions=this.genLevelConfig({level:this.account.type=='coach'?this.account.mfiLevel:'all'});
-                for(let i=0;i<levelOptions.length;i++){
-                    let levelItem=levelOptions[i];
+            if(this.account.type==='school'){
+           /*     this.certificateGoodsList=this.account.level=='center'?Vue.tools.centerGoodsList:Vue.tools.fiveStarCenterGoodsList;*/
+            }else if(this.account.type==='coach'){
+                this.levelOptions=this.genLevelConfig({level:this.account.type==='coach'?this.account.mfiLevel:'all'});
+               /* for(let i=0;i<this.levelOptions.length;i++){
+                    let levelItem=this.levelOptions[i];
                     for(let j=0;j<Vue.tools.instructorCertificateGoodsList.length;j++){
                         let goods=Vue.tools.instructorCertificateGoodsList[j];
                         if(levelItem.value==goods.level){
@@ -934,7 +1003,7 @@
                             break;
                         }
                     }
-                }
+                }*/
             }
             /**/
             this.setType(this.account.type=='admin'?'goods':'certificate');

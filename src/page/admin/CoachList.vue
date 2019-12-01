@@ -169,7 +169,7 @@
         <el-dialog :title='$t("title.schoolSetting")' class="edit-dialog cm-dialog school-dialog" :visible.sync="schoolSettingDialogFlag" v-if="schoolSettingDialogFlag" width="40%">
             <div class="form">
                 <div class="cm-input-row">
-                    <span class="field">{{$t("label.level")}}</span>
+                    <span class="field">{{$t("label.school")}}</span>
                     <el-select filterable v-model="schoolForm.school" filterable class="handle cm-select">
                         <el-option
                             v-for="(item,index) in schoolOptions"
@@ -512,6 +512,7 @@
             toSetSchool:function (item) {
                 this.curItem=item;
                 this.schoolSettingDialogFlag=true;
+                this.schoolForm.school=this.curItem.school;
             },
             saveSchool:function () {
                 if(!this.curItem){
@@ -542,6 +543,7 @@
             toSetStatus:function (item) {
                 this.curItem=item;
                 this.statusSettingDialogFlag=true;
+                this.statusForm.status=this.curItem.instructorAccountStatus;
             },
             saveStatus:function () {
                 if(!this.curItem){

@@ -113,7 +113,7 @@
                                 <span class="handle" v-if="item.certificate=='pending'||item.certificate=='granted'">&mdash;</span>
                                 <el-button class="small handle-btn" :class="{'cm-disabled':item.studentState=='nonActivated'}" @click="toStudent(item)" v-if="item.certificate=='waiting'||item.certificate=='grant'||(item.certificate&&item.certificate.length>20)">{{$t('btn.detail')}}</el-button>
                                 <el-button class="small handle-btn" :class="{'cm-disabled':item.studentState=='nonActivated'}" @click="grant(item)"  v-if="item.certificate=='waiting'&&unusedList.length>0">{{$t('btn.grant')}}</el-button>
-                                <el-button class="small handle-btn" :class="{'cm-disabled':item.studentState=='nonActivated'}"  v-if="item.certificate=='waiting'" @click="toPay(item)">{{$t('btn.buyToGrant')}}</el-button>
+                                <el-button class="small handle-btn" :class="{'cm-disabled':item.studentState=='nonActivated'}"  v-if="item.certificate=='waiting'" @click="toBuyModal(certificateGoods,item)">{{$t('btn.buyToGrant')}}</el-button>
                                 <el-button class="small handle-btn"  @click="reSentStudentActivationEmail(item)" v-if="account.type=='school'&&item.studentState=='nonActivated'">{{$t('btn.activationEmail')}}</el-button>
                             </td>
                         </tr>
@@ -241,7 +241,7 @@
                                   <span class="handle" v-if="item.certificate=='pending'||item.certificate=='granted'">&mdash;</span>
                                   <el-button class="small handle-btn" :class="{'cm-disabled':item.studentState=='nonActivated'}" @click="toStudent(item)" v-if="item.certificate=='waiting'||item.certificate=='grant'||(item.certificate&&item.certificate.length>20)">{{$t('btn.detail')}}</el-button>
                                   <el-button class="small handle-btn" :class="{'cm-disabled':item.studentState=='nonActivated'}" @click="grant(item)"  v-if="item.certificate=='waiting'&&unusedList.length>0">{{$t('btn.grant')}}</el-button>
-                                  <el-button class="small handle-btn" :class="{'cm-disabled':item.studentState=='nonActivated'}"  v-if="item.certificate=='waiting'" @click="toPay(item)">{{$t('btn.buyToGrant')}}</el-button>
+                                  <el-button class="small handle-btn" :class="{'cm-disabled':item.studentState=='nonActivated'}"  v-if="item.certificate=='waiting'"  @click="toBuyModal(certificateGoods,item)">{{$t('btn.buyToGrant')}}</el-button>
                                   <el-button class="small handle-btn"  @click="reSentStudentActivationEmail(item)" v-if="account.type=='coach'&&item.studentState=='nonActivated'">{{$t('btn.activationEmail')}}</el-button>
 <!--
                                   <el-button class="small handle-btn" @click="toViewCertificate(item)" v-if="(item.certificate&&item.certificate.length>20)">{{$t('btn.viewCertificate')}}</el-button>
@@ -365,6 +365,8 @@
 
                 granting:false,
                 requesting:false,
+
+                certificateGoods:null,
             }
         },
         created(){
@@ -582,6 +584,45 @@
                     }
                 });
             },
+
+            getGoods:function () {
+                let params={
+                    ...Vue.sessionInfo(),
+                    type:'certificate',//certificate、instructorQualification、goods、certificateInBatch、professionalMembersFee、schoolQualification
+                    pageIndex:1,
+                    pageSize:20,
+                }
+                Vue.api.getGoodsList(params).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        let data=JSON.parse(resp.respMsg);
+                        let list=data.goodsList;
+                        list.reverse();
+                        this.certificateGoods=list.find((item,index)=>{
+                            return this.course.mfiLevel===item.id
+                        });
+                    }
+                });
+            },
+            toBuyModal:function (goods,item) {
+                this.payOrderModal({
+                    id:goods.id,
+                    title:'订单支付',
+                    tips:'<p>支付项：'+goods.name+'</p><p>金额：￥'+goods.price+'</p>',
+                    callback:(data)=>{
+                        this.getUnusedCertificate((data)=>{
+                            if(data.length>0&&!this.granting){
+                                this.granting=true;
+                                this.grantSubmit(item,()=>{
+                                    Vue.operationFeedback({type:'complete',text:this.$t("tips.handleS")});
+                                });
+                            }
+                        })
+                    },
+                    cancelCallback:()=>{
+
+                    }
+                });
+            }
         },
         mounted () {
             /**/
@@ -592,6 +633,9 @@
             /**/
             this.getCourse();
             this.getList();
+            if(this.account.type!=='admin'){
+                this.getGoods();
+            }
             //
             let testArr=[1,2,3,4]
             for(let i=0;i<4;i++){

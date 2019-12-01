@@ -3,23 +3,27 @@
 export default {
     rawConfig:{
         China:{
+            version:'china',
             languageSwitch:false,
             language:'cn',
             domain:'http://www.mfi.group:8081',
             serviceSuffix:'/china',
-            fileDomain:'http://www.mfi.group',
+            fileDomain:'http://120.24.223.104',
+            payType:'aliPay',
             dev:{
                 domain:'http://www.mfi.group:8081',
-                fileDomain:'http://www.mfi.group',
+                fileDomain:'http://120.24.223.104',
             }
         },
         Abroad:{
+            version:'abroad',
             languageSwitch:true,
             language:'',
             domain:'http://www.mfimermaid.com:8081',
             serviceSuffix:'',
             fileDomain:'http://www.mfimermaid.com',
             paypalDomain:'https://www.paypal.com',
+            payType:'aliPay',
             dev:{
                 paypalDomain:'https://www.sandbox.paypal.com',
             }
@@ -27,7 +31,6 @@ export default {
     },
     install: function (Vue, options) {
         let isDev=process.env.NODE_ENV=='development';
-        //临时测试
         isDev=false;
         let rConfig=this.rawConfig['China'];
         if(isDev){
@@ -36,6 +39,7 @@ export default {
         Vue.appConfig={
             ...rConfig
         }
+        Object.assign(Vue.prototype,{appConfig:Vue.appConfig});
     },
 }
 
