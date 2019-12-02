@@ -607,7 +607,7 @@
                 this.payOrderModal({
                     id:goods.id,
                     title:'订单支付',
-                    tips:'<p>支付项：'+goods.name+'</p><p>金额：￥'+goods.price+'</p>',
+                    tips:'<p>支付项：'+goods.name+'</p><p>金额：￥'+goods.realPrice+'</p>',
                     callback:(data)=>{
                         this.getUnusedCertificate((data)=>{
                             if(data.length>0&&!this.granting){

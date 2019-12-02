@@ -89,7 +89,10 @@
                                                     <i class="icon shell-icon"></i>
                                                 </p>
                                                 <p>{{goods.name}}</p>
-                                                <!--<p class="off">{{goods.off}}off</p>-->
+                                                <p class="price">
+                                                    ￥{{goods.realPrice}}
+                                                </p>
+                                                <p class="off" v-if="goods.discount!=='100'">{{(100-goods.discount)+'%'}}off</p>
                                                 <div class="cm-btn cm-handle-btn cm-handle-min-btn handle-btn" @click="toBuyModal(goods)">
                                                     {{$t("btn.toBuy")}}
                                                 </div>
@@ -117,6 +120,10 @@
                                                     <i class="icon shell-icon"></i>
                                                 </p>
                                                 <p>{{goods.name}}</p>
+                                                <p class="price">
+                                                    ￥{{goods.realPrice}}
+                                                </p>
+                                                <p class="off" v-if="goods.discount!=='100'">{{(100-goods.discount)+'%'}}off</p>
                                                 <div class="cm-btn cm-handle-btn cm-handle-min-btn handle-btn" @click="toBuyModal(goods)">
                                                        {{$t("btn.toBuy")}}
                                                 </div>
@@ -965,7 +972,7 @@
                 this.payOrderModal({
                     id:goods.id,
                     title:'订单支付',
-                    tips:'<p>商品：'+goods.name+'</p><p>价格：￥'+goods.price+'</p>',
+                    tips:'<p>商品：'+goods.name+'</p><p>价格：￥'+goods.realPrice+'</p>',
                     callback:(data)=>{
 
                     },
