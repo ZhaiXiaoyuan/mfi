@@ -8,11 +8,11 @@ export default {
             language:'cn',
             domain:'http://www.mfi.group:8081',
             serviceSuffix:'/china',
-            fileDomain:'http://120.24.223.104',
+            fileDomain:'http://www.mfi.group',
             payType:'aliPay',
             dev:{
                 domain:'http://www.mfi.group:8081',
-                fileDomain:'http://120.24.223.104',
+                fileDomain:'http://www.mfi.group',
             }
         },
         Abroad:{

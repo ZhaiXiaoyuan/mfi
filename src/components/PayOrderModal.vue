@@ -52,7 +52,7 @@
        position: fixed;
        top: 0px;
        left: 0px;
-       z-index: 2001;
+       z-index: 2201;
        width: 100%;
        height: 100%;
        .modal-mask{
