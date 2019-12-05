@@ -2,7 +2,7 @@
     <div class="page-content coach-list">
         <div class="cm-panel">
             <div class="panel-hd">
-                <div class="cm-btn cm-return-btn" @click="$router.back();" v-if="school">
+                <div class="cm-btn cm-return-btn" @click="$router.back()" v-if="school">
                     <div class="wrapper">
                         <i class="icon el-icon-arrow-left"></i>
                         {{$t('btn.back')}}
@@ -207,7 +207,7 @@
             </div>
         </el-dialog>
 
-        <el-dialog :title='$t("btn.transpondCertificate")' class="cm-dialog" :visible.sync="transpondModalFlag" v-if="transpondModalFlag" width="40%">
+        <el-dialog :title='$t("btn.transpondCertificate")' class="cm-dialog transpond-modal" :visible.sync="transpondModalFlag" v-if="transpondModalFlag" width="40%">
             <div class="form">
                 <div class="cm-input-row">
                     <span class="field">{{$t("label.level")}}</span>
@@ -226,14 +226,35 @@
                 </div>
                 <div class="cm-input-row">
                     <span class="field">{{$t("label.instructor")}}</span>
-                    <el-select v-model="transpondForm.instructorId" class="handle cm-select">
+                   <!-- <el-select v-model="transpondForm.instructorId" class="handle cm-select">
                         <el-option
                             v-for="(item,index) in coachList"
                             :key="item.id"
                             :label="item.email"
                             :value="item.id">
                         </el-option>
-                    </el-select>
+                    </el-select>-->
+
+                    <div class="view-win">
+                        <el-table
+                            ref="multipleTable"
+                            :data="coachList"
+                            tooltip-effect="dark"
+                            style="width: 100%"
+                            height="180"
+                            @selection-change="handleSelectionChange">
+                            <el-table-column
+                                type="selection"
+                                width="40">
+                            </el-table-column>
+                            <el-table-column :label='$t("label.account")' width="180">
+                                <template slot-scope="scope">{{ scope.row.email }}</template>
+                            </el-table-column>
+                            <el-table-column :label='$t("label.level")'>
+                                <template slot-scope="scope">{{ scope.row.mfiLevel }}</template>
+                            </el-table-column>
+                        </el-table>
+                    </div>
                 </div>
             </div>
             <div class="handle-list">
@@ -267,6 +288,22 @@
         .handle-list{
             align-items: center;
             justify-content: center;
+        }
+    }
+    .transpond-modal{
+        .el-dialog__body{
+            height: 440px;
+            .view-win{
+                width: 300px;
+                box-shadow: 0px 1px 10px rgba(85, 96, 170, 0.3);
+                border-radius: 10px;
+                overflow: hidden;
+                .el-table{
+                    &:before{
+                        display: none;
+                    }
+                }
+            }
         }
     }
 </style>
@@ -344,7 +381,9 @@
 
                 coachList:[],
                 transpondModalFlag:false,
-                transpondForm:{},
+                transpondForm:{
+                    instructorId:[]
+                },
 
                 bgImg:require('../../images/common/card-bg.jpg'),
             }
@@ -485,22 +524,23 @@
                     Vue.operationFeedback({type:'warn',text:this.$t("holder.level")});
                     return;
                 }
-                if(!this.transpondForm.instructorId){
+                if(!this.transpondForm.instructorId||this.transpondForm.instructorId.length===0){
                     Vue.operationFeedback({type:'warn',text:this.$t("holder.instructor")});
                     return;
                 }
                 let params={
                     ...Vue.sessionInfo(),
                     from:this.account.id,
-                    to:this.transpondForm.instructorId,
+                    toJsonArrayString:JSON.stringify(this.transpondForm.instructorId),
                     mfiLevel:this.transpondForm.level,
                     count:this.transpondForm.count
                 }
                 let fb=Vue.operationFeedback({text:this.$t("tips.handle")});
-                Vue.api.addCertificateTranspond(params).then((resp)=>{
+                Vue.api.addCertificateTranspondInBatch(params).then((resp)=>{
                     if(resp.respCode=='2000'){
                         this.getCertificateCount();
                         this.getList(1);
+                        this.transpondForm.instructorId=[];
                         this.transpondModalFlag=false;
                         fb.setOptions({type:'complete', text:this.$t("tips.handleS")});
                     }else{
@@ -591,6 +631,31 @@
                     }
                 }
             },
+            handleSelectionChange:function (data) {
+                let idArr=[];
+                data.forEach((item,index)=>{
+                    idArr.push(item.id);
+                });
+                this.transpondForm.instructorId=idArr;
+            },
+            //给学校发送证书
+            test:function (level,count) {
+                let params={
+                    ...Vue.sessionInfo(),
+                    adminId:'d49448cc17af4cacbbb9d03b1332c1b9',
+                    schoolId:this.account.id,
+                    mfiLevel:level,
+                    quantity:count
+                }
+                let fb=Vue.operationFeedback({text:this.$t("tips.handle")});
+                Vue.api.sentUnuseCertificateToSchools(params).then((resp)=>{
+                    if(resp.respCode=='2000'){
+                        fb.setOptions({type:'complete', text:this.$t("tips.handleS")});
+                    }else{
+                        fb.setOptions({type:'warn', text:this.$t("tips.handleF",{msg:resp.respMsg})});
+                    }
+                });
+            }
         },
         mounted () {
             /**/

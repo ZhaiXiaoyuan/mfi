@@ -41,7 +41,7 @@ export default {
     /**/
  /*  let basicUrl=false&&process.env.NODE_ENV=='development'?'/api'+'/mfi':'http://39.108.252.213:8081/mfi';*/
 
-   let basicUrl=false&&process.env.NODE_ENV=='development'?'http://api.linqi.tech:8081/mfi':'http://www.mfimermaid.com:8081/mfi';
+   let basicUrl=process.env.NODE_ENV=='development'?'http://www.mfi.group:8082/mfi':'http://www.mfimermaid.com:8081/mfi';
     Vue.api={
         //
         superLogin:function (params) {
@@ -696,6 +696,22 @@ export default {
             return Vue.http.ajax({
                 method: 'post',
                 url: basicUrl+'/student/updateUserStudentAccountStatus',
+                params: params
+            });
+        },
+        //发送学校证书
+        sentUnuseCertificateToSchools:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/school/sentUnuseCertificateToSchool',
+                params: params
+            });
+        },
+        //学校批量向教练转发空白证书
+        addCertificateTranspondInBatch:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/certificate/addCertificateTranspondInBatch',
                 params: params
             });
         },

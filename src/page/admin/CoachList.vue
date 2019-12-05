@@ -512,6 +512,7 @@
             toSetSchool:function (item) {
                 this.curItem=item;
                 this.schoolSettingDialogFlag=true;
+                this.schoolForm.school=this.curItem.school;
             },
             saveSchool:function () {
                 if(!this.curItem){
@@ -542,6 +543,7 @@
             toSetStatus:function (item) {
                 this.curItem=item;
                 this.statusSettingDialogFlag=true;
+                this.statusForm.instructorAccountStatus=this.curItem.status;
             },
             saveStatus:function () {
                 if(!this.curItem){
