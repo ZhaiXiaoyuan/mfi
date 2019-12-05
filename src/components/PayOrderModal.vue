@@ -167,7 +167,7 @@
           payFormDom:'',
           invoice:'',
           step:1,
-          redirect:encodeURI(window.location.href.split('#')[0]+'/paymentFb'),
+          redirect:encodeURI(window.location.href.split('#')[0]+'#/paymentFb'),
           interval:null,
       }
     },

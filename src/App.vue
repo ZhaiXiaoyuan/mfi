@@ -90,6 +90,14 @@
                     }
                 });
             });
+
+            //支付回调地址解析
+         /*   console.log('window.location.href:',window.location.href)
+            if(window.location.href.indexOf('/paymentFb')>-1&&window.location.href.indexOf('#/paymentFb')==-1){
+                console.log('test:',window.location.href.indexOf('#/paymentFb'));
+                let redirectAddress=window.location.href.replace('/paymentFb','#/paymentFb');
+                window.location.replace(redirectAddress)
+            }*/
         }
     };
 </script>

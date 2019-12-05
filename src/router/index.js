@@ -201,11 +201,6 @@ router.beforeEach((to, from,next) => {
         console.log('redirectAddress:',redirectAddress);
         window.location.replace(redirectAddress)
     }else{
-        //支付回调地址解析
-        if(window.location.href.indexOf('/paymentFb')>-1&&window.location.href.indexOf('#/paymentFb')==-1){
-            let redirectAddress=window.location.href.replace('/paymentFb','#/paymentFb');
-            window.location.replace(redirectAddress)
-        }
         //进入非登录页前刷新并判断用户状态
         if(to.name!='login'){
             let account=Vue.getAccountInfo();
