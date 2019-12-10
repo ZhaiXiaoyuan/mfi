@@ -221,9 +221,10 @@ router.beforeEach((to, from,next) => {
                             Vue.cookie.set('account',JSON.stringify(account),7);
                             if(account.type=='coach'){
                                 if(to.name!='protocol'){
-                                    if(data.instructorProtocolState=='disable'){
+                                    //功能临时注释
+                                   /* if(data.instructorProtocolState=='disable'){
                                         bus.$emit('service_modal_handle',data);
-                                    }
+                                    }*/
                                 }
                                 if(to.name!='coachDetail'&&to.name!='protocol'){
                                     if(account.instructorAccountStatus=='pending'||account.instructorAccountStatus=='fail'||account.professionalMembersFee=='notPay'||account.professionalMembersFee=='expire'||account.instructorQualification=='notPay'||account.instructorQualification=='expire'){
@@ -262,9 +263,10 @@ router.beforeEach((to, from,next) => {
                         }else{
                             if(account.schoolQualification=='notPay'||account.schoolQualification=='expire'){
                                 if(to.name!='protocol'){
-                                    if(data.schoolProtocolState=='disable'){
+                                    //功能临时注释
+                                    /*if(data.schoolProtocolState=='disable'){
                                         bus.$emit('service_modal_handle',data);
-                                    }
+                                    }*/
                                 }
                                 if(to.name!='schoolDetail'&&to.name!='protocol'){
                                     next({
