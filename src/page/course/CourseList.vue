@@ -27,8 +27,8 @@
                         <div class="con-item">
                             <div class="con-item">
                                 <el-menu :default-active="activeType" class="cm-tab-menu" mode="horizontal" @select="setType">
-                                    <el-menu-item index="school">{{$t("btn.schoolCourse")}}</el-menu-item>
                                     <el-menu-item index="self">{{account.type=='coach'?$t("btn.selfCourse"):$t("btn.selfCreate")}}</el-menu-item>
+                                    <el-menu-item index="school">{{$t("btn.schoolCourse")}}</el-menu-item>
                                 </el-menu>
                             </div>
                         </div>
@@ -169,7 +169,7 @@
                 listLevelOptions:[],
                 selectedLevel:null,
 
-                activeType:'school',//school、self
+                activeType:'self',//school、self
                 ownCourse:true,//是否是自己开设的课程
                 keyword:null,
                 pager:{

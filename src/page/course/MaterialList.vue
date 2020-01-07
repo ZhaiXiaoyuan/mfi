@@ -108,7 +108,7 @@
 
                 levelOptions:[],
                 listLevelOptions:[],
-                selectedLevel:null,
+                selectedLevel:'M0',
 
                 pager:{
                     pageSize:20,
@@ -145,7 +145,6 @@
                         this.pager.loading=false;
                         if(resp.respCode=='2000'){
                             let data=JSON.parse(resp.respMsg);
-                            let list=data.teachingMaterialList;
                             try {
                                 this.entryList=JSON.parse(data.teachingMaterialList);
                             }catch (e) {
@@ -218,10 +217,11 @@
 
             /**/
             this.levelOptions=this.genLevelConfig({level:this.account.type=='coach'?this.account.mfiLevel:'all'});
-            this.listLevelOptions=[{
+            this.levelOptions.push({
                 value:null,
                 label:this.$t("btn.all"),
-            }].concat(this.levelOptions);
+            })
+            this.listLevelOptions=this.levelOptions;
             /**/
             this.getList();
         },
