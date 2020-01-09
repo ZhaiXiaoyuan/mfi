@@ -386,6 +386,7 @@ const tw = {
         coachCountTips:'未滿三位教練無法開課',
         giftTips:'已完成購買，贈送您{count}條{msg}，兌換序號將寄到您的註冊郵件地址',
         switchFail:'您暫時還不是我們的人魚教練，繼續努力練習，找我們查詢教練專業發展資訊！',
+        buyCountTips:'單次購買USD2000或以上等值的證照/ 其他跨級別的證照購買，請直接電郵info@mfimermaid.com。',
     },
     editor:{
         title: '設置標題',

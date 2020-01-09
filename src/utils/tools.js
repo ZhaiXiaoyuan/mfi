@@ -239,6 +239,12 @@ export default {
               'mfiM1Certificate60School':{
                   id:'6GRA7329HC8PL',
               },
+              'mfiM0Certificate40School':{
+                  id:'MPAKPPZCF5MXN'
+              },
+              'mfiM1Certificate20School':{
+                  id:'DGU8NBSRRGB7Q'
+              },
               'mfiM0Certificate20FiveStartSchool':{
                   id:'HU55YTEQBQRXA',
               },
@@ -297,7 +303,7 @@ export default {
               {
                   level:'M0',
                   list:[
-                      {
+                    /*  {
                           id:'mfiM0Certificate20School',
                           count:20,
                           price:'285',
@@ -310,13 +316,20 @@ export default {
                           price:'2295',
                           off:'15%',
                           gift:'merleggings',
+                      },*/
+                      {
+                          id:'mfiM0Certificate40School',
+                          count:40,
+                          price:'570',
+                          off:'5%',
+                          gift:'merleggings',
                       }
                   ]
               },
               {
                   level:'M1',
                   list:[
-                      {
+                     /* {
                           id:'mfiM1Certificate5School',
                           count:5,
                           price:'233',
@@ -327,6 +340,12 @@ export default {
                           count:60,
                           price:'2499',
                           off:'15%',
+                      },*/
+                      {
+                          id:'mfiM1Certificate20School',
+                          count:20,
+                          price:'882',
+                          off:'10%',
                       }
                   ]
               }
@@ -362,7 +381,7 @@ export default {
                               price:'5040',
                               off:'30%',
                               gift:'merleggings',
-                          }
+                          },
                       ]
                   },
                   {
@@ -379,7 +398,7 @@ export default {
                               count:120,
                               price:'4416',
                               off:'30%',
-                          }
+                          },
                       ]
                   },
                   {

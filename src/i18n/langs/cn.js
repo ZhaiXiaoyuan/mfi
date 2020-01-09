@@ -388,6 +388,7 @@ const cn = {
         coachCountTips:'未满三位教练无法开课',
         giftTips:'已完成购买，赠送您{count}条{msg}，兑换序号将寄到您的注册邮件地址',
         switchFail:'您暂时还不是我们的人鱼教练，继续努力练习， 找我们查询教练专业发展资讯 ！',
+        buyCountTips:'单次购买USD2000或以上等值的证照/ 其他跨级别的证照购买，请直接电邮info@mfimermaid.com。',
     },
     editor:{
         title: '设置标题',

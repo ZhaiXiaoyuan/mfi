@@ -98,6 +98,9 @@
                                         </div>
                                     </li>
                                 </ul>
+                                <p class="cm-info-tips">
+                                    {{$t("tips.buyCountTips")}}
+                                </p>
                             </div>
                         </div>
                     </div>

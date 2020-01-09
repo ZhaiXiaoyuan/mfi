@@ -385,6 +385,7 @@ const en = {
         coachCountTips:'You need three instructors at least to create a new course',
         giftTips:'Purchase completed，here are {count} pairs of {msg} as gift，redeem code will be sent to your account email.',
         switchFail:'You are not a Mermaid Instructor yet, keep practicing. Contact us for your instructor course now!',
+        buyCountTips:'For single purchase more than USD2000 or above/ multiple levels of certificates, please email directly to info@mfimermaid.com',
     },
     editor:{
         title: 'Title',
