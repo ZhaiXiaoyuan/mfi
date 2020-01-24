@@ -6,13 +6,13 @@ export default {
             version:'china',
             languageSwitch:false,
             language:'cn',
-            domain:'http://www.mfi.group:8081',
+            domain:'http://china.mfi.group:8081',
             serviceSuffix:'/china',
-            fileDomain:'http://www.mfi.group',
+            fileDomain:'http://china.mfi.group',
             payType:'aliPay',
             dev:{
-                domain:'http://www.mfi.group:8081',
-                fileDomain:'http://www.mfi.group',
+                domain:'http://china.mfi.group:8081',
+                fileDomain:'http://china.mfi.group',
             }
         },
         Abroad:{

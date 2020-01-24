@@ -39,7 +39,7 @@ export default {
       }
     }
     /**/
-      let basicUrl=Vue.appConfig.domain+'/mfi'+Vue.appConfig.serviceSuffix;
+    let basicUrl=Vue.appConfig.domain+'/mfi'+Vue.appConfig.serviceSuffix;
     Vue.api={
         //
         superLogin:function (params) {
