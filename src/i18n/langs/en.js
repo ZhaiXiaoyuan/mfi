@@ -341,7 +341,7 @@ const en = {
         toPaypal:'Click To Pay With Paypal',
     },
     tips:{
-        login:'Logining...',
+        login:'Logging In...',
         loginS:'Login successfully',
         loginF:'Login failure,invalid account or wrong password',
         accountDisable:'This account is disabled!',
