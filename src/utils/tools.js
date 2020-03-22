@@ -42,14 +42,14 @@ export default {
           shortCode:/^(?![0-9]+$)[0-9A-Za-z]{7,20}$/,
           shortCodeAlert:'域名格式有误，请输入7到20位字母或数字，不可为纯数字！'
         }
-        //
-      const isDev=false&&process.env.NODE_ENV=='development'?true:false;
+        //临时测试
+      const isDev=true||process.env.NODE_ENV=='development'?true:false;
       Vue.tools = {
           basicConfig:{
              /* basicUrl:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://39.108.11.197',
               filePrefix:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://39.108.11.197',*/
               basicUrl:isDev?'http://www.mfimermaid.com':'http://www.mfimermaid.com',
-              filePrefix:isDev?'http://api.linqi.tech:8621/mfi':'http://www.mfimermaid.com',
+              filePrefix:isDev?'http://linqi.tech:18083/mfi':'http://www.mfimermaid.com',
               paypalPrefix:isDev?'https://www.sandbox.paypal.com':'https://www.paypal.com',
               levelOptions:[
                   {

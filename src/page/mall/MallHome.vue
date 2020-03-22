@@ -3,7 +3,6 @@
         <div class="cm-panel">
             <div class="panel-hd">
                 <span class="title">{{$t("title.mall")}}</span>
-               <!-- <span class="cm-btn cm-handle-btn" @click="addRedeemCode()">临时测试</span>-->
             </div>
             <div class="panel-bd">
                 <div class="cm-list-block">
@@ -624,11 +623,7 @@
                             Object.assign(item,configObj,{name:this.$t("value."+id)});
                         })
                         this.entryList=list;
-                        console.log('this.entryList:', this.entryList);
                         this.pager.total=data.count;
-                        //临时测试
-                      /*  this.curGoods=this.entryList[0];*/
-                    /*  this.openBuyModal(this.entryList[0]);*/
                     }
                 });
             },

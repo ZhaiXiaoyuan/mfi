@@ -441,18 +441,32 @@
                             }),7);
                             fb.setOptions({
                                 type:'complete',
-                                text:this.$t("tips.loginS")
+                                text:this.$t("tips.loginS"),
+                                delayForDelete:0
                             });
-                            if(data.instructorAccountStatus=='pending'||data.instructorAccountStatus=='fail'){
+                            if(data.user.instructorAccountStatus==='pending'||data.user.instructorAccountStatus==='fail'){
                                 this.$router.push({name:'coachDetail',params:{}});
-                            }else if(data.instructorAccountStatus=='disable'){
+                            }else if(data.user.instructorAccountStatus==='disable'){
                                 this.alert({
                                     title:this.$t("title.tips"),
                                     html:'<div style="text-align: center;"><p style="font-size: 22px;">'+this.$t("tips.forbidden")+'</p><p style="font-size: 18px;padding-top: 10px;">'+this.$t("label.customerService")+'<span style="color: #5560aa;">:12345678</span></p></div>',
                                     yes:this.$t("btn.sure"),
                                 })
-                            }
-                            else{
+                            } else{
+                                if(data.exemptState){
+                                    this.alert({
+                                        title:this.$t("title.tips"),
+                                        html:'<div style="font-size: 14px;color: #333;line-height: 28px;"><p>'+this.$t("tips.exemptNotice")+'</p><p style="color: #5560aa;">'+this.$t("tips.exemptResult")+'</p></div>',
+                                        yes:this.$t("btn.sure"),
+                                    })
+                                }else{
+                                    this.alert({
+                                        title:this.$t("title.tips"),
+                                        html:'<div style="font-size: 14px;color: #333;line-height: 28px;"><p>'+this.$t("tips.exemptNotice")+'</p><p style="color: red;">'+this.$t("tips.noExemptResult")+'</p></div>',
+                                        yes:this.$t("btn.sure"),
+                                    })
+                                }
+                                return;
                                 this.$router.push({name:'courseList',params:{}});
                             }
                         }else{
