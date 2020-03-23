@@ -386,9 +386,13 @@ const en = {
         giftTips:'Purchase completed，here are {count} pairs of {msg} as gift，redeem code will be sent to your account email.',
         switchFail:'You are not a Mermaid Instructor yet, keep practicing. Contact us for your instructor course now!',
         buyCountTips:'For single purchase more than USD2000 or above/ multiple levels of certificates, please email directly to info@mfimermaid.com',
-        exemptNotice:'All instructors are liable to settle their Annual Fee for Professional Instructors (USD180) every year on or before 31 Mar. As this is MFI\'s first year collecting it and during this economic difficult time, therefore we are now on a special offer:  1) if you have issued/ purchased 4 M1 certificates from 31 Mar 2019 until 17 Mar 2020, Annual Fee will be WAIVED; 2) if you have NOT issued/ purchased 4 M1 certificates from 31 Mar 2019 until 17 Mar 2020, Annual Fee will be cut half, i.e., USD90. ',
-        exemptResult:'As you have met the requirement, your Annual Fee has been WAIVED in 2020.',
-        noExemptResult:'Since you have not met the requirement of 4 M1, you are required to pay USD90 for 2020\'s Annual Fee.'
+        exemptTile:'MFI Annual Fee for Professional Instructors',
+        exemptNotice1:'All instructors are liable to 1) submit valid first aid certificate and 2) Annual Fee (USD180) every year on or before 31st March to renew your instructor status. Due to the depressing COVID-19 situation, MFI has decided to provide a special offer: ',
+        exemptNotice2:'If in the previous year (until 31st March 2020),',
+        exemptNotice3:'1)You have purchased 4 sets or more M1/M2/M3 Certificates, your 2020 Annual Fee will be waived;',
+        exemptNotice4:'2)You have purchased less than 4 sets of M1/M2/M3 Certificates, your 2020 Annual Fee will be charged at 50% (i.e., USD90).',
+        exemptNotice5:'Thank you for your support, you have fulfilled 1), therefore your 2020 Annual Fee has been waived.',
+        exemptNotice6:'Thank you for your support, you have fulfilled 2), therefore your 2020 Annual Fee will be charged at 50%.',
     },
     editor:{
         title: 'Title',

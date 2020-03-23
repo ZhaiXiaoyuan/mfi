@@ -1596,6 +1596,31 @@ body{
     }
 }
 
+.exempt-tips-modal{
+    .modal-content{
+        width: 50% !important;
+        max-width: 800px;
+        .modal-body{
+            max-height: 420px;
+            overflow-y: auto;
+            .tips-content{
+                font-size: 14px;
+                color: #333;
+                line-height: 28px;
+                .para{
+                    margin-top: 10px;
+                }
+                .error{
+                    color: red;
+                }
+                .success{
+                    color: #5560aa;
+                }
+            }
+        }
+    }
+}
+
 @media screen and (max-width: 1000px) {
     body{
 
@@ -2092,6 +2117,12 @@ body{
                     margin: 0px !important;
                 }
             }
+        }
+    }
+    .exempt-tips-modal{
+        .modal-content{
+            width: 90% !important;
+            max-width: unset;
         }
     }
 }

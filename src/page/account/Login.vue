@@ -453,20 +453,12 @@
                                     yes:this.$t("btn.sure"),
                                 })
                             } else{
-                                if(data.exemptState){
-                                    this.alert({
-                                        title:this.$t("title.tips"),
-                                        html:'<div style="font-size: 14px;color: #333;line-height: 28px;"><p>'+this.$t("tips.exemptNotice")+'</p><p style="color: #5560aa;">'+this.$t("tips.exemptResult")+'</p></div>',
-                                        yes:this.$t("btn.sure"),
-                                    })
-                                }else{
-                                    this.alert({
-                                        title:this.$t("title.tips"),
-                                        html:'<div style="font-size: 14px;color: #333;line-height: 28px;"><p>'+this.$t("tips.exemptNotice")+'</p><p style="color: red;">'+this.$t("tips.noExemptResult")+'</p></div>',
-                                        yes:this.$t("btn.sure"),
-                                    })
-                                }
-                                return;
+                                this.alert({
+                                    className:'exempt-tips-modal',
+                                    title:this.$t("tips.exemptTile"),
+                                    html:'<div class="tips-content"><p>'+this.$t("tips.exemptNotice1")+'</p><p class="para">'+this.$t("tips.exemptNotice2")+'</p><p>'+this.$t("tips.exemptNotice3")+'</p><p>'+this.$t("tips.exemptNotice4")+'</p>'+(data.exemptState?'<p class="para success">'+this.$t("tips.exemptNotice5")+'</p>':'<p class="para error">'+this.$t("tips.exemptNotice6")+'</p>')+'</div>',
+                                    yes:this.$t("btn.sure"),
+                                })
                                 this.$router.push({name:'courseList',params:{}});
                             }
                         }else{

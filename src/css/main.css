@@ -1656,6 +1656,28 @@ body {
 .cm-certificate-goods-panel .type-list .type-item + .type-item {
   border-top: 1px solid #ddd;
 }
+.exempt-tips-modal .modal-content {
+  width: 50% !important;
+  max-width: 800px;
+}
+.exempt-tips-modal .modal-content .modal-body {
+  max-height: 420px;
+  overflow-y: auto;
+}
+.exempt-tips-modal .modal-content .modal-body .tips-content {
+  font-size: 14px;
+  color: #333;
+  line-height: 28px;
+}
+.exempt-tips-modal .modal-content .modal-body .tips-content .para {
+  margin-top: 10px;
+}
+.exempt-tips-modal .modal-content .modal-body .tips-content .error {
+  color: red;
+}
+.exempt-tips-modal .modal-content .modal-body .tips-content .success {
+  color: #5560aa;
+}
 @media screen and (max-width: 1000px) {
   .cm-handle-btn {
     padding: 0px 25px;
@@ -2160,5 +2182,9 @@ body {
   }
   .buy-dialog .order-info .cm-input-row .value {
     margin: 0px !important;
+  }
+  .exempt-tips-modal .modal-content {
+    width: 90% !important;
+    max-width: unset;
   }
 }
