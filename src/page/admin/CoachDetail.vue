@@ -58,7 +58,7 @@
                             </li>
                             <li>
                                 <span class="label">{{$t('label.status')}}：</span>
-                                <span class="value">{{$t('btn.'+coach.instructorAccountStatus)}}</span>
+                                <span class="value">{{$t('btn.'+coach.instructorAccountStatus)}} {{coach.instructorAccountStatus==='certified'?getValidityDate():''}}</span>
                                 <i class="icon setting-min-icon" @click="statusSettingDialogFlag=true" v-if="account.type=='admin'"></i>
                                 <span style="margin-left: 10px;" class="cm-btn btn" @click="addAudit()" v-if="account.type=='coach'&&(coach.instructorAccountStatus=='pending'||coach.instructorAccountStatus=='fail')&&(coach.professionalMembersFee=='pay'&&coach.instructorQualification=='pay')">{{$t("btn.applyForAudit")}}</span>
                             </li>
@@ -110,7 +110,7 @@
                     </div>
                     <div class="block-bd">
                         <p class="title">{{$t('title.oCertificate')}}</p>
-                        <ul class="pic-list">
+                        <ul class="pic-list" style="padding-bottom: 40px;">
                             <li v-for="(item,index) in  otherPicList" class="to-upload" @click="viewPicModal({imgUrl:item.filePath})">
                                 <img :src="item.filePath">
                                 <p class="label">{{item.label}}</p>
@@ -462,7 +462,7 @@
                         value:'pending'
                     },{
                         label:this.$t("btn.fail"),
-
+                        value:'fail'
                     },
                 /*    {
                         label:this.$t("btn.disable"),
@@ -485,7 +485,7 @@
 
                 statusSettingDialogFlag:false,
                 statusForm:{
-                    status:null,
+                    status:'',
                 },
 
                 schoolSettingDialogFlag:false,
@@ -546,6 +546,7 @@
                 });
             },
             saveStatus:function () {
+                console.log('test:',this.statusForm);
                 if(this.isSetting){
                     return;
                 }
@@ -654,6 +655,7 @@
                                     date:Vue.formatDate(item.certificate.updatedAt,'yyyy-MM-dd'),
                                     issuer:item.certificate.schoolSerialCode,
                                     instructor:item.possessorName,
+                                    status:Vue.filter('coachStatus')(item.user.instructorAccountStatus)+' '+(item.user.instructorAccountStatus==='certified'?this.getValidityDate():''),
                                     callback:(data)=>{
                                         item.filePath=data;
                                         this.certificateList.push(item);
@@ -746,23 +748,26 @@
                         that.circleImg(ctx, img, 95, 80, 150);
                         ctx.restore();
                         //
-                        that.drawText(ctx,'Name:',710,100);
-                        that.drawText(ctx,options.name,815,100,'40');
+                        that.drawText(ctx,'Name:',710,70);
+                        that.drawText(ctx,options.name,815,70,'40');
 
-                        that.drawText(ctx,'Level:',718,145);
-                        that.drawText(ctx,options.level,815,145);
+                        that.drawText(ctx,'Level:',718,115);
+                        that.drawText(ctx,options.level,815,115);
 
-                        that.drawText(ctx,'Certification Number:',503,190);
-                        that.drawText(ctx,options.certificateNo,815,190);
+                        that.drawText(ctx,'Certification Number:',503,160);
+                        that.drawText(ctx,options.certificateNo,815,160);
 
-                        that.drawText(ctx,'Certification Date:',548,235);
-                        that.drawText(ctx,options.date,815,235);
+                        that.drawText(ctx,'Certification Date:',548,205);
+                        that.drawText(ctx,options.date,815,205);
 
-                        that.drawText(ctx,'Issuing Instructor:',533,280);
-                        that.drawText(ctx,options.instructor,815,280);
+                        that.drawText(ctx,'Issuing Instructor:',550,250);
+                        that.drawText(ctx,options.instructor,815,250);
 
-                        that.drawText(ctx,'Issuing School:',568,325);
-                        that.drawText(ctx,options.issuer,815,325);
+                        that.drawText(ctx,'Issuing School:',586,295);
+                        that.drawText(ctx,options.issuer,815,295);
+
+                        that.drawText(ctx,'Status:',705,340);
+                        that.drawText(ctx,options.status,815,340);
 
                         //
                         let dataUrl = canvas.toDataURL('image/jpeg');

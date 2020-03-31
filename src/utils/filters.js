@@ -53,3 +53,26 @@ Vue.filter('language',function(str){
     return result;
 });
 
+
+/*教练状态*/
+Vue.filter('coachStatus',function(str){
+    let result='';
+    switch (str){
+        case 'nonActivated':
+            result='Inactivated';
+            break;
+        case 'certified':
+            result='Activated';
+            break;
+        case 'pending':
+            result='Pending';
+            break;
+        case 'fail':
+            result='Disqualified';
+            break;
+        case 'disable':
+            result='Disable';
+            break;
+    }
+    return result;
+});

@@ -64,7 +64,7 @@
                                 {{item.audit.type|itemFind('value',options).label}}
                             </td>
                             <td>
-                                {{item.audit.state}}
+                                {{$t("btn."+item.audit.state)}}
                             </td>
                             <td>
                                 {{item.audit.createdAt|formatDate('yyyy-MM-dd hh:mm')}}

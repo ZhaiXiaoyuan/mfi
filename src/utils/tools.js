@@ -49,7 +49,7 @@ export default {
              /* basicUrl:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://39.108.11.197',
               filePrefix:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://39.108.11.197',*/
               basicUrl:isDev?'http://www.mfimermaid.com':'http://www.mfimermaid.com',
-              filePrefix:isDev?'http://linqi.tech:18083/mfi':'http://www.mfimermaid.com',
+              filePrefix:isDev?'http://linqi.tech:10080/web':'http://www.mfimermaid.com',
               paypalPrefix:isDev?'https://www.sandbox.paypal.com':'https://www.paypal.com',
               levelOptions:[
                   {
@@ -682,6 +682,15 @@ export default {
                   qq: u.match(/\sQQ/i) == " qq" //是否QQ
               };
           },
+          getValidityDate:function () {
+              let curDate=new Date('2020-04-01');
+              let year=curDate.getFullYear();
+              let limitDate=new Date(year+'-'+'03-31 23:59:59');
+              if(curDate>limitDate){
+                  year+=1;
+              }
+              return 'To '+year+'-'+'03-31'
+          }
       }
 
       Object.assign(Vue, Vue.tools);

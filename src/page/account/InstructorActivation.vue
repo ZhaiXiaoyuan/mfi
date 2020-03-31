@@ -136,7 +136,8 @@
             padding: 40px 0px;
         }
         .field{
-            width: 180px;
+            width: 200px;
+            word-break: normal;
         }
     }
     .submit-btn{
