@@ -682,7 +682,7 @@ export default {
               };
           },
           getValidityDate:function () {
-              let curDate=new Date('2020-04-01');
+              let curDate=new Date();
               let year=curDate.getFullYear();
               let limitDate=new Date(year+'-'+'03-31 23:59:59');
               if(curDate>limitDate){
