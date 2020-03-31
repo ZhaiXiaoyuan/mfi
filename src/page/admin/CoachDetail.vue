@@ -3,7 +3,7 @@
         <canvas width="1240" v-for="(item,index) in rawCertificateList" :id="'canvas'+index"  height="744" style="display:none;border:1px solid #d3d3d3;background:#ffffff;"></canvas>
         <div class="cm-panel">
             <div class="panel-hd">
-                <div class="cm-btn cm-return-btn" @click="$router.back();">
+                <div class="cm-btn cm-return-btn" @click="$router.back()">
                     <div class="wrapper">
                         <i class="icon el-icon-arrow-left"></i>
                         {{$t('btn.back')}}
@@ -58,7 +58,7 @@
                             </li>
                             <li>
                                 <span class="label">{{$t('label.status')}}：</span>
-                                <span class="value">{{$t('btn.'+coach.instructorAccountStatus)}} {{coach.instructorAccountStatus==='certified'?getValidityDate():''}}</span>
+                                <span class="value">{{$t('btn.'+coach.instructorAccountStatus)}}</span>
                                 <i class="icon setting-min-icon" @click="statusSettingDialogFlag=true" v-if="account.type=='admin'"></i>
                                 <span style="margin-left: 10px;" class="cm-btn btn" @click="addAudit()" v-if="account.type=='coach'&&(coach.instructorAccountStatus=='pending'||coach.instructorAccountStatus=='fail')&&(coach.professionalMembersFee=='pay'&&coach.instructorQualification=='pay')">{{$t("btn.applyForAudit")}}</span>
                             </li>
@@ -655,7 +655,7 @@
                                     date:Vue.formatDate(item.certificate.updatedAt,'yyyy-MM-dd'),
                                     issuer:item.certificate.schoolSerialCode,
                                     instructor:item.possessorName,
-                                    status:Vue.filter('coachStatus')(item.user.instructorAccountStatus)+' '+(item.user.instructorAccountStatus==='certified'?this.getValidityDate():''),
+                                    status:'BMI,MI,MMI,MIT'.indexOf(item.certificate.mfiLevel)>-1?(Vue.filter('coachStatus')(item.user.instructorAccountStatus)+' '+(item.user.instructorAccountStatus==='certified'?this.getValidityDate():'')):'',
                                     callback:(data)=>{
                                         item.filePath=data;
                                         this.certificateList.push(item);
@@ -766,8 +766,10 @@
                         that.drawText(ctx,'Issuing School:',586,295);
                         that.drawText(ctx,options.issuer,815,295);
 
-                        that.drawText(ctx,'Status:',705,340);
-                        that.drawText(ctx,options.status,815,340);
+                        if(options.status){
+                            that.drawText(ctx,'Status:',705,340);
+                            that.drawText(ctx,options.status,815,340);
+                        }
 
                         //
                         let dataUrl = canvas.toDataURL('image/jpeg');
@@ -965,17 +967,10 @@
                 Vue.api.getRegionConfig({ ...Vue.sessionInfo()}).then((resp)=>{
                     if(resp.respCode=='2000'){
                         this.regionList=JSON.parse(resp.respMsg);
-                        if(this.$i18n.locale=='cn'){
-                            this.regionList.forEach((item,i)=>{
-                                item.label=item.chineseName;
-                                item.value=item.code;
-                            })
-                        }else{
-                            this.regionList.forEach((item,i)=>{
-                                item.label=item.englishName;
-                                item.value=item.code;
-                            })
-                        }
+                        this.regionList.forEach((item,i)=>{
+                            item.label=item.englishName;
+                            item.value=item.code;
+                        })
                     }else{
 
                     }

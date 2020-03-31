@@ -549,17 +549,10 @@
                 Vue.api.getRegionConfig({ ...Vue.sessionInfo()}).then((resp)=>{
                     if(resp.respCode=='2000'){
                         this.regionList=JSON.parse(resp.respMsg);
-                        if(this.$i18n.locale=='cn'){
-                            this.regionList.forEach((item,i)=>{
-                                item.label=item.chineseName;
-                                item.value=item.code;
-                            })
-                        }else{
-                            this.regionList.forEach((item,i)=>{
-                                item.label=item.englishName;
-                                item.value=item.code;
-                            })
-                        }
+                        this.regionList.forEach((item,i)=>{
+                            item.label=item.englishName;
+                            item.value=item.code;
+                        })
                     }else{
 
                     }

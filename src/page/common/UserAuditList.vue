@@ -10,7 +10,7 @@
             </div>
             <div class="panel-bd">
                 <div class="cm-list-block" v-loading="pager.loading">
-                    <div class="block-hd">
+                   <!-- <div class="block-hd">
                         <div class="con-item">
                             <span class="label">{{$t("label.auditType")}}</span>
                             <el-select v-model="selectedType" @change="typeChange" class="handle cm-select">
@@ -22,7 +22,7 @@
                                 </el-option>
                             </el-select>
                         </div>
-                    </div>
+                    </div>-->
                     <table class="cm-entry-list">
                         <thead>
                         <tr>
@@ -35,9 +35,9 @@
                             <th>
                                 {{$t("label.level")}}
                             </th>
-                            <th>
+                           <!-- <th>
                                 {{$t("label.type")}}
-                            </th>
+                            </th>-->
                             <th>
                                 {{$t("label.status")}}
                             </th>
@@ -60,14 +60,14 @@
                             <td>
                                 {{item.user.mfiLevel}}
                             </td>
-                            <td>
+                          <!--  <td>
                                 {{item.type|itemFind('value',options).label}}
+                            </td>-->
+                            <td>
+                                {{$t("btn."+item.state)}}
                             </td>
                             <td>
-                                {{item.state}}
-                            </td>
-                            <td>
-                                {{item.createdAt|formatDate('yyyy-MM-dd hh:mm')}}
+                                {{item.updatedAt|formatDate('yyyy-MM-dd hh:mm')}}
                             </td>
                           <!--  <td>
                                 <el-button class="small handle-btn" @click="toDetail(item)">{{$t('btn.detail')}}</el-button>

@@ -42,7 +42,7 @@ export default {
           shortCode:/^(?![0-9]+$)[0-9A-Za-z]{7,20}$/,
           shortCodeAlert:'域名格式有误，请输入7到20位字母或数字，不可为纯数字！'
         }
-      const isDev=process.env.NODE_ENV=='development'?true:false;
+      const isDev=false&&process.env.NODE_ENV=='development'?true:false;
       Vue.tools = {
           basicConfig:{
              /* basicUrl:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://39.108.11.197',
