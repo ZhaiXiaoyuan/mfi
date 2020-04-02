@@ -15,6 +15,10 @@
                     <div class="status" v-if="account.type=='coach'&&(account.professionalMembersFee!='notPay'&&account.professionalMembersFee!='expire'&&account.instructorQualification!='notPay'&&account.instructorQualification!='expire')">
                         <span>{{$t("title."+account.instructorAccountStatus)}}</span>
                     </div>
+                    <p class="cm-tips cm-info-tips" v-if="account.type==='coach'&&account.instructorAccountStatus==='fail'&&coach.auditMsg">
+                       {{coach.auditMsg}}
+                    </p>
+
                     <div class="payment-status" v-if="account.type=='coach'&&(account.professionalMembersFee=='notPay'||account.professionalMembersFee=='expire'||account.instructorQualification=='notPay'||account.instructorQualification=='expire')">
                         <div v-if="account.professionalMembersFee=='notPay'||account.professionalMembersFee=='expire'"><span>{{$t("tips.annualFeelForProfessionalMembers")}}</span><span class="cm-btn btn" @click="toPay({type:'professionalMembersFee'})">{{$t("btn.go")}}</span></div>
                         <div v-if="account.instructorQualification=='notPay'||account.instructorQualification=='expire'"><span>{{$t("tips.instructorQualification")}}</span><span class="cm-btn btn" @click="toPay({type:'instructorQualification'})">{{$t("btn.go")}}</span></div>
@@ -677,7 +681,9 @@
                 Vue.api.getUserBaseInfo(params).then((resp)=>{
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
-                        this.coach={...data.instructorPayment,...data.user};
+
+                        this.coach={...data.instructorPayment,...data.user,auditMsg:data.audit?data.audit.msg:''};
+
                         if(this.coach.headPic){
                             this.coach.headPic=this.coach.headPic+"?r="+Math.random();
                         }
