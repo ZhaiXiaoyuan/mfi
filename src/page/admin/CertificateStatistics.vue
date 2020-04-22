@@ -403,11 +403,12 @@
                     ...Vue.sessionInfo(),
                     pageIndex:this.pager.pageIndex,
                     pageSize:this.pager.pageSize,
-                    possessorId:'',
+                    possessorId:this.account.id,
                     mfiLevel:this.selectedLevel,
                     certificateState:null,
                     searchContent:this.keyword,
-                    schoolSerialCode:this.account.type=='school'?this.account.serialCode:(this.school?this.school:''),
+                    /*schoolSerialCode:this.account.type=='school'?this.account.serialCode:(this.school?this.school:''),*/
+                    schoolSerialCode:''
                 }
                 this.pager.loading=true;
                 Vue.api.getInstructorBuyCertificate(params).then((resp)=>{
