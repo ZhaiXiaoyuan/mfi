@@ -403,7 +403,7 @@
                     ...Vue.sessionInfo(),
                     pageIndex:this.pager.pageIndex,
                     pageSize:this.pager.pageSize,
-                    possessorId:this.account.id,
+                    possessorId:this.account.type==='admin'?'':this.account.id,
                     mfiLevel:this.selectedLevel,
                     certificateState:null,
                     searchContent:this.keyword,
