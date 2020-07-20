@@ -38,8 +38,7 @@ function isIE() { //ie?
 
 //使用钩子函数对路由进行权限跳转
 router.beforeEach((to, from, next) => {
-    //临时测试
-    if(false&&isIE()){
+    if(isIE()){
         Vue.prototype.$alert('为了更好的使用体验，请使用谷歌浏览器、QQ浏览器、搜狗浏览器、360浏览器（极速模式）等浏览器打开网站', '温馨提示', {
             confirmButtonText: '确定'
         });
