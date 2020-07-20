@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import bus from '../components/common/bus'
+import i18n from "../i18n/i18n";
 
 Vue.use(Router);
 
@@ -188,9 +189,17 @@ const router= new Router({
         },
     ]
 });
+
+function isIE() {
+    if(!!window.ActiveXObject || "ActiveXObject" in window){
+        return true;
+    }else{
+        return false;
+    }
+}
+
 //注册全局导航守卫
 router.beforeEach((to, from,next) => {
-
     //旧域名跳转
     if(window.location.origin=='http://www.mermaidfederation.com'){
         let redirectAddress=window.location.href.replace(window.location.origin,'http://www.mfimermaid.com');
