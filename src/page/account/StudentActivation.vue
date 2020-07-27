@@ -455,6 +455,9 @@
             }
         },
         mounted () {
+            //临时测试
+            console.log('this.$route.query:', this.$route.query);
+            console.log('this.$route.query.data:', this.$route.query.data);
             /**/
             this.aesData=this.$route.query.data.replace(/\s/g,"+");
             /**/

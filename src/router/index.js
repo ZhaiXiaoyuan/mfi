@@ -204,10 +204,11 @@ router.beforeEach((to, from,next) => {
     if(window.location.origin=='http://www.mermaidfederation.com'){
         let redirectAddress=window.location.href.replace(window.location.origin,'http://www.mfimermaid.com');
         console.log('redirectAddress:',redirectAddress);
+        Vue.operationFeedback({type:'tips', text:'page is redirecting'});
         window.location.replace(redirectAddress)
     }else{
         //进入非登录页前刷新并判断用户状态
-        if(to.name!='login'){
+        if(to.name!='login'&&to.name!='studentActivation'&&to.name!='instructorActivation'){
             let account=Vue.getAccountInfo();
             if(account.type=='coach'||account.type=='student'){
                 let switchingFlag=localStorage.getItem('switching');
