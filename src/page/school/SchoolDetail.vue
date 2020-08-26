@@ -82,7 +82,7 @@
                         <div class="btn-list">
                             <div class="btn" @click="$router.push({name:'schoolCourseList',params:{school:editForm.id,schoolName:editForm.name}})">{{$t("btn.course")}}</div>
                             <div class="btn" @click="$router.push({name:'coachList',params:{school:editForm.serialCode,schoolName:editForm.name}})">{{$t("btn.coachInfo")}}</div>
-                            <div class="btn" @click="$router.push({name:'certificateStatistics',params:{school:editForm.serialCode,schoolName:editForm.name}})">{{$t("btn.buyRecord")}}</div>
+                            <div class="btn" @click="$router.push({name:'certificateStatistics',params:{school:editForm.serialCode,schoolName:editForm.name,schoolId:editForm.id}})">{{$t("btn.buyRecord")}}</div>
                         </div>
                     </div>
                     <div class="block-bd" v-if="account.type=='school'">

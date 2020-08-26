@@ -41,7 +41,7 @@
                             </el-input>
                         </div>
                     </div>
-                    <table class="cm-entry-list" v-if="account.type=='admin'">
+                    <table class="cm-entry-list" v-if="account.type=='admin'&&!school">
                         <thead>
                         <tr>
                             <th>
@@ -105,7 +105,7 @@
                         </tr>
                         </tbody>
                     </table>
-                    <table class="cm-entry-list" v-if="account.type=='school'||school">
+                    <table class="cm-entry-list" v-if="account.type=='school'||(account.type=='admin'&&school)">
                         <thead>
                         <tr>
                             <th>
@@ -403,7 +403,7 @@
                     ...Vue.sessionInfo(),
                     pageIndex:this.pager.pageIndex,
                     pageSize:this.pager.pageSize,
-                    possessorId:this.account.type==='admin'?'':this.account.id,
+                    possessorId:this.account.type==='admin'?(this.schoolId?this.schoolId:''):this.account.id,
                     mfiLevel:this.selectedLevel,
                     certificateState:null,
                     searchContent:this.keyword,
@@ -662,6 +662,7 @@
             /**/
             this.school=this.$route.params.school;
             this.schoolName=this.$route.params.schoolName;
+            this.schoolId=this.$route.params.schoolId;
             /**/
             this.account=Vue.getAccountInfo();
             /**/

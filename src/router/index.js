@@ -77,7 +77,7 @@ const router= new Router({
                     component: resolve => require(['../page/admin/AuditList.vue'], resolve)
                 },
                 {
-                    path: '/certificateStatistics/:school?/:schoolName?',
+                    path: '/certificateStatistics/:school?/:schoolName?/:schoolId?',
                     name:'certificateStatistics',
                     component: resolve => require(['../page/admin/CertificateStatistics.vue'], resolve)
                 },
