@@ -435,7 +435,7 @@
             },
             getCertificateCount:function (pageIndex) {
                 let params={
-                    possessorId:this.account.id,
+                    possessorId:this.schoolId?this.schoolId:this.account.id,
                 }
                 Vue.api.getEmptyCertificateCountList(params).then((resp)=>{
                     if(resp.respCode=='2000'){
@@ -670,7 +670,7 @@
             /**/
             this.goodsList=this.account.level=='center'?Vue.tools.centerGoodsList:Vue.tools.fiveStarCenterGoodsList;
             /**/
-            if(this.account.type=='school'){
+            if(this.account.type=='school' || (this.account.type=='admin'&&this.school)){
                 this.getCertificateCount();
                 this.getCoachList();
             }
