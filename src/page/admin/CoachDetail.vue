@@ -513,6 +513,11 @@
                 },
                 transpondData:{},
                 entryList:[],
+                levelNameConf:{
+                    "BMI": "BASIC MERMAID INSTRUCTOR",
+                    "MI": "Mermaid Instructor",
+                    "MIT": "Mermaid Instructor Trainer"
+                }
             }
         },
         created(){
@@ -654,7 +659,7 @@
                                     id:'canvas'+i,
                                     avatar:Vue.basicConfig.filePrefix+item.user.headPic+"?r="+Math.random(),
                                     name:item.user.name+' '+item.user.familyName,
-                                    level:item.certificate.mfiLevel=='BMI'?'BASIC MERMAID INSTRUCTOR':item.certificate.mfiLevel,
+                                    level: this.levelNameConf[item.certificate.mfiLevel] || item.certificate.mfiLevel,
                                     certificateNo:item.certificate.serialCode,
                                     date:Vue.formatDate(item.certificate.updatedAt,'yyyy-MM-dd'),
                                     issuer:item.certificate.schoolSerialCode,
