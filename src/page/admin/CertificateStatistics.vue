@@ -41,7 +41,7 @@
                             </el-input>
                         </div>
                     </div>
-                    <table class="cm-entry-list" v-if="account.type=='admin'">
+                    <table class="cm-entry-list" v-if="account.type=='admin' && !school">
                         <thead>
                         <tr>
                             <th>
@@ -105,7 +105,7 @@
                         </tr>
                         </tbody>
                     </table>
-                    <table class="cm-entry-list" v-if="account.type=='school'||school">
+                    <table class="cm-entry-list" v-if="account.type=='school'||(account.type=='admin'&&school)">
                         <thead>
                         <tr>
                             <th>
@@ -146,7 +146,7 @@
                                 {{item.userId?item.user.name+' '+item.user.familyName:'-'}}
                             </td>
                             <td>
-                                {{item.instructorId?item.instructor.name+' '+item.instructor.familyName:'-'}}
+                                {{item.instructor?item.instructor.name+' '+item.instructor.familyName:'-'}}
                             </td>
                             <td>
                                 {{item.userId?$t('btn.used'):$t('btn.unused')}}
@@ -381,6 +381,7 @@
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
                         let list=JSON.parse(data.certificateList);
+                        console.log('list:', list);
                         this.entryList=[];
                         list.forEach((item,i)=>{
                             item.possessor=item.possessor?JSON.parse(item.possessor):null;
@@ -391,6 +392,7 @@
                                /* orderInfo.tpMsg=JSON.parse(orderInfo.tpMsg);*/
                                 item.orderRecord=orderInfo;
                             }
+                            //
                             this.entryList.push(item);
                         });
                       /*  console.log('this.entryList:',this.entryList)*/
@@ -522,7 +524,7 @@
                     level:item.mfiLevel=='BMI'?'BASIC MERMAID INSTRUCTOR':item.mfiLevel,
                     certificateNo:item.serialCode,
                     date:Vue.formatDate(item.updatedAt,'yyyy-MM-dd'),
-                    issuer:item.schoolSerialCode,
+                    issuer:item.schoolName,
                     instructor:item.possessor.name+(item.possessor.familyName?item.possessor.familyName:''),
                     callback:(data)=>{
                         Vue.viewPicModal({
