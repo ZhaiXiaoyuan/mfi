@@ -739,7 +739,7 @@
                                     level: this.levelNameConf[item.certificate.mfiLevel]||item.certificate.mfiLevel,
                                     certificateNo:item.certificate.serialCode,
                                     date:Vue.formatDate(item.certificate.updatedAt,'yyyy-MM-dd'),
-                                    issuer:item.certificate.schoolSerialCode,
+                                    issuer:item.schoolName,
                                     instructor:item.possessorName,
                                     callback:(data)=>{
                                         item.filePath=data;

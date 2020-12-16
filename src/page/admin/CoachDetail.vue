@@ -662,7 +662,7 @@
                                     level: this.levelNameConf[item.certificate.mfiLevel] || item.certificate.mfiLevel,
                                     certificateNo:item.certificate.serialCode,
                                     date:Vue.formatDate(item.certificate.updatedAt,'yyyy-MM-dd'),
-                                    issuer:item.certificate.schoolSerialCode,
+                                    issuer:item.schoolName,
                                     instructor:item.possessorName,
                                     status:'BMI,MI,MMI,MIT'.indexOf(item.certificate.mfiLevel)>-1?(Vue.filter('coachStatus')(item.user.instructorAccountStatus)+' '+(item.user.instructorAccountStatus==='certified'?this.getValidityDate():'')):'',
                                     callback:(data)=>{
