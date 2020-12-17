@@ -42,7 +42,7 @@
             </div>
         </div>
 
-        <el-dialog title='' class="cm-dialog forget-modal" :visible.sync="forgetModalFlag" v-if="forgetModalFlag" width="40%" :modal-append-to-body="false">
+        <el-dialog title='' class="cm-dialog forget-modal" :visible.sync="forgetModalFlag" v-if="forgetModalFlag" width="40%" :modal-append-to-body="false" :close-on-click-modal="false">
             <div class="">
                 <div class="form">
                     <div class="cm-input-row">

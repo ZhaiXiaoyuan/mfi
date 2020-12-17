@@ -317,8 +317,8 @@
                     level: this.levelNameConf[item.mfiLevel] || item.mfiLevel,
                     certificateNo:item.serialCode,
                     date:Vue.formatDate(item.updatedAt,'yyyy-MM-dd'),
-                    issuer:item.possessor.school,
-                    instructor:item.possessor.name+(item.possessor.familyName?item.possessor.familyName:''),
+                    issuer:item.schoolName,
+                    instructor:item.possessor?item.possessor.name+(item.possessor.familyName?item.possessor.familyName:''):"MFI-official",
                     callback:(data)=>{
                         Vue.viewPicModal({
                             imgUrl:data,
