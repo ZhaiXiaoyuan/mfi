@@ -278,6 +278,8 @@ const en = {
         schoolCourse:'School\'s Course',
         certificate:'Certificate',
         editorDoc:'Editor Documentation',
+        assistToActivate: 'Assist To Activate',
+        new: 'New'
     },
     title:{
         super:'Super Administrator',
@@ -394,6 +396,8 @@ const en = {
         exemptNotice4:'2)You have purchased less than 4 sets of M1/M2/M3 Certificates, your 2020 Annual Fee will be charged at 50% (i.e., USD90).',
         exemptNotice5:'Thank you for your support, you have fulfilled 1), therefore your 2020 Annual Fee has been waived.',
         exemptNotice6:'Thank you for your support, you have fulfilled 2), therefore your 2020 Annual Fee will be charged at 50%.',
+        activateStudentConfirm: 'Is the information correct?',
+        addStudent: 'Is the information correct?'
     },
     editor:{
         title: 'Title',

@@ -279,6 +279,8 @@ const tw = {
         schoolCourse:'學校開設的課程',
         certificate:'證書',
         editorDoc:'文本編輯器說明',
+        assistToActivate: '',
+        new: '新建'
     },
     title:{
         super:'超級管理員',
@@ -395,6 +397,8 @@ const tw = {
         exemptNotice4:'2) 已經購入4套以下 M1/M2/M3證照，2020年度註冊年費將會豁免50%收費 (即USD90)。',
         exemptNotice5:'謝謝您的支持，您已滿足條件 1），所以您的2020註冊年費已獲得豁免。',
         exemptNotice6:'謝謝您的支持，您已滿足條件 2）所以您的2020註冊年費已獲得50%豁免 。',
+        activateStudentConfirm: '是否所有資料正確？',
+        addStudent: '是否所有資料正確？'
     },
     editor:{
         title: '設置標題',

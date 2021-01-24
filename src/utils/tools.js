@@ -43,7 +43,8 @@ export default {
           shortCodeAlert:'域名格式有误，请输入7到20位字母或数字，不可为纯数字！'
         }
 
-      const isDev=false&&process.env.NODE_ENV=='development'?true:false;
+        //临时测试
+      const isDev=process.env.NODE_ENV=='development'?true:false;
       Vue.tools = {
           basicConfig:{
              /* basicUrl:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://39.108.11.197',
@@ -51,6 +52,7 @@ export default {
               basicUrl:isDev?'http://www.mfimermaid.com':'http://www.mfimermaid.com',
               filePrefix:isDev?'http://linqi.tech:10080/web':'http://www.mfimermaid.com',
               paypalPrefix:isDev?'https://www.sandbox.paypal.com':'https://www.paypal.com',
+              serverDefaultAvatar: '/mfiFile/user/defaultUserHeadPic.jpg',
               levelOptions:[
                   {
                       value:'M0',

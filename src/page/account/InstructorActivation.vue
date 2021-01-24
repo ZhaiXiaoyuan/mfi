@@ -300,10 +300,10 @@
                 });
             },
             save:function () {
-                if(!this.newForm.avatar){
+               /* if(!this.newForm.avatar){
                     Vue.operationFeedback({type:'warn',text:this.$t("holder.avatar")});
                     return;
-                }
+                }*/
                 if(!this.newForm.email){
                     Vue.operationFeedback({type:'warn',text:this.$t("holder.email")});
                     return;

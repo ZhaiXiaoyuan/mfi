@@ -281,6 +281,8 @@ const cn = {
         schoolCourse:'学校开设的课程',
         certificate:'证书',
         editorDoc:'文本编辑器说明',
+        assistToActivate: '協助激活',
+        new: '新建'
     },
     title:{
         super:'超级管理员',
@@ -397,6 +399,8 @@ const cn = {
         exemptNotice4:'2) 已经购入4套以下 M1/M2/M3证照，2020年度注册年费将会豁免50%收费 (即USD90)。',
         exemptNotice5:'谢谢您的支持，您已满足条件 1），所以您的2020注册年费已获得豁免。',
         exemptNotice6:'谢谢您的支持，您已满足条件 2）所以您的2020注册年费已获得50%豁免 。',
+        activateStudentConfirm: '是否所有资料正确？',
+        addStudent: '是否所有资料正确？'
     },
     editor:{
         title: '设置标题',

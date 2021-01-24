@@ -54,7 +54,7 @@
                             <td>
                                 <span class="handle" :class="{'cm-disabled':item.studentAccountStatus=='nonActivated'}" @click="()=>{$router.push({name:'studentDetail',params:{id:item.id}})}">{{$t("btn.detail")}}</span>
                                 <span class="handle" @click="reSentStudentActivationEmail(item)" v-if="account.type=='coach'&&item.studentAccountStatus=='nonActivated'">{{$t('btn.activationEmail')}}</span>
-
+                                <span class="handle" v-if="account.type=='coach'&&item.studentAccountStatus=='nonActivated'" @click="toAssist(item)">{{$t('btn.assistToActivate')}}</span>
                             </td>
                         </tr>
                         </tbody>
@@ -72,6 +72,13 @@
                 </div>
             </div>
         </div>
+        <div class="cm-btn cm-add-btn" v-if="account.type=='coach'" @click="toAdd">
+            <div class="icon-wrap">
+                <i class="icon add-cross-icon"></i>
+            </div>
+            <p>{{$t('btn.new')}}</p>
+        </div>
+        <assist-modal ref="assistModal"/>
     </div>
 </template>
 <style lang="less" rel="stylesheet/less">
@@ -79,10 +86,11 @@
 </style>
 <script>
     import Vue from 'vue'
+    import AssistModal from "../../components/AssistModal";
 
     export default {
         components: {
-
+            AssistModal
         },
         data() {
             return {
@@ -101,7 +109,10 @@
             }
         },
         created(){
-
+            //临时测试
+          /*  setTimeout(() => {
+                this.assistModal();
+            }, 2000)*/
         },
         watch:{
 
@@ -149,6 +160,16 @@
                     }
                 });
             },
+            toAssist:function (item) {
+                this.$refs.assistModal.open(item, () => {
+                    this.getList(this.pager.pageIndex);
+                });
+            },
+            toAdd:function () {
+                this.$refs.assistModal.open(null, () => {
+                    this.getList();
+                });
+            }
         },
         mounted () {
             /**/

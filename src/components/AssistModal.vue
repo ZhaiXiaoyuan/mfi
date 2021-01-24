@@ -1,15 +1,11 @@
 <template>
-    <div class="page-wrap">
-        <div class="page-content activation-page">
-            <language></language>
-            <div class="cm-panel">
-                <div class="panel-hd">
-                    <span class="title">{{$t("title.studentActivation")}}</span>
-                </div>
+    <el-dialog title="" custom-class="assist-modal" :visible.sync="modalFlag" v-if="modalFlag" @closed="" :close-on-click-modal="false">
+        <div class="dialog-body">
+            <div class="cm-panel form">
                 <div class="panel-bd">
                     <div class="cm-detail-block">
                         <div class="block-bd form">
-                            <div class="cm-input-row">
+                            <div class="cm-input-row" v-if="newForm.id">
                                 <div class="cm-avatar-uploader">
                                     <div class="wrapper">
                                         <img :src="newForm.avatar?basicConfig.filePrefix+newForm.avatar:defaultAvatar">
@@ -89,134 +85,17 @@
                                 <span class="field">{{$t("label.address")}}</span>
                                 <input type="text" v-model="newForm.address" class="cm-input">
                             </div>
-                            <div class="cm-input-row" style="margin-top: 40px;">
-                                <span class="field"></span>
-                                <div class="cm-btn submit-btn" @click="save()">{{$t('btn.activation')}}</div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="close()">{{$t('btn.cancel')}}</el-button>
+            <el-button type="primary" @click="save()">{{$t('btn.activation')}}</el-button>
+        </div>
+    </el-dialog>
 </template>
-<style lang="less" rel="stylesheet/less">
-    .page-wrap{
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        padding: 40px 0px;
-    }
-    .activation-page{
-        width: 700px;
-        margin: 0px auto;
-        overflow: auto;
-        .form{
-            padding: 40px 0px;
-        }
-        .field{
-            width: 180px;
-        }
-        .cm-input-row{
-            .cm-input{
-                height: 50px;
-            }
-            &.cm-input-row{
-                margin-top: 15px;
-            }
-        }
-    }
-    .submit-btn{
-        height: 50px;
-        width: 300px;
-        background: #5560aa;
-        border-radius: 5px;
-        font-size: 20px;
-        color: #fff;
-        text-align: center;
-        line-height: 50px;
-    }
-    @media screen and (max-width: 1000px) {
-        .activation-page{
-            width: 95%;
-            .form{
-                padding: 20px 0px;
-            }
-        }
-        .cm-detail-block{
-            padding: 0px 20px;
-        }
-        .cm-input-row{
-            display: block;
-            .field{
-                display: block;
-                width: 100%;
-                margin-right: 10px;
-                padding-bottom: 5px;
-                font-size: 16px;
-                text-align: left;
-            }
-            .input-wrap{
-                padding: 0px 10px 0px 10px;
-                width: 100%;
-                background: #fff;
-                font-size: 20px;
-            }
-            .el-input__inner{
-                width: 60%;
-                height: 50px;
-                font-size: 14px;
-            }
-            .cm-input{
-                padding: 0px 10px 0px 10px;
-                width: 100%;
-                height: 50px;
-                background: #fff;
-                font-size: 16px;
-            }
-            .cm-calender{
-                width: 100%!important;
-            }
-            .el-select{
-                width: 100%;
-                input{
-                    width: 100%;
-                }
-            }
-            .cm-btn{
-                width: 100%;
-            }
-            .input-item{
-                position: relative;
-                input{
-                    padding: 0px 50px 0px 10px;
-                }
-                .icon{
-                    position: absolute;
-                    top:0px;
-                    right: 15px;
-                    bottom: 0px;
-                    margin: auto;
-                }
-            }
-            .cm-avatar-uploader{
-             /*   width: 80px;
-                height: 80px;*/
-                margin: 0px auto;
-            }
-            &+.cm-input-row{
-                margin-top: 15px;
-            }
-            .cm-select{
-                width: 300px;
-                height: 50px;
-                input{
-                    height: 50px;
-                }
-            }
-        }
-    }
-</style>
 <script>
     import Vue from 'vue'
     import md5 from 'js-md5'
@@ -225,11 +104,17 @@
         components: {
 
         },
-        data() {
+        props:{
+            options:{
+
+            }
+        },
+        data: function () {
             return {
+                modalFlag: false,
                 aesData:null,
                 user:{},
-                defaultAvatar:require('../../images/common/default-avatar.png'),
+                defaultAvatar:'',
                 newForm:{
                     avatar:null,
                     email:null,
@@ -239,43 +124,17 @@
                 otherPicList:[],
                 regionList:[],
                 showPassword:false,
+                fb:null
             }
         },
-        created(){
-
-        },
-        watch:{
-
-        },
         computed: {
+
+        },
+        watch: {
+
         },
         methods: {
-            getEmailByAesData:function () {
-                let params={
-                    timeStamp:Vue.genTimestamp(),
-                    aesData:this.aesData,
-                    role:'student',
-                }
-                Vue.api.getEmailByAesData(params).then((resp)=>{
-                    if(resp.respCode=='2000'){
-                        this.user=JSON.parse(resp.respMsg);
-                        if(this.user&&this.user.studentAccountStatus!='nonActivated'){
-                            window.location.href=window.location.origin;
-                            /*this.$router.push({name:'login',params:{type:'student'}});*/
-                        }
-                        console.log('this.user:',this.user);
-                        this.newForm.email=this.user.email;
-                        this.newForm.avatar=this.user.headPic?this.user.headPic+'?=random'+Math.random():null;
-                    }else{
-
-                    }
-                });
-            },
             save:function () {
-            /*    if(!this.newForm.avatar){
-                    Vue.operationFeedback({type:'warn',text:this.$t("holder.avatar")});
-                    return;
-                }*/
                 if(!this.newForm.email){
                     Vue.operationFeedback({type:'warn',text:this.$t("holder.email")});
                     return;
@@ -329,7 +188,6 @@
                 }
                 let params={
                     timeStamp:Vue.genTimestamp(),
-                    userId:this.user.id,
                     email:this.newForm.email,
                     password:md5.hex(this.newForm.pwd),
                     familyName:this.newForm.fName,
@@ -344,62 +202,60 @@
                     emergencyName:this.newForm.emergencyName,
                     emergencyPhone:this.newForm.eContact,
                 }
-                let fb=Vue.operationFeedback({text:this.$t("tips.save")});
-                Vue.api.setUserBaseInfo(params).then((resp)=>{
-                    if(resp.respCode=='2000'){
-                        Vue.api.activate({timeStamp:Vue.genTimestamp(),aesData:this.aesData,role:'student'}).then((resp)=>{
+                if(this.newForm.id){
+                    params.userId = this.newForm.id;
+                    this.$confirm(this.$t("tips.activateStudentConfirm"), this.$t("title.tips"), {
+                        confirmButtonText: this.$t("btn.sure"),
+                        cancelButtonText: this.$t("btn.cancel"),
+                        type: 'warning'
+                    }).then(() => {
+                        let fb=Vue.operationFeedback({text:this.$t("tips.save")});
+                        Vue.api.setUserBaseInfo(params).then((resp)=>{
                             if(resp.respCode=='2000'){
-                                if(Vue.tools.deviceType()){
-                                    fb.setOptions({
-                                        type:'complete',
-                                        text:'',
-                                        delayForDelete:0,
-                                    });
-                                    Vue.alert({
-                                        title:"",
-                                        html:'<div style="text-align: center">'+this.$t("tips.mobileTips")+'</div>',
-                                        lock:true,
-                                        yes:this.$t("btn.close")
-                                    });
-                                }else{
-                                    //
-                                    Vue.api.studentLogin({timeStamp:Vue.genTimestamp(),email:this.newForm.email,password:md5.hex(this.newForm.pwd)}).then((resp)=>{
-                                        if(resp.respCode=='2000'){
-                                            let data=JSON.parse(resp.respMsg);
-                                            this.$cookie.set('account',JSON.stringify({
-                                                type:'student',
-                                                account:this.newForm.email,
-                                                ...data
-                                            }),7);
-                                            fb.setOptions({
-                                                type:'complete',
-                                                text:this.$t("tips.loginS")
-                                            });
-                                            this.$router.push({name:'studentDetail',params:{}});
-                                        }else{
-                                            fb.setOptions({
-                                                type:'warn',
-                                                text:this.$t("tips.loginF")
-                                            });
-                                        }
-                                    });
-                                }
-                            }else if(resp.respCode=='4000'){
-                                fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
-                                this.alert({
-                                    title:'',
-                                    html:'<div style="text-align: center;color:red;">'+this.$t("tips.apiError")+'</div> ',
-                                    yes:this.$t("btn.sure"),
-                                    lock:true,
+                                Vue.api.activateStudent({timeStamp:Vue.genTimestamp(),email:this.newForm.email}).then((resp)=>{
+                                    if(resp.respCode=='2000'){
+                                        fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
+                                        this.fb && this.fb();
+                                        this.close();
+                                    }else if(resp.respCode=='4000'){
+                                        fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                                        this.alert({
+                                            title:'',
+                                            html:'<div style="text-align: center;color:red;">'+this.$t("tips.apiError")+'</div> ',
+                                            yes:this.$t("btn.sure"),
+                                            lock:true,
+                                        });
+                                    }else{
+                                        fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                                    }
                                 });
                             }else{
                                 fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
                             }
                         });
-                    }else{
-                        fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
-                    }
-                });
+                    }).catch(() => {
+
+                    });
+                }else{
+                    this.$confirm(this.$t("tips.addStudent"), this.$t("title.tips"), {
+                        confirmButtonText: this.$t("btn.sure"),
+                        cancelButtonText: this.$t("btn.cancel"),
+                        type: 'warning'
+                    }).then(() => {
+                        let fb=Vue.operationFeedback({text:this.$t("tips.save")});
+                        Vue.api.addStudentWithoutActivate(params).then((resp)=>{
+                            if(resp.respCode=='2000'){
+                                fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
+                                this.fb && this.fb();
+                                this.close();
+                            }else{
+                                fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                            }
+                        });
+                    }).catch(() => {
+
+                    });
+                }
             },
             selectFile:function () {
                 let ele=document.getElementById('file-input');
@@ -418,7 +274,6 @@
                             Vue.api.setHeadPic(formData).then((resp)=>{
                                 ele.value='';
                                 this.uploading=false;
-                                this.getEmailByAesData();
                                 if(resp.respCode=='2000'){
                                     fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
                                 }else if(resp.respCode=='4000'){
@@ -452,17 +307,67 @@
 
                     }
                 });
-            }
+            },
+            open:function (item,fb,type) {
+                this.newForm = {}
+                if(item){
+                    this.newForm = {
+                        id: item.id,
+                        email: item.email,
+                        avatar: item.headPic?item.headPic+'?=random'+Math.random():null
+                    }
+                }
+                this.fb = fb;
+                this.modalFlag=true;
+            },
+            close:function () {
+                this.modalFlag=false;
+            },
         },
-        mounted () {
-            console.log('this.$route.query:', this.$route.query);
-            console.log('this.$route.query.data:', this.$route.query.data);
-            /**/
-            this.aesData=this.$route.query.data.replace(/\s/g,"+");
-            /**/
-            this.getEmailByAesData();
-            /**/
+        created: function () {
             this.getRegionConfig();
         },
-    }
+        mounted: function () {
+
+        }
+    };
 </script>
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style lang="less" rel="stylesheet/less">
+    .assist-modal{
+        width: 700px !important;
+        .dialog-body{
+            height: 500px;
+            overflow-y: auto;
+            &::-webkit-scrollbar {/*滚动条整体样式*/
+                width: 5px;     /*高宽分别对应横竖滚动条的尺寸*/
+                height: 5px;
+            }
+            &::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+                border-radius: 2px;
+                -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+                background: rgba(0,0,0,0.2);
+            }
+            &::-webkit-scrollbar-track {/*滚动条里面轨道*/
+                display: none;
+                -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+                border-radius: 5px;
+                background: rgba(0,0,0,0.2);
+            }
+        }
+        .form{
+            margin-left: -35px;
+        }
+        .field{
+            width: 180px;
+        }
+        .cm-input-row{
+            .cm-input{
+                height: 50px;
+            }
+            &.cm-input-row{
+                margin-top: 15px;
+            }
+        }
+    }
+</style>

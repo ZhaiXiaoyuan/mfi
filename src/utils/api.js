@@ -40,8 +40,8 @@ export default {
     }
     /**/
  /*  let basicUrl=false&&process.env.NODE_ENV=='development'?'/api'+'/mfi':'http://39.108.252.213:8081/mfi';*/
-
-   let basicUrl=false&&process.env.NODE_ENV=='development'?'http://linqi.tech:18083/mfi':'http://www.mfimermaid.com:8081/mfi';
+      //临时测试
+   let basicUrl=process.env.NODE_ENV=='development'?'http://linqi.tech:18083/mfi':'http://www.mfimermaid.com:8081/mfi';
     Vue.api={
         //
         superLogin:function (params) {
@@ -712,6 +712,22 @@ export default {
             return Vue.http.ajax({
                 method: 'post',
                 url: basicUrl+'/certificate/addCertificateTranspondInBatch',
+                params: params
+            });
+        },
+        //手动激活学生
+        activateStudent:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/user/activateStudent',
+                params: params
+            });
+        },
+        //添加学生无须激活
+        addStudentWithoutActivate:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/student/addStudentWithoutActivate',
                 params: params
             });
         },
