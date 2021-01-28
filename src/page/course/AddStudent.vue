@@ -1,5 +1,5 @@
 <template>
-    <div class="page-content page-content-min">
+    <div class="page-content page-content-min add-student">
         <div class="cm-panel">
             <div class="panel-hd">
                 <div class="cm-btn cm-return-btn" @click="$router.back();">
@@ -19,10 +19,11 @@
                                 <span class="value">{{course.courseId}}</span>
                             </el-col>
                         </el-row>
-                        <el-row style="padding: 50px 0px;text-align: center;">
+                        <el-row class="handle-list" style="padding: 50px 0px;text-align: center;">
                             <div class="cm-btn add-btn" @click="emailDialogFlag=true">{{$t('btn.email')}}</div>
                             <div class="cm-btn add-btn" v-if="account.type=='coach'" @click="selectStudentDialogFlag=true">{{$t('btn.fromMyStudent')}}</div>
                             <div class="cm-btn add-btn" @click="newStudentDialogFlag=true">{{$t('btn.newStudent')}}</div>
+                            <div class="cm-btn add-btn" v-if="account.type=='coach'" @click="toAddAndActivate">{{$t('btn.createAndActivate')}}</div>
                         </el-row>
                     </div>
                 </div>
@@ -94,13 +95,19 @@
             </div>
         </el-dialog>
 
-
+        <assist-modal ref="assistModal"/>
     </div>
 </template>
 <style lang="less" rel="stylesheet/less">
+    .add-student{
+        .handle-list{
+            display: flex;
+            justify-content: space-between;
+        }
+    }
     .add-btn{
         display: inline-block;
-        width: 200px;
+        min-width: 200px;
         height: 60px;
         line-height: 60px;
         border-radius: 5px;
@@ -108,7 +115,7 @@
         font-size: 20px;
         color: #fff;
         &+.add-btn{
-            margin-left: 100px;
+
         }
     }
     .select-student-dialog{
@@ -226,10 +233,11 @@
 </style>
 <script>
     import Vue from 'vue'
+    import AssistModal from "../../components/AssistModal";
 
     export default {
         components: {
-
+            AssistModal
         },
         data() {
             return {
@@ -323,19 +331,19 @@
                     this.emailDialogFlag=false;
                 });
             },
-            addToCourse:function (emailList,callback) {
+            addToCourse:function (emailList,callback,showFb) {
                 let params={
                     ...Vue.sessionInfo(),
                     courseId:this.course.courseId,
                     emailArray:JSON.stringify(emailList),
                 }
-                let fb=Vue.operationFeedback({text:this.$t("tips.handle")});
+                let fb= showFb!==false && Vue.operationFeedback({text:this.$t("tips.handle")});
                 Vue.api.addStudentToCourse(params).then((resp)=>{
                     if(resp.respCode=='2000'){
                         callback&&callback();
-                        fb.setOptions({type:'complete', text:this.$t("tips.handleS")});
+                        fb&&fb.setOptions({type:'complete', text:this.$t("tips.handleS")});
                     }else{
-                        fb.setOptions({type:'warn', text:this.$t("tips.handleF",{ msg: resp.respMsg})});
+                        fb&&fb.setOptions({type:'warn', text:this.$t("tips.handleF",{ msg: resp.respMsg})});
                     }
                 });
             },
@@ -362,6 +370,14 @@
                     }
                 });
             },
+            toAddAndActivate:function () {
+                this.$refs.assistModal.open(null, (data) => {
+                    console.log('*********data:', data);
+                    this.addToCourse([{email: data}],()=>{
+
+                    });
+                }, false);
+            }
         },
         mounted () {
             /**/

@@ -279,7 +279,8 @@ const en = {
         certificate:'Certificate',
         editorDoc:'Editor Documentation',
         assistToActivate: 'Assist To Activate',
-        new: 'New'
+        new: 'New',
+        createAndActivate: 'Create And Activate'
     },
     title:{
         super:'Super Administrator',

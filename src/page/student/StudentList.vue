@@ -109,10 +109,7 @@
             }
         },
         created(){
-            //临时测试
-          /*  setTimeout(() => {
-                this.assistModal();
-            }, 2000)*/
+
         },
         watch:{
 

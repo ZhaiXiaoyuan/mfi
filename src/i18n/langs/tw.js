@@ -280,7 +280,8 @@ const tw = {
         certificate:'證書',
         editorDoc:'文本編輯器說明',
         assistToActivate: '',
-        new: '新建'
+        new: '新建',
+        createAndActivate: '新建並激活'
     },
     title:{
         super:'超級管理員',

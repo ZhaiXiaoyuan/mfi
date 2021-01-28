@@ -44,13 +44,13 @@ export default {
         }
 
         //临时测试
-      const isDev=process.env.NODE_ENV=='development'?true:false;
+      const isDev=true||process.env.NODE_ENV=='development'?true:false;
       Vue.tools = {
           basicConfig:{
              /* basicUrl:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://39.108.11.197',
               filePrefix:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://39.108.11.197',*/
               basicUrl:isDev?'http://www.mfimermaid.com':'http://www.mfimermaid.com',
-              filePrefix:isDev?'http://linqi.tech:10080/web':'http://www.mfimermaid.com',
+              filePrefix:isDev?'https://linqi.tech/dh/mfi/web':'http://www.mfimermaid.com',
               paypalPrefix:isDev?'https://www.sandbox.paypal.com':'https://www.paypal.com',
               serverDefaultAvatar: '/mfiFile/user/defaultUserHeadPic.jpg',
               levelOptions:[

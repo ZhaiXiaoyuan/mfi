@@ -282,7 +282,8 @@ const cn = {
         certificate:'证书',
         editorDoc:'文本编辑器说明',
         assistToActivate: '協助激活',
-        new: '新建'
+        new: '新建',
+        createAndActivate: '新建并激活'
     },
     title:{
         super:'超级管理员',

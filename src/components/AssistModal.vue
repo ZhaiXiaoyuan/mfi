@@ -92,7 +92,10 @@
         </div>
         <div slot="footer" class="dialog-footer">
             <el-button @click="close()">{{$t('btn.cancel')}}</el-button>
-            <el-button type="primary" @click="save()">{{$t('btn.activation')}}</el-button>
+            <el-button type="primary" @click="save()">
+                <span v-if="newForm.id">{{$t('btn.activation')}}</span>
+                <span v-if="!newForm.id">{{$t('btn.createAndActivate')}}</span>
+            </el-button>
         </div>
     </el-dialog>
 </template>
@@ -246,7 +249,7 @@
                         Vue.api.addStudentWithoutActivate(params).then((resp)=>{
                             if(resp.respCode=='2000'){
                                 fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
-                                this.fb && this.fb();
+                                this.fb && this.fb(params.email);
                                 this.close();
                             }else{
                                 fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
@@ -355,11 +358,14 @@
                 background: rgba(0,0,0,0.2);
             }
         }
+        .dialog-footer{
+            text-align: center;
+        }
         .form{
             margin-left: -35px;
         }
         .field{
-            width: 180px;
+            width: 188px;
         }
         .cm-input-row{
             .cm-input{
