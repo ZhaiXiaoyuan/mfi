@@ -166,6 +166,23 @@
                           <!--  <span class="cm-link-btn" style="padding-left: 20px;" v-if="certificateList.length>3">{{$t('btn.viewAll')}}</span>-->
                         </div>
                     </div>
+                    <div class="block-bd">
+                        <p class="title">{{$t('title.oCertificate')}}</p>
+                        <ul class="pic-list" style="padding-bottom: 40px;">
+                            <li v-for="(item,index) in  otherPicList" class="to-upload" @click="viewPicModal({imgUrl:item.filePath})">
+                                <div class="img-wrap">
+                                    <img :src="item.filePath" v-if="item.filePath">
+                                </div>
+                                <p class="label">{{item.label}}</p>
+                                <div class="upload-btn"  v-if="account.type=='student'">
+                                    <div class="wrapper">
+                                        <i class="icon upload-icon"></i>
+                                        <input  type="file" :id="'file-'+index" accept="image/*" @change="uploadOCertificate(index)" @click="stopPropagation($event)">
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                     <div class="block-bd" v-if="account.type=='student'">
                         <div class="btn-list">
                             <div class="cm-btn btn" @click="editDialogFlag=true">{{$t("btn.editInfo")}}</div>
@@ -524,44 +541,7 @@
 
                 aidPicList:[],
 
-                levelOptions:[
-                    /* {
-                     value:null,
-                     label:this.$t("btn.all"),
-                     },*/
-                    {
-                        value:'M0',
-                        label:'M0',
-                    },
-                    {
-                        value:'M1',
-                        label:'M1',
-                    },
-                    {
-                        value:'M2',
-                        label:'M2',
-                    },
-                    {
-                        value:'M3',
-                        label:'M3',
-                    },
-                    {
-                        value:'BMI',
-                        label:'BMI',
-                    },
-                    {
-                        value:'MI',
-                        label:'MI',
-                    },
-                    {
-                        value:'MMI',
-                        label:'MMI',
-                    },
-                    {
-                        value:'MIT',
-                        label:'MIT',
-                    },
-                ],
+                levelOptions:[...Vue.tools.levelOptionsFilter('')],
                 options:[
                     {
                         label:this.$t("btn.certified"),
@@ -613,7 +593,10 @@
                     "BMI": "BASIC MERMAID INSTRUCTOR",
                     "MI": "Mermaid Instructor",
                     "MIT": "Mermaid Instructor Trainer"
-                }
+                },
+
+                otherPicList:[],
+                uploading: false,
 
             }
         },
@@ -770,6 +753,56 @@
                         this.editForm=JSON.parse(JSON.stringify(this.user));
                         this.editForm.password=null;
                         this.statusForm.status=this.user.studentAccountStatus;
+                        this.otherPicList=[];
+                        //
+                        let freeDivingPic = {
+                            label:this.$t('label.freeDiving'),
+                            filePath:'',
+                            type: 'freeDiving',
+                        }
+                        let scubaPic = {
+                            label:this.$t('label.scuba'),
+                            filePath:'',
+                            type: 'scuba',
+                        }
+                        let freeDivingInstuctorPic = {
+                            label:this.$t('label.freeDivingInstuctor'),
+                            filePath:'',
+                            type: 'freeDivingInstuctor',
+                        }
+                        let scubaInstructorPic = {
+                            label:this.$t('label.scubaInstructor'),
+                            filePath:'',
+                            type: 'scubaInstructor',
+                        }
+                        let AIDA2FreeDivingPic = {
+                            label:this.$t('label.AIDA2FreeDiving'),
+                            filePath:'',
+                            type: 'AIDA2FreeDiving',
+                        }
+                        if(this.user.otherCertificationList){
+                            let otherCert = JSON.parse(this.user.otherCertificationList);
+                            if(otherCert.freeDiving){
+                                freeDivingPic.filePath = Vue.basicConfig.filePrefix+otherCert.freeDiving+"?r="+Math.random()
+                            }
+                            if(otherCert.scuba){
+                                scubaPic.filePath = Vue.basicConfig.filePrefix+otherCert.scuba+"?r="+Math.random()
+                            }
+                            if(otherCert.freeDivingInstuctor){
+                                freeDivingInstuctorPic.filePath = Vue.basicConfig.filePrefix+otherCert.freeDivingInstuctor+"?r="+Math.random()
+                            }
+                            if(otherCert.scubaInstructor){
+                                scubaInstructorPic.filePath = Vue.basicConfig.filePrefix+otherCert.scubaInstructor+"?r="+Math.random()
+                            }
+                            if(otherCert.AIDA2FreeDiving){
+                                AIDA2FreeDivingPic.filePath = Vue.basicConfig.filePrefix+otherCert.AIDA2FreeDiving+"?r="+Math.random()
+                            }
+                        }
+                        this.otherPicList.push(freeDivingPic);
+                        this.otherPicList.push(scubaPic);
+                        this.otherPicList.push(freeDivingInstuctorPic);
+                        this.otherPicList.push(scubaInstructorPic);
+                        this.otherPicList.push(AIDA2FreeDivingPic);
                         console.log('this.user:',this.user);
                     }else{
 
@@ -983,7 +1016,56 @@
 
                     }
                 });
-            }
+            },
+            uploadOCertificate:function (index) {
+                let item = this.otherPicList[index];
+                if(item.type){
+                    this.uploadCertificate(index);
+                }else{
+
+                }
+            },
+            uploadCertificate:function (index, type) {
+                let item = this.otherPicList[index];
+                let file=document.getElementById('file-'+index).files[0];
+                Vue.tools.imgCompress({
+                    file:file,
+                    width:'800',
+                    quality:0.8,
+                    callback:(data)=>{
+                        let formData = new FormData();
+                        formData.append('timeStamp',Vue.genTimestamp());
+                        formData.append('userId',this.account.id);
+                        formData.append('coverPicFile',data);
+                        this.uploading=true;
+                        let fb=Vue.operationFeedback({text:this.$t("tips.save")});
+                        Vue.api.addUserPicture(formData).then((resp)=>{
+                            if(resp.respCode=='2000'){
+                                let picData = {};
+                                if(this.user.otherCertificationList){
+                                    picData = JSON.parse(this.user.otherCertificationList);
+                                }
+                                picData[item.type] = resp.respMsg
+                                Vue.api.updateUserOtherCertificationList({
+                                    userId: this.account.id,
+                                    otherCertificationListString: JSON.stringify(picData)
+                                }).then((resp)=>{
+                                    this.uploading=false;
+                                    if(resp.respCode=='2000'){
+                                        this.getUserBaseInfo();
+                                        fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
+                                    }else{
+                                        fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                                    }
+                                });
+                            }else{
+                                this.uploading=false;
+                                fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                            }
+                        });
+                    }
+                });
+            },
         },
         mounted () {
             /**/

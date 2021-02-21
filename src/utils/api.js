@@ -731,6 +731,22 @@ export default {
                 params: params
             });
         },
+        //上传证书图片
+        addUserPicture:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/instructor/addUserPicture',
+                params: params
+            });
+        },
+        //修改其他证书列表
+        updateUserOtherCertificationList:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/instructor/updateUserOtherCertificationList',
+                params: params
+            });
+        },
     }
   },
 

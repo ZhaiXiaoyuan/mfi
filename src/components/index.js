@@ -78,6 +78,10 @@ export default {
                imgUrl:null,
             },...options};
             //
+            if(!options.imgUrl){
+                return
+            }
+            //
             let parentEle=document.getElementById('app');
             //
             let instance=new ViewPicModalConstructor({});

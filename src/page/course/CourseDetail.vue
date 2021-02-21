@@ -60,20 +60,53 @@
                             <th>
                                 {{$t("label.name")}}
                             </th>
-                            <th>
+                            <th v-if="checkNeed('healthCertification')">
                                 {{$t("label.health")}}
                             </th>
-                            <th>
+                            <th v-if="checkNeed('theoryExam')">
                                 {{$t("label.theory")}}
                             </th>
-                            <th>
+                            <th v-if="checkNeed('studioRoutine')">
                                 {{$t("label.studio")}}
                             </th>
-                            <th>
-                                {{$t("label.pool")}}
+                            <th v-if="checkNeed('tricksPerformance')">
+                                {{$t("label.tricksPerformance")}}
                             </th>
-                            <th>
-                                {{$t("label.openWater")}}
+                            <th v-if="checkNeed('dynamicRoutine')">
+                                {{$t("label.dynamicRoutine")}}
+                            </th>
+                            <th v-if="checkNeed('staticRoutine')">
+                                {{$t("label.staticRoutine")}}
+                            </th>
+                            <th v-if="checkNeed('rescuePerformance')">
+                                {{$t("label.rescuePerformance")}}
+                            </th>
+                            <th v-if="checkNeed('staticRoutineWOMerFin')">
+                                {{$t("label.staticRoutineWOMerFin")}}
+                            </th>
+                            <th v-if="checkNeed('dualRoutine')">
+                                {{$t("label.dualRoutine")}}
+                            </th>
+                            <th v-if="checkNeed('soloPerformance')">
+                                {{$t("label.soloPerformance")}}
+                            </th>
+                            <th v-if="checkNeed('teachingTheory')">
+                                {{$t("label.teachingTheory")}}
+                            </th>
+                            <th v-if="checkNeed('teachingStudio')">
+                                {{$t("label.teachingStudio")}}
+                            </th>
+                            <th v-if="checkNeed('teachingPool')">
+                                {{$t("label.teachingPool")}}
+                            </th>
+                            <th v-if="checkNeed('waterSafety')">
+                                {{$t("label.waterSafety")}}
+                            </th>
+                            <th v-if="checkNeed('freeDivingCertification')">
+                                {{$t("label.freeDivingCertification")}}
+                            </th>
+                            <th v-if="checkNeed('scubaAndFreeDivingCertification')">
+                                {{$t("label.scubaAndFreeDivingCertification")}}
                             </th>
                             <th>
                                 {{$t("label.status")}}
@@ -91,20 +124,53 @@
                             <td>
                                 <span class="cm-text">{{item.studentName}}</span>
                             </td>
-                            <td>
-                               <span class="cm-text" :class="{'pass':item.mfiLevelState.liabilityRelease=='pass'}">{{partStatus[item.mfiLevelState.liabilityRelease]}}</span>
+                            <td v-if="checkNeed('healthCertification')">
+                               <span class="cm-text" :class="{'pass':item.mfiLevelState.healthCertification=='pass'}">{{partStatus[item.mfiLevelState.healthCertification]}}</span>
                             </td>
-                            <td>
-                                <span class="cm-text" :class="{'pass':item.mfiLevelState.classroom=='pass'}"> {{partStatus[item.mfiLevelState.classroom]}}</span>
+                            <td v-if="checkNeed('theoryExam')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.theoryExam=='pass'}"> {{partStatus[item.mfiLevelState.theoryExam]}}</span>
                             </td>
-                            <td>
-                                <span class="cm-text" :class="{'pass':item.mfiLevelState.studio=='pass'}"> {{partStatus[item.mfiLevelState.studio]}}</span>
+                            <td v-if="checkNeed('studioRoutine')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.studioRoutine=='pass'}"> {{partStatus[item.mfiLevelState.studioRoutine]}}</span>
                             </td>
-                            <td>
-                                <span class="cm-text" :class="{'pass':item.mfiLevelState.confinedWater=='pass'}"> {{partStatus[item.mfiLevelState.confinedWater]}}</span>
+                            <td v-if="checkNeed('tricksPerformance')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.tricksPerformance=='pass'}"> {{partStatus[item.mfiLevelState.tricksPerformance]}}</span>
                             </td>
-                            <td>
-                                <span class="cm-text" :class="{'pass':item.mfiLevelState.openWater=='pass'}"> {{partStatus[item.mfiLevelState.openWater]}}</span>
+                            <td v-if="checkNeed('dynamicRoutine')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.dynamicRoutine=='pass'}"> {{partStatus[item.mfiLevelState.dynamicRoutine]}}</span>
+                            </td>
+                            <td v-if="checkNeed('staticRoutine')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.staticRoutine=='pass'}"> {{partStatus[item.mfiLevelState.staticRoutine]}}</span>
+                            </td>
+                            <td v-if="checkNeed('rescuePerformance')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.rescuePerformance=='pass'}"> {{partStatus[item.mfiLevelState.rescuePerformance]}}</span>
+                            </td>
+                            <td v-if="checkNeed('staticRoutineWOMerFin')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.staticRoutineWOMerFin=='pass'}"> {{partStatus[item.mfiLevelState.staticRoutineWOMerFin]}}</span>
+                            </td>
+                            <td v-if="checkNeed('dualRoutine')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.dualRoutine=='pass'}"> {{partStatus[item.mfiLevelState.dualRoutine]}}</span>
+                            </td>
+                            <td v-if="checkNeed('soloPerformance')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.soloPerformance=='pass'}"> {{partStatus[item.mfiLevelState.soloPerformance]}}</span>
+                            </td>
+                            <td v-if="checkNeed('teachingTheory')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.teachingTheory=='pass'}"> {{partStatus[item.mfiLevelState.teachingTheory]}}</span>
+                            </td>
+                            <td v-if="checkNeed('teachingStudio')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.teachingStudio=='pass'}"> {{partStatus[item.mfiLevelState.teachingStudio]}}</span>
+                            </td>
+                            <td v-if="checkNeed('teachingPool')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.teachingPool=='pass'}"> {{partStatus[item.mfiLevelState.teachingPool]}}</span>
+                            </td>
+                            <td v-if="checkNeed('waterSafety')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.waterSafety=='pass'}"> {{partStatus[item.mfiLevelState.waterSafety]}}</span>
+                            </td>
+                            <td v-if="checkNeed('freeDivingCertification')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.freeDivingCertification=='pass'}"> {{partStatus[item.mfiLevelState.freeDivingCertification]}}</span>
+                            </td>
+                            <td v-if="checkNeed('scubaAndFreeDivingCertification')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.scubaAndFreeDivingCertification=='pass'}"> {{partStatus[item.mfiLevelState.scubaAndFreeDivingCertification]}}</span>
                             </td>
                             <td>
                                 <span class="cm-text">{{grantStatus[item.certificate.length>20?'granted':item.certificate]}}</span>
@@ -143,20 +209,53 @@
                             <th>
                                 {{$t("label.name")}}
                             </th>
-                            <th>
+                            <th v-if="checkNeed('healthCertification')">
                                 {{$t("label.health")}}
                             </th>
-                            <th>
+                            <th v-if="checkNeed('theoryExam')">
                                 {{$t("label.theory")}}
                             </th>
-                            <th>
+                            <th v-if="checkNeed('studioRoutine')">
                                 {{$t("label.studio")}}
                             </th>
-                            <th>
-                                {{$t("label.pool")}}
+                            <th v-if="checkNeed('tricksPerformance')">
+                                {{$t("label.tricksPerformance")}}
                             </th>
-                            <th>
-                                {{$t("label.openWater")}}
+                            <th v-if="checkNeed('dynamicRoutine')">
+                                {{$t("label.dynamicRoutine")}}
+                            </th>
+                            <th v-if="checkNeed('staticRoutine')">
+                                {{$t("label.staticRoutine")}}
+                            </th>
+                            <th v-if="checkNeed('rescuePerformance')">
+                                {{$t("label.rescuePerformance")}}
+                            </th>
+                            <th v-if="checkNeed('staticRoutineWOMerFin')">
+                                {{$t("label.staticRoutineWOMerFin")}}
+                            </th>
+                            <th v-if="checkNeed('dualRoutine')">
+                                {{$t("label.dualRoutine")}}
+                            </th>
+                            <th v-if="checkNeed('soloPerformance')">
+                                {{$t("label.soloPerformance")}}
+                            </th>
+                            <th v-if="checkNeed('teachingTheory')">
+                                {{$t("label.teachingTheory")}}
+                            </th>
+                            <th v-if="checkNeed('teachingStudio')">
+                                {{$t("label.teachingStudio")}}
+                            </th>
+                            <th v-if="checkNeed('teachingPool')">
+                                {{$t("label.teachingPool")}}
+                            </th>
+                            <th v-if="checkNeed('waterSafety')">
+                                {{$t("label.waterSafety")}}
+                            </th>
+                            <th v-if="checkNeed('freeDivingCertification')">
+                                {{$t("label.freeDivingCertification")}}
+                            </th>
+                            <th v-if="checkNeed('scubaAndFreeDivingCertification')">
+                                {{$t("label.scubaAndFreeDivingCertification")}}
                             </th>
                             <th>
                                 {{$t("label.status")}}
@@ -174,9 +273,9 @@
                             <td>
                                 <span class="cm-text">{{item.studentName}}</span>
                             </td>
-                            <td>
-                                <span class="cm-text" v-if="item.mfiLevelState.liabilityRelease=='-'">{{partStatus[item.mfiLevelState.liabilityRelease]}}</span>
-                                <el-select v-model="item.mfiLevelState.liabilityRelease" :disabled="item.mfiLevelState.liabilityRelease=='pass'" @change="saveStatus(item)" class="status-selector" :class="{'pass':item.mfiLevelState.liabilityRelease=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.liabilityRelease!='-'" placeholder="请选择">
+                            <td v-if="checkNeed('healthCertification')">
+                                <span class="cm-text" v-if="item.mfiLevelState.healthCertification=='-'">{{partStatus[item.mfiLevelState.healthCertification]}}</span>
+                                <el-select v-model="item.mfiLevelState.healthCertification" :disabled="item.mfiLevelState.healthCertification=='pass'" @change="saveStatus(item,'healthCertification')" class="status-selector" :class="{'pass':item.mfiLevelState.healthCertification=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.healthCertification!='-'" placeholder="请选择">
                                     <el-option
                                         v-for="item in statusOptions"
                                         :key="item.value"
@@ -186,9 +285,9 @@
                                     </el-option>
                                 </el-select>
                             </td>
-                            <td>
-                                <span class="cm-text" v-if="item.mfiLevelState.classroom=='-'">{{partStatus[item.mfiLevelState.classroom]}}</span>
-                                <el-select v-model="item.mfiLevelState.classroom" :disabled="item.mfiLevelState.classroom=='pass'"   @change="saveStatus(item)" class="status-selector" :class="{'pass':item.mfiLevelState.classroom=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.classroom!='-'" placeholder="请选择">
+                            <td v-if="checkNeed('theoryExam')">
+                                <span class="cm-text" v-if="item.mfiLevelState.theoryExam=='-'">{{partStatus[item.mfiLevelState.theoryExam]}}</span>
+                                <el-select v-model="item.mfiLevelState.theoryExam" :disabled="item.mfiLevelState.theoryExam=='pass'"   @change="saveStatus(item,'theoryExam')" class="status-selector" :class="{'pass':item.mfiLevelState.theoryExam=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.theoryExam!='-'" placeholder="请选择">
                                     <el-option
                                         v-for="item in statusOptions"
                                         :key="item.value"
@@ -198,9 +297,9 @@
                                     </el-option>
                                 </el-select>
                             </td>
-                            <td>
-                                <span class="cm-text" v-if="item.mfiLevelState.studio=='-'">{{partStatus[item.mfiLevelState.studio]}}</span>
-                                <el-select v-model="item.mfiLevelState.studio" :disabled="item.mfiLevelState.studio=='pass'" @change="saveStatus(item)" class="status-selector" :class="{'pass':item.mfiLevelState.studio=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.studio!='-'" placeholder="请选择">
+                            <td v-if="checkNeed('studioRoutine')">
+                                <span class="cm-text" v-if="item.mfiLevelState.studioRoutine=='-'">{{partStatus[item.mfiLevelState.studioRoutine]}}</span>
+                                <el-select v-model="item.mfiLevelState.studioRoutine" :disabled="item.mfiLevelState.studioRoutine=='pass'" @change="saveStatus(item,'studioRoutine')" class="status-selector" :class="{'pass':item.mfiLevelState.studioRoutine=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.studioRoutine!='-'" placeholder="请选择">
                                     <el-option
                                         v-for="item in statusOptions"
                                         :key="item.value"
@@ -210,9 +309,9 @@
                                     </el-option>
                                 </el-select>
                             </td>
-                            <td>
-                                <span class="cm-text" v-if="item.mfiLevelState.confinedWater=='-'">{{partStatus[item.mfiLevelState.confinedWater]}}</span>
-                                <el-select v-model="item.mfiLevelState.confinedWater" :disabled="item.mfiLevelState.confinedWater=='pass'" @change="saveStatus(item)" class="status-selector" :class="{'pass':item.mfiLevelState.confinedWater=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.confinedWater!='-'" placeholder="请选择">
+                            <td v-if="checkNeed('tricksPerformance')">
+                                <span class="cm-text" v-if="item.mfiLevelState.tricksPerformance=='-'">{{partStatus[item.mfiLevelState.tricksPerformance]}}</span>
+                                <el-select v-model="item.mfiLevelState.tricksPerformance" :disabled="item.mfiLevelState.tricksPerformance=='pass'" @change="saveStatus(item,'tricksPerformance')" class="status-selector" :class="{'pass':item.mfiLevelState.tricksPerformance=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.tricksPerformance!='-'" placeholder="请选择">
                                     <el-option
                                         v-for="item in statusOptions"
                                         :key="item.value"
@@ -222,9 +321,141 @@
                                     </el-option>
                                 </el-select>
                             </td>
-                            <td>
-                                <span class="cm-text" v-if="item.mfiLevelState.openWater=='-'">{{partStatus[item.mfiLevelState.openWater]}}</span>
-                                <el-select v-model="item.mfiLevelState.openWater" :disabled="item.mfiLevelState.openWater=='pass'" @change="saveStatus(item)" class="status-selector" :class="{'pass':item.mfiLevelState.openWater=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.openWater!='-'" placeholder="请选择">
+                            <td v-if="checkNeed('dynamicRoutine')">
+                                <span class="cm-text" v-if="item.mfiLevelState.dynamicRoutine=='-'">{{partStatus[item.mfiLevelState.dynamicRoutine]}}</span>
+                                <el-select v-model="item.mfiLevelState.dynamicRoutine" :disabled="item.mfiLevelState.dynamicRoutine=='pass'" @change="saveStatus(item,'dynamicRoutine')" class="status-selector" :class="{'pass':item.mfiLevelState.dynamicRoutine=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.dynamicRoutine!='-'" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in statusOptions"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value"
+                                        :disabled="item.disabled">
+                                    </el-option>
+                                </el-select>
+                            </td>
+                            <td v-if="checkNeed('staticRoutine')">
+                                <span class="cm-text" v-if="item.mfiLevelState.staticRoutine=='-'">{{partStatus[item.mfiLevelState.staticRoutine]}}</span>
+                                <el-select v-model="item.mfiLevelState.staticRoutine" :disabled="item.mfiLevelState.staticRoutine=='pass'" @change="saveStatus(item,'staticRoutine')" class="status-selector" :class="{'pass':item.mfiLevelState.staticRoutine=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.staticRoutine!='-'" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in statusOptions"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value"
+                                        :disabled="item.disabled">
+                                    </el-option>
+                                </el-select>
+                            </td>
+                            <td v-if="checkNeed('rescuePerformance')">
+                                <span class="cm-text" v-if="item.mfiLevelState.rescuePerformance=='-'">{{partStatus[item.mfiLevelState.rescuePerformance]}}</span>
+                                <el-select v-model="item.mfiLevelState.rescuePerformance" :disabled="item.mfiLevelState.rescuePerformance=='pass'" @change="saveStatus(item,'rescuePerformance')" class="status-selector" :class="{'pass':item.mfiLevelState.rescuePerformance=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.rescuePerformance!='-'" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in statusOptions"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value"
+                                        :disabled="item.disabled">
+                                    </el-option>
+                                </el-select>
+                            </td>
+                            <td v-if="checkNeed('staticRoutineWOMerFin')">
+                                <span class="cm-text" v-if="item.mfiLevelState.staticRoutineWOMerFin=='-'">{{partStatus[item.mfiLevelState.staticRoutineWOMerFin]}}</span>
+                                <el-select v-model="item.mfiLevelState.staticRoutineWOMerFin" :disabled="item.mfiLevelState.staticRoutineWOMerFin=='pass'" @change="saveStatus(item,'staticRoutineWOMerFin')" class="status-selector" :class="{'pass':item.mfiLevelState.staticRoutineWOMerFin=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.staticRoutineWOMerFin!='-'" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in statusOptions"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value"
+                                        :disabled="item.disabled">
+                                    </el-option>
+                                </el-select>
+                            </td>
+                            <td v-if="checkNeed('dualRoutine')">
+                                <span class="cm-text" v-if="item.mfiLevelState.dualRoutine=='-'">{{partStatus[item.mfiLevelState.dualRoutine]}}</span>
+                                <el-select v-model="item.mfiLevelState.dualRoutine" :disabled="item.mfiLevelState.dualRoutine=='pass'" @change="saveStatus(item,'dualRoutine')" class="status-selector" :class="{'pass':item.mfiLevelState.dualRoutine=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.dualRoutine!='-'" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in statusOptions"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value"
+                                        :disabled="item.disabled">
+                                    </el-option>
+                                </el-select>
+                            </td>
+                            <td v-if="checkNeed('soloPerformance')">
+                                <span class="cm-text" v-if="item.mfiLevelState.soloPerformance=='-'">{{partStatus[item.mfiLevelState.soloPerformance]}}</span>
+                                <el-select v-model="item.mfiLevelState.soloPerformance" :disabled="item.mfiLevelState.soloPerformance=='pass'" @change="saveStatus(item,'soloPerformance')" class="status-selector" :class="{'pass':item.mfiLevelState.soloPerformance=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.soloPerformance!='-'" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in statusOptions"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value"
+                                        :disabled="item.disabled">
+                                    </el-option>
+                                </el-select>
+                            </td>
+                            <td v-if="checkNeed('teachingTheory')">
+                                <span class="cm-text" v-if="item.mfiLevelState.teachingTheory=='-'">{{partStatus[item.mfiLevelState.teachingTheory]}}</span>
+                                <el-select v-model="item.mfiLevelState.teachingTheory" :disabled="item.mfiLevelState.teachingTheory=='pass'" @change="saveStatus(item,'teachingTheory')" class="status-selector" :class="{'pass':item.mfiLevelState.teachingTheory=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.teachingTheory!='-'" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in statusOptions"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value"
+                                        :disabled="item.disabled">
+                                    </el-option>
+                                </el-select>
+                            </td>
+                            <td v-if="checkNeed('teachingStudio')">
+                                <span class="cm-text" v-if="item.mfiLevelState.teachingStudio=='-'">{{partStatus[item.mfiLevelState.teachingStudio]}}</span>
+                                <el-select v-model="item.mfiLevelState.teachingStudio" :disabled="item.mfiLevelState.teachingStudio=='pass'" @change="saveStatus(item,'teachingStudio')" class="status-selector" :class="{'pass':item.mfiLevelState.teachingStudio=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.teachingStudio!='-'" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in statusOptions"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value"
+                                        :disabled="item.disabled">
+                                    </el-option>
+                                </el-select>
+                            </td>
+                            <td v-if="checkNeed('teachingPool')">
+                                <span class="cm-text" v-if="item.mfiLevelState.teachingPool=='-'">{{partStatus[item.mfiLevelState.teachingPool]}}</span>
+                                <el-select v-model="item.mfiLevelState.teachingPool" :disabled="item.mfiLevelState.teachingPool=='pass'" @change="saveStatus(item,'teachingPool')" class="status-selector" :class="{'pass':item.mfiLevelState.teachingPool=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.teachingPool!='-'" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in statusOptions"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value"
+                                        :disabled="item.disabled">
+                                    </el-option>
+                                </el-select>
+                            </td>
+                            <td v-if="checkNeed('waterSafety')">
+                                <span class="cm-text" v-if="item.mfiLevelState.waterSafety=='-'">{{partStatus[item.mfiLevelState.waterSafety]}}</span>
+                                <el-select v-model="item.mfiLevelState.waterSafety" :disabled="item.mfiLevelState.waterSafety=='pass'" @change="saveStatus(item,'waterSafety')" class="status-selector" :class="{'pass':item.mfiLevelState.waterSafety=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.waterSafety!='-'" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in statusOptions"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value"
+                                        :disabled="item.disabled">
+                                    </el-option>
+                                </el-select>
+                            </td>
+                            <td v-if="checkNeed('freeDivingCertification')">
+                                <span class="cm-text" v-if="item.mfiLevelState.freeDivingCertification=='-'">{{partStatus[item.mfiLevelState.freeDivingCertification]}}</span>
+                                <el-select v-model="item.mfiLevelState.freeDivingCertification" :disabled="item.mfiLevelState.freeDivingCertification=='pass'" @change="saveStatus(item,'freeDivingCertification')" class="status-selector" :class="{'pass':item.mfiLevelState.freeDivingCertification=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.freeDivingCertification!='-'" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in statusOptions"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value"
+                                        :disabled="item.disabled">
+                                    </el-option>
+                                </el-select>
+                            </td>
+                            <td v-if="checkNeed('scubaAndFreeDivingCertification')">
+                                <span class="cm-text" v-if="item.mfiLevelState.scubaAndFreeDivingCertification=='-'">{{partStatus[item.mfiLevelState.scubaAndFreeDivingCertification]}}</span>
+                                <el-select v-model="item.mfiLevelState.scubaAndFreeDivingCertification" :disabled="item.mfiLevelState.scubaAndFreeDivingCertification=='pass'" @change="saveStatus(item,'scubaAndFreeDivingCertification')" class="status-selector" :class="{'pass':item.mfiLevelState.scubaAndFreeDivingCertification=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.scubaAndFreeDivingCertification!='-'" placeholder="请选择">
                                     <el-option
                                         v-for="item in statusOptions"
                                         :key="item.value"
@@ -365,6 +596,7 @@
 
                 granting:false,
                 requesting:false,
+                neededData: [],
             }
         },
         created(){
@@ -393,7 +625,7 @@
                         this.entryList.forEach((item,i)=>{
                             item.mfiLevelState=JSON.parse(item.mfiLevelState)
                         })
-                     /*   console.log('this.entryList:',this.entryList);*/
+                        console.log('this.entryList:',this.entryList);
                         this.pager.total=data.count;
                     }
                 });
@@ -407,10 +639,14 @@
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
                         this.course={...data.course,instructorEmail:data.instructorEmail,instructorName:data.instructorName};
-                        console.log('this.course:',this.course);
+                        this.neededData = this.getNeededStatus(this.course.mfiLevel);
+                       /* console.log('neededData:', this.neededData);*/
                         this.getUnusedCertificate();
                     }
                 });
+            },
+            checkNeed:function (key) {
+                return this.neededData.indexOf(key) > -1
             },
             getUnusedCertificate:function (callback) {
                 let params={
@@ -431,7 +667,7 @@
                     }
                 });
             },
-            saveStatus:function (item) {
+            saveStatus:function (item, key) {
                 if(this.isLoading){
                     return;
                 }
@@ -440,11 +676,7 @@
                     ...Vue.sessionInfo(),
                     userId:state.userId,
                     mfiLevel:state.mfiLevel,
-                    classroom:state.classroom!='pass'?'':'pass',
-                    confinedWater:state.confinedWater!='pass'?'':'pass',
-                    liabilityRelease:state.liabilityRelease!='pass'?'':'pass',
-                    openWater:state.openWater!='pass'?'':'pass',
-                    studio:state.studio!='pass'?'':'pass',
+                    key: key
                 }
                 let fb=Vue.operationFeedback({text:this.$t("tips.save"),delayForDelete:1000});
                 this.isLoading=true;

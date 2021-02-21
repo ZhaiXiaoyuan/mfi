@@ -110,19 +110,31 @@
               'M3':'VHGBX5Y9D7H2L',
               'BMI':'ATKL87265PHFG',
               'MI':'UDHUFVYBLX994',
-              'MMI':'7ETBBSTY4RASS',
               'instructorQualification':'TLLCVT5X7E98C',
               'professionalMembersFee':'3R62EWX84Z54A',
               'schoolQualification':'J9M8MNQCER4BE',
           },
           prodTokenConfig:{
               'M0':'M59NSGGZGYLA2',
+              'M0_1':'WHL4ZS8H39ZVL',
               'M1':'SEAVR5JK4T36N',
               'M2':'TXHZYBLWD8YPG',
               'M3':'DP8FMHGC8UQ6Y',
               'BMI':'8LXENYQ5QJGNJ',
               'MI':'CE5GA58V6Y6J2',
-              'MMI':'PCJYUVT7ZMXUW',
+              'O1':'WNLRDDNJEMRW4',
+              'O2':'VH5B3Z5GCQCBG',
+              'OI':'ADLE6V4CV2EQN',
+              'J1':'U393KL7DE49LA',
+              'J2':'83EZ88GG6JKSS',
+              'J3':'TMM2Q33FZ9MU6',
+              'JI':'M7Y7WW2HX55TN',
+              'G1':'QRAJSGAF4H2AY',
+              'G2':'KAW5D6DDPTEFY',
+              'GI':'VZ8M2P5L5JJLS',
+              'P1':'YH5TQPTDGSZR6',
+              'P2':'MSGR5PDCF6NZ6',
+              'PI':'FYXGN3E8SATU2',
               'instructorQualification':'3CZF28KCQ7QY4',
               'professionalMembersFee':'NKCU4RC4X3GPQ',
               'schoolQualification':'5GQTJAKBK5BLC',
@@ -153,7 +165,8 @@
     },
     mounted: function () {
         /**/
-        this.token=process.env.NODE_ENV=='development'?this.tokenConfig[this.options.level]:this.prodTokenConfig[this.options.level];
+        //临时测试
+        this.token=false&&process.env.NODE_ENV=='development'?this.tokenConfig[this.options.level]:this.prodTokenConfig[this.options.level];
         this.temOrderId=this.options.userId+'-'+this.options.level+'-'+Vue.genTimestamp();
       /*  console.log('this.token:',this.token);
         console.log('this.temOderId:',this.temOrderId);*/

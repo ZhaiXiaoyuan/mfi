@@ -914,7 +914,6 @@
                     this.goodsHostConfig[valObj.code]={...valObj,id:key};
                 }
             }
-            console.log('this.goodsHostConfig:',this.goodsHostConfig);
           /*  Vue.tools.hostedIdConfig.forEach((item,i)=>{
                 console.log('item:',item);
             })*/
@@ -929,7 +928,6 @@
                         let goods=Vue.tools.instructorCertificateGoodsList[j];
                         if(levelItem.value==goods.level){
                             this.certificateGoodsList.push(goods);
-                            break;
                         }
                     }
                 }

@@ -130,44 +130,7 @@
             return {
                 account:{},
 
-                levelOptions:[
-                   /* {
-                        value:null,
-                        label:this.$t("btn.all"),
-                    },*/
-                    {
-                        value:'M0',
-                        label:'M0',
-                    },
-                    {
-                        value:'M1',
-                        label:'M1',
-                    },
-                    {
-                        value:'M2',
-                        label:'M2',
-                    },
-                    {
-                        value:'M3',
-                        label:'M3',
-                    },
-                    {
-                        value:'BMI',
-                        label:'BMI',
-                    },
-                    {
-                        value:'MI',
-                        label:'MI',
-                    },
-                    {
-                        value:'MMI',
-                        label:'MMI',
-                    },
-                    {
-                        value:'MIT',
-                        label:'MIT',
-                    },
-                ],
+                levelOptions: [...Vue.tools.levelOptionsFilter('')],
                 listLevelOptions:[],
                 selectedLevel:null,
 

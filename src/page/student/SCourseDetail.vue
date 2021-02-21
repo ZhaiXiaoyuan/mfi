@@ -46,20 +46,53 @@
                     <table class="cm-entry-list">
                         <thead>
                         <tr>
-                            <th>
+                            <th v-if="checkNeed('healthCertification')">
                                 {{$t("label.health")}}
                             </th>
-                            <th>
+                            <th v-if="checkNeed('theoryExam')">
                                 {{$t("label.theory")}}
                             </th>
-                            <th>
+                            <th v-if="checkNeed('studioRoutine')">
                                 {{$t("label.studio")}}
                             </th>
-                            <th>
-                                {{$t("label.pool")}}
+                            <th v-if="checkNeed('tricksPerformance')">
+                                {{$t("label.tricksPerformance")}}
                             </th>
-                            <th>
-                                {{$t("label.openWater")}}
+                            <th v-if="checkNeed('dynamicRoutine')">
+                                {{$t("label.dynamicRoutine")}}
+                            </th>
+                            <th v-if="checkNeed('staticRoutine')">
+                                {{$t("label.staticRoutine")}}
+                            </th>
+                            <th v-if="checkNeed('rescuePerformance')">
+                                {{$t("label.rescuePerformance")}}
+                            </th>
+                            <th v-if="checkNeed('staticRoutineWOMerFin')">
+                                {{$t("label.staticRoutineWOMerFin")}}
+                            </th>
+                            <th v-if="checkNeed('dualRoutine')">
+                                {{$t("label.dualRoutine")}}
+                            </th>
+                            <th v-if="checkNeed('soloPerformance')">
+                                {{$t("label.soloPerformance")}}
+                            </th>
+                            <th v-if="checkNeed('teachingTheory')">
+                                {{$t("label.teachingTheory")}}
+                            </th>
+                            <th v-if="checkNeed('teachingStudio')">
+                                {{$t("label.teachingStudio")}}
+                            </th>
+                            <th v-if="checkNeed('teachingPool')">
+                                {{$t("label.teachingPool")}}
+                            </th>
+                            <th v-if="checkNeed('waterSafety')">
+                                {{$t("label.waterSafety")}}
+                            </th>
+                            <th v-if="checkNeed('freeDivingCertification')">
+                                {{$t("label.freeDivingCertification")}}
+                            </th>
+                            <th v-if="checkNeed('scubaAndFreeDivingCertification')">
+                                {{$t("label.scubaAndFreeDivingCertification")}}
                             </th>
                             <th>
                                 {{$t("label.status")}}
@@ -68,20 +101,53 @@
                         </thead>
                         <tbody>
                         <tr v-for="(item,index) in entryList">
-                            <td>
-                               <span class="cm-text" :class="{'pass':item.mfiLevelState.liabilityRelease=='pass'}">{{partStatus[item.mfiLevelState.liabilityRelease]}}</span>
+                            <td v-if="checkNeed('healthCertification')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.healthCertification=='pass'}">{{partStatus[item.mfiLevelState.healthCertification]}}</span>
                             </td>
-                            <td>
-                                <span class="cm-text" :class="{'pass':item.mfiLevelState.classroom=='pass'}"> {{partStatus[item.mfiLevelState.classroom]}}</span>
+                            <td v-if="checkNeed('theoryExam')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.theoryExam=='pass'}"> {{partStatus[item.mfiLevelState.theoryExam]}}</span>
                             </td>
-                            <td>
-                                <span class="cm-text" :class="{'pass':item.mfiLevelState.studio=='pass'}"> {{partStatus[item.mfiLevelState.studio]}}</span>
+                            <td v-if="checkNeed('studioRoutine')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.studioRoutine=='pass'}"> {{partStatus[item.mfiLevelState.studioRoutine]}}</span>
                             </td>
-                            <td>
-                                <span class="cm-text" :class="{'pass':item.mfiLevelState.confinedWater=='pass'}"> {{partStatus[item.mfiLevelState.confinedWater]}}</span>
+                            <td v-if="checkNeed('tricksPerformance')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.tricksPerformance=='pass'}"> {{partStatus[item.mfiLevelState.tricksPerformance]}}</span>
                             </td>
-                            <td>
-                                <span class="cm-text" :class="{'pass':item.mfiLevelState.openWater=='pass'}"> {{partStatus[item.mfiLevelState.openWater]}}</span>
+                            <td v-if="checkNeed('dynamicRoutine')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.dynamicRoutine=='pass'}"> {{partStatus[item.mfiLevelState.dynamicRoutine]}}</span>
+                            </td>
+                            <td v-if="checkNeed('staticRoutine')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.staticRoutine=='pass'}"> {{partStatus[item.mfiLevelState.staticRoutine]}}</span>
+                            </td>
+                            <td v-if="checkNeed('rescuePerformance')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.rescuePerformance=='pass'}"> {{partStatus[item.mfiLevelState.rescuePerformance]}}</span>
+                            </td>
+                            <td v-if="checkNeed('staticRoutineWOMerFin')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.staticRoutineWOMerFin=='pass'}"> {{partStatus[item.mfiLevelState.staticRoutineWOMerFin]}}</span>
+                            </td>
+                            <td v-if="checkNeed('dualRoutine')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.dualRoutine=='pass'}"> {{partStatus[item.mfiLevelState.dualRoutine]}}</span>
+                            </td>
+                            <td v-if="checkNeed('soloPerformance')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.soloPerformance=='pass'}"> {{partStatus[item.mfiLevelState.soloPerformance]}}</span>
+                            </td>
+                            <td v-if="checkNeed('teachingTheory')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.teachingTheory=='pass'}"> {{partStatus[item.mfiLevelState.teachingTheory]}}</span>
+                            </td>
+                            <td v-if="checkNeed('teachingStudio')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.teachingStudio=='pass'}"> {{partStatus[item.mfiLevelState.teachingStudio]}}</span>
+                            </td>
+                            <td v-if="checkNeed('teachingPool')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.teachingPool=='pass'}"> {{partStatus[item.mfiLevelState.teachingPool]}}</span>
+                            </td>
+                            <td v-if="checkNeed('waterSafety')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.waterSafety=='pass'}"> {{partStatus[item.mfiLevelState.waterSafety]}}</span>
+                            </td>
+                            <td v-if="checkNeed('freeDivingCertification')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.freeDivingCertification=='pass'}"> {{partStatus[item.mfiLevelState.freeDivingCertification]}}</span>
+                            </td>
+                            <td v-if="checkNeed('scubaAndFreeDivingCertification')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.scubaAndFreeDivingCertification=='pass'}"> {{partStatus[item.mfiLevelState.scubaAndFreeDivingCertification]}}</span>
                             </td>
                             <td>
                                 <span class="cm-text">{{grantStatus[typeof item.certificate=='object'?'granted':item.certificate]}}</span>
@@ -97,11 +163,22 @@
                             <div class="info-item"> <span class="cm-text">{{grantStatus[typeof item.certificate=='object'?'granted':item.certificate]}}</span></div>
                         </div>
                         <div class="entry-bd">
-                            <div class="info-item">{{$t("label.health")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.liabilityRelease=='pass'}">{{partStatus[item.mfiLevelState.liabilityRelease]}}</span></div>
-                            <div class="info-item">{{$t("label.theory")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.classroom=='pass'}"> {{partStatus[item.mfiLevelState.classroom]}}</span></div>
-                            <div class="info-item">{{$t("label.studio")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.studio=='pass'}"> {{partStatus[item.mfiLevelState.studio]}}</span></div>
-                            <div class="info-item">{{$t("label.pool")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.confinedWater=='pass'}"> {{partStatus[item.mfiLevelState.confinedWater]}}</span></div>
-                            <div class="info-item">{{$t("label.openWater")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.openWater=='pass'}"> {{partStatus[item.mfiLevelState.openWater]}}</span></div>
+                            <div class="info-item" v-if="checkNeed('healthCertification')">{{$t("label.health")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.healthCertification=='pass'}">{{partStatus[item.mfiLevelState.healthCertification]}}</span></div>
+                            <div class="info-item" v-if="checkNeed('theoryExam')">{{$t("label.theory")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.theoryExam=='pass'}"> {{partStatus[item.mfiLevelState.theoryExam]}}</span></div>
+                            <div class="info-item" v-if="checkNeed('studioRoutine')">{{$t("label.studio")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.studioRoutine=='pass'}"> {{partStatus[item.mfiLevelState.studioRoutine]}}</span></div>
+                            <div class="info-item" v-if="checkNeed('tricksPerformance')">{{$t("label.tricksPerformance")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.tricksPerformance=='pass'}"> {{partStatus[item.mfiLevelState.tricksPerformance]}}</span></div>
+                            <div class="info-item" v-if="checkNeed('dynamicRoutine')">{{$t("label.dynamicRoutine")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.dynamicRoutine=='pass'}"> {{partStatus[item.mfiLevelState.dynamicRoutine]}}</span></div>
+                            <div class="info-item" v-if="checkNeed('staticRoutine')">{{$t("label.staticRoutine")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.staticRoutine=='pass'}"> {{partStatus[item.mfiLevelState.staticRoutine]}}</span></div>
+                            <div class="info-item" v-if="checkNeed('rescuePerformance')">{{$t("label.rescuePerformance")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.rescuePerformance=='pass'}"> {{partStatus[item.mfiLevelState.rescuePerformance]}}</span></div>
+                            <div class="info-item" v-if="checkNeed('staticRoutineWOMerFin')">{{$t("label.staticRoutineWOMerFin")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.staticRoutineWOMerFin=='pass'}"> {{partStatus[item.mfiLevelState.staticRoutineWOMerFin]}}</span></div>
+                            <div class="info-item" v-if="checkNeed('dualRoutine')">{{$t("label.dualRoutine")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.dualRoutine=='pass'}"> {{partStatus[item.mfiLevelState.dualRoutine]}}</span></div>
+                            <div class="info-item" v-if="checkNeed('soloPerformance')">{{$t("label.soloPerformance")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.soloPerformance=='pass'}"> {{partStatus[item.mfiLevelState.soloPerformance]}}</span></div>
+                            <div class="info-item" v-if="checkNeed('teachingTheory')">{{$t("label.teachingTheory")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.teachingTheory=='pass'}"> {{partStatus[item.mfiLevelState.teachingTheory]}}</span></div>
+                            <div class="info-item" v-if="checkNeed('teachingStudio')">{{$t("label.teachingStudio")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.teachingStudio=='pass'}"> {{partStatus[item.mfiLevelState.teachingStudio]}}</span></div>
+                            <div class="info-item" v-if="checkNeed('teachingPool')">{{$t("label.teachingPool")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.teachingPool=='pass'}"> {{partStatus[item.mfiLevelState.teachingPool]}}</span></div>
+                            <div class="info-item" v-if="checkNeed('waterSafety')">{{$t("label.waterSafety")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.waterSafety=='pass'}"> {{partStatus[item.mfiLevelState.waterSafety]}}</span></div>
+                            <div class="info-item" v-if="checkNeed('freeDivingCertification')">{{$t("label.freeDivingCertification")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.freeDivingCertification=='pass'}"> {{partStatus[item.mfiLevelState.freeDivingCertification]}}</span></div>
+                            <div class="info-item" v-if="checkNeed('scubaAndFreeDivingCertification')">{{$t("label.scubaAndFreeDivingCertification")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.scubaAndFreeDivingCertification=='pass'}"> {{partStatus[item.mfiLevelState.scubaAndFreeDivingCertification]}}</span></div>
                         </div>
                         <div class="entry-ft"></div>
                     </li>
@@ -206,6 +283,7 @@
                 },
                 entryList:[],
                 isLoading:false,
+                neededData: [],
 
             }
         },
@@ -232,6 +310,7 @@
                             instructorName:data.instructorName,
                         }
                         console.log('this.course:',this.course);
+                        this.neededData = this.getNeededStatus(this.course.mfiLevel);
                         this.course.courseNo=this.course.school+this.course.courseId.substring(this.course.courseId.length-5)
                         this.getStudentMfiLevelState();
                     }
@@ -249,6 +328,9 @@
                         this.entryList.push(data);
                     }
                 });
+            },
+            checkNeed:function (key) {
+                return this.neededData.indexOf(key) > -1
             },
         },
         mounted () {

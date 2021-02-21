@@ -57,34 +57,128 @@ export default {
                   {
                       value:'M0',
                       label:'M0',
+                      type: 'student',
+                      need: ['healthCertification','theoryExam', 'tricksPerformance'],
                   },
                   {
                       value:'M1',
                       label:'M1',
+                      type: 'student',
+                      need: ['healthCertification','theoryExam', 'studioRoutine','dynamicRoutine','staticRoutine','rescuePerformance'],
                   },
                   {
                       value:'M2',
                       label:'M2',
+                      type: 'student',
+                      need: ['healthCertification','theoryExam', 'studioRoutine','dynamicRoutine','staticRoutine','rescuePerformance','staticRoutineWOMerFin','dualRoutine','soloPerformance'],
                   },
                   {
                       value:'M3',
                       label:'M3',
+                      type: 'student',
+                      need: ['healthCertification','theoryExam', 'tricksPerformance'],
                   },
                   {
                       value:'BMI',
                       label:'BMI',
+                      type: 'coach',
+                      need: ['healthCertification','theoryExam', 'studioRoutine','tricksPerformance','rescuePerformance','teachingTheory','teachingStudio','teachingPool'],
                   },
                   {
                       value:'MI',
                       label:'MI',
-                  },
-                  {
-                      value:'MMI',
-                      label:'MMI',
+                      type: 'coach',
+                      need: ['healthCertification','theoryExam', 'tricksPerformance'],
                   },
                   {
                       value:'MIT',
                       label:'MIT',
+                      type: 'coach',
+                      need: [],
+                  },
+                  {
+                      value:'MMIT',
+                      label:'MMIT',
+                      type: 'coach',
+                      need: [],
+                  },
+                  {
+                      value:'O1',
+                      label:'O1',
+                      type: 'student',
+                      need: ['healthCertification','theoryExam', 'tricksPerformance'],
+                  },
+                  {
+                      value:'O2',
+                      label:'O2',
+                      type: 'student',
+                      need: ['healthCertification','theoryExam', 'tricksPerformance'],
+                  },
+                  {
+                      value:'OI',
+                      label:'OI',
+                      type: 'coach',
+                      need: ['healthCertification','theoryExam', 'tricksPerformance','freeDivingCertification'],
+                  },
+                  {
+                      value:'J1',
+                      label:'J1',
+                      type: 'student',
+                      need: ['healthCertification','theoryExam', 'studioRoutine','dynamicRoutine','studioRoutine','waterSafety'],
+                  },
+                  {
+                      value:'J2',
+                      label:'J2',
+                      type: 'student',
+                      need: ['healthCertification','theoryExam', 'studioRoutine','dynamicRoutine','studioRoutine','waterSafety'],
+                  },
+                  {
+                      value:'J3',
+                      label:'J3',
+                      type: 'student',
+                      need: ['healthCertification','theoryExam', 'studioRoutine','dynamicRoutine','studioRoutine','waterSafety'],
+                  },
+                  {
+                      value:'JI',
+                      label:'JI',
+                      type: 'coach',
+                      need: ['healthCertification','theoryExam', 'tricksPerformance'],
+                  },
+                  {
+                      value:'G1',
+                      label:'G1',
+                      type: 'student',
+                      need: ['healthCertification','theoryExam', 'tricksPerformance'],
+                  },
+                  {
+                      value:'G2',
+                      label:'G2',
+                      type: 'student',
+                      need: ['healthCertification','theoryExam', 'tricksPerformance'],
+                  },
+                  {
+                      value:'GI',
+                      label:'GI',
+                      type: 'coach',
+                      need: ['healthCertification','theoryExam', 'tricksPerformance'],
+                  },
+                  {
+                      value:'P1',
+                      label:'P1',
+                      type: 'student',
+                      need: ['healthCertification','theoryExam', 'tricksPerformance'],
+                  },
+                  {
+                      value:'P2',
+                      label:'P2',
+                      type: 'student',
+                      need: ['healthCertification','theoryExam', 'tricksPerformance'],
+                  },
+                  {
+                      value:'PI',
+                      label:'PI',
+                      type: 'coach',
+                      need: ['healthCertification','theoryExam', 'tricksPerformance', 'scubaAndFreeDivingCertification'],
                   },
               ],
               colors:[
@@ -101,7 +195,8 @@ export default {
                   '#f47023'
               ],
           },
-          hostedIdConfig:isDev?{
+          //临时测试
+          hostedIdConfig:false&&isDev?{
               goods1:{
                   id:'NRTU8287ASMQU',
               },
@@ -132,9 +227,6 @@ export default {
               MI:{
                   id:'UDHUFVYBLX994',
               },
-              MMI:{
-                  id:'7ETBBSTY4RASS',
-              }
           }:{
               'mfiGoodsSchoolsLeggings':{
                   id:'3NKCR7ECVT2BY',
@@ -268,6 +360,9 @@ export default {
               M0:{
                   id:'M59NSGGZGYLA2',
               },
+              M0_1: {
+                  id: 'WHL4ZS8H39ZVL'
+              },
               M1:{
                   id:'SEAVR5JK4T36N',
               },
@@ -283,9 +378,45 @@ export default {
               MI:{
                   id:'CE5GA58V6Y6J2',
               },
-              MMI:{
-                  id:'PCJYUVT7ZMXUW',
-              }
+              O1: {
+                  id: 'WNLRDDNJEMRW4'
+              },
+              O2: {
+                  id: 'VH5B3Z5GCQCBG'
+              },
+              OI: {
+                  id: 'ADLE6V4CV2EQN'
+              },
+              J1: {
+                  id: 'U393KL7DE49LA'
+              },
+              J2: {
+                  id: '83EZ88GG6JKSS'
+              },
+              J3: {
+                  id: 'TMM2Q33FZ9MU6'
+              },
+              JI: {
+                  id: 'M7Y7WW2HX55TN'
+              },
+              G1: {
+                  id: 'QRAJSGAF4H2AY'
+              },
+              G2: {
+                  id: 'KAW5D6DDPTEFY'
+              },
+              GI: {
+                  id: 'VZ8M2P5L5JJLS'
+              },
+              P1: {
+                  id: 'YH5TQPTDGSZR6'
+              },
+              P2: {
+                  id: 'MSGR5PDCF6NZ6'
+              },
+              PI: {
+                  id: 'FYXGN3E8SATU2'
+              },
           },
           centerGoodsList:isDev?[
               {
@@ -431,6 +562,13 @@ export default {
                   gift:'merleggings',
               },
               {
+                  level:'M0',
+                  name:'M0',
+                  count:1,
+                  price:'',
+                  id:'M0_1',
+              },
+              {
                   level:'M1',
                   name:'M1',
                   count:1,
@@ -466,13 +604,96 @@ export default {
                   id:'MI',
               },
               {
-                  level:'MMI',
-                  name:'MMI',
+                  level:'O1',
+                  name:'O1',
                   count:1,
-                  price:'MMI',
-                  id:'MMI',
-                  disabled:true,
-              }
+                  price:'',
+                  id:'O1',
+              },
+              {
+                  level:'O2',
+                  name:'O2',
+                  count:1,
+                  price:'',
+                  id:'O2',
+              },
+              {
+                  level:'OI',
+                  name:'OI',
+                  count:1,
+                  price:'',
+                  id:'OI',
+              },
+              {
+                  level:'J1',
+                  name:'J1',
+                  count:1,
+                  price:'',
+                  id:'J1',
+              },
+              {
+                  level:'J2',
+                  name:'J2',
+                  count:1,
+                  price:'',
+                  id:'J2',
+              },
+              {
+                  level:'J3',
+                  name:'J3',
+                  count:1,
+                  price:'',
+                  id:'J3',
+              },
+              {
+                  level:'JI',
+                  name:'JI',
+                  count:1,
+                  price:'',
+                  id:'JI',
+              },
+              {
+                  level:'G1',
+                  name:'G1',
+                  count:1,
+                  price:'',
+                  id:'G1',
+              },
+              {
+                  level:'G2',
+                  name:'G2',
+                  count:1,
+                  price:'',
+                  id:'G2',
+              },
+              {
+                  level:'GI',
+                  name:'GI',
+                  count:1,
+                  price:'',
+                  id:'GI',
+              },
+              {
+                  level:'P1',
+                  name:'P1',
+                  count:1,
+                  price:'',
+                  id:'P1',
+              },
+              {
+                  level:'P2',
+                  name:'P2',
+                  count:1,
+                  price:'',
+                  id:'P2',
+              },
+              {
+                  level:'PI',
+                  name:'PI',
+                  count:1,
+                  price:'',
+                  id:'PI',
+              },
           ],
         /*生成请求时间戳*/
         genTimestamp:function () {
@@ -566,11 +787,15 @@ export default {
         },
           genLevelConfig:function (options) {
               let instrutorLevelLimit={
-                  'all':["M0","M1","M2","M3","BMI","MI","MMI","MIT"],
-                  'MIT':["M0","M1","M2","M3","BMI","MI","MMI","MIT"],
-                  'MMI':["M0","M1","M2","M3"],
+                  'all':["M0","M1","M2","BMI","M3","MI","MIT","O1","O2","OI","J1","J2","J3","JI","G1","G2","GI","P1","P2","PI"],
+                  'MMIT':["M0","M1","M2","M3","BMI","MI","MIT","O1","O2","OI","J1","J2","J3","JI","G1","G2","GI","P1","P2","PI"],
+                  'MIT':["M0","M1","M2","M3","BMI","MI","O1","O2","OI","J1","J2","J3","JI","G1","G2","GI","P1","P2","PI"],
                   'MI':["M0","M1","M2"],
                   'BMI':["M0","M1"],
+                  'OI':["O1","O2"],
+                  'JI':["J1","J2","J3"],
+                  'GI':["G1","G2"],
+                  'PI':["P1","P2"],
               }
               let temList=instrutorLevelLimit[options.level];
               let levelList=[];
@@ -582,7 +807,7 @@ export default {
               });
               return levelList;
           },
-          allLevelList:["M0","M1","M2","BMI","M3","MI","MMI","MIT"],
+          allLevelList:["M0","M1","M2","BMI","M3","MI", "MIT","O1","O2","OI","J1","J2","J3","JI","G1","G2","GI","P1","P2","PI"],
           deviceType:function (options) {
               options={...{},...options}
               var isMobile=false;
@@ -692,6 +917,28 @@ export default {
                   year+=1;
               }
               return 'To '+year+'-'+'03-31'
+          },
+          getNeededStatus:function (level) {
+            try {
+                return Vue.tools.basicConfig.levelOptions.find((item, index) => {
+                    return item.value === level;
+                }).need;
+            }catch (e) {
+                return []
+            }
+          },
+          levelOptionsFilter: function (type) {
+            let data = [];
+            if(type){
+                Vue.tools.basicConfig.levelOptions.forEach((item, index) => {
+                    if(item.type === type){
+                        data.push(item);
+                    }
+                })
+            }else{
+                data = [...Vue.tools.basicConfig.levelOptions];
+            }
+            return data;
           }
       }
 
