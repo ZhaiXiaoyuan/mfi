@@ -8,14 +8,26 @@
           </div>
           <div class="modal-body">
               <div class="dialog-body">
-                  <p class="tips">{{options.tips}}</p>
-                  <form :action="paypalPrefix+'/cgi-bin/webscr'" id="form" method="post" target="_blank">
-                      <input type="hidden" name="cmd" value="_s-xclick">
-                      <input type="hidden" name="hosted_button_id" v-model="token">
-                      <input type="hidden" name="invoice" v-model="temOrderId">
-                      <img class="cm-btn" @click="toPay()" src="https://www.paypalobjects.com/zh_HK/HK/i/btn/btn_buynowCC_LG_wCUP.gif" border="0" alt="PayPal － 更安全、更簡單的網上付款方式！">
-                      <img alt="" border="0" src="https://www.paypalobjects.com/zh_HK/i/scr/pixel.gif" width="1" height="1">
-                  </form>
+                 <div>
+                     <p class="tips">{{options.tips}}</p>
+                     <form :action="paypalPrefix+'/cgi-bin/webscr'" id="form" method="post" target="_blank">
+                         <input type="hidden" name="cmd" value="_s-xclick">
+                         <input type="hidden" name="hosted_button_id" v-model="token">
+                         <input type="hidden" name="invoice" v-model="temOrderId">
+                         <img class="cm-btn" @click="toPay()" src="https://www.paypalobjects.com/zh_HK/HK/i/btn/btn_buynowCC_LG_wCUP.gif" border="0" alt="PayPal － 更安全、更簡單的網上付款方式！">
+                         <img alt="" border="0" src="https://www.paypalobjects.com/zh_HK/i/scr/pixel.gif" width="1" height="1">
+                     </form>
+                 </div>
+                  <div v-if="options.tips2">
+                      <p class="tips">{{options.tips2}}</p>
+                      <form :action="paypalPrefix+'/cgi-bin/webscr'" id="form_M0_1" method="post" target="_blank">
+                          <input type="hidden" name="cmd" value="_s-xclick">
+                          <input type="hidden" name="hosted_button_id" value="WHL4ZS8H39ZVL">
+                          <input type="hidden" name="invoice" v-model="temOrderId">
+                          <img class="cm-btn" @click="toPay()" src="https://www.paypalobjects.com/zh_HK/HK/i/btn/btn_buynowCC_LG_wCUP.gif" border="0" alt="PayPal － 更安全、更簡單的網上付款方式！">
+                          <img alt="" border="0" src="https://www.paypalobjects.com/zh_HK/i/scr/pixel.gif" width="1" height="1">
+                      </form>
+                  </div>
               </div>
           </div>
       </div>
@@ -70,6 +82,10 @@
            .modal-body{
                position: relative;
                height: 100%;
+               .dialog-body{
+                   display: flex;
+                   justify-content: center;
+               }
                .tips{
                    font-size: 16px;
                    color: #333;
@@ -97,6 +113,7 @@
           callback:null,
           closeCallback:null,
           tips:null,
+          tips2:null,
           title:'',
       }
     },

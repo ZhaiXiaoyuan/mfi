@@ -756,6 +756,7 @@
                     level:this.course.mfiLevel,
                     title:this.$t('title.toPaypal'),
                     tips:this.$t('tips.buyM0Tips',{count:this.course.mfiLevel=='M0'?20:1,level:this.course.mfiLevel}),
+                    tips2:this.course.mfiLevel=='M0' && this.$t('tips.buyM0Tips',{count:1,level:this.course.mfiLevel}),
                     callback:(data)=>{
                        // payModalInstance.close();
 
