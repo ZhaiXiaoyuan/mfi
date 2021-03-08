@@ -802,7 +802,8 @@ export default {
               temList.forEach((item,i)=>{
                   levelList.push(  {
                       value:item,
-                      label:item,
+                     /* label:item,*/
+                      label: this.$t("label."+item),
                   });
               });
               return levelList;
