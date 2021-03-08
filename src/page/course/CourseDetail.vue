@@ -69,6 +69,9 @@
                             <th v-if="checkNeed('studioRoutine')">
                                 {{$t("label.studio")}}
                             </th>
+                            <th v-if="checkNeed('studioPerformance')">
+                                {{$t("label.studioPerformance")}}
+                            </th>
                             <th v-if="checkNeed('tricksPerformance')">
                                 {{$t("label.tricksPerformance")}}
                             </th>
@@ -132,6 +135,9 @@
                             </td>
                             <td v-if="checkNeed('studioRoutine')">
                                 <span class="cm-text" :class="{'pass':item.mfiLevelState.studioRoutine=='pass'}"> {{partStatus[item.mfiLevelState.studioRoutine]}}</span>
+                            </td>
+                            <td v-if="checkNeed('studioPerformance')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.studioPerformance=='pass'}"> {{partStatus[item.mfiLevelState.studioPerformance]}}</span>
                             </td>
                             <td v-if="checkNeed('tricksPerformance')">
                                 <span class="cm-text" :class="{'pass':item.mfiLevelState.tricksPerformance=='pass'}"> {{partStatus[item.mfiLevelState.tricksPerformance]}}</span>
@@ -218,6 +224,9 @@
                             <th v-if="checkNeed('studioRoutine')">
                                 {{$t("label.studio")}}
                             </th>
+                            <th v-if="checkNeed('studioPerformance')">
+                                {{$t("label.studioPerformance")}}
+                            </th>
                             <th v-if="checkNeed('tricksPerformance')">
                                 {{$t("label.tricksPerformance")}}
                             </th>
@@ -300,6 +309,18 @@
                             <td v-if="checkNeed('studioRoutine')">
                                 <span class="cm-text" v-if="item.mfiLevelState.studioRoutine=='-'">{{partStatus[item.mfiLevelState.studioRoutine]}}</span>
                                 <el-select v-model="item.mfiLevelState.studioRoutine" :disabled="item.mfiLevelState.studioRoutine=='pass'" @change="saveStatus(item,'studioRoutine')" class="status-selector" :class="{'pass':item.mfiLevelState.studioRoutine=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.studioRoutine!='-'" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in statusOptions"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value"
+                                        :disabled="item.disabled">
+                                    </el-option>
+                                </el-select>
+                            </td>
+                            <td v-if="checkNeed('studioPerformance')">
+                                <span class="cm-text" v-if="item.mfiLevelState.studioPerformance=='-'">{{partStatus[item.mfiLevelState.studioPerformance]}}</span>
+                                <el-select v-model="item.mfiLevelState.studioPerformance" :disabled="item.mfiLevelState.studioPerformance=='pass'" @change="saveStatus(item,'studioPerformance')" class="status-selector" :class="{'pass':item.mfiLevelState.studioPerformance=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.studioPerformance!='-'" placeholder="请选择">
                                     <el-option
                                         v-for="item in statusOptions"
                                         :key="item.value"
@@ -577,10 +598,10 @@
                         label:this.$t('btn.completeStatus'),
                         value:'pass',
                     },
-                    {
+                   /* {
                         label:this.$t('btn.waitingStatus'),
                         value:'',
-                    },
+                    },*/
                 ],
                 pager:{
                     pageSize:20,

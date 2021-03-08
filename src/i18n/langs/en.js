@@ -109,6 +109,7 @@ const en = {
         AIDA2FreeDiving: 'AIDA A2 Freediver Or Its Equivalent Levels Certificate',
         freeDivingCertification: 'AIDA A2 Freediver Or Its Equivalent Levels Certificate',
         scubaAndFreeDivingCertification: 'Certified Freediving Instructor and Scuba Diver OR Scuba Diving Instructor and Freediver',
+        studioPerformance: 'Studio Performance',
     },
     holder: {
         account:'Please enter your login email',
@@ -205,7 +206,7 @@ const en = {
         student:'Student',
         course:'Course',
         AuthorizationRecord:'Authorization Record',
-        completeStatus:'Pass',
+        completeStatus:'Complete',
         waitingStatus:'Need',
         pendingGrant:'Pending',
         waitingGrant:'Waiting',
@@ -230,8 +231,8 @@ const en = {
         close:'Close',
         buyToGrant:'Buy To Grant',
         addStudent:'Add Student',
-        email:'Email',
-        fromMyStudent:'From My Student',
+        email:'Send Activation Email to Student',
+        fromMyStudent:'Select From "My Student"',
         newStudent:'New Student',
         myStudent:'Student',
         my:'My Details',
@@ -298,7 +299,7 @@ const en = {
         editorDoc:'Editor Documentation',
         assistToActivate: 'Assist To Activate',
         new: 'New',
-        createAndActivate: 'Create And Activate'
+        createAndActivate: 'Create Student Account Manually'
     },
     title:{
         super:'Super Administrator',
@@ -327,7 +328,7 @@ const en = {
         certificateStatistics:'Certificate Statistics',
         newCourse:'New Course',
         studentInfo:'Students',
-        addStudent:'Add Student',
+        addStudent:'Create Student Account',
         studentList:'Student List',
         someoneStudent:'{msg}\'s Student',
         course:'Course',

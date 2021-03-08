@@ -659,18 +659,21 @@
                         }
                         this.getUserCertificate();
                         this.otherPicList=[];
+                        let firstAidPic = {
+                            label:this.$t('label.firstAid'),
+                            filePath:''
+                        }
+                        let insurancePic = {
+                            label:this.$t('label.insurance'),
+                            filePath:''
+                        }
                         if(this.coach.firstAidPic){
-                            this.otherPicList.push({
-                                label:this.$t('label.firstAid'),
-                                filePath:Vue.basicConfig.filePrefix+this.coach.firstAidPic+"?r="+Math.random()
-                            })
+                            firstAidPic.filePath = Vue.basicConfig.filePrefix+this.coach.firstAidPic+"?r="+Math.random()
                         }
                         if(this.coach.insurancePic){
-                            this.otherPicList.push({
-                                label:this.$t('label.insurance'),
-                                filePath:Vue.basicConfig.filePrefix+this.coach.insurancePic+"?r="+Math.random()
-                            })
+                            insurancePic.filePath = Vue.basicConfig.filePrefix+this.coach.insurancePic+"?r="+Math.random()
                         }
+                        this.otherPicList.push(firstAidPic, insurancePic);
                         //
                         let freeDivingPic = {
                             label:this.$t('label.freeDiving'),

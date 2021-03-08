@@ -44,13 +44,13 @@ export default {
         }
 
         //临时测试
-      const isDev=true||process.env.NODE_ENV=='development'?true:false;
+      const isDev=false&&process.env.NODE_ENV=='development'?true:false;
       Vue.tools = {
           basicConfig:{
              /* basicUrl:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://39.108.11.197',
               filePrefix:false&&process.env.NODE_ENV=='development'?'http://zyu-server.wicp.net:19356':'http://39.108.11.197',*/
               basicUrl:isDev?'http://www.mfimermaid.com':'http://www.mfimermaid.com',
-              filePrefix:isDev?'https://linqi.tech/dh/mfi/web':'http://www.mfimermaid.com',
+              filePrefix:isDev?'http://linqi.tech:18083/mfi/web':'http://www.mfimermaid.com',
               paypalPrefix:isDev?'https://www.sandbox.paypal.com':'https://www.paypal.com',
               serverDefaultAvatar: '/mfiFile/user/defaultUserHeadPic.jpg',
               levelOptions:[
@@ -82,7 +82,7 @@ export default {
                       value:'BMI',
                       label:'BMI',
                       type: 'coach',
-                      need: ['healthCertification','theoryExam', 'studioRoutine','tricksPerformance','rescuePerformance','teachingTheory','teachingStudio','teachingPool'],
+                      need: ['healthCertification','theoryExam', 'studioPerformance','tricksPerformance','rescuePerformance','teachingTheory','teachingStudio','teachingPool'],
                   },
                   {
                       value:'MI',
@@ -124,19 +124,19 @@ export default {
                       value:'J1',
                       label:'J1',
                       type: 'student',
-                      need: ['healthCertification','theoryExam', 'studioRoutine','dynamicRoutine','studioRoutine','waterSafety'],
+                      need: ['healthCertification','theoryExam', 'studioRoutine','dynamicRoutine','staticRoutine','studioRoutine','waterSafety'],
                   },
                   {
                       value:'J2',
                       label:'J2',
                       type: 'student',
-                      need: ['healthCertification','theoryExam', 'studioRoutine','dynamicRoutine','studioRoutine','waterSafety'],
+                      need: ['healthCertification','theoryExam', 'studioRoutine','dynamicRoutine','staticRoutine','studioRoutine','waterSafety'],
                   },
                   {
                       value:'J3',
                       label:'J3',
                       type: 'student',
-                      need: ['healthCertification','theoryExam', 'studioRoutine','dynamicRoutine','studioRoutine','waterSafety'],
+                      need: ['healthCertification','theoryExam', 'studioRoutine','dynamicRoutine','staticRoutine','studioRoutine','waterSafety'],
                   },
                   {
                       value:'JI',

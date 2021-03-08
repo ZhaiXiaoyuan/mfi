@@ -55,6 +55,9 @@
                             <th v-if="checkNeed('studioRoutine')">
                                 {{$t("label.studio")}}
                             </th>
+                            <th v-if="checkNeed('studioPerformance')">
+                                {{$t("label.studioPerformance")}}
+                            </th>
                             <th v-if="checkNeed('tricksPerformance')">
                                 {{$t("label.tricksPerformance")}}
                             </th>
@@ -109,6 +112,9 @@
                             </td>
                             <td v-if="checkNeed('studioRoutine')">
                                 <span class="cm-text" :class="{'pass':item.mfiLevelState.studioRoutine=='pass'}"> {{partStatus[item.mfiLevelState.studioRoutine]}}</span>
+                            </td>
+                            <td v-if="checkNeed('studioPerformance')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.studioPerformance=='pass'}"> {{partStatus[item.mfiLevelState.studioPerformance]}}</span>
                             </td>
                             <td v-if="checkNeed('tricksPerformance')">
                                 <span class="cm-text" :class="{'pass':item.mfiLevelState.tricksPerformance=='pass'}"> {{partStatus[item.mfiLevelState.tricksPerformance]}}</span>
@@ -166,6 +172,7 @@
                             <div class="info-item" v-if="checkNeed('healthCertification')">{{$t("label.health")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.healthCertification=='pass'}">{{partStatus[item.mfiLevelState.healthCertification]}}</span></div>
                             <div class="info-item" v-if="checkNeed('theoryExam')">{{$t("label.theory")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.theoryExam=='pass'}"> {{partStatus[item.mfiLevelState.theoryExam]}}</span></div>
                             <div class="info-item" v-if="checkNeed('studioRoutine')">{{$t("label.studio")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.studioRoutine=='pass'}"> {{partStatus[item.mfiLevelState.studioRoutine]}}</span></div>
+                            <div class="info-item" v-if="checkNeed('studioPerformance')">{{$t("label.studioPerformance")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.studioPerformance=='pass'}"> {{partStatus[item.mfiLevelState.studioPerformance]}}</span></div>
                             <div class="info-item" v-if="checkNeed('tricksPerformance')">{{$t("label.tricksPerformance")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.tricksPerformance=='pass'}"> {{partStatus[item.mfiLevelState.tricksPerformance]}}</span></div>
                             <div class="info-item" v-if="checkNeed('dynamicRoutine')">{{$t("label.dynamicRoutine")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.dynamicRoutine=='pass'}"> {{partStatus[item.mfiLevelState.dynamicRoutine]}}</span></div>
                             <div class="info-item" v-if="checkNeed('staticRoutine')">{{$t("label.staticRoutine")}}<span class="gap">:</span><span class="cm-text" :class="{'pass':item.mfiLevelState.staticRoutine=='pass'}"> {{partStatus[item.mfiLevelState.staticRoutine]}}</span></div>

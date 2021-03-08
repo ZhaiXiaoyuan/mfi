@@ -111,6 +111,7 @@ const cn = {
         AIDA2FreeDiving: 'AIDA 2自由潜水等效的认证',
         freeDivingCertification: 'AIDA 2自由潜水等效的认证',
         scubaAndFreeDivingCertification: '拥有水肺潜水员及自由潜水教练认证 或 水肺潜水教练及自由潜水员认证',
+        studioPerformance: '形体考核',
     },
     holder: {
         account:'请输入账号',
@@ -233,8 +234,8 @@ const cn = {
         close:'关闭',
         buyToGrant:'购买并授予证书',
         addStudent:'添加学员',
-        email:'邮件',
-        fromMyStudent:'从我的学员选择',
+        email:'发送激发电邮给予学员',
+        fromMyStudent:'从"我的学员"中选择',
         newStudent:'为学员新建账号',
         myStudent:'我的学员',
         my:'我的资料',
@@ -289,7 +290,7 @@ const cn = {
         courseLen:'课程',
         someoneCourse:'{msg}的课程',
         selfCourse:'我开设的课程',
-        selfCreate:'TA开设的课程',
+        selfCreate:'他/她开设的课程',
         switchToInstructor:'切换为教练',
         switchToStudent:'切换为学员',
         buyCertificate:'购买证书',
@@ -301,7 +302,7 @@ const cn = {
         editorDoc:'文本编辑器说明',
         assistToActivate: '協助激活',
         new: '新建',
-        createAndActivate: '新建并激活'
+        createAndActivate: '即时为学员输入资料'
     },
     title:{
         super:'超级管理员',
@@ -330,7 +331,7 @@ const cn = {
         certificateStatistics:'证书统计',
         newCourse:'新的课程',
         studentInfo:'学员信息',
-        addStudent:'添加学员',
+        addStudent:'为学员新建账号',
         studentList:'学员列表',
         someoneStudent:'{msg}的学员信息',
         course:'课程信息',

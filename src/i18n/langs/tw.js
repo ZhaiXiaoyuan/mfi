@@ -109,6 +109,7 @@ const tw = {
         AIDA2FreeDiving: 'AIDA 2自由潛水等效的認證',
         freeDivingCertification: 'AIDA 2自由潛水等效的認證',
         scubaAndFreeDivingCertification: '擁有水肺潛水員及自由潛水教練認證 或 水肺潛水教練及自由潛水員認證',
+        studioPerformance: '形體考核',
     },
     holder: {
         account:'請輸入帳號',
@@ -231,8 +232,8 @@ const tw = {
         close:'關閉',
         buyToGrant:'購買並授予證書',
         addStudent:'添加學員',
-        email:'郵件',
-        fromMyStudent:'從我的學員選擇',
+        email:'發送激發電郵給予學員',
+        fromMyStudent:'從"我的學員"中選擇',
         newStudent:'爲學員新建帳號',
         myStudent:'我的學員',
         my:'我的資料',
@@ -299,7 +300,7 @@ const tw = {
         editorDoc:'文本編輯器說明',
         assistToActivate: '',
         new: '新建',
-        createAndActivate: '新建並激活'
+        createAndActivate: '即時為學員輸入資料'
     },
     title:{
         super:'超級管理員',
@@ -328,7 +329,7 @@ const tw = {
         certificateStatistics:'證書統計',
         newCourse:'新的課程',
         studentInfo:'學員信息',
-        addStudent:'添加學員',
+        addStudent:'為學員新建賬號',
         studentList:'學員列表',
         someoneStudent:'{msg}的學員信息',
         course:'課程信息',

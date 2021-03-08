@@ -12,9 +12,9 @@
             <div class="panel-bd">
                 <div class="cm-detail-block detail-block">
                     <div class="block-bd">
-                        <p class="title cm-title" style="padding-left: 5px;">{{$t("title.addStudent")}}</p>
+                        <p class="title cm-title" style="padding-left: 5px;text-align: center;font-size: 24px;">{{$t("title.addStudent")}}</p>
                         <el-row>
-                            <el-col :span="12" class="info-item">
+                            <el-col :span="24" class="info-item" style="text-align: center;margin-top:10px;">
                                 <span class="label">{{$t('label.courseNo')}}：</span>
                                 <span class="value">{{course.courseId}}</span>
                             </el-col>
@@ -22,7 +22,7 @@
                         <el-row class="handle-list" style="padding: 50px 0px;text-align: center;">
                             <div class="cm-btn add-btn" @click="emailDialogFlag=true">{{$t('btn.email')}}</div>
                             <div class="cm-btn add-btn" v-if="account.type=='coach'" @click="selectStudentDialogFlag=true">{{$t('btn.fromMyStudent')}}</div>
-                            <div class="cm-btn add-btn" @click="newStudentDialogFlag=true">{{$t('btn.newStudent')}}</div>
+                          <!--  <div class="cm-btn add-btn" @click="newStudentDialogFlag=true">{{$t('btn.newStudent')}}</div>-->
                             <div class="cm-btn add-btn" v-if="account.type=='coach'" @click="toAddAndActivate">{{$t('btn.createAndActivate')}}</div>
                         </el-row>
                     </div>
@@ -112,8 +112,9 @@
         line-height: 60px;
         border-radius: 5px;
         background: #5560aa;
-        font-size: 20px;
+        font-size: 16px;
         color: #fff;
+        padding: 0px 10px;
         &+.add-btn{
 
         }
