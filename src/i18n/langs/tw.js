@@ -371,6 +371,8 @@ const tw = {
         setting:'設置中...',
         settingS:'設置成功',
         settingF:'設置失敗，{msg}',
+        grantS:'授予成功',
+        grantF:'授予失敗，{msg}',
         delete:'刪除中...',
         deleteS:'刪除成功',
         deleteF:'刪除失敗，{msg}',

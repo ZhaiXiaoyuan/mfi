@@ -738,10 +738,10 @@
                 Vue.api.grant(params).then((resp)=>{
                     if(resp.respCode=='2000'){
                         this.getList();
-                        fb.setOptions({type:'complete', text:this.$t("tips.settingS")});
+                        fb.setOptions({type:'complete', text:this.$t("tips.grantS")});
                         callback&&callback();
                     }else{
-                        fb.setOptions({type:'warn', text:this.$t("tips.settingF",{msg:resp.respMsg})});
+                        fb.setOptions({type:'warn', text:this.$t("tips.grantF",{msg:resp.respMsg})});
                     }
                 });
             },

@@ -373,6 +373,8 @@ const cn = {
         setting:'设置中...',
         settingS:'设置成功',
         settingF:'设置失败，{msg}',
+        grantS:'授予成功',
+        grantF:'授予失败，{msg}',
         delete:'删除中...',
         deleteS:'删除成功',
         deleteF:'删除失败，{msg}',
