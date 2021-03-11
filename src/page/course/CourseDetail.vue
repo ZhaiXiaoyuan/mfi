@@ -63,8 +63,17 @@
                             <th v-if="checkNeed('healthCertification')">
                                 {{$t("label.health")}}
                             </th>
-                            <th v-if="checkNeed('theoryExam')">
+                            <th v-if="checkNeed('theory')">
                                 {{$t("label.theory")}}
+                            </th>
+                            <th v-if="checkNeed('pool')">
+                                {{$t("label.pool")}}
+                            </th>
+                            <th v-if="checkNeed('tricks')">
+                                {{$t("label.tricks")}}
+                            </th>
+                            <th v-if="checkNeed('theoryExam')">
+                                {{$t("label.theoryExam")}}
                             </th>
                             <th v-if="checkNeed('studioRoutine')">
                                 {{$t("label.studio")}}
@@ -108,8 +117,17 @@
                             <th v-if="checkNeed('freeDivingCertification')">
                                 {{$t("label.freeDivingCertification")}}
                             </th>
-                            <th v-if="checkNeed('scubaAndFreeDivingCertification')">
-                                {{$t("label.scubaAndFreeDivingCertification")}}
+                            <th v-if="checkNeed('scubaOrFreeDivingCertification')">
+                                {{$t("label.scubaOrFreeDivingCertification")}}
+                            </th>
+                            <th v-if="checkNeed('scubaOrFreeDivingInstructor')">
+                                {{$t("label.scubaOrFreeDivingInstructor")}}
+                            </th>
+                            <th v-if="checkNeed('teachingSkills')">
+                                {{$t("label.teachingSkills")}}
+                            </th>
+                            <th v-if="checkNeed('performance')">
+                                {{$t("label.performance")}}
                             </th>
                             <th>
                                 {{$t("label.status")}}
@@ -129,6 +147,15 @@
                             </td>
                             <td v-if="checkNeed('healthCertification')">
                                <span class="cm-text" :class="{'pass':item.mfiLevelState.healthCertification=='pass'}">{{partStatus[item.mfiLevelState.healthCertification]}}</span>
+                            </td>
+                            <td v-if="checkNeed('theory')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.theory=='pass'}"> {{partStatus[item.mfiLevelState.theory]}}</span>
+                            </td>
+                            <td v-if="checkNeed('pool')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.pool=='pass'}"> {{partStatus[item.mfiLevelState.pool]}}</span>
+                            </td>
+                            <td v-if="checkNeed('tricks')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.tricks=='pass'}"> {{partStatus[item.mfiLevelState.tricks]}}</span>
                             </td>
                             <td v-if="checkNeed('theoryExam')">
                                 <span class="cm-text" :class="{'pass':item.mfiLevelState.theoryExam=='pass'}"> {{partStatus[item.mfiLevelState.theoryExam]}}</span>
@@ -175,8 +202,17 @@
                             <td v-if="checkNeed('freeDivingCertification')">
                                 <span class="cm-text" :class="{'pass':item.mfiLevelState.freeDivingCertification=='pass'}"> {{partStatus[item.mfiLevelState.freeDivingCertification]}}</span>
                             </td>
-                            <td v-if="checkNeed('scubaAndFreeDivingCertification')">
-                                <span class="cm-text" :class="{'pass':item.mfiLevelState.scubaAndFreeDivingCertification=='pass'}"> {{partStatus[item.mfiLevelState.scubaAndFreeDivingCertification]}}</span>
+                            <td v-if="checkNeed('scubaOrFreeDivingCertification')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.scubaOrFreeDivingCertification=='pass'}"> {{partStatus[item.mfiLevelState.scubaOrFreeDivingCertification]}}</span>
+                            </td>
+                            <td v-if="checkNeed('scubaOrFreeDivingInstructor')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.scubaOrFreeDivingInstructor=='pass'}"> {{partStatus[item.mfiLevelState.scubaOrFreeDivingInstructor]}}</span>
+                            </td>
+                            <td v-if="checkNeed('teachingSkills')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.teachingSkills=='pass'}"> {{partStatus[item.mfiLevelState.teachingSkills]}}</span>
+                            </td>
+                            <td v-if="checkNeed('scubaOrFreeDivingInstructor')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.performance=='pass'}"> {{partStatus[item.mfiLevelState.performance]}}</span>
                             </td>
                             <td>
                                 <span class="cm-text">{{grantStatus[item.certificate.length>20?'granted':item.certificate]}}</span>
@@ -218,8 +254,17 @@
                             <th v-if="checkNeed('healthCertification')">
                                 {{$t("label.health")}}
                             </th>
-                            <th v-if="checkNeed('theoryExam')">
+                            <th v-if="checkNeed('theory')">
                                 {{$t("label.theory")}}
+                            </th>
+                            <th v-if="checkNeed('pool')">
+                                {{$t("label.pool")}}
+                            </th>
+                            <th v-if="checkNeed('tricks')">
+                                {{$t("label.tricks")}}
+                            </th>
+                            <th v-if="checkNeed('theoryExam')">
+                                {{$t("label.theoryExam")}}
                             </th>
                             <th v-if="checkNeed('studioRoutine')">
                                 {{$t("label.studio")}}
@@ -263,8 +308,17 @@
                             <th v-if="checkNeed('freeDivingCertification')">
                                 {{$t("label.freeDivingCertification")}}
                             </th>
-                            <th v-if="checkNeed('scubaAndFreeDivingCertification')">
-                                {{$t("label.scubaAndFreeDivingCertification")}}
+                            <th v-if="checkNeed('scubaOrFreeDivingCertification')">
+                                {{$t("label.scubaOrFreeDivingCertification")}}
+                            </th>
+                            <th v-if="checkNeed('scubaOrFreeDivingInstructor')">
+                                {{$t("label.scubaOrFreeDivingInstructor")}}
+                            </th>
+                            <th v-if="checkNeed('teachingSkills')">
+                                {{$t("label.teachingSkills")}}
+                            </th>
+                            <th v-if="checkNeed('performance')">
+                                {{$t("label.performance")}}
                             </th>
                             <th>
                                 {{$t("label.status")}}
@@ -285,6 +339,42 @@
                             <td v-if="checkNeed('healthCertification')">
                                 <span class="cm-text" v-if="item.mfiLevelState.healthCertification=='-'">{{partStatus[item.mfiLevelState.healthCertification]}}</span>
                                 <el-select v-model="item.mfiLevelState.healthCertification" :disabled="item.mfiLevelState.healthCertification=='pass'" @change="saveStatus(item,'healthCertification')" class="status-selector" :class="{'pass':item.mfiLevelState.healthCertification=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.healthCertification!='-'" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in statusOptions"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value"
+                                        :disabled="item.disabled">
+                                    </el-option>
+                                </el-select>
+                            </td>
+                            <td v-if="checkNeed('theory')">
+                                <span class="cm-text" v-if="item.mfiLevelState.theory=='-'">{{partStatus[item.mfiLevelState.theory]}}</span>
+                                <el-select v-model="item.mfiLevelState.theory" :disabled="item.mfiLevelState.theory=='pass'"   @change="saveStatus(item,'theory')" class="status-selector" :class="{'pass':item.mfiLevelState.theory=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.theory!='-'" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in statusOptions"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value"
+                                        :disabled="item.disabled">
+                                    </el-option>
+                                </el-select>
+                            </td>
+                            <td v-if="checkNeed('pool')">
+                                <span class="cm-text" v-if="item.mfiLevelState.pool=='-'">{{partStatus[item.mfiLevelState.pool]}}</span>
+                                <el-select v-model="item.mfiLevelState.pool" :disabled="item.mfiLevelState.pool=='pass'"   @change="saveStatus(item,'pool')" class="status-selector" :class="{'pass':item.mfiLevelState.pool=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.pool!='-'" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in statusOptions"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value"
+                                        :disabled="item.disabled">
+                                    </el-option>
+                                </el-select>
+                            </td>
+                            <td v-if="checkNeed('tricks')">
+                                <span class="cm-text" v-if="item.mfiLevelState.tricks=='-'">{{partStatus[item.mfiLevelState.tricks]}}</span>
+                                <el-select v-model="item.mfiLevelState.tricks" :disabled="item.mfiLevelState.tricks=='pass'"   @change="saveStatus(item,'tricks')" class="status-selector" :class="{'pass':item.mfiLevelState.tricks=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.tricks!='-'" placeholder="请选择">
                                     <el-option
                                         v-for="item in statusOptions"
                                         :key="item.value"
@@ -474,9 +564,45 @@
                                     </el-option>
                                 </el-select>
                             </td>
-                            <td v-if="checkNeed('scubaAndFreeDivingCertification')">
-                                <span class="cm-text" v-if="item.mfiLevelState.scubaAndFreeDivingCertification=='-'">{{partStatus[item.mfiLevelState.scubaAndFreeDivingCertification]}}</span>
-                                <el-select v-model="item.mfiLevelState.scubaAndFreeDivingCertification" :disabled="item.mfiLevelState.scubaAndFreeDivingCertification=='pass'" @change="saveStatus(item,'scubaAndFreeDivingCertification')" class="status-selector" :class="{'pass':item.mfiLevelState.scubaAndFreeDivingCertification=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.scubaAndFreeDivingCertification!='-'" placeholder="请选择">
+                            <td v-if="checkNeed('scubaOrFreeDivingCertification')">
+                                <span class="cm-text" v-if="item.mfiLevelState.scubaOrFreeDivingCertification=='-'">{{partStatus[item.mfiLevelState.scubaOrFreeDivingCertification]}}</span>
+                                <el-select v-model="item.mfiLevelState.scubaOrFreeDivingCertification" :disabled="item.mfiLevelState.scubaOrFreeDivingCertification=='pass'" @change="saveStatus(item,'scubaOrFreeDivingCertification')" class="status-selector" :class="{'pass':item.mfiLevelState.scubaOrFreeDivingCertification=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.scubaOrFreeDivingCertification!='-'" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in statusOptions"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value"
+                                        :disabled="item.disabled">
+                                    </el-option>
+                                </el-select>
+                            </td>
+                            <td v-if="checkNeed('scubaOrFreeDivingInstructor')">
+                                <span class="cm-text" v-if="item.mfiLevelState.scubaOrFreeDivingInstructor=='-'">{{partStatus[item.mfiLevelState.scubaOrFreeDivingInstructor]}}</span>
+                                <el-select v-model="item.mfiLevelState.scubaOrFreeDivingInstructor" :disabled="item.mfiLevelState.scubaOrFreeDivingInstructor=='pass'" @change="saveStatus(item,'scubaOrFreeDivingInstructor')" class="status-selector" :class="{'pass':item.mfiLevelState.scubaOrFreeDivingInstructor=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.scubaOrFreeDivingInstructor!='-'" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in statusOptions"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value"
+                                        :disabled="item.disabled">
+                                    </el-option>
+                                </el-select>
+                            </td>
+                            <td v-if="checkNeed('teachingSkills')">
+                                <span class="cm-text" v-if="item.mfiLevelState.teachingSkills=='-'">{{partStatus[item.mfiLevelState.teachingSkills]}}</span>
+                                <el-select v-model="item.mfiLevelState.teachingSkills" :disabled="item.mfiLevelState.teachingSkills=='pass'" @change="saveStatus(item,'teachingSkills')" class="status-selector" :class="{'pass':item.mfiLevelState.teachingSkills=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.teachingSkills!='-'" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in statusOptions"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value"
+                                        :disabled="item.disabled">
+                                    </el-option>
+                                </el-select>
+                            </td>
+                            <td v-if="checkNeed('performance')">
+                                <span class="cm-text" v-if="item.mfiLevelState.performance=='-'">{{partStatus[item.mfiLevelState.performance]}}</span>
+                                <el-select v-model="item.mfiLevelState.performance" :disabled="item.mfiLevelState.performance=='pass'" @change="saveStatus(item,'performance')" class="status-selector" :class="{'pass':item.mfiLevelState.performance=='pass','cm-disabled':item.studentState=='nonActivated'}" v-if="item.mfiLevelState.performance!='-'" placeholder="请选择">
                                     <el-option
                                         v-for="item in statusOptions"
                                         :key="item.value"
@@ -595,13 +721,14 @@
                 },
                 statusOptions:[
                     {
-                        label:this.$t('btn.completeStatus'),
+                        label:this.$t('label.pass'),
                         value:'pass',
                     },
-                   /* {
-                        label:this.$t('btn.waitingStatus'),
-                        value:'',
-                    },*/
+                    {
+                        label:this.$t('label.need'),
+                        value:'need',
+                        disabled: true,
+                    },
                 ],
                 pager:{
                     pageSize:20,

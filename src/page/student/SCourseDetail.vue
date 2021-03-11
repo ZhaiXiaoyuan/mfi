@@ -49,8 +49,17 @@
                             <th v-if="checkNeed('healthCertification')">
                                 {{$t("label.health")}}
                             </th>
-                            <th v-if="checkNeed('theoryExam')">
+                            <th v-if="checkNeed('theory')">
                                 {{$t("label.theory")}}
+                            </th>
+                            <th v-if="checkNeed('pool')">
+                                {{$t("label.pool")}}
+                            </th>
+                            <th v-if="checkNeed('tricks')">
+                                {{$t("label.tricks")}}
+                            </th>
+                            <th v-if="checkNeed('theoryExam')">
+                                {{$t("label.theoryExam")}}
                             </th>
                             <th v-if="checkNeed('studioRoutine')">
                                 {{$t("label.studio")}}
@@ -94,8 +103,17 @@
                             <th v-if="checkNeed('freeDivingCertification')">
                                 {{$t("label.freeDivingCertification")}}
                             </th>
-                            <th v-if="checkNeed('scubaAndFreeDivingCertification')">
-                                {{$t("label.scubaAndFreeDivingCertification")}}
+                            <th v-if="checkNeed('scubaOrFreeDivingCertification')">
+                                {{$t("label.scubaOrFreeDivingCertification")}}
+                            </th>
+                            <th v-if="checkNeed('scubaOrFreeDivingInstructor')">
+                                {{$t("label.scubaOrFreeDivingInstructor")}}
+                            </th>
+                            <th v-if="checkNeed('teachingSkills')">
+                                {{$t("label.teachingSkills")}}
+                            </th>
+                            <th v-if="checkNeed('performance')">
+                                {{$t("label.performance")}}
                             </th>
                             <th>
                                 {{$t("label.status")}}
@@ -106,6 +124,15 @@
                         <tr v-for="(item,index) in entryList">
                             <td v-if="checkNeed('healthCertification')">
                                 <span class="cm-text" :class="{'pass':item.mfiLevelState.healthCertification=='pass'}">{{partStatus[item.mfiLevelState.healthCertification]}}</span>
+                            </td>
+                            <td v-if="checkNeed('theory')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.theory=='pass'}"> {{partStatus[item.mfiLevelState.theory]}}</span>
+                            </td>
+                            <td v-if="checkNeed('pool')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.pool=='pass'}"> {{partStatus[item.mfiLevelState.pool]}}</span>
+                            </td>
+                            <td v-if="checkNeed('tricks')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.tricks=='pass'}"> {{partStatus[item.mfiLevelState.tricks]}}</span>
                             </td>
                             <td v-if="checkNeed('theoryExam')">
                                 <span class="cm-text" :class="{'pass':item.mfiLevelState.theoryExam=='pass'}"> {{partStatus[item.mfiLevelState.theoryExam]}}</span>
@@ -152,8 +179,17 @@
                             <td v-if="checkNeed('freeDivingCertification')">
                                 <span class="cm-text" :class="{'pass':item.mfiLevelState.freeDivingCertification=='pass'}"> {{partStatus[item.mfiLevelState.freeDivingCertification]}}</span>
                             </td>
-                            <td v-if="checkNeed('scubaAndFreeDivingCertification')">
-                                <span class="cm-text" :class="{'pass':item.mfiLevelState.scubaAndFreeDivingCertification=='pass'}"> {{partStatus[item.mfiLevelState.scubaAndFreeDivingCertification]}}</span>
+                            <td v-if="checkNeed('scubaOrFreeDivingCertification')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.scubaOrFreeDivingCertification=='pass'}"> {{partStatus[item.mfiLevelState.scubaOrFreeDivingCertification]}}</span>
+                            </td>
+                            <td v-if="checkNeed('scubaOrFreeDivingInstructor')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.scubaOrFreeDivingInstructor=='pass'}"> {{partStatus[item.mfiLevelState.scubaOrFreeDivingInstructor]}}</span>
+                            </td>
+                            <td v-if="checkNeed('teachingSkills')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.teachingSkills=='pass'}"> {{partStatus[item.mfiLevelState.teachingSkills]}}</span>
+                            </td>
+                            <td v-if="checkNeed('scubaOrFreeDivingInstructor')">
+                                <span class="cm-text" :class="{'pass':item.mfiLevelState.performance=='pass'}"> {{partStatus[item.mfiLevelState.performance]}}</span>
                             </td>
                             <td>
                                 <span class="cm-text">{{grantStatus[typeof item.certificate=='object'?'granted':item.certificate]}}</span>
@@ -274,12 +310,12 @@
                 },
                 statusOptions:[
                     {
-                        label:this.$t('btn.completeStatus'),
+                        label:this.$t('label.pass'),
                         value:'pass',
                     },
                     {
-                        label:this.$t('btn.waitingStatus'),
-                        value:'',
+                        label:this.$t('label.need'),
+                        value:'need',
                     },
                 ],
                 pager:{
