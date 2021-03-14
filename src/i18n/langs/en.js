@@ -405,10 +405,12 @@ const en = {
         deleteF:'Delete failure,{msg}',
         save:'Saving...',
         saveS:'Saved',
-        saveF:'Saved failure,{msg}',
+      /*  saveF:'Saved failure,{msg}',*/
+        saveF: '{msg}',
         handle:'Handling...',
         handleS:'Handled successfully',
-        handleF:'Handled failure,{msg}',
+       /* handleF:'Handled failure,{msg}',*/
+        handleF:'{msg}',
         delAdmin:'Do you confirm to delete this Administrator:{msg}？',
         delMsg:'Do you confirm to delete this message：{msg}？',
         del:'Do you confirm to delete this item：{msg}？',

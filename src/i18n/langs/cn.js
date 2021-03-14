@@ -408,10 +408,12 @@ const cn = {
         deleteF:'删除失败，{msg}',
         save:'保存中...',
         saveS:'保存成功',
-        saveF:'保存失败，{msg}',
+       /* saveF:'保存失败，{msg}',*/
+        saveF: '{msg}',
         handle:'操作中...',
         handleS:'操作成功',
-        handleF:'操作失败，{msg}',
+     /*   handleF:'操作失败，{msg}',*/
+        handleF: '{msg}',
         delAdmin:'确定删除管理员账号：{msg}？',
         delMsg:'确定删除消息：{msg}？',
         del:'确定删除：{msg}？',

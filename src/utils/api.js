@@ -22,21 +22,46 @@ export default {
     });
     /*自定义ajax函数，自带的不好用*/
     Vue.http.ajax = async function (options) {
+        let resBody = {};
       if(options.method.toUpperCase() == 'GET'){
         let res = await Vue.http.get(options.url, {params: options.params});
         if(typeof res.body == 'string'){
-          return JSON.parse(res.body);
+            resBody = JSON.parse(res.body);
         }else{
-          return res.body;
+            resBody =  res.body;
         }
       }else if(options.method.toUpperCase() == 'POST'){
         let res = await Vue.http.post(options.url, options.params);
         if(typeof res.body == 'string'){
-          return JSON.parse(res.body);
+            resBody = JSON.parse(res.body);
         }else{
-          return res.body;
+            resBody =  res.body;
         }
       }
+      if(resBody.respCode !== '2000'){
+          try {
+              let respMsg = JSON.parse(resBody.respMsg);
+              let langType = '';
+              switch (localStorage.lang) {
+                  case 'cn':
+                      langType = 'CN';
+                      break;
+                  case 'en':
+                      langType = 'EN';
+                      break;
+                  case 'tw':
+                      langType = 'TC';
+                      break;
+              }
+              let tipsTxt = respMsg[langType];
+              if(tipsTxt){
+                  resBody.respMsg = tipsTxt;
+              }
+          }catch (e) {
+
+          }
+      }
+      return resBody;
     }
     /**/
  /*  let basicUrl=false&&process.env.NODE_ENV=='development'?'/api'+'/mfi':'http://39.108.252.213:8081/mfi';*/

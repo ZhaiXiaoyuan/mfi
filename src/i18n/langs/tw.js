@@ -405,10 +405,12 @@ const tw = {
         deleteF:'刪除失敗，{msg}',
         save:'保存中...',
         saveS:'保存成功',
-        saveF:'保存失敗，{msg}',
+       /* saveF:'保存失敗，{msg}',*/
+        saveF: '{msg}',
         handle:'操作中...',
         handleS:'操作成功',
-        handleF:'操作失敗，{msg}',
+      /*  handleF:'操作失敗，{msg}',*/
+        handleF:'{msg}',
         delAdmin:'確定刪除管理員帳號：{msg}？',
         delMsg:'確定刪除消息：{msg}？',
         del:'確定刪除：{msg}？',
