@@ -21,9 +21,9 @@
                         </el-row>
                         <el-row class="handle-list" style="padding: 50px 0px;text-align: center;">
                             <div class="cm-btn add-btn" @click="emailDialogFlag=true">{{$t('btn.email')}}</div>
-                            <div class="cm-btn add-btn" v-if="account.type=='coach'" @click="selectStudentDialogFlag=true">{{$t('btn.fromMyStudent')}}</div>
+                            <div class="cm-btn add-btn" @click="selectStudentDialogFlag=true">{{$t('btn.fromMyStudent')}}</div>
                           <!--  <div class="cm-btn add-btn" @click="newStudentDialogFlag=true">{{$t('btn.newStudent')}}</div>-->
-                            <div class="cm-btn add-btn" v-if="account.type=='coach'" @click="toAddAndActivate">{{$t('btn.createAndActivate')}}</div>
+                            <div class="cm-btn add-btn" @click="toAddAndActivate">{{$t('btn.createAndActivate')}}</div>
                         </el-row>
                     </div>
                 </div>

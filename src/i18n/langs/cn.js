@@ -113,7 +113,7 @@ const cn = {
         AIDA2FreeDiving: 'AIDA 2自由潜水等效的认证',
         freeDivingCertification: '自由潜水相关资格',
         scubaOrFreeDivingCertification: '水肺潜水员或自由潜水员认证',
-        scubaOrFreeDivingInstructor: 'Instructor of Scuba Diving /Freediving',
+        scubaOrFreeDivingInstructor: '水肺潜水教练或自由潜水教练认证',
         studioPerformance: '形体考核',
         teachingSkills: '教学能力',
         performance: '技巧考核',

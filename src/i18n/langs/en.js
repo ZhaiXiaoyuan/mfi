@@ -111,7 +111,7 @@ const en = {
         AIDA2FreeDiving: 'AIDA A2 Freediver Or Its Equivalent Levels Certificate',
         freeDivingCertification: 'Freediving Certificate',
         scubaOrFreeDivingCertification: 'Scuba Diver or Freediver',
-        scubaOrFreeDivingInstructor: '水肺潛水教練或自由潛水教練認證',
+        scubaOrFreeDivingInstructor: 'Instructor of Scuba Diving /Freediving',
         studioPerformance: 'Studio Performance',
         teachingSkills: 'Teaching Skills',
         performance: 'Performance',
