@@ -292,6 +292,14 @@ export default {
                 params: params
             });
         },
+        //获取学校可以上特定课程的学生
+        getSchoolQualifiedStudentList:function (params) {
+            return Vue.http.ajax({
+                method: 'post',
+                url: basicUrl+'/school/getSchoolQualifiedStudentList',
+                params: params
+            });
+        },
         //将某个学生加入某个课程
         addStudentToCourse:function (params) {
             return Vue.http.ajax({

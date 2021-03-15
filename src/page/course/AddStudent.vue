@@ -285,22 +285,37 @@
                 });
             },
             getStudentList:function () {
-                let params={
-                    ...Vue.sessionInfo(),
-                    userId:this.coach.id,
-                    mfiLevel:'',
-                    pageIndex:1,
-                    pageSize:1000,
-                    canJoinCourseId:this.id,
-                    searchContent:null,
-                }
-                Vue.api.getInstrutorStudentList(params).then((resp)=>{
-                    if(resp.respCode=='2000'){
-                        let data=JSON.parse(resp.respMsg);
-                        this.studentList=JSON.parse(data.studentList);
-                        console.log('this.studentList:',this.studentList);
+                if(this.account.type === 'coach'){
+                    let params={
+                        ...Vue.sessionInfo(),
+                        userId:this.coach.id,
+                        mfiLevel:'',
+                        pageIndex:1,
+                        pageSize:1000,
+                        canJoinCourseId:this.id,
+                        searchContent:null,
                     }
-                });
+                    Vue.api.getInstrutorStudentList(params).then((resp)=>{
+                        if(resp.respCode=='2000'){
+                            let data=JSON.parse(resp.respMsg);
+                            this.studentList=JSON.parse(data.studentList);
+                            console.log('this.studentList:',this.studentList);
+                        }
+                    });
+                }else if(this.account.type === 'school'){
+                    let params={
+                        ...Vue.sessionInfo(),
+                        schoolId:this.account.id,
+                        courseId:this.id,
+                    }
+                    Vue.api.getSchoolQualifiedStudentList(params).then((resp)=>{
+                        if(resp.respCode=='2000'){
+                            let data=JSON.parse(resp.respMsg);
+                            this.studentList=JSON.parse(data.studentList);
+                            console.log('this.studentList:',this.studentList);
+                        }
+                    });
+                }
             },
             selectToAdd:function () {
                 let emailList=[];
@@ -387,6 +402,9 @@
             this.account=Vue.getAccountInfo();
             if(this.account.type=='coach'){
                 this.coach=this.account;
+                this.getStudentList();
+            }
+            if(this.account.type=='school'){
                 this.getStudentList();
             }
             /**/
