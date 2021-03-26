@@ -72,12 +72,12 @@
                 </div>
             </div>
         </div>
-        <div class="cm-btn cm-add-btn" v-if="account.type=='coach'" @click="toAdd">
+       <!-- <div class="cm-btn cm-add-btn" v-if="account.type=='coach'" @click="toAdd">
             <div class="icon-wrap">
                 <i class="icon add-cross-icon"></i>
             </div>
             <p>{{$t('btn.new')}}</p>
-        </div>
+        </div>-->
         <assist-modal ref="assistModal"/>
     </div>
 </template>

@@ -349,7 +349,7 @@ const cn = {
         allCoach:'所有教练',
         newCoach:'新建教练',
         lCertificate:'等级证书',
-        oCertificate:'其他',
+        oCertificate:'资格证书上传',
         levelSetting:'等级设置',
         schoolSetting:'学校设置',
         auditingSetting:'审核设置',
@@ -452,7 +452,12 @@ const cn = {
         exemptNotice5:'谢谢您的支持，您已满足条件 1），所以您的2020注册年费已获得豁免。',
         exemptNotice6:'谢谢您的支持，您已满足条件 2）所以您的2020注册年费已获得50%豁免 。',
         activateStudentConfirm: '是否所有资料正确？',
-        addStudent: '是否所有资料正确？'
+        addStudent: '是否所有资料正确？',
+        OINeed: '<p>海洋人鱼教练 (OI) 需要上传与AIDA 2自由潜水等效的认证 [需要上传自由潜水员认证]。</p>',
+        PINeed: '<p>摄影安全教练 (PI) 需要上传以下認可潛水系統的資格認证 (組合一至三，選其中一個):</p>' +
+            '<p>一) 中级自由潜水员和中级水肺潜水员或；[需要上传水肺潜水员认证+ 自由潜水员认证]；</p>' +
+            '<p>二) 自由潜水教练和初级水肺潜水员或；[需要上传自由潜水教练认证 + 水肺潜水员认证]；</p>' +
+            '<p>三) 水肺潜水教练和初级自由潜水员 [需要上传水肺潜水教练认+自由潜水员认证]。</</p>'
     },
     editor:{
         title: '设置标题',

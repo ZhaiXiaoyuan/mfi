@@ -345,7 +345,7 @@ const en = {
         allCoach:'All Instructor',
         newCoach:'New Instructor',
         lCertificate:'Level Certificate(s)',
-        oCertificate:'Other',
+        oCertificate:'Upload of Relevant Certificate(s) and Qualification(s)',
         levelSetting:'Level Setting',
         schoolSetting:'School Setting',
         auditingSetting:'Auditing Setting',
@@ -433,7 +433,7 @@ const en = {
         pay:'Paying',
         payS:'Pay successfully',
         payF:'Pay failure',
-        buyM0Tips:'To buy {count} {level} certificates',
+        buyM0Tips:"To buy {count} {level} certificates",
         track:'You can use the tracking number to check delivery status on express company website',
         deviceTips:'Dear users,the current EOS system doesn\'t support mobile device.Please access it with computer.',
         coachCountTips:'You need three instructors at least to create a new course',
@@ -448,7 +448,12 @@ const en = {
         exemptNotice5:'Thank you for your support, you have fulfilled 1), therefore your 2020 Annual Fee has been waived.',
         exemptNotice6:'Thank you for your support, you have fulfilled 2), therefore your 2020 Annual Fee will be charged at 50%.',
         activateStudentConfirm: 'Is the information correct?',
-        addStudent: 'Is the information correct?'
+        addStudent: 'Is the information correct?',
+        OINeed: '<p>Ocean Mermaid Instructor (OI) is required to upload Freediving Certificate with its level equivalent to AIDA 2.</p>',
+        PINeed: '<p>Photographer of Mermaid Safety Instructor (PI) is required to upload one of the following combinations\' Diving Certificates issued by recognised systems:</p>' +
+            '<p>1) Intermediate Freediver and Intermediate Scuba Diver;</p>' +
+            '<p>2) Freediving Instructor and Scuba Diver or;</p>' +
+            '<p>3) Scuba Diving Instructor and Freediver</</p>'
     },
     editor:{
         title: 'Title',

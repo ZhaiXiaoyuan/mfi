@@ -181,6 +181,10 @@
                                     </div>
                                 </div>
                             </li>
+                            <div class="need-tips" style="float: left;color: #666;margin-top: 15px;width: 100%;line-height: 26px;">
+                                <div v-html="$t('tips.OINeed')"></div>
+                                <div v-html="$t('tips.PINeed')" style="margin-top: 10px;"></div>
+                            </div>
                         </ul>
                     </div>
                     <div class="block-bd" v-if="account.type=='student'">
@@ -723,7 +727,7 @@
                                     certificateNo:item.certificate.serialCode,
                                     date:Vue.formatDate(item.certificate.updatedAt,'yyyy-MM-dd'),
                                     issuer:item.schoolName,
-                                    instructor:item.possessorName,
+                                    instructor:item.instructorName||item.possessorName,
                                     callback:(data)=>{
                                         item.filePath=data;
                                         this.certificateList.push(item);
@@ -775,11 +779,11 @@
                             filePath:'',
                             type: 'scubaInstructor',
                         }
-                        let AIDA2FreeDivingPic = {
+                      /*  let AIDA2FreeDivingPic = {
                             label:this.$t('label.AIDA2FreeDiving'),
                             filePath:'',
                             type: 'AIDA2FreeDiving',
-                        }
+                        }*/
                         if(this.user.otherCertificationList){
                             let otherCert = JSON.parse(this.user.otherCertificationList);
                             if(otherCert.freeDiving){
@@ -794,15 +798,15 @@
                             if(otherCert.scubaInstructor){
                                 scubaInstructorPic.filePath = Vue.basicConfig.filePrefix+otherCert.scubaInstructor+"?r="+Math.random()
                             }
-                            if(otherCert.AIDA2FreeDiving){
+                          /*  if(otherCert.AIDA2FreeDiving){
                                 AIDA2FreeDivingPic.filePath = Vue.basicConfig.filePrefix+otherCert.AIDA2FreeDiving+"?r="+Math.random()
-                            }
+                            }*/
                         }
                         this.otherPicList.push(freeDivingPic);
                         this.otherPicList.push(scubaPic);
                         this.otherPicList.push(freeDivingInstuctorPic);
                         this.otherPicList.push(scubaInstructorPic);
-                        this.otherPicList.push(AIDA2FreeDivingPic);
+                     /*   this.otherPicList.push(AIDA2FreeDivingPic);*/
                         console.log('this.user:',this.user);
                     }else{
 

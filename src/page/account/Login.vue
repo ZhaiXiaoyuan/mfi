@@ -453,12 +453,12 @@
                                     yes:this.$t("btn.sure"),
                                 })
                             } else{
-                                this.alert({
+                               /* this.alert({
                                     className:'exempt-tips-modal',
                                     title:this.$t("tips.exemptTile"),
                                     html:'<div class="tips-content"><p>'+this.$t("tips.exemptNotice1")+'</p><p class="para">'+this.$t("tips.exemptNotice2")+'</p><p>'+this.$t("tips.exemptNotice3")+'</p><p>'+this.$t("tips.exemptNotice4")+'</p>'+(data.exemptState?'<p class="para success">'+this.$t("tips.exemptNotice5")+'</p>':'<p class="para error">'+this.$t("tips.exemptNotice6")+'</p>')+'</div>',
                                     yes:this.$t("btn.sure"),
-                                })
+                                })*/
                                 this.$router.push({name:'courseList',params:{}});
                             }
                         }else{

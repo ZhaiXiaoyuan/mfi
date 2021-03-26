@@ -115,7 +115,7 @@
                     <div class="block-bd">
                         <p class="title">{{$t('title.oCertificate')}}</p>
                         <ul class="pic-list" style="padding-bottom: 40px;">
-                            <li v-for="(item,index) in  otherPicList" class="to-upload" @click="viewPicModal({imgUrl:item.filePath})">
+                            <li v-for="(item,index) in  otherPicList.slice(0,2)" class="to-upload" @click="viewPicModal({imgUrl:item.filePath})">
                                 <div class="img-wrap">
                                     <img :src="item.filePath" v-if="item.filePath">
                                 </div>
@@ -127,6 +127,23 @@
                                     </div>
                                 </div>
                             </li>
+                            <div style="width: 100%;height: 1px; float: left;border-top: 1px dashed #e5e5e5;margin: 10px 0px;"></div>
+                            <li v-for="(item,index) in  otherPicList.slice(2,otherPicList.length)" class="to-upload" @click="viewPicModal({imgUrl:item.filePath})">
+                                <div class="img-wrap">
+                                    <img :src="item.filePath" v-if="item.filePath">
+                                </div>
+                                <p class="label">{{item.label}}</p>
+                                <div class="upload-btn"  v-if="account.type=='coach'">
+                                    <div class="wrapper">
+                                        <i class="icon upload-icon"></i>
+                                        <input  type="file" :id="'file-'+(index+2)" accept="image/*" @change="uploadOCertificate(index+2)" @click="stopPropagation($event)">
+                                    </div>
+                                </div>
+                            </li>
+                            <div class="need-tips" style="float: left;color: #666;margin-top: 15px;width: 100%;line-height: 26px;">
+                                <div v-html="$t('tips.OINeed')"></div>
+                                <div v-html="$t('tips.PINeed')" style="margin-top: 10px;"></div>
+                            </div>
                         </ul>
                     </div>
                     <div class="block-bd" v-if="account.type=='admin'||account.type=='school'">
@@ -628,7 +645,7 @@
                                     certificateNo:item.certificate.serialCode,
                                     date:Vue.formatDate(item.certificate.updatedAt,'yyyy-MM-dd'),
                                     issuer:item.schoolName,
-                                    instructor:item.possessorName,
+                                    instructor:item.instructorName || item.possessorName,
                                     status:'BMI,MI,MMI,MIT'.indexOf(item.certificate.mfiLevel)>-1?(Vue.filter('coachStatus')(item.user.instructorAccountStatus)+' '+(item.user.instructorAccountStatus==='certified'?this.getValidityDate():'')):'',
                                     callback:(data)=>{
                                         item.filePath=data;
@@ -695,11 +712,11 @@
                             filePath:'',
                             type: 'scubaInstructor',
                         }
-                        let AIDA2FreeDivingPic = {
+                       /* let AIDA2FreeDivingPic = {
                             label:this.$t('label.AIDA2FreeDiving'),
                             filePath:'',
                             type: 'AIDA2FreeDiving',
-                        }
+                        }*/
                         if(this.coach.otherCertificationList){
                             let otherCert = JSON.parse(this.coach.otherCertificationList);
                             if(otherCert.freeDiving){
@@ -714,15 +731,15 @@
                             if(otherCert.scubaInstructor){
                                 scubaInstructorPic.filePath = Vue.basicConfig.filePrefix+otherCert.scubaInstructor+"?r="+Math.random()
                             }
-                            if(otherCert.AIDA2FreeDiving){
+                          /*  if(otherCert.AIDA2FreeDiving){
                                 AIDA2FreeDivingPic.filePath = Vue.basicConfig.filePrefix+otherCert.AIDA2FreeDiving+"?r="+Math.random()
-                            }
+                            }*/
                         }
                         this.otherPicList.push(freeDivingPic);
                         this.otherPicList.push(scubaPic);
                         this.otherPicList.push(freeDivingInstuctorPic);
                         this.otherPicList.push(scubaInstructorPic);
-                        this.otherPicList.push(AIDA2FreeDivingPic);
+                       /* this.otherPicList.push(AIDA2FreeDivingPic);*/
                         //
 
                         this.levelForm.level=this.coach.mfiLevel;

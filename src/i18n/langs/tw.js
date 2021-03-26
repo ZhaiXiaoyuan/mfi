@@ -346,7 +346,7 @@ const tw = {
         allCoach:'所有教練',
         newCoach:'新建教練',
         lCertificate:'等級證書',
-        oCertificate:'其他',
+        oCertificate:'資格證書上傳',
         levelSetting:'等級設置',
         schoolSetting:'學校設置',
         auditingSetting:'審核設置',
@@ -449,7 +449,12 @@ const tw = {
         exemptNotice5:'謝謝您的支持，您已滿足條件 1），所以您的2020註冊年費已獲得豁免。',
         exemptNotice6:'謝謝您的支持，您已滿足條件 2）所以您的2020註冊年費已獲得50%豁免 。',
         activateStudentConfirm: '是否所有資料正確？',
-        addStudent: '是否所有資料正確？'
+        addStudent: '是否所有資料正確？',
+        OINeed: '<p>海洋人魚教練 (OI) 需要上傳與AIDA 2自由潛水等效的認證 [需要上傳自由潛水員認證]。</p>',
+        PINeed: '<p>攝影安全教練 (PI) 需要上傳以下認可潛水系統的資格認證 (組合一至三，選其中一個):</p>' +
+            '<p>一) 中級自由潛水員和中級水肺潛水員或；[需要上傳水肺潛水員認證+ 自由潛水員認證]；</p>' +
+            '<p>二) 自由潛水教練和初級水肺潛水員或；[需要上傳自由潛水教練認證 + 水肺潛水員認證]；</p>' +
+            '<p>三) 水肺潛水教練和初級自由潛水員 [需要上傳水肺潛水教練認+自由潛水員認證]。</</p>'
     },
     editor:{
         title: '設置標題',

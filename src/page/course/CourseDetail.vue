@@ -899,12 +899,18 @@
             },
             toPay:function (item) {
                 let interval=null;
+                let tips = ''
+                if(this.course.mfiLevel=='M0'){
+                    tips = this.$t('tips.buyM0Tips',{count:20,level:this.course.mfiLevel});
+                }else {
+                    tips = this.$t('tips.buyM0Tips',{count:1,level:this.course.mfiLevel}).replace('certificates','certificate')
+                }
                 let payModalInstance=this.payModal({
                     userId:this.account.id,
                     level:this.course.mfiLevel,
                     title:this.$t('title.toPaypal'),
-                    tips:this.$t('tips.buyM0Tips',{count:this.course.mfiLevel=='M0'?20:1,level:this.course.mfiLevel}),
-                    tips2:this.course.mfiLevel=='M0' && this.$t('tips.buyM0Tips',{count:1,level:this.course.mfiLevel}),
+                    tips:tips,
+                    tips2:this.course.mfiLevel=='M0' && this.$t('tips.buyM0Tips',{count:1,level:this.course.mfiLevel}).replace('certificates','certificate'),
                     callback:(data)=>{
                        // payModalInstance.close();
 

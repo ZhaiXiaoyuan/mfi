@@ -65,8 +65,8 @@ export default {
     }
     /**/
  /*  let basicUrl=false&&process.env.NODE_ENV=='development'?'/api'+'/mfi':'http://39.108.252.213:8081/mfi';*/
-      //临时测试
-   let basicUrl=true||process.env.NODE_ENV=='development'?'https://linqi.tech/mfi':'http://www.mfimermaid.com:8081/mfi';
+      //
+   let basicUrl=false&&process.env.NODE_ENV=='development'?'https://linqi.tech/mfi':'https://www.mfimermaid.com';
     Vue.api={
         //
         superLogin:function (params) {
