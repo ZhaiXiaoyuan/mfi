@@ -33,7 +33,9 @@
                         </div>
                         <div class="con-item count-data">
                             <span class="label">{{$t("label.remaining")}}</span>
-                            <div class="data-item" v-for="(item,index) in certificateCountData" :key="index">{{item.label}}<span class="gap-icon">:</span>{{item.value}}</div>
+                            <div class="item-list">
+                                <div class="data-item" v-for="(item,index) in certificateCountData" :key="index">{{item.label}}<span class="gap-icon">:</span>{{item.value}}</div>
+                            </div>
                         </div>
                         <div class="con-item con-item-search">
                             <el-input :placeholder="$t('holder.certificateStatisticsSearch')" v-model="keyword" class="cm-search">
@@ -413,13 +415,12 @@
                     if(resp.respCode=='2000'){
                         let data=JSON.parse(resp.respMsg);
                         this.certificateCountData=[];
-                        this.certificateCountData.push({label:'M0',value:data.M0});
-                        this.certificateCountData.push({label:'M1',value:data.M1});
-                        this.certificateCountData.push({label:'M2',value:data.M2});
-                        this.certificateCountData.push({label:'M3',value:data.M3});
-                        this.certificateCountData.push({label:'BMI',value:data.BMI});
-                        this.certificateCountData.push({label:'MI',value:data.MI});
-                        this.certificateCountData.push({label:'MMI',value:data.MMI});
+                        Vue.tools.allLevelList.forEach((key) => {
+                            this.certificateCountData.push({
+                                label: key,
+                                value: data[key]
+                            })
+                        })
                     }
                 });
             },
