@@ -940,7 +940,21 @@ export default {
                 data = [...Vue.tools.basicConfig.levelOptions];
             }
             return data;
-          }
+          },
+          blobToDataURI: function (blob, callback) {
+              let reader = new FileReader();
+              reader.readAsDataURL(blob);
+              reader.onload = function (e) {
+                  callback(e.target.result);
+              }
+          },
+          toFormData:function (jsObj) {
+              let fd = new FormData();
+              for (let o in jsObj) {
+                  fd.append(o, jsObj[o])
+              }
+              return fd;
+          },
       }
 
       Object.assign(Vue, Vue.tools);

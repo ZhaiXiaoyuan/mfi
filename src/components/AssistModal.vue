@@ -5,10 +5,10 @@
                 <div class="panel-bd">
                     <div class="cm-detail-block">
                         <div class="block-bd form">
-                            <div class="cm-input-row" v-if="newForm.id">
+                            <div class="cm-input-row">
                                 <div class="cm-avatar-uploader">
                                     <div class="wrapper">
-                                        <img :src="newForm.avatar?basicConfig.filePrefix+newForm.avatar:defaultAvatar">
+                                        <img :src="newForm.id?(newForm.avatar?basicConfig.filePrefix+newForm.avatar:defaultAvatar):(picData || defaultAvatar)">
                                         <input  type="file" id="file-input" accept="image/*" @change="selectFile()">
                                         <p style="text-align: center;">{{$t("label.avatar")}}</p>
                                     </div>
@@ -117,12 +117,13 @@
                 modalFlag: false,
                 aesData:null,
                 user:{},
-                defaultAvatar:'',
+                defaultAvatar:require('@/images/common/default-avatar.png'),
                 newForm:{
                     avatar:null,
                     email:null,
                     gender:'M',
                 },
+                picData:'',
                 uploading:false,
                 otherPicList:[],
                 regionList:[],
@@ -246,7 +247,8 @@
                         type: 'warning'
                     }).then(() => {
                         let fb=Vue.operationFeedback({text:this.$t("tips.save")});
-                        Vue.api.addStudentWithoutActivate(params).then((resp)=>{
+                        params.coverPicFile = this.newForm.headPic;
+                        Vue.api.addStudentWithoutActivate(Vue.tools.toFormData(params)).then((resp)=>{
                             if(resp.respCode=='2000'){
                                 fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
                                 this.fb && this.fb(params.email);
@@ -267,30 +269,39 @@
                     this.cropModal({
                         img:data,
                         ok:(data)=>{
-                            let formData = new FormData();
-                            let sessionInfo=Vue.sessionInfo();
-                            formData.append('timeStamp',sessionInfo.timeStamp);
-                            formData.append('userId',this.user.id);
-                            formData.append('headPic',data);
-                            this.uploading=true;
-                            let fb=Vue.operationFeedback({text:this.$t("tips.save")});
-                            Vue.api.setHeadPic(formData).then((resp)=>{
-                                ele.value='';
-                                this.uploading=false;
-                                if(resp.respCode=='2000'){
-                                    fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
-                                }else if(resp.respCode=='4000'){
-                                    fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
-                                    this.alert({
-                                        title:'',
-                                        html:'<div style="text-align: center;color:red;">'+this.$t("tips.apiError")+'</div> ',
-                                        yes:this.$t("btn.sure"),
-                                        lock:true,
-                                    });
-                                }else{
-                                    fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
-                                }
-                            });
+                            console.log('data:', data);
+                            if(this.newForm.id){
+                                let formData = new FormData();
+                                let sessionInfo=Vue.sessionInfo();
+                                formData.append('timeStamp',sessionInfo.timeStamp);
+                                formData.append('userId',this.user.id);
+                                formData.append('headPic',data);
+                                this.uploading=true;
+                                let fb=Vue.operationFeedback({text:this.$t("tips.save")});
+                                Vue.api.setHeadPic(formData).then((resp)=>{
+                                    ele.value='';
+                                    this.uploading=false;
+                                    if(resp.respCode=='2000'){
+                                        fb.setOptions({type:'complete', text:this.$t("tips.saveS")});
+                                    }else if(resp.respCode=='4000'){
+                                        fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                                        this.alert({
+                                            title:'',
+                                            html:'<div style="text-align: center;color:red;">'+this.$t("tips.apiError")+'</div> ',
+                                            yes:this.$t("btn.sure"),
+                                            lock:true,
+                                        });
+                                    }else{
+                                        fb.setOptions({type:'warn', text:this.$t("tips.saveF",{msg:resp.respMsg})});
+                                    }
+                                });
+                            }else{
+                                this.newForm.headPic = data;
+                                Vue.tools.blobToDataURI(data, (picData) => {
+                                    this.picData = picData
+                                });
+
+                            }
                         },
                         cancel:function () {
                             ele.value='';
