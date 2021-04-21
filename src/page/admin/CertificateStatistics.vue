@@ -355,11 +355,6 @@
 
                 bgImg:require('../../images/common/card-bg.jpg'),
 
-                levelNameConf:{
-                    "BMI": "BASIC MERMAID INSTRUCTOR",
-                    "MI": "Mermaid Instructor",
-                    "MIT": "Mermaid Instructor Trainer"
-                }
             }
         },
         created(){
@@ -529,7 +524,7 @@
                     id:'canvas',
                     avatar:Vue.basicConfig.filePrefix+item.user.headPic,
                     name:item.user.name+' '+item.user.familyName,
-                    level: this.levelNameConf[item.mfiLevel]||item.mfiLevel,
+                    level: Vue.tools.levelNameConf[item.mfiLevel]||item.mfiLevel,
                     certificateNo:item.serialCode,
                     date:Vue.formatDate(item.updatedAt,'yyyy-MM-dd'),
                     issuer:item.schoolName,

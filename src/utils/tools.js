@@ -955,6 +955,24 @@ export default {
               }
               return fd;
           },
+          levelNameConf: {
+              "BMI": "BASIC MERMAID INSTRUCTOR",
+              "MI": "Mermaid Instructor",
+              "MIT": "Mermaid Instructor Trainer",
+              "O1": "Ocean Mermaid 1",
+              "O2": "Ocean Mermaid 2",
+              "OI": "Ocean Mermaid Instructor",
+              "J1": "Junior Mermaid 1",
+              "J2": "Junior Mermaid 2",
+              "J3": "Junior Mermaid 3",
+              "JI": "Junior Mermaid Instructor",
+              "G1": "Guardian of Mermaid Safety 1",
+              "G2": "Guardian of Mermaid Safety 2",
+              "GI": "Guardian of Mermaid Safety Instructor ",
+              "p1": "Photographer of Mermaid Safety 1",
+              "p2": "Photographer of Mermaid Safety 2",
+              "pI": "Photographer of Mermaid Safety Instructor",
+          }
       }
 
       Object.assign(Vue, Vue.tools);

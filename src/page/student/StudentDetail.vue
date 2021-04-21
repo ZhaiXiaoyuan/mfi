@@ -593,12 +593,6 @@
                 regionList:[],
                 showPassword:false,
 
-                levelNameConf:{
-                    "BMI": "BASIC MERMAID INSTRUCTOR",
-                    "MI": "Mermaid Instructor",
-                    "MIT": "Mermaid Instructor Trainer"
-                },
-
                 otherPicList:[],
                 uploading: false,
 
@@ -723,7 +717,7 @@
                                     id:'canvas'+i,
                                     avatar:Vue.basicConfig.filePrefix+item.user.headPic+"?r="+Math.random(),
                                     name:item.user.name+' '+item.user.familyName,
-                                    level: this.levelNameConf[item.certificate.mfiLevel]||item.certificate.mfiLevel,
+                                    level: Vue.tools.levelNameConf[item.certificate.mfiLevel]||item.certificate.mfiLevel,
                                     certificateNo:item.certificate.serialCode,
                                     date:Vue.formatDate(item.certificate.updatedAt,'yyyy-MM-dd'),
                                     issuer:item.schoolName,
