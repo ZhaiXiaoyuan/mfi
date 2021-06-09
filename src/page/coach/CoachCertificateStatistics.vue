@@ -397,7 +397,7 @@
             //
             this.id=this.account.type=='coach'?this.account.id:this.$route.params.id;
             //
-            this.levelOptions=this.genLevelConfig({level:this.coach.mfiLevel});
+            this.levelOptions=this.genLevelConfig({level:this.coach.mfiLevel, oLevel:this.coach.oLevel, jLevel:this.coach.jLevel, gLevel:this.coach.gLevel, pLevel:this.coach.pLevel});
             this.levelOptions.unshift({
                 value:null,
                 label:this.$t("btn.all"),

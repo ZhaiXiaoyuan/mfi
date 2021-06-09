@@ -216,7 +216,7 @@
             this.account=Vue.getAccountInfo();
 
             /**/
-            this.levelOptions=this.genLevelConfig({level:this.account.type=='coach'?this.account.mfiLevel:'all'});
+            this.levelOptions=this.genLevelConfig(this.account.type=='coach'?{level:this.account.mfiLevel, oLevel:this.account.oLevel, jLevel:this.account.jLevel, gLevel:this.account.gLevel, pLevel:this.account.pLevel}:{level:'all'});
             this.levelOptions.push({
                 value:null,
                 label:this.$t("btn.all"),

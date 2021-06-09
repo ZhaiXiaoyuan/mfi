@@ -921,7 +921,7 @@
             if(this.account.type=='school'){
                 this.certificateGoodsList=this.account.level=='center'?Vue.tools.centerGoodsList:Vue.tools.fiveStarCenterGoodsList;
             }else if(this.account.type=='coach'){
-                let levelOptions=this.genLevelConfig({level:this.account.type=='coach'?this.account.mfiLevel:'all'});
+                let levelOptions=this.genLevelConfig(this.account.type=='coach'?{level:this.account.mfiLevel, oLevel:this.account.oLevel, jLevel:this.account.jLevel, gLevel:this.account.gLevel, pLevel:this.account.pLevel}:{level:'all'});
                 for(let i=0;i<levelOptions.length;i++){
                     let levelItem=levelOptions[i];
                     for(let j=0;j<Vue.tools.instructorCertificateGoodsList.length;j++){

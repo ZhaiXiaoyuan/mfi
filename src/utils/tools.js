@@ -797,15 +797,25 @@ export default {
                   'GI':["G1","G2"],
                   'PI':["P1","P2"],
               }
-              let temList=instrutorLevelLimit[options.level];
+              let {level, oLevel, jLevel, gLevel, pLevel} = options;
+              let itemList = [level, gLevel, pLevel, jLevel]
               let levelList=[];
-              temList.forEach((item,i)=>{
-                  levelList.push(  {
-                      value:item,
-                     /* label:item,*/
-                      label: this.$t("label."+item),
-                  });
-              });
+              itemList.forEach((item) => {
+                  if(item){
+                      try{
+                          let temList=instrutorLevelLimit[item];
+                          temList.forEach((tItem,i)=>{
+                              levelList.push(  {
+                                  value:tItem,
+                                  /* label:item,*/
+                                  label: this.$t("label."+tItem),
+                              });
+                          });
+                      }catch (e) {
+
+                      }
+                  }
+              })
               return levelList;
           },
           allLevelList:["M0","M1","M2","BMI","M3","MI", "MIT","O1","O2","OI","J1","J2","J3","JI","G1","G2","GI","P1","P2","PI"],
